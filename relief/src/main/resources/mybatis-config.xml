@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC
+ "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<!-- settings -->
+	<settings>
+		<!-- 만약에 null로 데이터가 잘못 전달 되면 빈칸이 아닌 null로 인식 -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<!-- typeAliases -->
+   	<typeAliases>
+   		<typeAlias type="com.kh.relief.account.model.vo.Account" alias="Account"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Notice" alias="Notice"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Search" alias="search"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Category" alias="Category"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Report" alias="Report"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Qna" alias="Qna"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Faq" alias="Faq"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Comment" alias="Comment"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Chart" alias="Chart"/>
+   		<typeAlias type="com.kh.relief.board.model.vo.Board" alias="Board"/>
+   		<typeAlias type="com.kh.relief.board.model.vo.SearchBoard" alias="SB"/>
+   		<typeAlias type="com.kh.relief.board.model.vo.Image" alias="Image"/>
+   		<typeAlias type="com.kh.relief.board.model.vo.CategoryBoard" alias="CB"/>
+   	</typeAliases>
+   	
+	<!-- mappers -->
+	<mappers>
+		<mapper resource="mappers/account-mapper.xml"/>
+		<mapper resource="mappers/admin-mapper.xml"/>
+		<mapper resource="mappers/board-mapper.xml"/>
+	</mappers>
+	
+</configuration>

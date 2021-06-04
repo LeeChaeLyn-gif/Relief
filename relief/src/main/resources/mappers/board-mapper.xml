@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+ "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ <mapper namespace="boardMapper">
+ 	<resultMap type="Board" id="BoardResultSet">
+ 		<id property="board_id" column="BOARD_ID"/>
+ 		<result property="account_id" column="ACCOUNT_ID"/>
+ 		<result property="category_id" column="CATEGORY_ID"/>
+ 		<result property="title" column="TITLE"/>
+ 		<result property="content" column="CONTENT"/>
+ 		<result property="create_date" column="CREATE_DATE"/>
+ 		<result property="modify_date" column="MODIFY_DATE"/>
+ 		<result property="count" column="COUNT"/>
+ 		<result property="status" column="STATUS"/>
+ 		<result property="product_status" column="PRODUCT_STATUS"/>
+ 		<result property="trade_status" column="TRADE_STATUS"/>
+ 		<result property="price" column="PRICE"/>
+ 		<result property="exchange_status" column="EXCHANGE_STATUS"/>
+ 		<result property="amount" column="AMOUNT"/>
+ 		<result property="pull_date" column="PULL_DATE"/>
+ 		<result property="price_status" column="PRICE_STATUS"/>
+ 		<result property="area" column="AREA"/>
+ 	</resultMap>
+ 	<resultMap type="Image" id="ImageResultSet">
+ 		<id property="iId" column="IMAGE_ID"/>
+ 		<result property="bId" column="BOARD_ID"/>
+ 		<result property="fileName" column="FILENAME"/>
+ 		<result property="renameFileName" column="RENAME_FILENAME"/>
+ 	</resultMap>
+ 	<resultMap type="Category" id="CategoryResultSet">
+ 		<id property="cid" column="CATEGORY_ID"/>
+ 		<result property="cname" column="C_NAME"/>
+ 		<result property="cid2" column="CATEGORY_ID2"/>
+ 		<result property="cgroup" column="C_GROUP"/>
+ 		<result property="cstatus" column="C_STATUS"/>
+ 	</resultMap>
+ 	<select id="selectbListCount" parameterType="SB" resultType="_int">
+ 		SELECT
+ 				COUNT(*)
+ 		  FROM
+ 		  		BOARD
+ 		 WHERE
+ 		 	   (TITLE LIKE '%'|| #{searchValue} || '%'
+ 		   OR CONTENT LIKE '%' || #{searchValue} || '%'
+ 		   OR AREA LIKE '%' || #{searchValue} || '%')
+ 		   AND AREA LIKE '%' || #{address} || '%'
+ 		   AND STATUS = 'Y'
+ 	</select>
+ 	<select id="selectbList" parameterType="SB" resultMap="BoardResultSet">
+ 		SELECT
+ 				BOARD_ID
+ 			  , ACCOUNT_ID
+ 			  , CATEGORY_ID
+ 			  , TITLE
+ 			  , CONTENT
+ 			  , CREATE_DATE
+ 			  , MODIFY_DATE
+ 			  , COUNT
+ 			  , STATUS
+ 			  , PRODUCT_STATUS
+ 			  , TRADE_STATUS
+ 			  , PRICE
+ 			  , EXCHANGE_STATUS
+ 			  , AMOUNT
+ 			  , PULL_DATE
+ 			  , PRICE_STATUS
+ 			  , AREA
+ 		  FROM
+ 		  		BOARD
+ 		 WHERE
+ 		 	   (TITLE LIKE '%'|| #{searchValue} || '%'
+ 		   OR CONTENT LIKE '%' || #{searchValue} || '%'
+ 		   OR AREA LIKE '%' || #{searchValue} || '%')
+ 		   AND AREA LIKE '%' || #{address} || '%'
+ 		   AND STATUS = 'Y'
+ 	  ORDER BY PULL_DATE DESC
+ 	</select>
+ 	<select id="selectiList" parameterType="_int" resultMap="ImageResultSet">
+ 		SELECT
+ 				IMAGE_ID
+ 			  , BOARD_ID
+ 			  , FILENAME
+ 			  , RENAME_FILENAME
+ 		  FROM
+ 		  		IMAGE
+ 		 WHERE
+ 		 		BOARD_ID = #{board_id}
+                AND (IMAGE_ID,BOARD_ID) IN(SELECT MIN(IMAGE_ID), BOARD_ID
+                FROM IMAGE GROUP BY BOARD_ID)
+ 	</select>
+ 	<select id="selectdescbList" parameterType="SB" resultMap="BoardResultSet">
+ 		SELECT
+ 				BOARD_ID
+ 			  , ACCOUNT_ID
+ 			  , CATEGORY_ID
+ 			  , TITLE
+ 			  , CONTENT
+ 			  , CREATE_DATE
+ 			  , MODIFY_DATE
+ 			  , COUNT
+ 			  , STATUS
+ 			  , PRODUCT_STATUS
+ 			  , TRADE_STATUS
+ 			  , PRICE
+ 			  , EXCHANGE_STATUS
+ 			  , AMOUNT
+ 			  , PULL_DATE
+ 			  , PRICE_STATUS
+ 			  , AREA
+ 		  FROM
+ 		  		BOARD
+ 		 WHERE
+ 		 	   (TITLE LIKE '%'|| #{searchValue} || '%'
+ 		   OR CONTENT LIKE '%' || #{searchValue} || '%'
+ 		   OR AREA LIKE '%' || #{searchValue} || '%')
+ 		   AND AREA LIKE '%' || #{address} || '%'
+ 		   AND STATUS = 'Y'
+ 		   ORDER BY PRICE DESC
+ 	</select>
+ 	<select id="selectascbList" parameterType="SB" resultMap="BoardResultSet">
+ 		SELECT
+ 				BOARD_ID
+ 			  , ACCOUNT_ID
+ 			  , CATEGORY_ID
+ 			  , TITLE
+ 			  , CONTENT
+ 			  , CREATE_DATE
+ 			  , MODIFY_DATE
+ 			  , COUNT
+ 			  , STATUS
+ 			  , PRODUCT_STATUS
+ 			  , TRADE_STATUS
+ 			  , PRICE
+ 			  , EXCHANGE_STATUS
+ 			  , AMOUNT
+ 			  , PULL_DATE
+ 			  , PRICE_STATUS
+ 			  , AREA
+ 		  FROM
+ 		  		BOARD
+ 		 WHERE
+ 		 	   (TITLE LIKE '%'|| #{searchValue} || '%'
+ 		   OR CONTENT LIKE '%' || #{searchValue} || '%'
+ 		   OR AREA LIKE '%' || #{searchValue} || '%')
+ 		   AND AREA LIKE '%' || #{address} || '%'
+ 		   AND STATUS = 'Y'
+ 		   ORDER BY PRICE ASC
+ 	</select>
+ 	<select id="selectcList" resultMap="CategoryResultSet">
+ 		SELECT
+				CATEGORY_ID
+			  , C_NAME
+			  , CATEGORY_ID2
+			  , C_GROUP
+			  , C_STATUS
+		  FROM
+		  		CATEGORY
+		 WHERE
+		 		C_STATUS = 'Y'
+		  ORDER BY CATEGORY_ID DESC	
+ 	</select>
+ 	<select id="selectCategory1" parameterType="_int" resultMap="CategoryResultSet">
+ 		SELECT
+				CATEGORY_ID
+			  , C_NAME
+			  , CATEGORY_ID2
+			  , C_GROUP
+			  , C_STATUS
+		  FROM
+		  		CATEGORY
+		 WHERE
+		 		C_STATUS = 'Y'
+		   AND
+		   		CATEGORY_ID = #{cid}
+ 	</select>
+ 	<select id="selectcListFromCid2" parameterType="_int" resultMap="CategoryResultSet">
+ 		SELECT
+				CATEGORY_ID
+			  , C_NAME
+			  , CATEGORY_ID2
+			  , C_GROUP
+			  , C_STATUS
+		  FROM
+		  		CATEGORY
+		 WHERE
+		 		C_STATUS = 'Y'
+		   AND
+		   		CATEGORY_ID2 = #{cid}
+ 	</select>
+ 	<select id="selectcListFromiList" parameterType="list" resultMap="CategoryResultSet">
+ 		SELECT
+				CATEGORY_ID
+			  , C_NAME
+			  , CATEGORY_ID2
+			  , C_GROUP
+			  , C_STATUS
+		  FROM
+		  		CATEGORY
+		 WHERE
+		 		C_STATUS = 'Y'
+		   AND (CATEGORY_ID2 =
+		 		<foreach item="item" collection="list"
+   		   		separator="OR CATEGORY_ID2 =" close=")">#{item}</foreach>
+ 	</select>
+ 	<select id="selectbListFromCategoryCount" parameterType="CB" resultType="_int">
+ 		SELECT
+ 				COUNT(*)
+ 		  FROM
+ 		  		BOARD
+ 		 WHERE
+ 		 		STATUS = 'Y'
+ 		   AND (CATEGORY_ID =
+ 		   		<foreach item="item" collection="list"
+   		   		separator="OR CATEGORY_ID =" close=")">#{item}</foreach>
+   		   AND AREA LIKE '%' || #{address} || '%'
+ 		   AND STATUS = 'Y'
+ 	</select>
+ 	<select id="selectbListFromCategory" parameterType="CB" resultMap="BoardResultSet">
+		SELECT
+ 				BOARD_ID
+ 			  , ACCOUNT_ID
+ 			  , CATEGORY_ID
+ 			  , TITLE
+ 			  , CONTENT
+ 			  , CREATE_DATE
+ 			  , MODIFY_DATE
+ 			  , COUNT
+ 			  , STATUS
+ 			  , PRODUCT_STATUS
+ 			  , TRADE_STATUS
+ 			  , PRICE
+ 			  , EXCHANGE_STATUS
+ 			  , AMOUNT
+ 			  , PULL_DATE
+ 			  , PRICE_STATUS
+ 			  , AREA
+ 		  FROM
+ 		  		BOARD
+ 		 WHERE
+ 		 		STATUS = 'Y'
+ 		   AND (CATEGORY_ID =
+ 		   		<foreach item="item" collection="list"
+   		   		separator="OR CATEGORY_ID =" close=")">#{item}</foreach>
+   		   AND AREA LIKE '%' || #{address} || '%'
+ 		   AND STATUS = 'Y'
+   	  ORDER BY PULL_DATE DESC
+	</select>
+	<select id="selectbListFromCategoryCount2" parameterType="CB" resultType="_int">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		BOARD
+		 WHERE
+		 		CATEGORY_ID = #{categoryValue}
+		   AND AREA LIKE '%' || #{address} || '%'
+ 		   AND STATUS = 'Y'
+	</select>
+	<select id="selectbListFromCategory2" parameterType="CB" resultMap="BoardResultSet">
+		SELECT
+ 				BOARD_ID
+ 			  , ACCOUNT_ID
+ 			  , CATEGORY_ID
+ 			  , TITLE
+ 			  , CONTENT
+ 			  , CREATE_DATE
+ 			  , MODIFY_DATE
+ 			  , COUNT
+ 			  , STATUS
+ 			  , PRODUCT_STATUS
+ 			  , TRADE_STATUS
+ 			  , PRICE
+ 			  , EXCHANGE_STATUS
+ 			  , AMOUNT
+ 			  , PULL_DATE
+ 			  , PRICE_STATUS
+ 			  , AREA
+ 		  FROM
+ 		  		BOARD
+		  WHERE
+		 		CATEGORY_ID = #{categoryValue}
+		   AND AREA LIKE '%' || #{address} || '%'
+ 		   AND STATUS = 'Y'
+	   ORDER BY PULL_DATE DESC	
+	</select>
+ </mapper>

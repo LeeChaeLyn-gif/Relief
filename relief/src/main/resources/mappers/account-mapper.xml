@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+ "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ <mapper namespace="accountMapper">
+ 	<resultMap type="Account" id="AccountResultSet">
+ 		<id property="aid" column="ACCOUNT_ID"/>
+ 		<result property="pwd" column="PWD"/>
+ 		<result property="name" column="NAME"/>
+ 		<result property="phone" column="PHONE"/>
+ 		<result property="email" column="EMAIL"/>
+ 		<result property="address" column="ADDRESS"/>
+ 		<result property="status" column="STATUS"/>
+ 		<result property="mstatus" column="M_STATUS"/>
+ 		<result property="sanctions" column="SANCTIONS"/>
+ 		<result property="authKey" column="AUTHKEY"/>
+ 		<result property="createDate" column="CREATE_DATE"/>
+ 	</resultMap>
+ 	<select id="login" parameterType="Account" resultMap="AccountResultSet">
+ 		SELECT
+ 				ACCOUNT_ID
+ 			  , PWD
+ 			  , NAME
+ 			  , PHONE
+ 			  , EMAIL
+ 			  , ADDRESS
+ 			  , STATUS
+ 			  , M_STATUS
+ 			  , SANCTIONS
+ 			  , AUTHKEY
+ 			  , CREATE_DATE
+ 		  FROM
+ 		  	   ACCOUNT
+ 		 WHERE
+ 		 	   ACCOUNT_ID = #{aid}
+ 		   AND STATUS = 'Y'
+ 		   AND M_STATUS = 'Y'
+ 	</select>
+ 	<select id="checkId" parameterType="string" resultType="_int">
+ 		SELECT
+ 				COUNT(*)
+ 		  FROM
+ 		  		ACCOUNT
+ 		 WHERE
+ 		 		ACCOUNT_ID = #{aid}
+ 	</select>
+ 	<select id="checkEmail" parameterType="Account" resultType="_int">
+ 		SELECT
+ 				COUNT(*)
+ 		  FROM
+ 		  		ACCOUNT
+ 		 WHERE
+ 		 		EMAIL = #{email}
+ 	</select>
+ 	<insert id="insertAccount" parameterType="Account">
+ 		INSERT
+ 		  INTO ACCOUNT
+ 		  VALUES
+ 		  (
+ 		  	 #{aid}
+ 		   , #{pwd}
+ 		   , #{name}
+ 		   , #{phone}
+ 		   , #{email}
+ 		   , #{address}
+ 		   , 'Y'
+ 		   , 'N'
+ 		   , DEFAULT
+ 		   , DEFAULT
+ 		   , SYSDATE
+ 		  )
+ 	</insert>
+ 	<insert id="insertNaverAccount" parameterType="Account">
+ 		INSERT
+ 		  INTO ACCOUNT
+ 		  VALUES
+ 		  (
+ 		  	 #{aid}
+ 		   , DEFAULT
+ 		   , #{name}
+ 		   , #{phone}
+ 		   , #{email}
+ 		   , DEFAULT
+ 		   , 'Y'
+ 		   , 'Y'
+ 		   , DEFAULT
+ 		   , DEFAULT
+ 		   , SYSDATE	
+ 		  )
+ 	</insert>
+ 	<update id="updateAuthKey" parameterType="Account">
+ 		UPDATE
+ 			   ACCOUNT
+ 		   SET
+ 		   	   AUTHKEY = #{authKey}
+ 		 WHERE
+ 		 	   EMAIL = #{email}
+ 	</update>
+ 	<update id="updateAuthStatus" parameterType="string">
+ 		UPDATE
+ 				ACCOUNT
+ 		   SET
+ 		   	    M_STATUS = 'Y'
+ 		 WHERE
+ 		 		EMAIL = #{email}
+ 	</update>
+ 	<update id="updateNaverAccount" parameterType="Account">
+ 		UPDATE
+ 				ACCOUNT
+ 		   SET
+ 		   		ADDRESS = #{address}
+ 		   	  , PWD = #{pwd}
+ 		 WHERE
+ 		 		ACCOUNT_ID = #{aid}
+ 	</update>
+ 	<select id="findId" parameterType="Account" resultMap="AccountResultSet">
+ 		SELECT
+ 				ACCOUNT_ID
+ 			  , PWD
+ 			  , NAME
+ 			  , PHONE
+ 			  , EMAIL
+ 			  , ADDRESS
+ 			  , STATUS
+ 			  , M_STATUS
+ 			  , SANCTIONS
+ 			  , AUTHKEY
+ 			  , CREATE_DATE
+ 		  FROM
+ 		  	   ACCOUNT
+ 		 WHERE
+ 		 	   EMAIL = #{email}
+ 		   AND NAME = #{name}
+ 		   AND STATUS = 'Y'
+ 		   AND M_STATUS = 'Y'	
+ 	</select>
+ 	<select id="findIdResult" parameterType="Account" resultMap="AccountResultSet">
+ 		SELECT
+ 				ACCOUNT_ID
+ 			  , PWD
+ 			  , NAME
+ 			  , PHONE
+ 			  , EMAIL
+ 			  , ADDRESS
+ 			  , STATUS
+ 			  , M_STATUS
+ 			  , SANCTIONS
+ 			  , AUTHKEY
+ 			  , CREATE_DATE
+ 		  FROM
+ 		  	   ACCOUNT
+ 		 WHERE
+ 		 	   EMAIL = #{email}
+ 		   AND AUTHKEY = #{authKey}
+ 		   AND STATUS = 'Y'
+ 		   AND M_STATUS = 'Y'	
+ 	</select>
+ 	<select id="findPwd" parameterType="Account" resultMap="AccountResultSet">
+ 		SELECT
+ 				ACCOUNT_ID
+ 			  , PWD
+ 			  , NAME
+ 			  , PHONE
+ 			  , EMAIL
+ 			  , ADDRESS
+ 			  , STATUS
+ 			  , M_STATUS
+ 			  , SANCTIONS
+ 			  , AUTHKEY
+ 			  , CREATE_DATE
+ 		  FROM
+ 		  	   ACCOUNT
+ 		 WHERE
+ 		 	   EMAIL = #{email}
+ 		   AND ACCOUNT_ID = #{aid}
+ 		   AND NAME = #{name}
+ 		   AND STATUS = 'Y'
+ 		   AND M_STATUS = 'Y'
+ 	</select>
+ 	<update id="findPwdUpdate" parameterType="Account">
+ 		UPDATE
+ 				ACCOUNT
+ 		   SET
+ 		   		PWD = #{pwd}
+ 		 WHERE
+ 		 		ACCOUNT_ID = #{aid}
+ 	</update>
+ </mapper>
