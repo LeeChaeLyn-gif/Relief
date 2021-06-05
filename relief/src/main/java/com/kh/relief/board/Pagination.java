@@ -2,7 +2,6 @@ package com.kh.relief.board;
 
 import com.kh.relief.board.model.vo.PageInfo;
 
-
 public class Pagination {
 	// PageInfo 객체를 리턴하는 static 메소드
 	public static PageInfo getPageInfo(int currentPage, int listCount) {

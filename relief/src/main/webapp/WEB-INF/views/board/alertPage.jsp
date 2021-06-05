@@ -15,7 +15,7 @@ scope="application"/>
 		$(function(){
 			alert("${ msg }");
 			location.href = "${ contextPath }${ url }";
-		})
+		});
 	</script>
 	<c:remove var="msg"/>
 	<c:remove var="url"/>

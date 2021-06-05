@@ -34,12 +34,24 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	<!-- 공용 에러페이지 등록 -->
+	<!-- <error-page>
+		모든 Exception에 대해서
+		<exception-type>java.lang.Exception</exception-type>
+		errorPage.jsp로
+		<location>/WEB-INF/views/common/errorPage.jsp</location>
+	</error-page> -->
 	
 	<!-- 한글 깨짐 방지 인코딩 필터 설정 -->
 	<!-- 우리가 직접 필터를 만들어서 등록해도 되지만, 스프링에서 인코딩용 필터를 제공하고 있기 때문에
 		 web.xml에 필터로 등록만 하고 사용하면 된다 -->
 	<filter>
 		<!-- filter-name 은 원하는대로 지정 -->
+	
+	<!-- 필터 등록 -->
+	<filter>
+		<!--  finter-name 은 원하는대로 지정 -->
 		<filter-name>encodingFilter</filter-name>
 		<!-- filter-class 는 filter로 사용할 클래스 풀네임(패키지명 포함) -->
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

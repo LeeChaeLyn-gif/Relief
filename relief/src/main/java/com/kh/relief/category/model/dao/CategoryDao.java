@@ -1,5 +1,13 @@
 package com.kh.relief.category.model.dao;
 
-public class CategoryDao {
+import java.util.List;
+
+import com.kh.relief.category.model.vo.Category;
+
+public interface CategoryDao {
+
+	List<Category> selectClist();
+
+
 
 }

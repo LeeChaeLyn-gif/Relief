@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- 	<style>
+	<style>
         .homeimg{
             width: 200px;
             height: 100px;

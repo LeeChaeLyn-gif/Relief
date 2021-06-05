@@ -24,6 +24,8 @@
    		<typeAlias type="com.kh.relief.board.model.vo.SearchBoard" alias="SB"/>
    		<typeAlias type="com.kh.relief.board.model.vo.Image" alias="Image"/>
    		<typeAlias type="com.kh.relief.board.model.vo.CategoryBoard" alias="CB"/>
+		<typeAlias type="com.kh.relief.board.model.vo.Wish" alias="Wish"/>
+		<typeAlias type="com.kh.relief.board.model.vo.Image" alias="Image"/>
    	</typeAliases>
    	
 	<!-- mappers -->

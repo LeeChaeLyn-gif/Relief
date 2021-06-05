@@ -25,7 +25,7 @@ public class Account {
 	private Date sanctions;
 	private String authKey;
 	private Date createDate;
-	
+
 	// 제재 회원 셀렉을 위한 추가
 	private int rid;
 	private Date reportDate;

@@ -12,8 +12,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Image {
-	private int iId;
-	private String bId;
-	private String fileName;
-	private String renameFileName;
+   private int iId;
+   private String bId;
+   private String fileName;
+   private String renameFileName;
 }
