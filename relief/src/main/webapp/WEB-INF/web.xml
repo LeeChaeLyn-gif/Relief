@@ -6,7 +6,10 @@
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>
+		/WEB-INF/spring/root-context.xml
+		/WEB-INF/spring/spring-security.xml
+		</param-value>
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -30,4 +33,41 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<!-- 공용 에러페이지 등록 -->
+	<!-- <error-page>
+		모든 Exception에 대해서
+		<exception-type>java.lang.Exception</exception-type>
+		errorPage.jsp로
+		<location>/WEB-INF/views/common/errorPage.jsp</location>
+	</error-page> -->
+	
+	<!-- 한글 깨짐 방지 인코딩 필터 설정 -->
+	<!-- 우리가 직접 필터를 만들어서 등록해도 되지만, 스프링에서 인코딩용 필터를 제공하고 있기 때문에
+		 web.xml에 필터로 등록만 하고 사용하면 된다 -->
+	
+	<!-- 필터 등록 -->
+	<filter>
+		<!--  finter-name 은 원하는대로 지정 -->
+		<filter-name>encodingFilter</filter-name>
+		<!-- filter-class 는 filter로 사용할 클래스 풀네임(패키지명 포함) -->
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<!-- init-param 은 초기화시 넘길 파라미터 기재 -->
+		<init-param>
+			<!-- encoding 값을 UTF-8로 지정 -->
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<!-- 응답 데이터 문자셋 설정도 함께 -->
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<!-- 어떤 요청에 대해서 위에서 등록한 필터를 사용할 것인지 -->
+	<filter-mapping>
+		<!-- 위에서 지정한 filter-name -->
+		<filter-name>encodingFilter</filter-name>
+		<!-- 모든 url 요청에 대해서 필터를 거치게 함 -->
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>

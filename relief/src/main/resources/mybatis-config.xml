@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC
+"-// mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- settings -->
+	<settings>
+		<!-- 만약에 null로 데이터가 전달 되면 빈칸이 아닌 null로 인식 -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<!-- typeAliases -->
+	<typeAliases>
+		<typeAlias type="com.kh.relief.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.relief.category.model.vo.Category" alias="Category"/>
+		<typeAlias type="com.kh.relief.board.model.vo.Wish" alias="Wish"/>
+		<typeAlias type="com.kh.relief.board.model.vo.Image" alias="Image"/>
+		<typeAlias type="com.kh.relief.account.model.vo.Account" alias="Account"/>
+		<!-- <typeAlias type="com.kh.relief.account.model.vo.Account" alias="Account"/>
+		<typeAlias type="com.kh.relief.notice.model.vo.Notice" alias="Notice"/>
+		<typeAlias type="com.kh.relief.board.model.vo.Search" alias="Search"/>
+		<typeAlias type="com.kh.relief.board.model.vo.Reply" alias="Reply"/> -->
+	</typeAliases>
+	
+	<!-- mappers -->
+	<mappers>
+		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/category-mapper.xml"/>
+		<mapper resource="mappers/account-mapper.xml"/>
+	</mappers>
+</configuration>

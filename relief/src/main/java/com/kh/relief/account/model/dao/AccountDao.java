@@ -1,5 +1,9 @@
 package com.kh.relief.account.model.dao;
 
-public class AccountDao {
+import com.kh.relief.account.model.vo.Account;
+
+public interface AccountDao {
+
+	Account login(Account a);
 
 }
