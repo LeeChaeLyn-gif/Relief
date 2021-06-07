@@ -1,5 +1,7 @@
 package com.kh.relief.board.model.exception;
 
-public class BoardException {
-
+public class BoardException extends RuntimeException {
+	public BoardException(String message) {
+		super(message);
+	}
 }
