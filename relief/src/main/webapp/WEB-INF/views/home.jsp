@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
 scope="application"/>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false"%>
 <!DOCTYPE html>
@@ -171,19 +171,7 @@ h2, h4 {
 </style>
 </head>
 <body>
-<c:if test="${ empty sessionScope.loginUser }">
-<a href="${ contextPath }/account/login">로그인</a>
-</c:if>
-<c:if test="${ sessionScope.loginUser.aid eq 'admin' }">
-	<a href="${ contextPath }/admin/main">관리자페이지</a>
-</c:if>
-<c:if test="${ !empty sessionScope.loginUser }">
-<a href="${ contextPath }/account/logout">로그아웃</a>
-</c:if>
-<form action="${ contextPath }/board/list" method="get">
-<input type="text" name="searchValue">
-<button type="submit">검색</button>
-</form>
+
 	<jsp:include page="common/menubar.jsp" />
 	<jsp:include page="common/sidebar.jsp" /><br>
 	<br><br><br><br><br><br><br><br><br>

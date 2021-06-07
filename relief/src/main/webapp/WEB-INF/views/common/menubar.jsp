@@ -83,11 +83,12 @@
 
 				<!-- Start Top Search -->
 				<div class="top-search" style="margin-left: 100px;">
-					<form action="${ contextPath }/board/search" method="get">
+					<form action="${ contextPath }/board/list" method="get">
 						<div class="container">
 							<div class="input-group">
-								<input type="text" class="form-control" placeholder="상품명, 지역명 검색">
+								<input type="text" class="form-control" name="searchValue" placeholder="상품명, 지역명 검색">
 								<span class="input-group-addon"><i class="fa fa-search"></i></span>
+								<button type="submit">검색</button>
 							</div>
 						</div>
 					</form>	
