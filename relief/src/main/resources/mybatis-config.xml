@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'jihun-L' of https://github.com/chae-lyn/Relief
 <!DOCTYPE configuration PUBLIC
  "-//mybatis.org//DTD Config 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-config.dtd" >
@@ -29,8 +32,14 @@
 		<typeAlias type="com.kh.relief.board.model.vo.Image" alias="Image"/>
 		<typeAlias type="com.kh.relief.account.model.vo.T_History" alias="T_History"/>
 		<typeAlias type="com.kh.relief.account.model.vo.T_Status" alias="T_Status"/>
+<<<<<<< HEAD
 		<typeAlias type="com.kh.relief.faq.model.vo.FAQ" alias="Faq2"/>
 		<typeAlias type="com.kh.relief.notice.model.vo.Notice" alias="Notice2"/>
+=======
+		<typeAlias type="com.kh.relief.chat.model.vo.Chat" alias="Chat"/>
+   		<typeAlias type="com.kh.relief.chat.model.vo.ChatHistory" alias="ChatHistory"/>
+   		<typeAlias type="com.kh.relief.chat.model.vo.Room" alias="Room"/>
+>>>>>>> branch 'jihun-L' of https://github.com/chae-lyn/Relief
    	</typeAliases>
    	
 	<!-- mappers -->
@@ -41,5 +50,6 @@
 		<mapper resource="mappers/faq-mapper.xml"/>
 		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/mypage-mapper.xml"/>
+		<mapper resource="mappers/chat-mapper.xml"/>
 	</mappers>
 </configuration>

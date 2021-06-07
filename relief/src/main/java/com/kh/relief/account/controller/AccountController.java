@@ -35,6 +35,11 @@ import com.kh.relief.account.model.service.AccountService;
 import com.kh.relief.account.model.service.MailSendService;
 import com.kh.relief.account.model.vo.Account;
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> branch 'jihun-L' of https://github.com/chae-lyn/Relief
 @Controller
 @RequestMapping("/account")
 @SessionAttributes({"loginUser"})
@@ -357,4 +362,8 @@ public class AccountController {
 			return "login/alertPage";
 		}
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'jihun-L' of https://github.com/chae-lyn/Relief
 }

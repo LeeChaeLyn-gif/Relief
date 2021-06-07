@@ -15,7 +15,8 @@ public class CategoryDaoImpl implements CategoryDao{
 	
 	@Override
 	public List<Category> selectClist() {
-		return sqlSession.selectList("categoryMapper.selectClist");
+		// return sqlSession.selectList("categoryMapper.selectClist");
+		return null;
 	}
 
 }

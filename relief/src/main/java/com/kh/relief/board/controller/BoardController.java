@@ -3,13 +3,15 @@ package com.kh.relief.board.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
+=======
+>>>>>>> branch 'jihun-L' of https://github.com/chae-lyn/Relief
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,15 @@ import com.kh.relief.board.model.vo.Image;
 import com.kh.relief.board.model.vo.PageInfo;
 import com.kh.relief.board.model.vo.SearchBoard;
 import com.kh.relief.board.model.vo.Sort;
+<<<<<<< HEAD
+=======
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.kh.relief.board.model.exception.BoardException;
+>>>>>>> branch 'jihun-L' of https://github.com/chae-lyn/Relief
 import com.kh.relief.board.model.vo.Wish;
 import com.kh.relief.category.model.service.CategoryService;
 

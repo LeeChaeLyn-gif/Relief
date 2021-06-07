@@ -11,9 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Chat {
-	private int chatId;
-	private String accountId;
-	private String accountId2;
-	private String chatStatus;
+public class Room {
+	int roomNumber;
+	String roomName;
 }
