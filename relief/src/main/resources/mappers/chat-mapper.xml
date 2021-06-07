@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+ "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ <mapper namespace="chatMapper">
+ 	<resultMap type="ChatHistory" id="chatHitoryResultSet">
+ 		<id property="chatHistoryId" column="CHAT_HISTORY_ID"/>
+ 		<result property="chatId" column="CHAT_ID"/>
+ 		<result property="accountId" column="ACCOUNT_ID"/>
+ 		<result property="accountId2" column="ACCOUNT_ID2"/>
+ 		<result property="content" column="CONTENT"/>
+ 		<result property="chatDate" column="CHAT_DATE"/>
+ 		<result property="status" column="STATUS"/>
+ 	</resultMap>
+ 	
+ 	<resultMap type="Chat" id="chatResultSet">
+ 		<id property="chatId" column="CHAT_ID"/>
+ 		<result property="accountId" column="ACCOUNT_ID"/>
+ 		<result property="accountId2" column="ACCOUNT_ID2"/>
+ 		<result property="chatStatus" column="CHAT_STATUS"/>
+ 	</resultMap>
+ 	
+ 	<select id="selectList" parameterType="string" resultMap="chatHitoryResultSet">
+		SELECT * 
+		  FROM (
+				SELECT 
+			  		  C.ACCOUNT_ID2, 
+			  		  B.CONTENT, 
+			  		  B.CHAT_DATE, 
+			  		  C.CHAT_ID
+		 		 FROM (
+			  		   SELECT 
+			  	       ROW_NUMBER() OVER
+			  	       (PARTITION BY CHAT_ID 
+			  	       ORDER BY CHAT_DATE DESC) AS ROW1
+          			   , A.*
+				  FROM  
+					  CHAT_HISTORY A
+			  	) B
+			   	, CHAT C
+		WHERE 
+			  B.ROW1 = 1
+		  AND B.CHAT_ID = C.CHAT_ID
+		  AND C.ACCOUNT_ID = #{accountId}
+		  AND C.CHAT_STATUS = 'Y'
+		  AND C.CHAT_STATUS2 = 'Y'
+        UNION ALL
+         		 SELECT 
+			  		   C.ACCOUNT_ID, 
+			  		   B.CONTENT, 
+			  		   B.CHAT_DATE, 
+			  		   C.CHAT_ID
+		 FROM (
+			  SELECT 
+			  	    ROW_NUMBER() OVER
+			  	    	(PARTITION BY CHAT_ID 
+			  	    	 ORDER BY CHAT_DATE DESC) AS ROW1
+          			   , A.*
+				FROM  
+					CHAT_HISTORY A
+			  ) B
+			  , CHAT C
+		WHERE 
+			  B.ROW1 = 1
+		 	  AND B.CHAT_ID = C.CHAT_ID
+		 	  AND C.ACCOUNT_ID2 = #{accountId}
+		 	  AND C.CHAT_STATUS = 'Y'
+		 	  AND C.CHAT_STATUS2 = 'Y'
+         	  )
+       ORDER BY 
+       		   CHAT_DATE DESC
+ 	</select>
+ 	<select id="selectChat" parameterType="_int" resultMap="chatHitoryResultSet">
+ 		SELECT
+			  CH.CHAT_HISTORY_ID
+			, CH.CHAT_ID
+			, CH.ACCOUNT_ID
+			, CH.CONTENT
+			, CH.CHAT_DATE
+			, CH.STATUS
+			, C.ACCOUNT_ID2
+ 		  FROM
+ 		  	   CHAT_HISTORY CH
+               JOIN CHAT C ON(CH.CHAT_ID = C.CHAT_ID)
+ 		 WHERE
+ 		 	   CH.CHAT_ID = #{chatId}
+ 	</select>
+ 	<insert id="insertChat" parameterType="ChatHistory">
+ 		INSERT
+	    INTO CHAT_HISTORY
+		(
+		  CHAT_HISTORY_ID
+		, CHAT_ID
+		, ACCOUNT_ID
+		, CONTENT
+		, CHAT_DATE
+		, STATUS
+		, NOTICE
+		)
+		VALUES
+		(
+		SEQ_CHAT_HISTORY_ID.NEXTVAL
+		, #{chatId}
+		, #{accountId}
+		, #{content}
+		, SYSDATE
+		, DEFAULT
+		, DEFAULT
+		)
+ 	</insert>
+ 	<insert id="createChat" parameterType="Chat">
+ 		INSERT
+ 		INTO CHAT
+ 		(
+ 			CHAT_ID
+ 		  , ACCOUNT_ID
+ 		  , ACCOUNT_ID2
+ 		  , CHAT_STATUS
+ 		  , CHAT_STATUS2
+ 		)
+ 		VALUES
+ 		(
+ 			SEQ.CHAT_ID.NEXTVAL
+ 		  , #{accountId}
+ 		  , #{accountId2}
+ 		  , DEFUALT
+ 		  , DEFAULT
+ 		)
+ 	</insert>
+ 	<select id="checkChat" parameterType="Chat" resultMap="chatResultSet">
+ 		SELECT
+ 			  CHAT_ID
+			, ACCOUNT_ID
+			, ACCOUNT_ID2
+			, CHAT_STATUS
+			, CHAT_STATUS2
+	     FROM
+	     	  CHAT
+	    WHERE
+	    	  ACCOUNT_ID = #{accountId}
+	      AND
+	      	  ACCOUNT_ID2 = #{accountId2}
+ 	</select>
+ </mapper>

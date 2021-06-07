@@ -2,7 +2,6 @@ package com.kh.relief;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,15 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
 import com.kh.relief.account.model.vo.Account;
 import com.kh.relief.board.model.service.BoardService;
-import com.kh.relief.board.model.vo.Image;
 import com.kh.relief.category.model.service.CategoryService;
 import com.kh.relief.category.model.vo.Category;
-import com.sun.javafx.collections.MappingChange.Map;
 
-import com.kh.relief.account.NaverLoginBO;
 
 /**
  * Handles requests for the application home page.

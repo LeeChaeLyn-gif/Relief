@@ -65,7 +65,7 @@
 						<c:otherwise>
 						<p>${ loginUser.name }님 환영합니다.</p>
 						<li class="search"><a href="${ contextPath }/account/logout"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>로그아웃</a></li>
-						<li class="search"><a href="#"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i>채팅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+						<li class="chatBtn"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i>채팅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
 						</c:otherwise>
 						</c:choose>
 						
@@ -182,6 +182,15 @@
 		 	$("#menu2").css({"opacity" : "0", "visibility" : "hidden"});
 		});
 
+		 
+		$("#chatBtn").on("click", function(){
+				var _width = '650';
+			    var _height = '380';
+				var _left = Math.ceil(( window.screen.width - _width )/2);
+	    		var _top = Math.ceil(( window.screen.height - _height )/2);
+	    		
+				window.open("${ contextPath }/chat/list", "", "width=500, height=600, left=" + _left + ", top=" + _top);
+			});
 
 	</script>
 

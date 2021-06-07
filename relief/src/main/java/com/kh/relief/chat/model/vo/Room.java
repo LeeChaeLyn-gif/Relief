@@ -1,4 +1,4 @@
-package com.kh.relief.category.model.vo;
+package com.kh.relief.chat.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Category {
-	private int cid;
-	private String cname;
-	private int cid2;
-	private int cgroup;
+public class Room {
+	int roomNumber;
+	String roomName;
 }

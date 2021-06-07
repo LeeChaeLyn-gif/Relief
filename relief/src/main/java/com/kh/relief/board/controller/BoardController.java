@@ -8,12 +8,10 @@ import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,19 +34,13 @@ import com.kh.relief.board.model.vo.PageInfo;
 import com.kh.relief.board.model.vo.SearchBoard;
 import com.kh.relief.board.model.vo.Sort;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.kh.relief.account.model.vo.Account;
 import com.kh.relief.board.model.exception.BoardException;
-import com.kh.relief.board.model.service.BoardService;
-import com.kh.relief.board.model.vo.Board;
-import com.kh.relief.board.model.vo.Image;
 import com.kh.relief.board.model.vo.Wish;
 import com.kh.relief.category.model.service.CategoryService;
-import com.kh.relief.category.model.vo.Category;
 
 
 @Controller
@@ -458,7 +450,7 @@ public class BoardController {
 		// !flagbid를 전달하여 true이면 조회수 증가 필요, false이면 조회수 증가 불필요
 		Board b = bService.selectBoard(board_id, !flagbid);
 		
-		List<Category> clist = cService.selectClist();
+		List<Category> clist = bService.selectcList();
 		
 		if (b != null) {
 			b.setRenameFileName(ilist.get(0).getRenameFileName());
