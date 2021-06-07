@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -33,4 +33,7 @@ public class Board {
 	private String area;
 	// 메인이미지용 리네임파일명
     private String renameFileName;
+    // 마이 페이지 리스트들 pk 값
+    private int pk_Id;
+	
 }

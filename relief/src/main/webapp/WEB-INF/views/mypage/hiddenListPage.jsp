@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,54 +29,73 @@
 		margin: auto;
 	}
 	
-	.table td, .table th{
-		text-align : center;
+	.paddingtop {
+		padding-top: 50px;
+	}
+	
+	.btsSize {
+		width : 100px;
+		margin-top : 2px;
 	}
 	
 	.marginTop {
-		margin-top : 50px;
+		margin-top : 100px;
 	}
+
+
 </style>
 </head>
 <body>
+	<jsp:include page="listNavPage.jsp"/>
+	
 	<div id="wrap">
-		<h2 class="text-center marginTop">Notice</h2>
+		<h2 class="text-center paddingtop">숨김 내역</h2>	
 		<hr>
-		<!-- 게시글 테이블 -->
-		<div style="width:100%;">
-		  <table class="table">
+		<div>
+			<table class="table text-center">
 			  <thead>
 			    <tr>
-			      <th scope="col" width="10%;">글번호</th>
-			      <th scope="col" width="65%;">제목</th>
-			      <th scope="col" width="15%;">작성일</th>
-			      <th scope="col" width="10%;">FILE</th>
+			      <th scope="col">사진</th>
+			      <th scope="col">판매상태</th>
+			      <th scope="col">상품명</th>
+			      <th scope="col">가격</th>
+			      <th scope="col">판매자</th>
+			      <th scope="col">등록일</th>
+			      <th scope="col">기능</th>
 			    </tr>
 			  </thead>
 			  <tbody>
-			  	<c:forEach items="${ list }" var="n">
-				<tr onclick="selectNotice(${ n.notice_id });">
-					<td>${ n.notice_id}</td>
-					<td>${ n.title }</td>
-					<td>${ n.create_date }</td>
-					<td>
-					<c:if test="${ !empty n.fileName }">
-					<img src="${ contextPath }/resources/images/file.png" width="30">
+			  	<c:forEach items="${ list }" var="h">
+				<tr class="tdClick">
+					<td><img src="${ contextPath }/resources/images/${ h.rename_fileName }" width="150"/></td>
+					
+					<c:if test="${h.status == 'Y'}">
+						<td>거래완료</td>
 					</c:if>
+					<c:if test="${h.status == 'A'}">
+						<td>거래중</td>
+					</c:if>
+					
+					<td>${ h.title }</td>
+					<td>${ h.price }</td>
+					<td>${ h.seller_id }</td>
+					<td>${ h.modify_date }</td>
+					<td>
+					<div><button type="button" class="btn btn-primary btsSize" onclick="unHideBtn(${h.t_history_id});">숨김해제</button></div>
+					<div><button type="button" class="btn btn-primary btsSize" onclick="deleteBtn(${ h.t_history_id});">삭제</button></div>
 					</td>
 				</tr>
-				</c:forEach>
-			    
+			    </c:forEach>
 			    
 			    <!-- 페이징 바 구간 -->
 				<tr>
-					<td colspan="4" style='padding-top: 50px;'>
+					<td colspan="7" style='padding-top: 50px;'>
 					<!-- [이전] -->
 					<c:if test="${ pi.currentPage <= 1 }">
 						<button type="button" class="btn btn-secondary">이전</button>
 					</c:if>
 					<c:if test="${ pi.currentPage > 1 }">
-						<c:url var="before" value="/notice/list">
+						<c:url var="before" value="/mypage/hiddenList">
 							<c:param name="page" value="${ pi.currentPage - 1 }"/>
 						</c:url>
 						<a href="${ before }"><button type="button" class="btn btn-secondary">이전</button></a>
@@ -85,7 +106,7 @@
 							<button type="button" class="btn btn-primary"><b>${ p }</b></button>
 						</c:if>
 						<c:if test="${ p ne pi.currentPage }">
-							<c:url var="pagination" value="/notice/list">
+							<c:url var="pagination" value="/mypage/hiddenList">
 								<c:param name="page" value="${ p }"/>
 							</c:url>
 							<a href="${ pagination }"><button type="button" class="btn btn-secondary">${ p }</button></a>
@@ -96,38 +117,42 @@
 						<button type="button" class="btn btn-secondary">다음</button>
 					</c:if>
 					<c:if test="${ pi.currentPage < pi.maxPage }">
-						<c:url var="after" value="/notice/list">
+						<c:url var="after" value="/mypage/hiddenList">
 							<c:param name="page" value="${ pi.currentPage + 1 }"/>
 						</c:url>
 						<a href="${ after }"><button type="button" class="btn btn-secondary">다음</button></a>
 					</c:if>
 					</td>
 				</tr>
-			    
-			    
 			  </tbody>
-		  </table>
+			</table>
 		</div>
 		
-		<!-- 작성버튼 -->
-		<div class="text-right marginTop">
-			<button id="insertBts" type="button" class="btn btn-primary">작성</button>
-		</div>
-		
-		<script>
-		$(function(){
-			$("#insertBts").on('click', function(){
-				location.href="/notice/write";
-			});
-		});
-		</script>
+	</div>
 	
-		<script>
-		function selectNotice(notice_id){
-			location.href = '${contextPath}/notice/detail?notice_id=' + notice_id + '&page=${ pi.currentPage }';	
-			// => 상세 페이지 접근 시 기존 page 값도 파라미터로 전달
+	<script type="text/javascript">
+		$(function(){
+			$(".tdClick td:nth-child(-n+4)").on("click", function(board_id){
+				selectBoard(board_id);
+			})
+		})
+	</script>
+	<script type="text/javascript">
+		function selectBoard(board_id){
+			location.href = '${contextPath}/board/detail?board_id=' + board_id;	
 		}
-		</script>
 		
+		function deleteBtn(t_history_id){
+			if(confirm("삭제 하시겠습니까?")) {
+				location.href = '${contextPath}/mypage/deleteT_History?t_history_id=' + t_history_id +'&pageNum=' + 2 ;	
+			}
+		}
+		
+		function unHideBtn(t_history_id){
+			location.href = '${contextPath}/mypage/unHide?t_history_id=' + t_history_id ;	
+		}
+		
+	</script>
+	
 </body>
 </html>

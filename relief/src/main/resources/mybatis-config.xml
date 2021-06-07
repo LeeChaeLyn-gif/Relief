@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <!DOCTYPE configuration PUBLIC
  "-//mybatis.org//DTD Config 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-config.dtd" >
@@ -26,6 +27,8 @@
    		<typeAlias type="com.kh.relief.board.model.vo.CategoryBoard" alias="CB"/>
 		<typeAlias type="com.kh.relief.board.model.vo.Wish" alias="Wish"/>
 		<typeAlias type="com.kh.relief.board.model.vo.Image" alias="Image"/>
+		<typeAlias type="com.kh.relief.account.model.vo.T_History" alias="T_History"/>
+		<typeAlias type="com.kh.relief.account.model.vo.T_Status" alias="T_Status"/>
    	</typeAliases>
    	
 	<!-- mappers -->
@@ -33,6 +36,8 @@
 		<mapper resource="mappers/account-mapper.xml"/>
 		<mapper resource="mappers/admin-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/faq-mapper.xml"/>
+		<mapper resource="mappers/notice-mapper.xml"/>
+		<mapper resource="mappers/mypage-mapper.xml"/>
 	</mappers>
-	
 </configuration>
