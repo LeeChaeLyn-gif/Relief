@@ -87,8 +87,7 @@
 						<div class="container">
 							<div class="input-group">
 								<input type="text" class="form-control" name="searchValue" placeholder="상품명, 지역명 검색">
-								<span class="input-group-addon"><i class="fa fa-search"></i></span>
-								<button type="submit">검색</button>
+								<button class="input-group-addon" type="submit"><i class="fa fa-search"></i></button>
 							</div>
 						</div>
 					</form>	
@@ -182,8 +181,6 @@
 			 $(".categorymenu").hide();
 		 	$("#menu2").css({"opacity" : "0", "visibility" : "hidden"});
 		});
-
-
 	</script>
 
 	<script src="<c:url value="/resources/css/assets/js/plugins.js"/>"></script>

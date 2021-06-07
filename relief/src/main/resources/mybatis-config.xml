@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
+
 <!DOCTYPE configuration PUBLIC
  "-//mybatis.org//DTD Config 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-config.dtd" >
@@ -29,6 +29,8 @@
 		<typeAlias type="com.kh.relief.board.model.vo.Image" alias="Image"/>
 		<typeAlias type="com.kh.relief.account.model.vo.T_History" alias="T_History"/>
 		<typeAlias type="com.kh.relief.account.model.vo.T_Status" alias="T_Status"/>
+		<typeAlias type="com.kh.relief.faq.model.vo.FAQ" alias="Faq2"/>
+		<typeAlias type="com.kh.relief.notice.model.vo.Notice" alias="Notice2"/>
    	</typeAliases>
    	
 	<!-- mappers -->

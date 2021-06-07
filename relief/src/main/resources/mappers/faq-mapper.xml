@@ -3,7 +3,7 @@
 "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="faqMapper">
-	<resultMap id="faqResultSet" type="FAQ">
+	<resultMap id="faqResultSet" type="Faq2">
 		<id property="faq_id" column="FAQ_ID"/>
 		<result property="title" column="TITLE"/>
 		<result property="content" column="CONTENT"/>
@@ -42,7 +42,7 @@
 	           FAQ_ID DESC
 	</select>
 	
-	<insert id="insertFAQ" parameterType="FAQ">
+	<insert id="insertFAQ" parameterType="Faq2">
 		INSERT
 		INTO FAQ
 		(
@@ -89,7 +89,7 @@
 	
 	</select>
 	
-	<update id="updateFAQ" parameterType="FAQ">
+	<update id="updateFAQ" parameterType="Faq2">
 	UPDATE 
 		FAQ
 	SET

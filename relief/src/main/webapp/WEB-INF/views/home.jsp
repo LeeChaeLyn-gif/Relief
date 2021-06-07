@@ -171,20 +171,6 @@ h2, h4 {
 </style>
 </head>
 <body>
-<c:if test="${ empty sessionScope.loginUser }">
-<a href="${ contextPath }/account/login">로그인</a>
-</c:if>
-<c:if test="${ sessionScope.loginUser.aid eq 'admin' }">
-	<a href="${ contextPath }/admin/main">관리자페이지</a>
-</c:if>
-<c:if test="${ !empty sessionScope.loginUser }">
-<a href="${ contextPath }/account/logout">로그아웃</a>
-</c:if>
-<form action="${ contextPath }/board/list" method="get">
-<input type="text" name="searchValue">
-<button type="submit">검색</button>
-</form>
-<<<<<<< HEAD
 	<jsp:include page="common/menubar.jsp" />
 	<jsp:include page="common/sidebar.jsp" /><br>
 	<br><br><br><br><br><br><br><br><br>
@@ -325,9 +311,9 @@ h2, h4 {
 <jsp:include page="./mypage/listNavPage.jsp"/>
 <br><br><br>
 <center>
-<h2><a href="${ContaxtPath}/faq/list">fqa 바로가기</a></h2>
+<h2><a href="${ContextPath}/faq/list">fqa 바로가기</a></h2>
 <hr>
-<h2><a href="${ContaxtPath}/notice/list">notice 바로가기</a></h2>
+<h2><a href="${ContextPath}/notice/list">notice 바로가기</a></h2>
 </center>
 </body>
 
