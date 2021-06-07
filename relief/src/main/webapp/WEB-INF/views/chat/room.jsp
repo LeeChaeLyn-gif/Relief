@@ -91,7 +91,7 @@ button {
 	<div class="container">
 		<h4>다행톡</h4>
 		<div id="roomContainer" class="roomContainer">
-			<input type="hidden" id="accountId" name="accountId" value="${ loginUser.accountId }">
+			<input type="hidden" id="accountId" name="accountId" value="${ loginUser.aid }">
 			<div id="roomList" class="roomList">
 			</div>
 		</div>

@@ -3,7 +3,7 @@
  "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
  <mapper namespace="boardMapper">
-	<resultMap id="boardResultSet" type="Board">
+	<resultMap id="BoardResultSet" type="Board">
 		<id property="board_id" column="BOARD_ID"/>
 		<result property="account_id" column="ACCOUNT_ID"/>
 		<result property="category_id" column="CATEGORY_ID"/>
@@ -35,12 +35,12 @@
  		<result property="cgroup" column="C_GROUP"/>
  		<result property="cstatus" column="C_STATUS"/>
  	</resultMap>
- 	<resultMap id="wishResultSet" type="Wish">
+ 	<resultMap id="WishResultSet" type="Wish">
 		<id property="wid" column="WISH_ID"/>
 		<result property="boardId" column="BOARD_ID"/>
 		<result property="accountId" column="ACCOUNT_ID"/>
 	</resultMap>
-	<resultMap id="accountResultSet" type="Account">
+	<resultMap id="AccountResultSet" type="Account">
 		<id property="aid" column="ACCOUNT_ID"/>
 		<result property="pwd" column="PWD"/>
 		<result property="name" column="NAME"/>
@@ -301,7 +301,7 @@
  		   AND STATUS = 'Y'
 	   ORDER BY PULL_DATE DESC	
 	</select>
-	<select id="selectTodayList" resultMap="boardResultSet">
+	<select id="selectTodayList" resultMap="BoardResultSet">
 		SELECT *
 		FROM (SELECT *
 			     FROM
@@ -330,7 +330,7 @@
 			BOARD_ID = #{board_id}
 	</update>
 	
-	<select id="selectBoard" parameterType="_int" resultMap="boardResultSet">
+	<select id="selectBoard" parameterType="_int" resultMap="BoardResultSet">
 		SELECT *
 		FROM
 			BOARD
@@ -389,7 +389,7 @@
  		)
  	</insert>
  	
- 	<select id="selectWish" parameterType="Wish" resultMap="wishResultSet">
+ 	<select id="selectWish" parameterType="Wish" resultMap="WishResultSet">
  		SELECT
  			*
  		FROM WISH

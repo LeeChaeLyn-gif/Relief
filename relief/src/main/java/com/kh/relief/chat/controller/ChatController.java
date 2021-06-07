@@ -34,7 +34,7 @@ public class ChatController {
 	List<ChatHistory> chatHistoryList = new ArrayList<ChatHistory>();
 	static int roomNumber = 0;
 	
-	@RequestMapping("/")
+	@RequestMapping("/chat")
 	public ModelAndView chat() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("chat");
@@ -87,7 +87,7 @@ public class ChatController {
 		if(chList != null && chList.size() > 0) {
 			mv.addObject("chatId", chatId);
 			mv.addObject("chList", chList);
-			mv.setViewName("chat");
+			mv.setViewName("chat/chat");
 		}else {
 			mv.addObject("msg", "채팅 조회실패");
 			mv.setViewName("common/errorPage");

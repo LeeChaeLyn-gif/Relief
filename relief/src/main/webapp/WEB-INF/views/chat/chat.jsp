@@ -100,10 +100,10 @@
 		<div id="chating" class="chating">
 		<c:if test="${!empty chList }">
 			<c:forEach items="${ chList }" var="ch">
-			<c:if test="${ loginUser.accountId == ch.accountId }">
+			<c:if test="${ loginUser.aid == ch.accountId }">
 				<p class='me'> ${ ch.content } </p> 
 			</c:if>
-			<c:if test="${ loginUser.accountId != ch.accountId }">
+			<c:if test="${ loginUser.aid != ch.accountId }">
 				<p class='others'> ${ ch.content } </p>
 			</c:if>
 			</c:forEach>
@@ -177,8 +177,8 @@
 			chatId: $("#chatId").val(),
 			sessionId : $("#sessionId").val(),
 			chatId : '${chatId}',
-			accountId : '${loginUser.accountId}',
-			chatSender : '${loginUser.accountId}',
+			accountId : '${loginUser.aid}',
+			chatSender : '${loginUser.aid}',
 			msg : $("#chatting").val()
 		}
 		console.log(option)
