@@ -42,11 +42,6 @@ import com.kh.relief.account.model.vo.Account;
 
 
 
-import org.springframework.web.bind.annotation.SessionAttributes;
-
-import com.kh.relief.account.model.service.AccountService;
-import com.kh.relief.account.model.vo.Account;
-
 @Controller
 @RequestMapping("/account")
 @SessionAttributes({"loginUser"})
@@ -369,5 +364,4 @@ public class AccountController {
 			return "login/alertPage";
 		}
 	}
-	  
 }
