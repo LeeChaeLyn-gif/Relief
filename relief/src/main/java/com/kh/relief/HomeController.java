@@ -28,7 +28,7 @@ import com.kh.relief.account.model.vo.Account;
 import com.kh.relief.board.model.service.BoardService;
 import com.kh.relief.board.model.vo.Image;
 import com.kh.relief.category.model.service.CategoryService;
-import com.kh.relief.category.model.vo.Category;
+import com.kh.relief.admin.model.vo.Category;
 import com.sun.javafx.collections.MappingChange.Map;
 
 import com.kh.relief.account.NaverLoginBO;
