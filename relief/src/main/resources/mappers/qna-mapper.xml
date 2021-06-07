@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-// mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qnaMapper">
+	<resultMap id="qnaResultSet" type="Qna">
+		<id property="qid" column="QNA_ID"/>
+		<result property="aid" column="ACCOUNT_ID"/>
+		<result property="qtitle" column="Q_TITLE"/>
+		<result property="qcontent" column="Q_CONTENT"/>
+		<result property="atitle" column="A_TITLE"/>
+		<result property="acontent" column="A_CONTENT"/>
+		<result property="status" column="STATUS"/>
+		<result property="astatus" column="A_STATUS"/>
+		<result property="star" column="STAR"/>
+	</resultMap>
+	
+	<select id="selectQlistCount" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM
+			QNA
+		WHERE
+			STATUS = 'Y'
+	</select>
+
+	<select id="selectQlist" resultMap="qnaResultSet">
+		SELECT
+		    QNA_ID
+		  , ACCOUNT_ID
+		  , Q_TITLE
+		  , Q_CONTENT
+		  , A_TITLE
+		  , A_CONTENT
+		  , STATUS
+		  , A_STATUS
+		  , STAR
+		FROM
+			QNA
+		WHERE
+			Q_STATUS = 'Y'
+		ORDER BY
+			QNA_ID DESC
+	</select>
+	
+	<insert id="insertQna" parameterType="Qna">
+		INSERT
+		INTO QNA
+		(
+			QNA_ID
+		  , ACCOUNT_ID
+		  , Q_TITLE
+		  , Q_CONTENT
+		  , STATUS
+		)
+		VALUES
+		(
+			SEQ_QID.NEXTVAL
+		  , #{qid}
+		  , #{qtitle}
+		  , #{qcontent}
+		  , DEFAULT
+		)
+	</insert>
+</mapper>

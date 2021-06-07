@@ -6,8 +6,5 @@ import com.kh.relief.category.model.vo.Category;
 
 public interface CategoryDao {
 
-	List<Category> selectClist();
-
-
 
 }

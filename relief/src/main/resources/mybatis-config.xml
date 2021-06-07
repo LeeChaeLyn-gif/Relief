@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
 <!DOCTYPE configuration PUBLIC
  "-//mybatis.org//DTD Config 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-config.dtd" >
@@ -39,5 +38,6 @@
 		<mapper resource="mappers/faq-mapper.xml"/>
 		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/mypage-mapper.xml"/>
+		<mapper resource="mappers/qna-mapper.xml"/>
 	</mappers>
 </configuration>

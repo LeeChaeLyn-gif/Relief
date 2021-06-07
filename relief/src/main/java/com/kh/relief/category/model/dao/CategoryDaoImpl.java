@@ -12,10 +12,6 @@ import com.kh.relief.category.model.vo.Category;
 public class CategoryDaoImpl implements CategoryDao{
 	@Autowired
 	private SqlSession sqlSession;
-	
-	@Override
-	public List<Category> selectClist() {
-		return sqlSession.selectList("categoryMapper.selectClist");
-	}
+
 
 }

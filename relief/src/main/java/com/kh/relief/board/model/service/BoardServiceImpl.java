@@ -1,8 +1,6 @@
 package com.kh.relief.board.model.service;
 
 import java.util.List;
-<<<<<<< HEAD
-=======
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

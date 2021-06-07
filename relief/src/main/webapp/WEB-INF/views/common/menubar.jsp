@@ -87,7 +87,7 @@
 						<div class="container">
 							<div class="input-group">
 								<input type="text" class="form-control" placeholder="상품명, 지역명 검색">
-								<span class="input-group-addon"><i class="fa fa-search"></i></span>
+								<span class="input-group-addon"><i class="fa fa-search" id="submitBtn"></i></span>
 							</div>
 						</div>
 					</form>	

@@ -38,8 +38,6 @@ import com.kh.relief.account.NaverLoginBO;
  */
 @Controller
 public class HomeController {
-	@Autowired
-	private CategoryService cService;
 	
 	@Autowired
 	private BoardService bService;
@@ -52,7 +50,7 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Model model, HttpServletResponse response, HttpServletRequest request) {
 		
-		List<Category> clist = cService.selectClist();
+		List<Category> clist = bService.selectcList();
 		model.addAttribute("clist", clist);
 		
 		/*

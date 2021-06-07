@@ -48,7 +48,6 @@ import com.kh.relief.board.model.vo.Board;
 import com.kh.relief.board.model.vo.Image;
 import com.kh.relief.board.model.vo.Wish;
 import com.kh.relief.category.model.service.CategoryService;
-import com.kh.relief.category.model.vo.Category;
 
 
 @Controller
@@ -384,10 +383,6 @@ public class BoardController {
 			return "/board/alertPage";
 		}
 	}
-	
-	
-	@Autowired
-	private CategoryService cService;
 
 	// 로깅 필드 선언
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
@@ -458,7 +453,7 @@ public class BoardController {
 		// !flagbid를 전달하여 true이면 조회수 증가 필요, false이면 조회수 증가 불필요
 		Board b = bService.selectBoard(board_id, !flagbid);
 		
-		List<Category> clist = cService.selectClist();
+		List<Category> clist = bService.selectcList();
 		
 		if (b != null) {
 			b.setRenameFileName(ilist.get(0).getRenameFileName());
