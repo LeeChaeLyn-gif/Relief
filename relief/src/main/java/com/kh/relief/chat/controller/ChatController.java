@@ -20,7 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.relief.chat.model.service.ChatService;
+import com.kh.relief.chat.model.vo.Chat;
 import com.kh.relief.chat.model.vo.ChatHistory;
 
 

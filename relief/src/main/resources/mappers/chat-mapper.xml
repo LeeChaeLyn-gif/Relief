@@ -120,7 +120,7 @@
  		)
  		VALUES
  		(
- 			SEQ.CHAT_ID.NEXTVAL
+ 			SEQ_CHAT_ID.NEXTVAL
  		  , #{accountId}
  		  , #{accountId2}
  		  , DEFUALT

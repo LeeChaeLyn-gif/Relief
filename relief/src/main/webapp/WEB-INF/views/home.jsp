@@ -169,7 +169,6 @@ h2, h4 {
 </style>
 </head>
 <body>
-</form>
 	<jsp:include page="common/menubar.jsp" />
 	<jsp:include page="common/sidebar.jsp" /><br>
 	<br><br><br><br><br><br><br><br><br>
