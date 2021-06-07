@@ -34,11 +34,13 @@
 	.marginTop {
 		margin-top : 50px;
 	}
+	
+
 </style>
 </head>
 <body>
 	<div id="wrap">
-		<h2 class="text-center marginTop">Notice</h2>
+		<h2 class="text-center marginTop">FAQ</h2>
 		<hr>
 		<!-- 게시글 테이블 -->
 		<div style="width:100%;">
@@ -52,14 +54,14 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			  	<c:forEach items="${ list }" var="n">
-				<tr onclick="selectNotice(${ n.notice_id });">
-					<td>${ n.notice_id}</td>
-					<td>${ n.title }</td>
-					<td>${ n.create_date }</td>
+			  	<c:forEach items="${ list }" var="f">
+				<tr onclick="selectFAQ(${ f.faq_id });">
+					<td>${ f.faq_id }</td>
+					<td>${ f.title }</td>
+					<td>${ f.create_date }</td>
 					<td>
 					<c:if test="${ !empty n.fileName }">
-					<img src="${ contextPath }/resources/images/file.png" width="30">
+						<img src="${ contextPath }/resources/images/file.png" width="30">
 					</c:if>
 					</td>
 				</tr>
@@ -74,7 +76,7 @@
 						<button type="button" class="btn btn-secondary">이전</button>
 					</c:if>
 					<c:if test="${ pi.currentPage > 1 }">
-						<c:url var="before" value="/notice/list">
+						<c:url var="before" value="/faq/list">
 							<c:param name="page" value="${ pi.currentPage - 1 }"/>
 						</c:url>
 						<a href="${ before }"><button type="button" class="btn btn-secondary">이전</button></a>
@@ -85,7 +87,7 @@
 							<button type="button" class="btn btn-primary"><b>${ p }</b></button>
 						</c:if>
 						<c:if test="${ p ne pi.currentPage }">
-							<c:url var="pagination" value="/notice/list">
+							<c:url var="pagination" value="/faq/list">
 								<c:param name="page" value="${ p }"/>
 							</c:url>
 							<a href="${ pagination }"><button type="button" class="btn btn-secondary">${ p }</button></a>
@@ -96,7 +98,7 @@
 						<button type="button" class="btn btn-secondary">다음</button>
 					</c:if>
 					<c:if test="${ pi.currentPage < pi.maxPage }">
-						<c:url var="after" value="/notice/list">
+						<c:url var="after" value="/faq/list">
 							<c:param name="page" value="${ pi.currentPage + 1 }"/>
 						</c:url>
 						<a href="${ after }"><button type="button" class="btn btn-secondary">다음</button></a>
@@ -117,14 +119,14 @@
 		<script>
 		$(function(){
 			$("#insertBts").on('click', function(){
-				location.href="/notice/write";
+				location.href="/faq/write";
 			});
 		});
 		</script>
 	
 		<script>
-		function selectNotice(notice_id){
-			location.href = '${contextPath}/notice/detail?notice_id=' + notice_id + '&page=${ pi.currentPage }';	
+		function selectFAQ(faq_id){
+			location.href = '${contextPath}/faq/detail?faq_id=' + faq_id + '&page=${ pi.currentPage }';	
 			// => 상세 페이지 접근 시 기존 page 값도 파라미터로 전달
 		}
 		</script>
