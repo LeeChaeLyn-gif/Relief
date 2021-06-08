@@ -52,6 +52,7 @@
              border: 1px solid lightgray;
              display: inline-block;
              margin-bottom: 10px;
+             color : black;
          }
          .img{
             height: 150px;
@@ -96,6 +97,9 @@
          .material-icons{
             color: rgb(0, 51, 85);
          }
+         .side-menu{
+         	margin-left : 1600px;
+         }
     </style>
  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -114,7 +118,7 @@
                 	<c:otherwise>
                 		${ categoryName }
                 	</c:otherwise>
-                </c:choose></h5>의 검색결과<h5 class="h5">${ listCount }개의 결과</h5></p>   
+                </c:choose></h5>의 검색결과&nbsp;<h5 class="h5">${ listCount }개의 결과</h5></p>   
                 <select name="category1" id="category1">
                 <c:forEach items="${ cList }" var="c">
                 	<c:if test="${ c.cgroup == 1 }">
@@ -160,7 +164,7 @@
             </div>
             <div class="line">
             	<c:forEach items="${ bList }" var="b">
-            		<div class="elements">
+            		<a class="elements" href="${ contextPath }/board/detail?board_id=${ b.board_id }">
 		                <img src="${ contextPath }/resources/buploadFiles/${ b.renameFileName }" class="img">
 	                    <p>${ b.title }</p>
 	                    <p>${ b.price }원</p>
@@ -169,7 +173,7 @@
 		                    <span class="material-icons"> add_location_alt</span>
 		                    <small>${ b.area }</small>
 	                    </div>
-	                </div>
+	                </a>
             	</c:forEach>        
             </div>
             <br>
@@ -326,7 +330,7 @@
     			var cid = $("#category3 option:selected").val();
     			location.href="${ contextPath }/board/category3?cid=" + cid;
     		})
-    	})
+    		
     </script>
 </body>
 </html>

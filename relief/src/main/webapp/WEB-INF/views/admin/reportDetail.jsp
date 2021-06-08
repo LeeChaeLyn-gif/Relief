@@ -169,7 +169,7 @@
         <p class="content">${ r.reportReason }</p>
         <br>
         <button type="button" class="btn">해당 페이지로 가기</button>
-        <form method="post" action="${ contextPath }/admin/ban">
+        <form method="post" action="${ contextPath }/admin/ban" onsubmit="removeHTML()">
         	<h5>제재 사유</h5>
         	<div class="textareaDiv">
 	        <textarea rows="7" cols="20" class="summernote" id="summernote" name="sanctionsReason"></textarea>

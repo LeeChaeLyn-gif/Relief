@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<<<<<<< HEAD
 <c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
 scope="application"/>
-=======
->>>>>>> branch 'jihun-L' of https://github.com/chae-lyn/Relief
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false"%>
 <!DOCTYPE html>
@@ -174,10 +171,7 @@ h2, h4 {
 </style>
 </head>
 <body>
-<<<<<<< HEAD
-=======
-</form>
->>>>>>> branch 'jihun-L' of https://github.com/chae-lyn/Relief
+
 	<jsp:include page="common/menubar.jsp" />
 	<jsp:include page="common/sidebar.jsp" /><br>
 	<br><br><br><br><br><br><br><br><br>

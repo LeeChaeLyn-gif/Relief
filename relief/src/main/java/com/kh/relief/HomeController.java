@@ -24,12 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.relief.account.model.vo.Account;
 import com.kh.relief.board.model.service.BoardService;
 import com.kh.relief.category.model.service.CategoryService;
-<<<<<<< HEAD
+
 import com.kh.relief.admin.model.vo.Category;
 
-=======
-import com.kh.relief.category.model.vo.Category;
->>>>>>> branch 'jihun-L' of https://github.com/chae-lyn/Relief
+
+
 
 
 /**

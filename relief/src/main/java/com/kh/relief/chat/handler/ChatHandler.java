@@ -34,7 +34,7 @@ private ChatService cService;
 		boolean flag = false;
 		String url = session.getUri().toString();
 		System.out.println(url);
-		int chatId = Integer.parseInt(url.split("/chat/")[1]);
+		int chatId = Integer.parseInt(url.split("/relief/")[1]);
 		int idx = lArr.size(); // 방의 사이즈를 조사한다.
 		if (lArr.size() > 0) {
 			for (int i = 0; i < lArr.size(); i++) {
