@@ -3,17 +3,17 @@ package com.kh.relief.admin.model.dao;
 import java.sql.Date;
 import java.util.List;
 
+import com.kh.relief.account.model.vo.Account;
+import com.kh.relief.admin.model.vo.Category;
+import com.kh.relief.admin.model.vo.Chart;
+import com.kh.relief.admin.model.vo.Faq;
+import com.kh.relief.admin.model.vo.Notice;
 import com.kh.relief.admin.model.vo.PageInfo;
 import com.kh.relief.admin.model.vo.Qna;
 import com.kh.relief.admin.model.vo.Report;
 import com.kh.relief.admin.model.vo.Sanctions;
 import com.kh.relief.admin.model.vo.Search;
-import com.kh.relief.account.model.vo.Account;
-import com.kh.relief.admin.model.vo.Category;
-import com.kh.relief.admin.model.vo.Chart;
-import com.kh.relief.admin.model.vo.Comment;
-import com.kh.relief.admin.model.vo.Faq;
-import com.kh.relief.admin.model.vo.Notice;
+import com.kh.relief.board.model.vo.Reply;
 
 public interface AdminDao {
 
@@ -123,7 +123,7 @@ public interface AdminDao {
 
 	List<Notice> searchadList(PageInfo pi, Search search);
 
-	Comment commentDetail(int cmid);
+	Reply commentDetail(int rid);
 
 	List<Chart> chart();
 

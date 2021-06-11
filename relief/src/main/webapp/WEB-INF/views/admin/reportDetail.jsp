@@ -161,8 +161,8 @@
             	<c:when test="${ r.bid != 0 }">
             		<p class="createValue">게시글<input type="hidden" value="${ r.bid }"></p>
             	</c:when>
-            	<c:when test="${ r.cmid != 0 }">
-            		<p class="createValue">댓글<input type="hidden" value="${ r.cmid }"></p>
+            	<c:when test="${ r.rid != 0 }">
+            		<p class="createValue">댓글<input type="hidden" value="${ r.rid }"></p>
             	</c:when>
             </c:choose>
         </div>
@@ -208,7 +208,7 @@
     		<script>
     			$(function(){
     				$(".btn").on("click", function(){
-    					location.href="${ contextPath }/admin/commentDetail?cmid=${ r.cmid }";
+    					location.href="${ contextPath }/admin/commentDetail?rid=${ r.rid }";
     				});
     			})
     		</script>

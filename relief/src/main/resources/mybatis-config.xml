@@ -19,7 +19,7 @@
    		<typeAlias type="com.kh.relief.admin.model.vo.Report" alias="Report"/>
    		<typeAlias type="com.kh.relief.admin.model.vo.Qna" alias="Qna"/>
    		<typeAlias type="com.kh.relief.admin.model.vo.Faq" alias="Faq"/>
-   		<typeAlias type="com.kh.relief.admin.model.vo.Comment" alias="Comment"/>
+   		<typeAlias type="com.kh.relief.board.model.vo.Reply" alias="Reply"/>
    		<typeAlias type="com.kh.relief.admin.model.vo.Chart" alias="Chart"/>
    		<typeAlias type="com.kh.relief.board.model.vo.Board" alias="Board"/>
    		<typeAlias type="com.kh.relief.board.model.vo.SearchBoard" alias="SB"/>

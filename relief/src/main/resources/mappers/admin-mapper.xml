@@ -56,7 +56,7 @@
  		<id property="rpid" column="REPORT_ID"/>
  		<result property="chid" column="CHAT_ID"/>
  		<result property="bid" column="BOARD_ID"/>
- 		<result property="cmid" column="COMMENT_ID"/>
+ 		<result property="rid" column="REPLY_ID"/>
  		<result property="reportReason" column="REPORT_REASON"/>
  		<result property="aid" column="ACCOUNT_ID"/>
  		<result property="aid2" column="ACCOUNT_ID2"/>
@@ -85,15 +85,15 @@
  		<result property="renameFileName" column="RENAME_FILENAME"/>
  		<result property="aid" column="ACCOUNT_ID"/>
  	</resultMap>
- 	<resultMap type="Comment" id="CommentResultSet">
- 		<id property="cmid" column="COMMENT_ID"/>
+ 	<resultMap type="Reply" id="ReplyResultSet">
+ 		<id property="reply_id" column="REPLY_ID"/>
  		<result property="bid" column="BOARD_ID"/>
  		<result property="aid" column="ACCOUNT_ID"/>
  		<result property="title" column="TITLE"/>
- 		<result property="createDate" column="CREATE_DATE"/>
- 		<result property="modifyDate" column="MODIFY_DATE"/>
+ 		<result property="create_date" column="CREATE_DATE"/>
+ 		<result property="modify_date" column="MODIFY_DATE"/>
  		<result property="status" column="STATUS"/>
- 		<result property="cmid2" column="COMMENT_ID2"/>
+ 		<result property="reply_id2" column="REPLY_ID2"/>
  	</resultMap>
  	<select id="chart" resultType="Chart">
  		SELECT *
@@ -430,7 +430,7 @@
 				REPORT_ID
 			  , CHAT_ID
 			  , BOARD_ID
-			  , COMMENT_ID
+			  , REPLY_ID
 			  , REPORT_REASON
 			  , ACCOUNT_ID
 			  , ACCOUNT_ID2
@@ -473,7 +473,7 @@
 				REPORT_ID
 			  , CHAT_ID
 			  , BOARD_ID
-			  , COMMENT_ID
+			  , REPLY_ID
 			  , REPORT_REASON
 			  , ACCOUNT_ID
 			  , ACCOUNT_ID2
@@ -506,7 +506,7 @@
 				REPORT_ID
 			  , CHAT_ID
 			  , BOARD_ID
-			  , COMMENT_ID
+			  , REPLY_ID
 			  , REPORT_REASON
 			  , ACCOUNT_ID
 			  , ACCOUNT_ID2
@@ -1001,19 +1001,19 @@
 		 		</choose>
 		 </where>
 	</select>
-	<select id="commentDetail" parameterType="_int" resultMap="CommentResultSet">
+	<select id="commentDetail" parameterType="_int" resultMap="ReplyResultSet">
 		SELECT
-				COMMENT_ID
+				REPLY_ID
 			  , BOARD_ID
 			  , ACCOUNT_ID
 			  , TITLE
 			  , CREATE_DATE
 			  , MODIFY_DATE
 			  , STATUS
-			  , COMMENT_ID2
+			  , REPLY_ID2
 		  FROM
-		  		COMMENT
+		  		REPLY
 		 WHERE
-		 		COMMENT_ID = #{cmid}
+		 		REPLY_ID = #{rid}
 	</select>
  </mapper>

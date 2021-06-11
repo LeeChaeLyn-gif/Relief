@@ -31,11 +31,11 @@ import com.kh.relief.admin.Pagination;
 import com.kh.relief.admin.model.serivce.AdminService;
 import com.kh.relief.admin.model.vo.Category;
 import com.kh.relief.admin.model.vo.Chart;
-import com.kh.relief.admin.model.vo.Comment;
 import com.kh.relief.admin.model.vo.Faq;
 import com.kh.relief.admin.model.vo.Notice;
 import com.kh.relief.admin.model.vo.PageInfo;
 import com.kh.relief.admin.model.vo.Qna;
+import com.kh.relief.board.model.vo.Reply;
 import com.kh.relief.admin.model.vo.Report;
 import com.kh.relief.admin.model.vo.Sanctions;
 import com.kh.relief.admin.model.vo.Search;
@@ -817,9 +817,9 @@ public class AdminController {
 	
 	// admin 댓글 추적 게시글보기
 	@GetMapping("/commentDetail")
-	public String commentDetail(int cmid) {
-		Comment c = aService.commentDetail(cmid);
-		int bid = c.getBid();
+	public String commentDetail(int rid) {
+		Reply r = aService.commentDetail(rid);
+		int bid = r.getBid();
 		return "redirect:/board/detail?board_id=" + bid;
 	}
 }

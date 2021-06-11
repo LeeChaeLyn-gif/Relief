@@ -152,8 +152,8 @@
             	<c:when test="${ r.bid != 0 }">
             		<td>게시글<input type="hidden" value="${ r.bid }"></td>
             	</c:when>
-            	<c:when test="${ r.cmid != 0 }">
-            		<td>댓글<input type="hidden" value="${ r.cmid }"></td>
+            	<c:when test="${ r.rid != 0 }">
+            		<td>댓글<input type="hidden" value="${ r.rid }"></td>
             	</c:when>
             </c:choose>
             <td>${ r.reportDate }</td>
