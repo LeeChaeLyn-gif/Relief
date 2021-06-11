@@ -63,8 +63,8 @@ public class NoticeController {
 			mv.addObject("pi", pi);
 			mv.setViewName("notice/listPage");
 		} else {
-			mv.addObject("msg", "게시글 전체 조회에 실패하였습니다.");
-			mv.setViewName("common/errorPage");
+			throw new NoticeException("게시글 전체 조회에 실패하였습니다.");
+			
 		}	
 		
 		return mv;
@@ -115,8 +115,7 @@ public class NoticeController {
 			model.addAttribute("notice", n);
 			return "notice/detailPage";
 		} else {
-			model.addAttribute("msg", "게시글 상세보기에 실패했습니다.");
-			return "common/errorPage";
+			throw new NoticeException("게시글 상세보기에 실패했습니다.");
 		}
 				
 	}

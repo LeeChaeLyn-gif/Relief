@@ -55,6 +55,9 @@ public interface MyPageService {
 
 	// 회원 업데이트
 	int updateMember(Account a, boolean flag);
+	
+	// Board 테이블에 pull_date 업데이트
+	int updatePull_Date(int board_id);
 
 	
 	

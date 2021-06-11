@@ -33,4 +33,7 @@ public class T_History {
 	// 게시판 수정일
 	private Date modify_date;
 	
+	private String r_status;
+	
+	private Date pull_date;
 }

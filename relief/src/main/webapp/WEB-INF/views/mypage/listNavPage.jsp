@@ -31,13 +31,16 @@ scope="application"/>
 		            
 		margin: auto;
 	}
-
+	a:active {
+		color: #fff;
+	    background-color: #007bff;
+	}
 </style>
 </head>
 <body>	
 <div id="nav">
 	<nav class="nav nav-pills nav-fill">
-	  <a class="nav-item nav-link active" href="${ContextPath }/mypage/confirm">회원정보</a>
+	  <a class="nav-item nav-link" href="${ContextPath }/mypage/confirm">회원정보</a>
 	  <a class="nav-item nav-link" href="${ContextPath }/mypage/wishList">찜목록</a>
 	  <a class="nav-item nav-link" href="${ContextPath }/mypage/salesHistory">판매내역</a>
 	  <a class="nav-item nav-link" href="${ContextPath }/mypage/purchaseHistory">구매내역</a>
@@ -45,18 +48,20 @@ scope="application"/>
 	</nav>
 </div>
 
-<!-- 클릭시 class active 추가 및 해당 목록으로 리다이렉트 -->
-<script type="text/javascript">
-$(function(){
-	$("#nav nav a").click(function(){
-		$("#nav nav a").each(function(){
-			$(this).attr("class", "nav-item nav-link");
-		})
-		
-		$(this).attr("class", "nav-item nav-link active");
-	})
-})
+<!-- 클릭시 class active-->
 
+<script>
+	$(document).ready(function(){
+	  $("#nav nav a").each(function(){
+		  if($(this).attr("href")==window.location.pathname){
+		  	$(this).attr("class","nav-item nav-link active");
+		  }
+		  else{
+		    $(this).attr("class","nav-item nav-link");
+		  }
+	  });
+	});
 </script>
+
 </body>
 </html>

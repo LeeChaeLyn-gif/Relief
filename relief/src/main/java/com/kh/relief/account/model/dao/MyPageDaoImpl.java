@@ -111,4 +111,9 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 	}
 
+	@Override
+	public int updatePull_Date(int board_id) {
+		return sqlSession.update("mypageMapper.updatePull_Date", board_id);
+	}
+
 }

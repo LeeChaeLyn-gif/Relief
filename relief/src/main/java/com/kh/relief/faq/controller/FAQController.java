@@ -58,8 +58,7 @@ public class FAQController {
 			mv.addObject("pi", pi);
 			mv.setViewName("faq/listPage");
 		} else {
-			mv.addObject("msg", "게시글 전체 조회에 실패하였습니다.");
-			mv.setViewName("common/errorPage");
+			throw new FAQException("게시글 전체 조회에 실패하였습니다.");
 		}	
 		
 		return mv;
@@ -74,8 +73,7 @@ public class FAQController {
 			model.addAttribute("faq", f);
 			return "faq/detailPage";
 		} else {
-			model.addAttribute("msg", "공지사항 게시글 보기에 실패했습니다.");
-			return "common/errorPage";
+			throw new FAQException("공지사항 게시글 보기에 실패했습니다.");
 		}
 	}
 	
