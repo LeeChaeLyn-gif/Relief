@@ -14,7 +14,6 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-
 import com.kh.relief.chat.model.service.ChatService;
 import com.kh.relief.chat.model.vo.ChatHistory;
 
@@ -69,6 +68,7 @@ private ChatService cService;
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// 메시지 발송
 		String msg = message.getPayload();
+		System.out.println("##### : " + msg);
 		JSONObject obj = JsonToObjectParser(msg);
 		
 		// obj 내 원하는 값 추출
@@ -83,7 +83,6 @@ private ChatService cService;
 		ch.setContent(chat);
 		
 		int result = cService.insertChat(ch);
-		
 		
 		HashMap<String, Object> temp = new HashMap<String, Object>();
 		if (lArr.size() > 0) {

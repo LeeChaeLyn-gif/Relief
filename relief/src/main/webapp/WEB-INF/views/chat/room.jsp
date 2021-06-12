@@ -114,13 +114,18 @@ button {
 			success:function(data){
 				console.log(data);
 				var value = "";
+				$(".chatRoom").remove();
 				for(var i in data.cList){
-					value = "<div class='chatRoom' onclick='selectChat( "+ data.cList[i].chatId + ")'><div class='chatAccountId'>" + data.cList[i].accountId2 + "</div><div class='chatContent'>" + data.cList[i].content + "</div><div class='chatDate'>" + data.cList[i].chatDate + "</div></div>"
+					value = "<div class='chatRoom' onclick='selectChat( "+ data.cList[i].chatId + ")'><div class='chatAccountId'>" + data.cList[i].accountId2 + "</div><div class='chatContent'>"
+						+ data.cList[i].content + "</div><div class='chatDate'>" + data.cList[i].chatDate + "</div></div>"
 					$("#roomList").append(value);
 				}
 			},
 			error:function(data){
 				console.log(data);
+			},
+			complete: function(){
+				setTimeout(chatList, 2000);
 			}
 		});
 	}
@@ -135,7 +140,12 @@ button {
 		
 	}
 	
-	
+/* 	$(window).on('load',function(){
+		setInterval(function(){
+			chatList();
+		},2000);
+	});
+	 */
 </script>
 </body>
 </html>

@@ -20,6 +20,14 @@
  		<result property="chatStatus" column="CHAT_STATUS"/>
  	</resultMap>
  	
+ 	<resultMap type="Block" id="blockResultSet">
+ 		<id property="blockId" column="BLOCK_ID"/>
+ 		<result property="accountId" column="ACCOUNT_ID"/>
+ 		<result property="accountId2" column="ACCOUNT_ID2"/>
+ 		<result property="chatId" column="CHAT_ID"/>
+ 		<result property="blockDate" column="BLOCK_DATE"/>
+ 	</resultMap>
+ 	
  	<select id="selectList" parameterType="string" resultMap="chatHitoryResultSet">
 		SELECT * 
 		  FROM (
@@ -42,8 +50,8 @@
 			  B.ROW1 = 1
 		  AND B.CHAT_ID = C.CHAT_ID
 		  AND C.ACCOUNT_ID = #{accountId}
-		  AND C.CHAT_STATUS = 'Y'
-		  AND C.CHAT_STATUS2 = 'Y'
+		  AND (C.CHAT_STATUS = 'Y'
+		 	  OR C.CHAT_STATUS2 = 'Y')
         UNION ALL
          		 SELECT 
 			  		   C.ACCOUNT_ID, 
@@ -64,8 +72,8 @@
 			  B.ROW1 = 1
 		 	  AND B.CHAT_ID = C.CHAT_ID
 		 	  AND C.ACCOUNT_ID2 = #{accountId}
-		 	  AND C.CHAT_STATUS = 'Y'
-		 	  AND C.CHAT_STATUS2 = 'Y'
+		 	  AND (C.CHAT_STATUS = 'Y'
+		 	  OR C.CHAT_STATUS2 = 'Y')
          	  )
        ORDER BY 
        		   CHAT_DATE DESC
@@ -141,4 +149,122 @@
 	      AND
 	      	  ACCOUNT_ID2 = #{accountId2}
  	</select>
+ 	<select id="blockCheck" parameterType="_int" resultMap="chatResultSet">
+ 		SELECT
+ 			  CHAT_ID
+			, ACCOUNT_ID
+			, ACCOUNT_ID2
+			, CHAT_STATUS
+			, CHAT_STATUS2
+		FROM
+			  CHAT
+	   WHERE
+	   		 CHAT_ID = #{chatId}
+ 	</select>
+ 	<update id="updateBlock" parameterType="_int">
+ 		UPDATE
+ 			   CHAT
+ 		   SET
+ 			  CHAT_STATUS = 'N'
+ 		WHERE
+ 			  CHAT_ID = #{chatId}
+ 	</update>
+ 	<update id="updateBlock2" parameterType="_int">
+ 		UPDATE
+ 			   CHAT
+ 		   SET
+ 			  CHAT_STATUS2 = 'N'
+ 		WHERE
+ 			  CHAT_ID = #{chatId}
+ 	</update>
+  	<update id="updateBlock3" parameterType="_int">
+ 		UPDATE
+ 			   CHAT
+ 		   SET
+ 			  CHAT_STATUS2 = 'Y'
+ 		WHERE
+ 			  CHAT_ID = #{chatId}
+ 	</update>
+  	<update id="updateBlock4" parameterType="_int">
+ 		UPDATE
+ 			   CHAT
+ 		   SET
+ 			  CHAT_STATUS2 = 'Y'
+ 		WHERE
+ 			  CHAT_ID = #{chatId}
+ 	</update>
+ 	<insert id="insertBlock" parameterType="Chat">
+ 		INSERT
+ 		INTO BLOCK
+ 		(
+ 		  BLOCK_ID
+		, ACCOUNT_ID
+		, ACCOUNT_ID2
+		, CHAT_ID
+		, BLOCK_DATE
+ 		)
+ 		VALUES
+ 		(
+ 		  SEQ_BLOCK_ID.NEXTVAL
+ 		, #{accountId}
+ 		, #{accountId2}
+ 		, #{chatId}
+ 		, SYSDATE
+ 		)
+ 	</insert>
+ 	<insert id="insertBlock2" parameterType="Chat">
+ 		INSERT
+ 		INTO BLOCK
+ 		(
+ 		  BLOCK_ID
+		, ACCOUNT_ID
+		, ACCOUNT_ID2
+		, CHAT_ID
+		, BLOCK_DATE
+ 		)
+ 		VALUES
+ 		(
+ 		  SEQ_BLOCK_ID.NEXTVAL
+ 		, #{accountId}
+ 		, #{accountId2}
+ 		, #{chatId}
+ 		, SYSDATE
+ 		)
+ 	</insert>
+ 	<select id="blockUser" parameterType="Chat" resultMap="blockResultSet">
+ 		SELECT
+ 			  BLOCK_ID
+ 			, ACCOUNT_ID
+ 			, ACCOUNT_ID2
+ 			, CHAT_ID
+ 			, BLOCK_DATE
+ 		FROM
+ 			 BLOCK
+ 	   WHERE
+ 	   		 ACCOUNT_ID = #{accountId}
+ 	   	  AND
+ 	   	  	 CHAT_ID = #{chatId}
+ 	</select>
+ 	<select id="blockUser2" parameterType="string" resultMap="blockResultSet">
+ 		SELECT
+ 			  BLOCK_ID
+ 			, ACCOUNT_ID
+ 			, ACCOUNT_ID2
+ 			, CHAT_ID
+ 			, BLOCK_DATE
+ 		FROM
+ 			 BLOCK
+ 	   WHERE
+ 	   		 ACCOUNT_ID = #{accountId}
+ 	</select>
+ 	<delete id="deleteBlock" parameterType="_int">
+ 		DELETE
+ 		  FROM BLOCK
+ 		 WHERE CHAT_ID = #{chatId}
+ 	</delete>
+ 	 	<delete id="deleteBlock2" parameterType="_int">
+ 		DELETE
+ 		  FROM BLOCK
+ 		 WHERE CHAT_ID = #{chatId}
+ 	</delete>
  </mapper>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,9 +88,16 @@
 		<ul id="myChatMenu" class="myChatMenu">
 			<li id="chatMenu2" class="chatMenu2"> <img src="${ contextPath }/resources/images/menu.png"/>
 				<ul id="chatSubMenu" class="chatSubMenu">
-					<li>차단</li>
-					<li>알림</li>
-					<li>나가기</li>
+				<c:if test="${!empty b}">
+					<li onclick="unBlockChat()">차단해제</li>
+					<li onclick="unAlramChat()">알림</li>
+					<li onclick="exitChat()">나가기</li>
+				</c:if>
+				<c:if test="${empty b}">
+					<li onclick="blockChat()">차단</li>
+					<li onclick="alramChat()">알림</li>
+					<li onclick="exitChat()">나가기</li>
+				</c:if>
 				</ul>
 			</li>
 		</ul>
@@ -100,21 +108,46 @@
 		<div id="chating" class="chating">
 		<c:if test="${!empty chList }">
 			<c:forEach items="${ chList }" var="ch">
+			
+				<fmt:formatDate value="${ch.chatDate}" pattern="yyyy-MM-dd" var="chatDate" />  
+				<fmt:formatDate value="${b.blockDate }" pattern="yyyy-MM-dd" var="blockDate"/>
+				
+			<c:if test="${!empty b}">
+			<c:if test="${ chatDate < blockDate }">
 			<c:if test="${ loginUser.aid == ch.accountId }">
 				<p class='me'> ${ ch.content } </p> 
 			</c:if>
 			<c:if test="${ loginUser.aid != ch.accountId }">
 				<p class='others'> ${ ch.content } </p>
 			</c:if>
+			</c:if>
+			</c:if>
+			
+			<c:if test="${empty b}">
+			<c:if test="${ loginUser.aid == ch.accountId }">
+				<p class='me'> ${ ch.content } </p> 
+			</c:if>
+			<c:if test="${ loginUser.aid != ch.accountId }">
+				<p class='others'> ${ ch.content } </p>
+			</c:if>
+			</c:if>
 			</c:forEach>
 		</c:if>
 		</div>
 		<div id="yourMsg">
 			<table class="inputTable">
+				<c:if test="${!empty b}">
+				<tr>
+					<th><input id="chatting" placeholder="차단한 사용자이므로 채팅이 불가합니다." readonly></th>
+					<th><button id="sendBtn" disabled>보내기</button></th>
+				</tr>
+				</c:if>
+				<c:if test="${empty b}">
 				<tr>
 					<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
 					<th><button onclick="send()" id="sendBtn">보내기</button></th>
 				</tr>
+				</c:if>
 			</table>
 		</div>
 	</div>
@@ -192,5 +225,44 @@
 		$('#chatSubMenu').slideToggle(300);
 	});
 	
+	function blockChat(){
+		
+		var chatId = $("#chatId").val();
+		
+		if (confirm('정말로 차단하시겠습니까? \n상대방은 차단여부를 알 수 없습니다.') == true){
+			location.href="${contextPath}/blockChat?chatId=" + chatId;
+			alert('차단이 완료되었습니다.');
+		}
+	}
+	
+	function unBlockChat(){
+		
+		var chatId = $("#chatId").val();
+		
+		if (confirm('차단을 해제하시겠습니까?') == true){
+			location.href="${contextPath}/unBlockChat?chatId=" + chatId;
+			alert('차단해제가 완료되었습니다.');
+		}
+	}
+	
+	function exitChat(){
+		
+		if (confirm("채팅나가실?") == true){
+			alert('나가기완료');
+		} else {
+			alert('안나가');
+		}
+	}
+	
+	function alramChat(){
+		
+		if (confirm("알림끄실?") == true){
+			alert('알림껐음');
+		} else {
+			alert('알림안꺼');
+		}
+	}
+	
+
 </script>
 </html>
