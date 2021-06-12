@@ -35,7 +35,8 @@
 			  		  C.ACCOUNT_ID2, 
 			  		  B.CONTENT, 
 			  		  B.CHAT_DATE, 
-			  		  C.CHAT_ID
+			  		  C.CHAT_ID,
+                      D.NAME
 		 		 FROM (
 			  		   SELECT 
 			  	       ROW_NUMBER() OVER
@@ -46,9 +47,11 @@
 					  CHAT_HISTORY A
 			  	) B
 			   	, CHAT C
+                , ACCOUNT D
 		WHERE 
 			  B.ROW1 = 1
 		  AND B.CHAT_ID = C.CHAT_ID
+          AND B.ACCOUNT_ID = D.ACCOUNT_ID
 		  AND C.ACCOUNT_ID = #{accountId}
 		  AND (C.CHAT_STATUS = 'Y'
 		 	  OR C.CHAT_STATUS2 = 'Y')
@@ -57,7 +60,8 @@
 			  		   C.ACCOUNT_ID, 
 			  		   B.CONTENT, 
 			  		   B.CHAT_DATE, 
-			  		   C.CHAT_ID
+			  		   C.CHAT_ID,
+                       D.NAME
 		 FROM (
 			  SELECT 
 			  	    ROW_NUMBER() OVER
@@ -68,9 +72,11 @@
 					CHAT_HISTORY A
 			  ) B
 			  , CHAT C
+              , ACCOUNT D
 		WHERE 
 			  B.ROW1 = 1
 		 	  AND B.CHAT_ID = C.CHAT_ID
+              AND B.ACCOUNT_ID = D.ACCOUNT_ID
 		 	  AND C.ACCOUNT_ID2 = #{accountId}
 		 	  AND (C.CHAT_STATUS = 'Y'
 		 	  OR C.CHAT_STATUS2 = 'Y')

@@ -110,7 +110,7 @@
 							<li><a href="#about">관리자페이지</a></li>
 							</c:when>
 							<c:otherwise>
-							<li><a href="#hello">판매하기</a></li>
+							<li><a href="${ contextPath }/board/insertPage">판매하기</a></li>
 							<li><a href="#about">마이페이지</a></li>
 							<li><a href="#pricing">고객센터</a></li>
 							</c:otherwise>

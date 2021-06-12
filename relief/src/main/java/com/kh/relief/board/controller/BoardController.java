@@ -496,4 +496,9 @@ public class BoardController {
 			return "/board/alertPage";
 		}
 	}
+	
+	@GetMapping("/insertPage")
+	public String insertPage() {
+		return "/board/insertPage";
+	}
 }

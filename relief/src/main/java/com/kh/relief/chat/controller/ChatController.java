@@ -59,7 +59,6 @@ public class ChatController {
 		System.out.println(bList);
 		String host = request.getRemoteAddr();
 		System.out.println(host);
-		
 		JSONArray jArr = new JSONArray();
 		
 		for(ChatHistory chat : cList) {
@@ -70,6 +69,7 @@ public class ChatController {
 	         jChat.put("content", chat.getContent());
 	         jChat.put("chatDate", chat.getChatDate().toString());
 	         jChat.put("chatId", chat.getChatId());
+	         jChat.put("name", chat.getName());
 	         
 	         jArr.add(jChat);
 	      }
@@ -144,7 +144,6 @@ public class ChatController {
 		
 		// 로그인유저
 		String accountId = loginUser.getAid();
-		System.out.println("!!!!!!!!!!!!!!!!!" + c);
 		if(accountId == c.getAccountId()) {
 			result = cService.updateBlock(chatId);
 			result2 = cService.insertBlock(c);
@@ -154,7 +153,6 @@ public class ChatController {
 			c.setAccountId(accountId);
 			result2 = cService.insertBlock2(c);
 		}
-		System.out.println("@@@@@@@@@@@@@@@@@" + c);
 		mv.setViewName("chat/room");
 		return mv;
 	}

@@ -2,6 +2,7 @@ package com.kh.relief.chat.handler;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,7 +33,6 @@ private ChatService cService;
 		super.afterConnectionEstablished(session);
 		boolean flag = false;
 		String url = session.getUri().toString();
-		System.out.println(url);
 		int chatId = Integer.parseInt(url.split("/relief/")[1]);
 		int idx = lArr.size(); // 방의 사이즈를 조사한다.
 		if (lArr.size() > 0) {
@@ -66,9 +66,7 @@ private ChatService cService;
 	// 메세지 발송
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		// 메시지 발송
 		String msg = message.getPayload();
-		System.out.println("##### : " + msg);
 		JSONObject obj = JsonToObjectParser(msg);
 		
 		// obj 내 원하는 값 추출

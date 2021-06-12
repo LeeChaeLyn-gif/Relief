@@ -23,4 +23,5 @@ public class ChatHistory {
 	private Date chatDate;
 	private String status;
 	private String notice;
+	private String name;
 }

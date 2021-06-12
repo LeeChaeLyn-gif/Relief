@@ -6,6 +6,9 @@
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="${contextPath}/resources/css/assets/css/font-awesome.min.css">
+
 <meta charset="UTF-8">
 	<title>다양한 일을 행하다</title>
 	<style>
@@ -89,14 +92,14 @@
 			<li id="chatMenu2" class="chatMenu2"> <img src="${ contextPath }/resources/images/menu.png"/>
 				<ul id="chatSubMenu" class="chatSubMenu">
 				<c:if test="${!empty b}">
-					<li onclick="unBlockChat()">차단해제</li>
-					<li onclick="unAlramChat()">알림</li>
-					<li onclick="exitChat()">나가기</li>
+					<li onclick="unBlockChat()"><i class="fa fa-ban" aria-hidden="true" style="color:#AA1212"></i>차단해제</li>
+					<li><i class="fa fa-bell" onclick="alramChat()" aria-hidden="true" style="color:#FFCD12"></i>알림끄기</li>
+					<li onclick="exitChat()"><i class="fa fa-times fa-lg" aria-hidden="true" style="color:rgb(52, 73, 94)"></i>나가기</li>
 				</c:if>
 				<c:if test="${empty b}">
-					<li onclick="blockChat()">차단</li>
-					<li onclick="alramChat()">알림</li>
-					<li onclick="exitChat()">나가기</li>
+					<li onclick="blockChat()"><i class="fa fa-ban" aria-hidden="true" style="color:#AA1212"></i>차단</li>
+					<li><i class="fa fa-bell-slash" onclick="unAlramChat()" aria-hidden="true" style="color:#FFCD12"></i>알림켜기</li>
+					<li onclick="exitChat()"><i class="fa fa-times fa-lg" aria-hidden="true" style="color:rgb(52, 73, 94)"></i>나가기</li>
 				</c:if>
 				</ul>
 			</li>
@@ -229,7 +232,7 @@
 		
 		var chatId = $("#chatId").val();
 		
-		if (confirm('정말로 차단하시겠습니까? \n상대방은 차단여부를 알 수 없습니다.') == true){
+		if (confirm('정말로 차단하시겠습니까? \n(상대방은 차단여부를 알 수 없습니다.)') == true){
 			location.href="${contextPath}/blockChat?chatId=" + chatId;
 			alert('차단이 완료되었습니다.');
 		}
@@ -247,22 +250,17 @@
 	
 	function exitChat(){
 		
-		if (confirm("채팅나가실?") == true){
-			alert('나가기완료');
-		} else {
-			alert('안나가');
+		if (confirm("채팅방을 나가시겠습니까? \n(채팅방을 나가시면 대화내용이 전부 삭제됩니다.)") == true){
 		}
 	}
 	
 	function alramChat(){
-		
-		if (confirm("알림끄실?") == true){
-			alert('알림껐음');
-		} else {
-			alert('알림안꺼');
-		}
+		alert('채팅 알림이 꺼졌습니다.');
 	}
 	
+	function unAlramChat(){
+		alert('채팅 알림이 켜졌습니다.');
+	}
 
 </script>
 </html>

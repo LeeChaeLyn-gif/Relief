@@ -55,7 +55,7 @@ button {
 }
 
 
-.chatAccountId {
+.chatUserName {
 	width:30%;
 	text-align:center;
 	float:left;
@@ -116,7 +116,7 @@ button {
 				var value = "";
 				$(".chatRoom").remove();
 				for(var i in data.cList){
-					value = "<div class='chatRoom' onclick='selectChat( "+ data.cList[i].chatId + ")'><div class='chatAccountId'>" + data.cList[i].accountId2 + "</div><div class='chatContent'>"
+					value = "<div class='chatRoom' onclick='selectChat( "+ data.cList[i].chatId + ")'><div class='chatUserName'>" + data.cList[i].name + "</div><div class='chatContent'>"
 						+ data.cList[i].content + "</div><div class='chatDate'>" + data.cList[i].chatDate + "</div></div>"
 					$("#roomList").append(value);
 				}
@@ -139,13 +139,7 @@ button {
 		window.open("${contextPath}/selectChat?chatId=" + chatId, "", "width=550, height=600, left=" + _left + ", top=" + _top);
 		
 	}
-	
-/* 	$(window).on('load',function(){
-		setInterval(function(){
-			chatList();
-		},2000);
-	});
-	 */
+
 </script>
 </body>
 </html>
