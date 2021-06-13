@@ -3,10 +3,13 @@ package com.kh.relief.board.model.dao;
 import java.util.List;
 
 import com.kh.relief.admin.model.vo.Category;
+import com.kh.relief.notice.model.vo.Notice;
+import com.kh.relief.review.model.vo.Review;
 import com.kh.relief.board.model.vo.Board;
 import com.kh.relief.board.model.vo.CategoryBoard;
 import com.kh.relief.board.model.vo.Image;
 import com.kh.relief.board.model.vo.PageInfo;
+import com.kh.relief.board.model.vo.Reply;
 import com.kh.relief.board.model.vo.SearchBoard;
 import com.kh.relief.board.model.vo.Board;
 import com.kh.relief.board.model.vo.Image;
@@ -56,10 +59,15 @@ public interface BoardDao {
 	int selectbListFromCategoryCount2(CategoryBoard cb);
 
 	List<Board> selectbListFromCategory2(CategoryBoard cb, PageInfo pi);
+	
+	List<Notice> selectadList();
+	
+	List<Review> selectrList(String account_id);
+	
+	void insertReply(Reply r);
+	
+	List<Reply> selectReplyList(int board_id);
 
-//	List<Board> searchList(Search search);
-
-//	List<Wish> selectWlist();
 
 
 }

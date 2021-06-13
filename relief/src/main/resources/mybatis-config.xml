@@ -31,6 +31,10 @@
 		<typeAlias type="com.kh.relief.chat.model.vo.Chat" alias="Chat"/>
    		<typeAlias type="com.kh.relief.chat.model.vo.ChatHistory" alias="ChatHistory"/>
    		<typeAlias type="com.kh.relief.chat.model.vo.Room" alias="Room"/>
+   		<typeAlias type="com.kh.relief.qna.model.vo.Qna" alias="Qna2"/>
+   		<typeAlias type="com.kh.relief.notice.model.vo.Notice" alias="Notice2"/>
+   		<typeAlias type="com.kh.relief.review.model.vo.Review" alias="Review"/>
+   		<typeAlias type="com.kh.relief.board.model.vo.Reply" alias="Reply"/>
    	</typeAliases>
    	
 	<!-- mappers -->

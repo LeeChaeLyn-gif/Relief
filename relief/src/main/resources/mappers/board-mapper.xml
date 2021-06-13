@@ -53,6 +53,43 @@
 		<result property="authKey" column="AUTHKEY"/>
 		<result property="createDate" column="CREATE_DATE"/>
 	</resultMap>
+	<resultMap id="NoticeResultSet" type="Notice2">
+		<id property="notice_id" column="NOTICE_ID"/>
+		<result property="account_id" column="ACCOUNT_ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="ncontent" column="NCONTENT"/>
+		<result property="create_date" column="CREATE_DATE"/>
+		<result property="modify_date" column="MODIFY_DATE"/>
+		<result property="ncount" column="NCOUNT"/>
+		<result property="status" column="STATUS"/>
+		<result property="fileName" column="FILENAME"/>
+		<result property="rename_fileName" column="RENAME_FILENAME"/>
+		<result property="n_status" column="N_STATUS"/>
+		<result property="a_status" column="A_STATUS"/>
+	</resultMap>
+	<resultMap id="ReviewResultSet" type="Review">
+		<id property="review_id" column="REVIEW_ID"/>
+		<result property="t_history_id" column="T_HISTORY_ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="status" column="STATUS"/>
+		<result property="star" column="STAR"/>
+		<result property="create_date" column="CREATE_DATE"/>
+		<result property="modify_date" column="MODIFY_DATE"/>
+		<result property="seller_id" column="SELLER_ID"/>
+		<result property="consumer_id" column="CONSUMER_ID"/>
+	</resultMap>
+	<resultMap id="ReplyResultSet" type="Reply">
+		<id property="reply_id" column="REPLY_ID"/>
+		<result property="bid" column="BOARD_ID"/>
+		<result property="aid" column="ACCOUNT_ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="create_date" column="CREATE_DATE"/>
+		<result property="modify_date" column="MODIFY_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="reply_id2" column="REPLY_ID2"/>
+	</resultMap>
+	
  	<select id="selectbListCount" parameterType="SB" resultType="_int">
  		SELECT
  				COUNT(*)
@@ -331,12 +368,30 @@
 	</update>
 	
 	<select id="selectBoard" parameterType="_int" resultMap="BoardResultSet">
-		SELECT *
+		SELECT BOARD.BOARD_ID
+ 			  , BOARD.ACCOUNT_ID
+ 			  , BOARD.CATEGORY_ID
+ 			  , BOARD.TITLE
+ 			  , BOARD.CONTENT
+ 			  , BOARD.CREATE_DATE
+ 			  , BOARD.MODIFY_DATE
+ 			  , BOARD.COUNT
+ 			  , BOARD.STATUS
+ 			  , BOARD.PRODUCT_STATUS
+ 			  , BOARD.TRADE_STATUS
+ 			  , BOARD.PRICE
+ 			  , BOARD.EXCHANGE_STATUS
+ 			  , BOARD.AMOUNT
+ 			  , BOARD.PULL_DATE
+ 			  , BOARD.PRICE_STATUS
+ 			  , BOARD.AREA
+              , ACCOUNT.NAME
 		FROM
-			BOARD
+			BOARD, ACCOUNT
 		WHERE
-			BOARD_ID = #{board_id}
-		AND STATUS = 'Y'
+            BOARD_ID = #{board_id}
+        AND BOARD.STATUS = 'Y'
+        AND BOARD.ACCOUNT_ID = ACCOUNT.ACCOUNT_ID
 	</select>
 	
 	<select id="selectImage" parameterType="_int" resultMap="ImageResultSet">
@@ -406,4 +461,81 @@
 		WHERE 
 			ACCOUNT_ID = #{aid}
  	</select>
+ 	
+ 	<select id="selectadList" resultMap="NoticeResultSet">
+ 		SELECT
+ 			*
+ 		FROM NOTICE
+ 		WHERE
+ 			STATUS = 'Y'
+ 		AND A_STATUS = 'Y'
+ 	</select>
+ 	
+ 	<select id="selectrList" parameterType="string" resultMap="ReviewResultSet">
+ 		SELECT *
+		FROM
+			(SELECT REVIEW_ID
+		   		  , R.T_HISTORY_ID
+		   		  , TITLE
+		   		  , CONTENT
+		   		  , R.STATUS
+		   		  , STAR
+		   		  , CREATE_DATE
+		   		  , MODIFY_DATE
+		   		  , CONSUMER_ID
+		   		  , SELLER_ID
+			FROM REVIEW R
+			JOIN T_HISTORY T ON (R.T_HISTORY_ID = T.T_HISTORY_ID)
+			WHERE 
+				SELLER_ID = #{account_id}
+			ORDER BY 
+				CREATE_DATE DESC)
+		WHERE ROWNUM <![CDATA[<=]]> 3
+ 	</select>
+ 	
+ 	<select id="selectReplyList" parameterType="_int" resultMap="ReplyResultSet">
+ 		SELECT
+			REPLY_ID
+		  , BOARD_ID
+		  , ACCOUNT_ID
+		  , TITLE
+		  , CREATE_DATE
+		  , MODIFY_DATE
+		  , STATUS
+		  , REPLY_ID2
+		FROM
+			REPLY
+		WHERE
+			BOARD_ID = #{bid}
+		AND STATUS = 'Y'
+		ORDER BY
+			REPLY_ID DESC
+ 	</select>
+ 	
+ 	<insert id="insertReply" parameterType="Reply">
+		INSERT
+			INTO
+		REPLY
+		(
+			REPLY_ID
+		  , BOARD_ID
+		  , ACCOUNT_ID
+		  , TITLE
+		  , CREATE_DATE
+		  , MODIFY_DATE
+		  , STATUS
+		  , REPLY_ID2
+		)
+		VALUES
+		(
+			SEQ_CMID.NEXTVAL
+		  , #{bid}
+		  , #{aid}
+		  , #{title}
+		  , SYSDATE
+		  , SYSDATE
+		  , DEFAULT
+		  , #{reply_id2}
+		)
+	</insert>
  </mapper>

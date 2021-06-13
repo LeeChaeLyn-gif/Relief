@@ -1,4 +1,4 @@
-package com.kh.relief.qna.model.vo;
+package com.kh.relief.board.model.vo;
 
 import java.sql.Date;
 
@@ -13,15 +13,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Qna {
-	private int qid;
+public class Reply {
+	private int reply_id;
+	private int bid;
 	private String aid;
-	private String qtitle;
-	private String qcontent;
-	private String atitle;
-	private String acontent;
+	private String title;
+	private Date create_date;
+	private Date modify_date;
 	private String status;
-	private String astatus;
-	private String star;
-	private Date createDate;
+	private int reply_id2;
 }

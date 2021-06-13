@@ -1,15 +1,16 @@
-package com.kh.relief.qna.model.service;
+package com.kh.relief.qna.model.dao;
 
 import java.util.List;
 
 import com.kh.relief.qna.model.vo.PageInfo;
 import com.kh.relief.qna.model.vo.Qna;
 
-public interface QnaService {
+public interface QnaDao {
 
 	// 게시글 수
 	int selectQlistCount();
-	// QNA 리스트
+
+	// 리스트
 	List<Qna> selectQlist(PageInfo pi);
 	// QNA 등록
 	int insertQna(Qna q);

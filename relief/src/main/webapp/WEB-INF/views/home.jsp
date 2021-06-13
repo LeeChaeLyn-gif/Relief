@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false"%>
 <!DOCTYPE html>
@@ -150,6 +151,7 @@ h2, h4 {
 	height : 60px;
 	display: inline-block;
 	border : 1px solid lightgray;
+	background : white;
 	padding-top : 10px;
 }
 #recentlist{
@@ -157,6 +159,7 @@ h2, h4 {
 	min-height : 200px;
 	display : inline-block;
 	border : 1px solid lightgray;
+	background : white;
 	margin-top : 10px;
 	padding-top : 10px;
 }
@@ -166,10 +169,13 @@ h2, h4 {
 	display : inline-block;
 	text-align : center;
 }
+.carousel-inner{
+	border : 1px solid rgb(52, 73, 94);
+}
+
 </style>
 </head>
 <body>
-</form>
 	<jsp:include page="common/menubar.jsp" />
 	<jsp:include page="common/sidebar.jsp" /><br>
 	<br><br><br><br><br><br><br><br><br>
@@ -179,17 +185,6 @@ h2, h4 {
 			<div class="top">
 				<div id="part2-up">
 					<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" jQuery.noConflict();></script>
-<!-- 					<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-						integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-						crossorigin="anonymous"></script>
-					<script
-						src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-						integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-						crossorigin="anonymous"></script>
-					<script
-						src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-						integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-						crossorigin="anonymous"></script> -->
 					<script>
 						$('.carousel').carousel({
 							interval : 1000
@@ -197,27 +192,20 @@ h2, h4 {
 					</script>
 					<h2>공지사항 / 이벤트</h2><br>
 					<div id="demo" class="carousel slide" data-ride="carousel"
-						style="width: 600px; height: 250px; text-align: center;">
+						style="width: 600px; height: 300px; text-align: center;">
 						<div class="carousel-inner" style="text-align: center;">
 
 							<div class="carousel-item active" style="text-align: center;">
 
 								<img class="d-block w-100"
-									src="https://images.pexels.com/photos/213399/pexels-photo-213399.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-									alt="First slide">
-								<div class="carousel-caption d-none d-md-block">
+									src="${ contextPath }/resources/images/noticeImg.jpg">
+							</div>
+							<c:forEach items="${ nlist }" var="n">
+								<div class="carousel-item">
+									<a href="${ contextPath }/notice/detail?notice_id=${n.notice_id}&page=1">
+									<img class="d-block w-100" src="${ contextPath }/resources/nuploadFiles/${ n.rename_fileName }" style="width : 600px; height : 300px;"></a>
 								</div>
-							</div>
-							<div class="carousel-item">
-								<img class="d-block w-100"
-									src="https://images.pexels.com/photos/2355519/pexels-photo-2355519.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-									alt="Second slide">
-							</div>
-							<div class="carousel-item">
-								<img class="d-block w-100"
-									src="https://images.pexels.com/photos/2544554/pexels-photo-2544554.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-									alt="Third slide">
-							</div>
+							</c:forEach>
 
 							<a class="carousel-control-prev" href="#demo" data-slide="prev">
 								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -228,9 +216,10 @@ h2, h4 {
 							</a>
 
 							<ul class="carousel-indicators">
-								<li data-target="#demo" data-slide-to="0" class="active"></li>
-								<li data-target="#demo" data-slide-to="1"></li>
-								<li data-target="#demo" data-slide-to="2"></li>
+							<li data-target="#demo" data-slide-to="0" class="active"></li>
+							<c:forEach var="i" begin="1" end="${ fn:length(nlist) }">
+								<li data-target="#demo" data-slide-to="i"></li>
+							</c:forEach>
 							</ul>
 
 						</div>
@@ -270,7 +259,6 @@ h2, h4 {
 							var div = $("<div onclick='selectBoard("+ data[i].board_id +")'>");
 							var file = data[i].renameFileName;
 							var img = $("<img>", {"src" : "${ contextPath }/resources/buploadFiles/"+ file});
-							/* var img = $("<div>").html("<img src='${ contextPath }/resources/images/fileicon.png'>"); */
 							var name = $("<h4>").text(data[i].title);
 
 							var p1 = data[i].price;
@@ -292,10 +280,12 @@ h2, h4 {
 			function selectBoard(board_id){
 				location.href='${contextPath}/board/detail?board_id=' + board_id;
 			}
+
 		</script>
 
 			<div class="bottom">
 				<footer id="footer">
+					<hr>
 					<p>
 						대표이사: 김다행 | 개인정보보호담당자: 이다행 | 주소: 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 7층<br>
 						사업자등록번호: 113-11-22222<br> <br> 다행㈜는 통신판매중개자로서 중고거래마켓 다행의
@@ -307,13 +297,6 @@ h2, h4 {
 		</div>
 		<div id="part3"></div>
 	</div>
-<jsp:include page="./mypage/listNavPage.jsp"/>
-<br><br><br>
-<center>
-<h2><a href="${ContaxtPath}/faq/list">fqa 바로가기</a></h2>
-<hr>
-<h2><a href="${ContaxtPath}/notice/list">notice 바로가기</a></h2>
-</center>
 </body>
 
 </html>

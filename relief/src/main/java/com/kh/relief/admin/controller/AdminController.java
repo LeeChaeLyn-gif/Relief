@@ -822,4 +822,5 @@ public class AdminController {
 		int bid = c.getBid();
 		return "redirect:/board/detail?board_id=" + bid;
 	}
+	
 }

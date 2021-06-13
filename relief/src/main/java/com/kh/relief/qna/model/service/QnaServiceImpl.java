@@ -29,4 +29,25 @@ public class QnaServiceImpl implements QnaService {
 		return qDao.insertQna(q);
 	}
 
+	@Override
+	public List<Qna> selectReplyList(int qid) {
+		return qDao.selectReplyList(qid);
+	}
+
+	@Override
+	public Qna selectQboard(int qid) {
+		return qDao.selectQboard(qid);
+	}
+
+	@Override
+	public int updateQna(Qna q) {
+		return qDao.updateQna(q);
+	}
+
+	@Override
+	public int deleteQna(int qid) {
+		return qDao.deleteQna(qid);
+	}
+
+
 }

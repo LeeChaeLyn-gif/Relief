@@ -32,6 +32,26 @@ public class QnaDaoImpl implements QnaDao {
 		return sqlSession.insert("qnaMapper.insertQna", q);
 	}
 
+	@Override
+	public List<Qna> selectReplyList(int qid) {
+		return sqlSession.selectList("qnaMapper.selectReplyList", qid);
+	}
+
+	@Override
+	public Qna selectQboard(int qid) {
+		return sqlSession.selectOne("qnaMapper.selectQboard", qid);
+	}
+
+	@Override
+	public int updateQna(Qna q) {
+		return sqlSession.update("qnaMapper.updateQna", q);
+	}
+
+	@Override
+	public int deleteQna(int qid) {
+		return sqlSession.update("qnaMapper.deleteQna", qid);
+	}
+
 
 
 }

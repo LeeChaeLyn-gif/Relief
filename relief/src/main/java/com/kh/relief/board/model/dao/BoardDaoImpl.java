@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.relief.admin.model.vo.Category;
+import com.kh.relief.notice.model.vo.Notice;
+import com.kh.relief.review.model.vo.Review;
 import com.kh.relief.board.model.vo.Board;
 import com.kh.relief.board.model.vo.CategoryBoard;
 import com.kh.relief.board.model.vo.Image;
 import com.kh.relief.board.model.vo.PageInfo;
+import com.kh.relief.board.model.vo.Reply;
 import com.kh.relief.board.model.vo.SearchBoard;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -145,13 +148,23 @@ public class BoardDaoImpl implements BoardDao {
 		return sqlSession.selectList("boardMapper.selectbListFromCategory2", cb, rowBounds);
 	}
 
-	/*
-	 * @Override public List<Board> searchList(Search search) { return
-	 * sqlSession.selectList("boardMapper.searchList", search); }
-	 */
+	@Override
+	public List<Notice> selectadList() {
+		return sqlSession.selectList("boardMapper.selectadList");
+	}
 
-//	@Override
-//	public List<Wish> selectWlist() {
-//		return sqlSession.selectList("boardMapper.selectWlist");
-//	}
+	@Override
+	public List<Review> selectrList(String account_id) {
+		return sqlSession.selectList("boardMapper.selectrList", account_id);
+	}
+
+	@Override
+	public void insertReply(Reply c) {
+		sqlSession.insert("boardMapper.insertReply", c);
+	}
+
+	@Override
+	public List<Reply> selectReplyList(int board_id) {
+		return sqlSession.selectList("boardMapper.selectReplyList", board_id);
+	}
 }
