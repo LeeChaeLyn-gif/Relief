@@ -461,7 +461,7 @@ textarea{
 					<div id="wrapper">
 						<div id="slider-wrap">
 							<ul id="slider">
-								<c:forEach items="${ ilist }" var="i">
+								<c:forEach items="${ ilist }" var="i" begin="0" end="9">
 									<li>
 										<img src="${ contextPath }/resources/buploadFiles/${ i.renameFileName }">
 									</li>
