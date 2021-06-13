@@ -17,7 +17,7 @@ public class Report {
 	private int rpid;
 	private int chid;
 	private int bid;
-	private int cmid;
+	private int rid;
 	private String reportReason;
 	private String aid;
 	private String aid2;

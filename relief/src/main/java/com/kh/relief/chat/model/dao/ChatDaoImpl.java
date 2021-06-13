@@ -29,7 +29,7 @@ public class ChatDaoImpl implements ChatDao{
 
 	@Override
 	public int createChat(Chat c) {
-		return sqlSession.insert("chatMapper.insertChat", c);
+		return sqlSession.insert("chatMapper.createChat", c);
 	}
 
 	@Override
@@ -95,6 +95,11 @@ public class ChatDaoImpl implements ChatDao{
 	@Override
 	public int deleteBlock2(int chatId) {
 		return sqlSession.delete("chatMapper.deleteBlock2", chatId);
+	}
+
+	@Override
+	public Chat checkChat2(Chat c) {
+		return sqlSession.selectOne("chatMapper.checkChat2", c);
 	}
 
 

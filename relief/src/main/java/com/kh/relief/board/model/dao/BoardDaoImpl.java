@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.relief.admin.model.vo.Category;
+import com.kh.relief.admin.model.vo.Report;
 import com.kh.relief.board.model.vo.Board;
+import com.kh.relief.board.model.vo.BoardImage;
 import com.kh.relief.board.model.vo.CategoryBoard;
 import com.kh.relief.board.model.vo.Image;
 import com.kh.relief.board.model.vo.PageInfo;
@@ -143,6 +145,46 @@ public class BoardDaoImpl implements BoardDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return sqlSession.selectList("boardMapper.selectbListFromCategory2", cb, rowBounds);
+	}
+
+	@Override
+	public List<Category> selectCategory() {
+		return sqlSession.selectList("boardMapper.selectCategory");
+	}
+
+	@Override
+	public List<Category> selectCategory2(int cid) {
+		return sqlSession.selectList("boardMapper.selectCategory2", cid);
+	}
+
+	@Override
+	public int insertBoard(Board b) {
+		return sqlSession.insert("boardMapper.insertBoard", b);
+	}
+
+	@Override
+	public int insertImage(BoardImage bi) {
+		return sqlSession.insert("boardMapper.insertImage", bi);
+	}
+
+	@Override
+	public int selectbId() {
+		return sqlSession.selectOne("boardMapper.selectbId");
+	}
+
+	@Override
+	public int reportUser(Report r) {
+		return sqlSession.insert("boardMapper.reportUser", r);
+	}
+	
+	@Override
+	public int reportUser2(Report r) {
+		return sqlSession.insert("boardMapper.reportUser2", r);
+	}
+	
+	@Override
+	public int reportUser3(Report r) {
+		return sqlSession.insert("boardMapper.reportUser3", r);
 	}
 
 	/*

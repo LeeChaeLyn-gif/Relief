@@ -41,5 +41,7 @@ public interface ChatDao {
 	int deleteBlock(int chatId);
 	// 해당 채팅 차단해제2
 	int deleteBlock2(int chatId);
+	// 채팅확인
+	Chat checkChat2(Chat c);
 
 }

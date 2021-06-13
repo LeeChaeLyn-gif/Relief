@@ -490,8 +490,8 @@ div {
 					</div>
 					<div id="detail-btn">
 						<button class="wishbutton"><i class="fa fa-heart" aria-hidden="true"></i>찜버튼</button>
-						<button class="chatbutton"><i class="fa fa-commenting" aria-hidden="true"></i>채팅</button>
-						<button class="reportbutton"><i class="fa fa-bell" aria-hidden="true"></i>신고하기</button>
+						<button class="chatbutton" onclick="chat();"><i class="fa fa-commenting" aria-hidden="true"></i>채팅</button>
+						<button class="reportbutton" onclick="report();"><i class="fa fa-bell" aria-hidden="true"></i>신고하기</button>
 					</div>
 					<br>
 				</div>
@@ -532,6 +532,7 @@ div {
 					<div class="sellerinfo"><p style="font-weight : bold">판매자 정보</p></div>
 					<hr>
 					<h4>판매자 이름</h4>
+					<p class="accountId">${ board.account_id }</p>
 					<hr>
 					<h4>리뷰</h4>
 				</div>
@@ -661,6 +662,36 @@ div {
 		function pagination() {
 			$('#pagination-wrap ul li').removeClass('active');
 			$('#pagination-wrap ul li:eq(' + pos + ')').addClass('active');
+		}
+		
+		function chat(){
+			var _width = '650';
+		    var _height = '380';
+			var _left = Math.ceil(( window.screen.width - _width ));
+			var _top = Math.ceil(( window.screen.height - _height )/2);
+			var accountId2 = $(".accountId").text();
+			
+			if('${loginUser.aid}' === '${board.account_id}'){
+				alert("자신과는 채팅이 불가능합니다.");
+			} else {
+			window.open("${contextPath}/createChat?accountId2=" + accountId2, "", "width=550, height=600, left=" + _left + ", top=" + _top);
+			}
+			
+		}
+		
+		function report(){
+			var _width = '650';
+		    var _height = '380';
+			var _left = Math.ceil(( window.screen.width - _width ));
+			var _top = Math.ceil(( window.screen.height - _height )/2);
+			var accountId2 = $(".accountId").text();
+			var bid = ${board.board_id};
+			
+			if('${loginUser.aid}' === '${board.account_id}'){
+				alert("자신은 신고가 불가능합니다.");
+			} else {
+			window.open("${contextPath}/board/reportUser?accountId2=" + accountId2 + "&bid=" + bid, "", "width=500, height=400, left=" + _left + ", top=" + _top);
+			}		
 		}
 	</script>
 	

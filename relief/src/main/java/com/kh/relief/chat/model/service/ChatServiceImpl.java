@@ -97,4 +97,10 @@ public class ChatServiceImpl implements ChatService {
 		return cDao.deleteBlock2(chatId);
 	}
 
+	@Override
+	public Chat checkChat2(Chat c) {
+		return cDao.checkChat2(c);
+	}
+
+
 }

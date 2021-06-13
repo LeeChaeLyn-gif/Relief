@@ -1,44 +1,54 @@
 package com.kh.relief.board.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.relief.account.model.vo.Account;
 import com.kh.relief.admin.model.vo.Category;
+import com.kh.relief.admin.model.vo.Report;
 import com.kh.relief.board.Pagination;
 import com.kh.relief.board.model.service.BoardService;
 import com.kh.relief.board.model.vo.Board;
+import com.kh.relief.board.model.vo.BoardImage;
 import com.kh.relief.board.model.vo.CategoryBoard;
 import com.kh.relief.board.model.vo.Image;
 import com.kh.relief.board.model.vo.PageInfo;
 import com.kh.relief.board.model.vo.SearchBoard;
 import com.kh.relief.board.model.vo.Sort;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.kh.relief.board.model.exception.BoardException;
 import com.kh.relief.board.model.vo.Wish;
 import com.kh.relief.category.model.service.CategoryService;
 
@@ -498,7 +508,168 @@ public class BoardController {
 	}
 	
 	@GetMapping("/insertPage")
-	public String insertPage() {
+	public String insertPage(Model model, HttpSession session) {
+		
+		List<Category> list = bService.selectCategory();
+		model.addAttribute("list",list);
+		
+		// 주소 스플릿처리하기
+		Account loginUser = (Account) session.getAttribute("loginUser");
+		
+		if(loginUser != null) {
+			String userAddr = loginUser.getAddress();
+			
+			String[] arr = userAddr.split(",");
+			String addr = arr[1];
+			String[] addr2 = addr.split(" ");
+			String addr3 = "";
+			
+			addr3 = addr2[0] + " " + addr2[1];
+			model.addAttribute("addr", addr3);
+		}
 		return "/board/insertPage";
 	}
+	
+	@PostMapping("/insert")
+	public String insertBoard(@ModelAttribute Board b,MultipartHttpServletRequest mtfrequest,Model model, HttpServletRequest request, HttpSession session) {
+		Account loginUser = (Account) session.getAttribute("loginUser");
+		String accountId = loginUser.getAid();
+		b.setAccount_id(accountId);
+		if(b.getPrice_status() == null) {
+			b.setPrice_status("N");
+		}
+		
+		int result = bService.insertBoard(b);
+		int bid = bService.selectbId();
+		int result2 = 0;
+		
+		List<MultipartFile> fList = mtfrequest.getFiles("file");
+		if(!fList.isEmpty()) {
+			
+			List<String> renameFilename = saveFile(fList, request);
+			BoardImage bi = new BoardImage();
+			bi.setBid(bid);
+			for(int i = 0; i < renameFilename.size(); i++) {
+				
+				bi.setList(renameFilename.get(i));
+				
+				result2 = bService.insertImage(bi);
+			}
+			
+			
+		}
+		
+		return "/home";
+	}
+	
+	private List<String> saveFile(List<MultipartFile> fList, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "//buploadFiles";
+		File folder = new File(savePath);
+		List<String> saveList = new ArrayList<>();
+		
+		if(!folder.exists()) {
+			folder.mkdirs();
+		}
+		
+		for (MultipartFile mf : fList) {
+            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+            long fileSize = mf.getSize(); // 파일 사이즈
+
+            String saveFile = folder + "\\" + System.currentTimeMillis() + originFileName;
+            String saveFile2 = System.currentTimeMillis() + originFileName;
+            
+            saveList.add(saveFile2);
+            try {
+                mf.transferTo(new File(saveFile));
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+		
+		return saveList;
+	}
+
+	@GetMapping("/category")
+	public void category(int cid, HttpServletResponse response) throws IOException {
+		List<Category> list = bService.selectCategory2(cid);
+		
+		JSONArray jArr = new JSONArray();
+		
+		for(Category category : list) {
+			JSONObject jCategory = new JSONObject();
+			jCategory.put("cid", category.getCid());
+			jCategory.put("cid2", category.getCid2());
+			jCategory.put("cname", category.getCname());
+			jCategory.put("cgroup", category.getCgroup());
+			
+			jArr.add(jCategory);
+		}
+		
+		JSONObject sendJson = new JSONObject();
+		sendJson.put("list", jArr);
+		PrintWriter out = response.getWriter();
+		out.print(sendJson);
+		out.flush();
+		out.close();
+	}
+	
+	@RequestMapping(value = "/url",method = RequestMethod.POST)
+    public String getData(Model model,MultipartHttpServletRequest req){
+ 
+        //get image file.
+        List<MultipartFile> multipartFileList = new ArrayList<>();
+        try{
+            MultiValueMap<String, MultipartFile> files = req.getMultiFileMap();
+            for (Map.Entry<String, List<MultipartFile>> entry : files.entrySet()) {
+                List<MultipartFile> fileList = entry.getValue();
+                for (MultipartFile file : fileList) {
+                    if (file.isEmpty()) continue;
+                    multipartFileList.add(file);
+                }
+            }
+ 
+            if(multipartFileList.size()>0) {
+                for(MultipartFile file: multipartFileList) {
+                    file.transferTo(new File( File.separator + file.getOriginalFilename()));
+                }
+            }
+            }catch (Exception e){
+            e.printStackTrace();
+            logger.info(" has no multipartFile!");
+        }
+ 
+ 
+        model.addAttribute("log","사진 "+multipartFileList.size()+"장 전송완료!");
+        return "html템플릿 주소 :: #resultDiv";
+    }
+	
+	
+	@GetMapping("/reportUser")
+	public String reportUser(String accountId2 , int bid, Model model) {
+
+		model.addAttribute("accountId2", accountId2);
+		model.addAttribute("bid", bid);
+		
+		return "/board/reportPage";
+	}
+	
+	@PostMapping("/report")
+	public String reportBoard(HttpSession session,@ModelAttribute Report r, Model model) {
+		Account loginUser = (Account) session.getAttribute("loginUser");
+		String accountId = loginUser.getAid();
+		r.setAid(accountId);
+		if(r.getBid() != 0) {
+			int result = bService.reportUser(r);
+		} else if(r.getChid() != 0) {
+			int result2 = bService.reportUser2(r);
+		} else {
+			int result3 = bService.reportUser3(r);
+		}
+		model.addAttribute("msg", "신고가 완료되었습니다.");
+		return "/board/alertPage2";
+	}
+	
 }

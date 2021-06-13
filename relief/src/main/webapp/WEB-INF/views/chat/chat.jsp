@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 	<link rel="stylesheet" href="${contextPath}/resources/css/assets/css/font-awesome.min.css">
@@ -92,11 +93,13 @@
 			<li id="chatMenu2" class="chatMenu2"> <img src="${ contextPath }/resources/images/menu.png"/>
 				<ul id="chatSubMenu" class="chatSubMenu">
 				<c:if test="${!empty b}">
+					<li onclick="reportChat()"><i class="fa fa-flag fa-lg" aria-hidden="true" style="color:#FF2424"></i>신고</li>
 					<li onclick="unBlockChat()"><i class="fa fa-ban" aria-hidden="true" style="color:#AA1212"></i>차단해제</li>
 					<li><i class="fa fa-bell" onclick="alramChat()" aria-hidden="true" style="color:#FFCD12"></i>알림끄기</li>
 					<li onclick="exitChat()"><i class="fa fa-times fa-lg" aria-hidden="true" style="color:rgb(52, 73, 94)"></i>나가기</li>
 				</c:if>
 				<c:if test="${empty b}">
+					<li onclick="reportChat()"><i class="fa fa-flag fa-lg" aria-hidden="true" style="color:#FF2424"></i>신고</li>
 					<li onclick="blockChat()"><i class="fa fa-ban" aria-hidden="true" style="color:#AA1212"></i>차단</li>
 					<li><i class="fa fa-bell-slash" onclick="unAlramChat()" aria-hidden="true" style="color:#FFCD12"></i>알림켜기</li>
 					<li onclick="exitChat()"><i class="fa fa-times fa-lg" aria-hidden="true" style="color:rgb(52, 73, 94)"></i>나가기</li>
@@ -190,7 +193,7 @@
 					if(d.sessionId == $("#sessionId").val()){
 						$("#chating").append("<p class='me'>" + d.msg + "</p>");	
 					}else{
-						$("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
+						$("#chating").append("<p class='others'>" + d.msg + "</p>");
 					}
 						
 				}else{
@@ -260,6 +263,18 @@
 	
 	function unAlramChat(){
 		alert('채팅 알림이 켜졌습니다.');
+	}
+	
+	function reportChat(){
+		var _width = '650';
+	    var _height = '380';
+		var _left = Math.ceil(( window.screen.width - _width ));
+		var _top = Math.ceil(( window.screen.height - _height )/2);
+		
+		var chatId = $("#chatId").val();
+		var accountId2 = '${loginUser.aid}';
+		
+		window.open("${contextPath}/reportUser?accountId2=" + accountId2 + "&chid=" + chatId, "", "width=500, height=400, left=" + _left + ", top=" + _top);
 	}
 
 </script>

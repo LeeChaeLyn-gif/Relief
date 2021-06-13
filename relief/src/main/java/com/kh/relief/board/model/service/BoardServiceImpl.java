@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.relief.board.model.service.BoardService;
 import com.kh.relief.board.model.vo.Board;
+import com.kh.relief.board.model.vo.BoardImage;
 import com.kh.relief.board.model.vo.Image;
 import com.kh.relief.board.model.vo.Search;
 import com.kh.relief.board.model.vo.Wish;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.relief.admin.model.vo.Category;
+import com.kh.relief.admin.model.vo.Report;
 import com.kh.relief.board.model.dao.BoardDao;
 import com.kh.relief.board.model.vo.Board;
 import com.kh.relief.board.model.vo.CategoryBoard;
@@ -130,6 +132,46 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int wishCount(String aid) {
 		return bDao.wishCount(aid);
+	}
+
+	@Override
+	public List<Category> selectCategory() {
+		return bDao.selectCategory();
+	}
+
+	@Override
+	public List<Category> selectCategory2(int cid) {
+		return bDao.selectCategory2(cid);
+	}
+
+	@Override
+	public int insertBoard(Board b) {
+		return bDao.insertBoard(b);
+	}
+
+	@Override
+	public int insertImage(BoardImage bi) {
+		return bDao.insertImage(bi);
+	}
+
+	@Override
+	public int selectbId() {
+		return bDao.selectbId();
+	}
+
+	@Override
+	public int reportUser(Report r) {
+		return bDao.reportUser(r);
+	}
+
+	@Override
+	public int reportUser2(Report r) {
+		return bDao.reportUser2(r);
+	}
+
+	@Override
+	public int reportUser3(Report r) {
+		return bDao.reportUser3(r);
 	}
 
 	

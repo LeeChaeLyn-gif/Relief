@@ -406,4 +406,178 @@
 		WHERE 
 			ACCOUNT_ID = #{aid}
  	</select>
+ 	<select id="selectCategory" resultMap="CategoryResultSet">
+ 		 SELECT
+				CATEGORY_ID
+			  , C_NAME
+			  , CATEGORY_ID2
+			  , C_GROUP
+			  , C_STATUS
+		  FROM
+		  		CATEGORY
+		 WHERE
+		 		C_STATUS = 'Y'
+		   AND
+		   		C_GROUP = 1
+ 	</select>
+ 	<select id="selectCategory2" parameterType="_int" resultMap="CategoryResultSet">
+ 		 SELECT
+				CATEGORY_ID
+			  , C_NAME
+			  , CATEGORY_ID2
+			  , C_GROUP
+			  , C_STATUS
+		  FROM
+		  		CATEGORY
+		 WHERE
+		 		C_STATUS = 'Y'
+		   AND
+		   		CATEGORY_ID2 = #{cid}
+ 	</select>
+ 	<insert id="insertBoard" parameterType="Board">
+		INSERT
+		INTO
+			 BOARD
+				  (
+					  BOARD_ID
+					, ACCOUNT_ID
+					, CATEGORY_ID
+					, TITLE
+					, CONTENT
+					, CREATE_DATE
+					, MODIFY_DATE
+					, COUNT
+					, STATUS
+					, PRODUCT_STATUS
+					, TRADE_STATUS
+					, PRICE
+					, EXCHANGE_STATUS
+					, AMOUNT
+					, PULL_DATE
+					, PRICE_STATUS
+					, AREA
+				   )
+			VALUES
+					(
+					  SEQ_BID.NEXTVAL
+					, #{account_id}
+					, #{category_id}
+					, #{title}
+					, #{content}
+					, SYSDATE
+					, SYSDATE
+					, 0
+					, 'Y'
+					, '새상품'
+					, 'Y'
+					, #{price}
+					, 'Y'
+					, #{amount}
+					, SYSDATE
+					, #{price_status}
+					, #{area}
+					)
+ 	</insert>
+ 	<insert id="insertImage" parameterType="BoardImage">
+ 		INSERT
+		INTO
+			 IMAGE
+				 (
+				   IMAGE_ID
+				 , BOARD_ID
+				 , FILENAME
+				 , RENAME_FILENAME
+				 )
+				 VALUES
+				 (
+			 	  SEQ_IID.NEXTVAL
+			 	, #{bid}
+			 	, #{list}
+			 	, #{list}
+				 )
+ 	</insert>
+ 	<select id="selectbId" resultType="_int">
+		SELECT 
+			  SEQ_BID.CURRVAL
+		 FROM 
+		 	  DUAL
+ 	</select>
+ 	<insert id="reportUser" parameterType="Report">
+ 		INSERT
+ 		INTO
+ 			 REPORT
+ 			 	   (
+ 			 	   	REPORT_ID
+				  , CHAT_ID
+				  , BOARD_ID
+				  , COMMENT_ID
+				  , REPORT_REASON
+				  , ACCOUNT_ID
+				  , ACCOUNT_ID2
+				  , REPORT_DATE
+ 			 	   )
+ 			 VALUES
+ 			 	  (
+ 			 	   SEQ_RPID.NEXTVAL
+ 			 	 , NULL
+ 			 	 , #{bid}
+ 			 	 , NULL
+ 			 	 , #{reportReason}
+ 			 	 , #{aid}
+ 			 	 , #{aid2}
+ 			 	 , SYSDATE
+ 			 	  )
+ 	</insert>
+ 	 	<insert id="reportUser2" parameterType="Report">
+ 		INSERT
+ 		INTO
+ 			 REPORT
+ 			 	   (
+ 			 	   	REPORT_ID
+				  , CHAT_ID
+				  , BOARD_ID
+				  , COMMENT_ID
+				  , REPORT_REASON
+				  , ACCOUNT_ID
+				  , ACCOUNT_ID2
+				  , REPORT_DATE
+ 			 	   )
+ 			 VALUES
+ 			 	  (
+ 			 	   SEQ_RPID.NEXTVAL
+ 			 	 , #{chid}
+ 			 	 , NULL
+ 			 	 , NULL
+ 			 	 , #{reportReason}
+ 			 	 , #{aid}
+ 			 	 , #{aid2}
+ 			 	 , SYSDATE
+ 			 	  )
+ 	</insert>
+ 	 	<insert id="reportUser3" parameterType="Report">
+ 		INSERT
+ 		INTO
+ 			 REPORT
+ 			 	   (
+ 			 	   	REPORT_ID
+				  , CHAT_ID
+				  , BOARD_ID
+				  , COMMENT_ID
+				  , REPORT_REASON
+				  , ACCOUNT_ID
+				  , ACCOUNT_ID2
+				  , REPORT_DATE
+ 			 	   )
+ 			 VALUES
+ 			 	  (
+ 			 	   SEQ_RPID.NEXTVAL
+ 			 	 , NULL
+ 			 	 , NULL
+ 			 	 , #{rid}
+ 			 	 , #{reportReason}
+ 			 	 , #{aid}
+ 			 	 , #{aid2}
+ 			 	 , SYSDATE
+ 			 	  )
+ 	</insert>
  </mapper>

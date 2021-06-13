@@ -115,8 +115,6 @@
 					contentBody.append(wCount);
 				},
 				error : function(e){
-					alert("error code : " + e.status + "\n"
-		                     + "message : " + e.responseText);
 				}
 			})
 			
@@ -139,7 +137,6 @@
 
 			var cookie = getCookie('blist');
 			if (cookie != "") {
-			     alert("쿠키값은 : " + cookie);
 			}
 
 			})

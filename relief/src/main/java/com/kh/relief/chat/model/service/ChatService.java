@@ -40,4 +40,6 @@ public interface ChatService {
 	int deleteBlock(int chatId);
 	// 해당채팅 차단해제2
 	int deleteBlock2(int chatId);
+	// 채팅 확인
+	Chat checkChat2(Chat c);
 }

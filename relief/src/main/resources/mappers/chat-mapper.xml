@@ -137,7 +137,7 @@
  			SEQ_CHAT_ID.NEXTVAL
  		  , #{accountId}
  		  , #{accountId2}
- 		  , DEFUALT
+ 		  , DEFAULT
  		  , DEFAULT
  		)
  	</insert>
@@ -154,6 +154,20 @@
 	    	  ACCOUNT_ID = #{accountId}
 	      AND
 	      	  ACCOUNT_ID2 = #{accountId2}
+ 	</select>
+ 	<select id="checkChat2" parameterType="Chat" resultMap="chatResultSet">
+ 		SELECT
+ 			  CHAT_ID
+			, ACCOUNT_ID
+			, ACCOUNT_ID2
+			, CHAT_STATUS
+			, CHAT_STATUS2
+	     FROM
+	     	  CHAT
+	    WHERE
+	    	  ACCOUNT_ID = #{accountId2}
+	      AND
+	      	  ACCOUNT_ID2 = #{accountId}
  	</select>
  	<select id="blockCheck" parameterType="_int" resultMap="chatResultSet">
  		SELECT

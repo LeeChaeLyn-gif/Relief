@@ -17,11 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.relief.account.model.vo.Account;
+import com.kh.relief.admin.model.vo.Report;
 import com.kh.relief.chat.model.service.ChatService;
 import com.kh.relief.chat.model.vo.Block;
 import com.kh.relief.chat.model.vo.Chat;
@@ -132,6 +135,56 @@ public class ChatController {
 		return mv;
 	}
 	
+	// 채팅 insert
+	@RequestMapping("/createChat")
+	public ModelAndView createChat(@RequestParam String accountId2, HttpSession session, ModelAndView mv) {
+		
+		Account loginUser = (Account) session.getAttribute("loginUser");
+		String accountId = loginUser.getAid();
+		
+		Chat c = new Chat();
+		c.setAccountId(accountId);
+		c.setAccountId2(accountId2);
+		
+		Chat checkChat = cService.checkChat(c);
+		Chat checkChat2 = cService.checkChat2(c);
+		
+		if(checkChat == null && checkChat2 == null) {
+			
+			int result = cService.createChat(c);
+			Chat checkChat3 = cService.checkChat(c);
+			
+			int chatId = checkChat3.getChatId();
+
+			
+			List<ChatHistory> chList = cService.selectChat(chatId);
+			
+			mv.addObject("chatId", chatId);
+			mv.addObject("chList", chList);
+			mv.setViewName("chat/chat");
+			
+		} else if(checkChat != null) {
+			
+			int chatId = checkChat.getChatId();
+			List<ChatHistory> chList = cService.selectChat(chatId);
+			
+			mv.addObject("chatId", chatId);
+			mv.addObject("chList", chList);
+			mv.setViewName("chat/chat");
+		} else {
+			
+			int chatId = checkChat2.getChatId();
+			List<ChatHistory> chList = cService.selectChat(chatId);
+			
+			mv.addObject("chatId", chatId);
+			mv.addObject("chList", chList);
+			mv.setViewName("chat/chat");
+		}
+		
+		
+		
+		return mv;
+	}
 	// 채팅 차단
 	@RequestMapping("/blockChat")
 	public ModelAndView blockChat(@RequestParam int chatId, ModelAndView mv, HttpSession session) {
@@ -179,6 +232,26 @@ public class ChatController {
 		}
 		mv.setViewName("chat/room");
 		return mv;
+	}
+	
+	@GetMapping("/reportUser")
+	public String reportUser(int chid, Model model, HttpSession session) {
+		
+		Account loginUser = (Account) session.getAttribute("loginUser");
+		String accountId = loginUser.getAid();
+
+		Chat c = cService.blockCheck(chid);
+		
+		if(c.getAccountId() == accountId) {
+			model.addAttribute("accountId2", c.getAccountId2());
+		} else {
+			model.addAttribute("accountId2", c.getAccountId());
+		}
+		
+		model.addAttribute("accountId", accountId);
+		model.addAttribute("chid", chid);
+		
+		return "/board/reportPage";
 	}
 	
 }
