@@ -80,6 +80,8 @@ public interface BoardDao {
 	
 	List<Reply> selectReplyList(int board_id);
 
-
+	void insertReply2(Reply r);
+	// 대댓글
+	List<Reply> selectReply2List(int board_id);
 
 }

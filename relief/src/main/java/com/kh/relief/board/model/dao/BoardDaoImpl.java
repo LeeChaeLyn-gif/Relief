@@ -212,4 +212,14 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Reply> selectReplyList(int board_id) {
 		return sqlSession.selectList("boardMapper.selectReplyList", board_id);
 	}
+	
+	@Override
+	public void insertReply2(Reply r) {
+		sqlSession.insert("boardMapper.insertReply2", r);
+	}
+
+	@Override
+	public List<Reply> selectReply2List(int board_id) {
+		return sqlSession.selectList("boardMapper.selectReply2List", board_id);
+	}
 }

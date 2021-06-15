@@ -91,17 +91,30 @@ textarea{
       width : 600px;
       line-height : 2.5;
       border-collapse : collapse;
+      border : 1px solid lightgray;
    }
+   
+#replyTable th {
+	border : 1px solid lightgray;
+}
+
+#replyTable tr {
+	border : 1px solid lightgray;
+}
+
 #replyTable th:nth-child(1) {
       width : 70px;
+      text-align:center;
    }
    
    #replyTable th:nth-child(2) {
       width : 430px;
+      text-align:center;
    }
    
    #replyTable th:nth-child(3) {
       width : 100px;
+      text-align:center;
    }
 
 .reviewTable{
@@ -272,6 +285,25 @@ textarea{
 	
 }
 
+#clabel{
+	font-size : 25px;
+	margin-right : 10px;
+	margin-left : 10px;
+}
+
+select { 
+
+	padding: 5px 5px;
+	font-family: inherit;
+	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+	border: 1px solid #999; 
+	border-radius: 0px;
+	-webkit-appearance: none;
+	-moz-appearance: none; 
+	appearance: none; 
+}
+
+
 /* 이미지 슬라이드 */
 /*GLOBALS*/
 * {
@@ -429,27 +461,35 @@ textarea{
 		<div class="part2">
 			<div class="category-box">
 				<form>
-					<label for="category">카테고리</label> <select id="category1"
-						name="category1">
+					<label for="category" id="clabel">카테고리</label> 
+					<select id="category1" name="category1">
 						<option value="">카테고리 1</option>
 						<c:forEach items="${ clist }" var="c">
 						<c:if test="${ c.cgroup == 1 }">
-							<option value="#">${ c.cname }</option>
+							<option value="${ c.cid }" <c:if test="${ c.cid == firstCid }">selected</c:if>>
+                		 ${ c.cname }
+                		 </option>  
 							</c:if>
 						</c:forEach>
 						
-					</select> <select id="category2" name="category2">
+					</select> 
+					<select id="category2" name="category2">
 						<option value="">카테고리 2</option>
 						<c:forEach items="${ clist }" var="c">
 						<c:if test="${ c.cgroup == 2 }">
-							<option value="#">${ c.cname }</option>
+							<option value="${ c.cid }" <c:if test="${ c.cid == secondCid }">selected</c:if>>
+                		 ${ c.cname }
+                		 </option>
 							</c:if>
 						</c:forEach>
-					</select> <select id="category3" name="category3">
+					</select> 
+					<select id="category3" name="category3">
 						<option value="">카테고리 3</option>
 						<c:forEach items="${ clist }" var="c">
 						<c:if test="${ c.cgroup == 3 }">
-							<option value="#">${ c.cname }</option>
+							<option value="${ c.cid }" <c:if test="${ c.cid == cid }">selected</c:if>>
+                		 ${ c.cname }
+                		 </option>
 							</c:if>
 						</c:forEach>
 					</select>
@@ -461,7 +501,7 @@ textarea{
 					<div id="wrapper">
 						<div id="slider-wrap">
 							<ul id="slider">
-								<c:forEach items="${ ilist }" var="i" begin="0" end="9">
+								<c:forEach items="${ ilist }" var="i">
 									<li>
 										<img src="${ contextPath }/resources/buploadFiles/${ i.renameFileName }">
 									</li>
@@ -542,8 +582,8 @@ textarea{
 					</div>
 					<div id="detail-btn">
 						<button class="wishbutton"><i class="fa fa-heart" aria-hidden="true"></i>찜버튼</button>
-						<button class="chatbutton" onclick="chat();"><i class="fa fa-commenting" aria-hidden="true"></i>채팅</button>
-						<button class="reportbutton" onclick="report();"><i class="fa fa-bell" aria-hidden="true"></i>신고하기</button>
+						<button class="chatbutton"><i class="fa fa-commenting" aria-hidden="true"></i>채팅</button>
+						<button class="reportbutton"><i class="fa fa-bell" aria-hidden="true"></i>신고하기</button>
 					</div>
 					<br>
 				</div>
@@ -596,11 +636,22 @@ textarea{
 								<tbody>
 								<c:if test="${ !empty relist }">
 									<c:forEach items="${ relist }" var="e">
-									<tr>
-										<td>${ e.aid }</td>
-										<td>${ e.title }</td>
-										<td>${ e.create_date }</td>
-									</tr>
+										<c:choose>
+											<c:when test="${ e.reply_id2 == 0 }">
+											<tr class="replytr">
+												<td>${ e.aid }<input type="hidden" name="rid" value="${ e.reply_id }"></td>
+												<td>${ e.title }</td>
+												<td>${ e.create_date }</td>
+											</tr>
+											</c:when>
+											<c:otherwise test="${ !empty relist2 }">
+												<tr>
+													<td>${ relist2.aid }</td>
+													<td>${ relist2.title }</td>
+													<td>${ relist2.create_date }</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
 									</c:forEach>
 								</c:if>
 								<c:if test="${ empty relist }">
@@ -661,6 +712,24 @@ textarea{
 				var board_id = $("#board_id").val();
 				location.href="${ contextPath }/board/wish?board_id=" + board_id;
 			});
+			
+			
+			$(function(){
+	    		$("#category1").on('change', function(){
+	    			var cid = $("#category1 option:selected").val();
+	    			location.href="${ contextPath }/board/category1?cid=" + cid;
+	    		})
+	    		
+	    		$("#category2").on('change', function(){
+	    			var cid = $("#category2 option:selected").val();
+	    			location.href="${ contextPath }/board/category2?cid=" + cid;
+	    		})
+	    		
+	    		$("#category3").on('change', function(){
+	    			var cid = $("#category3 option:selected").val();
+	    			location.href="${ contextPath }/board/category3?cid=" + cid;
+	    		})
+	    	})
 
 			</script>
 		</div>
@@ -695,104 +764,113 @@ textarea{
 				}
 			});
 		});
-	</script>
-	<script>
-		var pos = 0;
-		var totalSlides = $('#slider-wrap ul li').length;
-		var sliderWidth = $('#slider-wrap').width();
-
-		$(document).ready(function() {
-			$('#slider-wrap ul#slider').width(sliderWidth * totalSlides);
-
-			$('#next').click(function() {
-				slideRight();
-			});
-
-			$('#previous').click(function() {
-				slideLeft();
-			});
-			
-			var autoSlider = setInterval(slideRight, 3000);
-
-			$.each($('#slider-wrap ul li'), function() {
-
-				var li = document.createElement('li');
-				$('#pagination-wrap ul').append(li);
-			});
-
-			countSlides();
-
-			pagination();
-
-			$('#slider-wrap').hover(function() {
-				$(this).addClass('active');
-				clearInterval(autoSlider);
-			}, function() {
-				$(this).removeClass('active');
-				autoSlider = setInterval(slideRight, 3000);
-			});
+		
+		$(".replytr").one("click", function(){
+			var rid = $(this).find("input[name=rid]").val();
+			var str = "<tr class='replytr2'><td colspan='3'><textarea width='400' class='replyText'></textarea><button onclick='addReply("+rid+")' type='button'>답글달기</button></td></tr>";
+			$(this).after(str);
+			var submenu = $(this).next("tr");
 
 		});
-
-		function slideLeft() {
-			pos--;
-			if (pos == -1) {
-				pos = totalSlides - 1;
-			}
-			$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
-
-			countSlides();
-			pagination();
-		}
-
-		function slideRight() {
-			pos++;
-			if (pos == totalSlides) {
-				pos = 0;
-			}
-			$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
-
-			countSlides();
-			pagination();
-		}
-
-			$('#counter').html(pos + 1 + ' / ' + totalSlides);
-		}
-
-		function pagination() {
-			$('#pagination-wrap ul li').removeClass('active');
-			$('#pagination-wrap ul li:eq(' + pos + ')').addClass('active');
-		}
 		
-		function chat(){
-			var _width = '650';
-		    var _height = '380';
-			var _left = Math.ceil(( window.screen.width - _width ));
-			var _top = Math.ceil(( window.screen.height - _height )/2);
-			var accountId2 = $(".accountId").text();
+		function addReply(rid){
+			var title = $(".replyText").val();
+			var bid = ${ board.board_id };
 			
-			if('${loginUser.aid}' === '${board.account_id}'){
-				alert("자신과는 채팅이 불가능합니다.");
-			} else {
-			window.open("${contextPath}/createChat?accountId2=" + accountId2, "", "width=550, height=600, left=" + _left + ", top=" + _top);
-			}
-			
+			$.ajax({
+				url : "${ contextPath }/board/insertReply2",
+				data : { title : title, bid : bid, rid : rid },
+				type : "post",
+				dataType : "json",
+				success : function(data){
+/* 					tableBody = $("#replyTable tbody");
+					tableBody.html("");
+					
+					for(var i in data){
+						tr = $("<tr>");
+						account = $("<td width='70'>").tesxt(data[i].aid);
+						content = $("<td>").text(data[i].title);
+						createDate = $("<td width='100'>").text(data[i].create_date);
+						tr.append(account, content, createDate);
+						tableBody.append(tr);
+					} */
+					
+					$(".replyText").val("");
+				}
+			})
 		}
-		
-		function report(){
-			var _width = '650';
-		    var _height = '380';
-			var _left = Math.ceil(( window.screen.width - _width ));
-			var _top = Math.ceil(( window.screen.height - _height )/2);
-			var accountId2 = $(".accountId").text();
-			var bid = ${board.board_id};
-			
-			if('${loginUser.aid}' === '${board.account_id}'){
-				alert("자신은 신고가 불가능합니다.");
-			} else {
-			window.open("${contextPath}/board/reportUser?accountId2=" + accountId2 + "&bid=" + bid, "", "width=500, height=400, left=" + _left + ", top=" + _top);
-			}		
-		}
+
+	</script>
+	<script>
+
+	var pos = 0;
+
+	var totalSlides = $('#slider-wrap ul li').length;
+
+	var sliderWidth = $('#slider-wrap').width();
+
+
+	$(document).ready(function(){
+	  
+	  $('#slider-wrap ul#slider').width(sliderWidth*totalSlides);
+	  
+	  $('#next').click(function(){
+	    slideRight();
+	  });
+	  
+	  $('#previous').click(function(){
+	    slideLeft();
+	  });
+	  
+	  
+	  var autoSlider = setInterval(slideRight, 3000);
+	  
+	  $.each($('#slider-wrap ul li'), function() { 
+
+	     var li = document.createElement('li');
+	     $('#pagination-wrap ul').append(li);    
+	  });
+	  
+	  countSlides();
+	  
+	  pagination();
+	  
+	  $('#slider-wrap').hover(
+	    function(){ $(this).addClass('active'); clearInterval(autoSlider); }, 
+	    function(){ $(this).removeClass('active'); autoSlider = setInterval(slideRight, 3000); }
+	  );
+
+	});
+	  
+
+	function slideLeft(){
+	  pos--;
+	  if(pos==-1){ pos = totalSlides-1; }
+	  $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos));  
+	  
+	  countSlides();
+	  pagination();
+	}
+
+
+	function slideRight(){
+	  pos++;
+	  if(pos==totalSlides){ pos = 0; }
+	  $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos)); 
+	  
+
+	  countSlides();
+	  pagination();
+	}
+
+	function countSlides(){
+	  $('#counter').html(pos+1 + ' / ' + totalSlides);
+	}
+
+	function pagination(){
+	  $('#pagination-wrap ul li').removeClass('active');
+	  $('#pagination-wrap ul li:eq('+pos+')').addClass('active');
+	}
 	</script>
 	
 </body>

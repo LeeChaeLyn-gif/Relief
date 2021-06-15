@@ -6,21 +6,9 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-
-import java.util.ArrayList;
-import java.util.List;
-
-
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +39,6 @@ import com.kh.relief.account.model.vo.Account;
 import com.kh.relief.admin.model.serivce.AdminService;
 import com.kh.relief.admin.model.vo.Category;
 import com.kh.relief.admin.model.vo.Report;
-import com.kh.relief.admin.model.vo.Notice;
 import com.kh.relief.board.Pagination;
 import com.kh.relief.board.model.service.BoardService;
 import com.kh.relief.board.model.vo.Board;
@@ -62,13 +49,6 @@ import com.kh.relief.board.model.vo.PageInfo;
 import com.kh.relief.board.model.vo.Reply;
 import com.kh.relief.board.model.vo.SearchBoard;
 import com.kh.relief.board.model.vo.Sort;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.kh.relief.board.model.exception.BoardException;
 import com.kh.relief.board.model.vo.Wish;
 import com.kh.relief.review.model.vo.Review;
 
@@ -497,12 +477,25 @@ public class BoardController {
 			Category c = bService.selectCategory1(b.getCategory_id());
 			b.setRenameFileName(ilist.get(0).getRenameFileName());
 			List<Review> rlist = bService.selectrList(b.getAccount_id());
+			List<Reply> relist = bService.selectReplyList(board_id);
+			// 검색 물품 카테고리 가져오기
+			int cid = b.getCategory_id();
+			Category c1 = bService.selectCategory1(cid);
+			// 2차 카테고리 id
+			int secondCid = c1.getCid2();
+			// 1차 카테고리 id
+			Category c2 = bService.selectCategory1(secondCid);
+			int firstCid = c2.getCid2();
 			model.addAttribute("c", c);
 			model.addAttribute("clist", clist);
 			model.addAttribute("board", b);
 			model.addAttribute("ilist", ilist);
 			model.addAttribute("rlist", rlist);
+			model.addAttribute("relist", relist);
 			model.addAttribute("comlist", comlist);
+			model.addAttribute("secondCid", secondCid);
+			model.addAttribute("firstCid", firstCid);
+			model.addAttribute("cid", cid);
 			return "board/detailPage";
 		} else {
 			model.addAttribute("msg", "게시글 상세보기에 실패했습니다.");
@@ -714,5 +707,22 @@ public class BoardController {
 
 		return gson.toJson(relist);
 	}
+	
+	// 대댓글 작성
+	@PostMapping(value = "/insertReply2", produces = "application/json; charset=utf-8")
+	public @ResponseBody String insertReply2(Reply r, HttpSession session, int rid) {
+		Account loginUser = (Account) session.getAttribute("loginUser");
+		String rAid = loginUser.getAid();
+		r.setAid(rAid);
+		r.setReply_id2(rid);
+		System.out.println(r);
+		System.out.println(rid);
+		List<Reply> relist2 = bService.insertReply2(r);
+
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+
+		return gson.toJson(relist2);
+	}
+	
 
 }

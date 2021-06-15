@@ -197,5 +197,15 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.selectReplyList(board_id);
 	}
 
-	
+	@Override
+	public List<Reply> insertReply2(Reply r) {
+		bDao.insertReply2(r);
+		return bDao.selectReply2List(r.getBid());
+	}
+
+	@Override
+	public List<Reply> selectReply2List(int board_id) {
+		return bDao.selectReply2List(board_id);
+	}
+
 }

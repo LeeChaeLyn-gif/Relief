@@ -712,4 +712,45 @@
 		  , #{reply_id2}
 		)
 	</insert>
+	
+	<insert id="insertReply2" parameterType="Reply">
+		INSERT
+			INTO
+		REPLY
+		(
+			REPLY_ID
+		  , BOARD_ID
+		  , ACCOUNT_ID
+		  , TITLE
+		  , CREATE_DATE
+		  , MODIFY_DATE
+		  , STATUS
+		  , REPLY_ID2
+		)
+		VALUES
+		(
+			SEQ_CMID.NEXTVAL
+		  , #{bid}
+		  , #{aid}
+		  , #{title}
+		  , SYSDATE
+		  , SYSDATE
+		  , DEFAULT
+		  , #{reply_id2}
+		)
+	</insert>
+	
+	<select id="selectReply2List" parameterType="_int" resultMap="ReplyResultSet">
+ 		SELECT
+		  , ACCOUNT_ID
+		  , TITLE
+		  , CREATE_DATE
+		FROM
+			REPLY
+		WHERE
+			REPLY_ID2 = #{ reply_id }
+		AND STATUS = 'Y'
+		ORDER BY
+			REPLY_ID DESC
+ 	</select>
  </mapper>
