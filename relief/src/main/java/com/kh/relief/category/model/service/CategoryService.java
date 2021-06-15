@@ -6,6 +6,5 @@ import com.kh.relief.category.model.vo.Category;
 
 public interface CategoryService {
 
-	public List<Category> selectClist();
 
 }

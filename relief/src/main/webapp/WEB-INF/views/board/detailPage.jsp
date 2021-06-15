@@ -23,6 +23,10 @@ div {
 	display: block;
 }
 
+h1,h2,h3,h4,h5{
+	color : rgb(52, 73, 94) !important;
+}
+
 .part1 {
 	width: 10%;
 	height: 100%;
@@ -56,6 +60,7 @@ div {
 	width: 500px;
 	height: 410px;
 	display: inline-block;
+	margin-left : 20px;
 }
 
 .category-box {
@@ -71,7 +76,54 @@ div {
 	padding-top : 5px;
 }
 
+textarea{
+	width : 600px;
+	height : 100px;
+}
 
+.btn {
+	color : white;
+	background : rgb(52, 73, 94);
+}
+
+#replyTable{
+      text-align:center;
+      width : 600px;
+      line-height : 2.5;
+      border-collapse : collapse;
+   }
+#replyTable th:nth-child(1) {
+      width : 70px;
+   }
+   
+   #replyTable th:nth-child(2) {
+      width : 430px;
+   }
+   
+   #replyTable th:nth-child(3) {
+      width : 100px;
+   }
+
+.reviewTable{
+	border : 1px solid lightgray;
+	margin-bottom : 5px;
+	width : 330px;
+	height : 50px;
+}
+
+.reviewTable th{
+	padding: 5px;
+	width : 320px;
+	white-space : nowrap;
+	overflow : hidden;
+	text-overflow : ellipsis;
+}
+.reviewTable td{
+	padding: 5px;
+}
+.reviewBtn{
+	text-align : right;
+}
 /* 버튼 */
 .wishbutton, .chatbutton, .reportbutton {
 	background-color: rgb(52, 73, 94);
@@ -146,11 +198,11 @@ div {
 }
 
 .content1{
-	width : 64%;
+	width : 70%;
 	display : inline-block;
 }
 .content2{
-	width : 34%;
+	width : 28%;
 	float : right;
 }
 
@@ -194,20 +246,20 @@ div {
 }
 
 .detailInfo{
-	width : 250px;
+	width : 300px;
 	border : 1px solid lightgray;
 	display : inline-block;
 	text-align : center;
 }
 
 .info_area{
-	width : 45%;
+	width : 55%;
 	float : left;
 	border-right : 1px solid lightgray;
 }
 
 .info_category{
-	width : 55%;
+	width : 45%;
 	float : left;
 	text-align : center;
 }
@@ -216,7 +268,7 @@ div {
 	width : 100%;
 	height : 35px;
 	padding-top : 5px;
-	background : lightgray;
+	background : rgb(52, 73, 94);
 	
 }
 
@@ -409,7 +461,7 @@ div {
 					<div id="wrapper">
 						<div id="slider-wrap">
 							<ul id="slider">
-								<c:forEach items="${ ilist }" var="i">
+								<c:forEach items="${ ilist }" var="i" begin="0" end="9">
 									<li>
 										<img src="${ contextPath }/resources/buploadFiles/${ i.renameFileName }">
 									</li>
@@ -480,7 +532,7 @@ div {
 						<Br>
 						<h2 id="price"></h2>
 						<br>
-						<p id="create_date">찜목록 / 조회수 : ${ board.count } / 글올린시간 : <script>document.write(interval());</script></p>
+						<p id="create_date">조회수 : ${ board.count } / 글올린시간 : <script>document.write(interval());</script></p>
 						<input type="hidden" id="board_id" value="${ board.board_id }">
 						<h5 class="sub"></h5>
 						<br>
@@ -504,19 +556,19 @@ div {
 					</div>
 					<br><br>
 					<div class="btn1">
-					<h1>상품 정보</h1><br>
-					<h4>${ board.content }</h4>
+					<h4 style="font-weight : bold;">상품 정보</h4><hr><br>
+					<h5>${ board.content }</h5>
 					<br>
 					<hr>
 					<br>
 					<div class="detailInfo">
 						<div class="info_area">
-						<div class="infoValue"><h5>거래지역</h5></div>
+						<div class="infoValue"><h5 style="color : white !important;">거래지역</h5></div>
 						${ board.area }
 						</div>
 						<div class="info_category">
-						<div class="infoValue"><h5>카테고리</h5></div>
-						${ category.cname }
+						<div class="infoValue"><h5 style="color : white !important;">카테고리</h5></div>
+						${ c.cname }
 						</div>
 					</div>
 					</div>
@@ -524,17 +576,65 @@ div {
 					<hr>
 					<br>
 					<div>
-					<h4 class="btn2">상품 문의</h4>
-					<p>상품 문의합니다</p><br><br><br><br><br><br><br><br><br>
+					<h4 class="btn2" style="font-weight : bold;">상품 문의</h4><hr>
+					<br>
+					<h5>상품 문의 댓글</h5>
+						<textarea id="replyContent" style="resize : none;"></textarea>
+						<br>
+						<button class="btn" id="addReply">댓글 등록</button>
+
+						<br><hr><br>
+						<div class="replySelectArea">
+							<table id="replyTable">
+								<thead>
+									<tr>
+										<th>작성자</th>
+										<th>내용</th>
+										<th>작성일</th>
+									</tr>
+								</thead>
+								<tbody>
+								<c:if test="${ !empty relist }">
+									<c:forEach items="${ relist }" var="e">
+									<tr>
+										<td>${ e.aid }</td>
+										<td>${ e.title }</td>
+										<td>${ e.create_date }</td>
+									</tr>
+									</c:forEach>
+								</c:if>
+								<c:if test="${ empty relist }">
+								<tr>
+									<td colspan="3">작성 된 댓글이 없습니다.</td>
+								</tr>
+								</c:if>
+								</tbody>
+							</table>
+						</div>
+					<br><br><br><br><br><br><br><br><br>
 					</div>
 				</div>
 				<div class="content2">
 					<div class="sellerinfo"><p style="font-weight : bold">판매자 정보</p></div>
 					<hr>
-					<h4>판매자 이름</h4>
-					<p class="accountId">${ board.account_id }</p>
+					<h4>판매자 아이디</h4>
+					<p>${ board.account_id }</p>
 					<hr>
 					<h4>리뷰</h4>
+					<c:forEach items="${ rlist }" begin="0" end="2" var="r">
+					<table class="reviewTable">
+					<tr>
+					<th colspan="2"><p>${ r.content }</p></th>
+					</tr>
+					<tr>
+					<td><p>${ r.consumer_id }</p></td>
+					<td align="right"><p>${ r.create_date }</p></td>
+					</tr>
+					</table>
+					</c:forEach>
+					<div class="reviewBtn">
+					<button class="btn">더보기</button>
+					</div>
 				</div>
 			</div>
 			<script>
@@ -544,6 +644,8 @@ div {
 					e.preventDefault(); 
 					document.querySelector('.btn' + (i + 1)).scrollIntoView(true); }); 
 				}
+			
+			
 			
 			$(document).ready(function(){
 
@@ -564,54 +666,64 @@ div {
 		</div>
 		<div class="part3"></div>
 	</div>
+	
 	<script>
-		//current position
+		$("#addReply").on("click", function(){
+			var title = $("#replyContent").val();
+			var bid = ${ board.board_id };
+			
+			$.ajax({
+				url : "${ contextPath }/board/insertReply",
+				data : { title : title, bid : bid },
+				type : "post",
+				dataType : "json",
+				success : function(data){
+					tableBody = $("#replyTable tbody");
+					tableBody.html("");
+					
+					for(var i in data){
+						tr = $("<tr>");
+						account = $("<td width='70'>").text(data[i].aid);
+						content = $("<td>").text(data[i].title);
+						createDate = $("<td width='100'>").text(data[i].create_date);
+						
+						tr.append(account, content, createDate);
+						tableBody.append(tr);
+					}
+					
+					$("#replyContent").val("");
+				}
+			});
+		});
+	</script>
+	<script>
 		var pos = 0;
-		//number of slides
 		var totalSlides = $('#slider-wrap ul li').length;
-		//get the slide width
 		var sliderWidth = $('#slider-wrap').width();
 
 		$(document).ready(function() {
-
-			/*****************
-			BUILD THE SLIDER
-			 *****************/
-			//set width to be 'x' times the number of slides
 			$('#slider-wrap ul#slider').width(sliderWidth * totalSlides);
 
-			//next slide  
 			$('#next').click(function() {
 				slideRight();
 			});
 
-			//previous slide
 			$('#previous').click(function() {
 				slideLeft();
 			});
-
-			/*************************
-			//*> OPTIONAL SETTINGS
-			 ************************/
-			//automatic slider
+			
 			var autoSlider = setInterval(slideRight, 3000);
 
-			//for each slide 
 			$.each($('#slider-wrap ul li'), function() {
 
-				//create a pagination
 				var li = document.createElement('li');
 				$('#pagination-wrap ul').append(li);
 			});
 
-			//counter
 			countSlides();
 
-			//pagination
 			pagination();
 
-			//hide/show controls/btns when hover
-			//pause automatic slide when hover
 			$('#slider-wrap').hover(function() {
 				$(this).addClass('active');
 				clearInterval(autoSlider);
@@ -620,11 +732,8 @@ div {
 				autoSlider = setInterval(slideRight, 3000);
 			});
 
-		});//DOCUMENT READY
+		});
 
-		/***********
-		SLIDE LEFT
-		 ************/
 		function slideLeft() {
 			pos--;
 			if (pos == -1) {
@@ -632,14 +741,10 @@ div {
 			}
 			$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
 
-			//*> optional
 			countSlides();
 			pagination();
 		}
 
-		/************
-		SLIDE RIGHT
-		 *************/
 		function slideRight() {
 			pos++;
 			if (pos == totalSlides) {
@@ -647,15 +752,10 @@ div {
 			}
 			$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
 
-			//*> optional 
 			countSlides();
 			pagination();
 		}
 
-		/************************
-		//*> OPTIONAL SETTINGS
-		 ************************/
-		function countSlides() {
 			$('#counter').html(pos + 1 + ' / ' + totalSlides);
 		}
 

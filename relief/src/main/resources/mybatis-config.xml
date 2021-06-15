@@ -36,6 +36,8 @@
    		<typeAlias type="com.kh.relief.chat.model.vo.Room" alias="Room"/>
    		<typeAlias type="com.kh.relief.chat.model.vo.Block" alias="Block"/>
    		<typeAlias type="com.kh.relief.board.model.vo.BoardImage" alias="BoardImage"/>
+   		<typeAlias type="com.kh.relief.qna.model.vo.Qna" alias="Qna2"/>
+   		<typeAlias type="com.kh.relief.review.model.vo.Review" alias="Review"/>
    	</typeAliases>
    	
 	<!-- mappers -->
@@ -46,6 +48,7 @@
 		<mapper resource="mappers/faq-mapper.xml"/>
 		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/mypage-mapper.xml"/>
+		<mapper resource="mappers/qna-mapper.xml"/>
 		<mapper resource="mappers/chat-mapper.xml"/>
 	</mappers>
 </configuration>

@@ -13,10 +13,6 @@ public class CategoryDaoImpl implements CategoryDao{
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@Override
-	public List<Category> selectClist() {
-		// return sqlSession.selectList("categoryMapper.selectClist");
-		return null;
-	}
+
 
 }

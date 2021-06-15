@@ -10,12 +10,6 @@ import com.kh.relief.category.model.vo.Category;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{
-	@Autowired
-	private CategoryDao cDao;
-	
-	@Override
-	public List<Category> selectClist() {
-		return cDao.selectClist();
-	}
+
 
 }

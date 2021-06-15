@@ -21,11 +21,14 @@ import org.springframework.stereotype.Service;
 
 import com.kh.relief.admin.model.vo.Category;
 import com.kh.relief.admin.model.vo.Report;
+import com.kh.relief.notice.model.vo.Notice;
+import com.kh.relief.review.model.vo.Review;
 import com.kh.relief.board.model.dao.BoardDao;
 import com.kh.relief.board.model.vo.Board;
 import com.kh.relief.board.model.vo.CategoryBoard;
 import com.kh.relief.board.model.vo.Image;
 import com.kh.relief.board.model.vo.PageInfo;
+import com.kh.relief.board.model.vo.Reply;
 import com.kh.relief.board.model.vo.SearchBoard;
 
 @Service
@@ -173,6 +176,25 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int reportUser3(Report r) {
 		return bDao.reportUser3(r);
+	}
+	public List<Notice> selectadList() {
+		return bDao.selectadList();
+	}
+
+	@Override
+	public List<Review> selectrList(String account_id) {
+		return bDao.selectrList(account_id);
+	}
+
+	@Override
+	public List<Reply> insertReply(Reply r) {
+		bDao.insertReply(r);
+		return bDao.selectReplyList(r.getBid());
+	}
+
+	@Override
+	public List<Reply> selectReplyList(int board_id) {
+		return bDao.selectReplyList(board_id);
 	}
 
 	

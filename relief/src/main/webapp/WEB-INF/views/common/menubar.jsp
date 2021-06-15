@@ -88,9 +88,19 @@
 							<div class="input-group">
 								<input type="text" class="form-control" name="searchValue" placeholder="상품명, 지역명 검색" <c:if test="${ !empty searchValue }"> value="${searchValue }"</c:if>>
 								<button class="input-group-addon" type="submit"><i class="fa fa-search"></i></button>
+								<c:choose>
+								<c:when test="${ empty sessionScope.loginUser }">
+								<button class="input-group-addon" type="button" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')"><i class="fa fa-search" id="submitBtn"></i></button>
+								
+								</c:when>
+								<c:otherwise>
+								<button class="input-group-addon" type="submit"><i class="fa fa-search" id="submitBtn"></i></button>
+								</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</form>	
+					
 				</div>
 				<!-- End Top Search -->
 			</div>
@@ -105,13 +115,15 @@
 							<c:when test="${ empty sessionScope.loginUser }">
 							<li><a href="${ contextPath }/home"  onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')">판매하기</a></li>
 							<li><a href="#pricing">고객센터</a></li>
+							<li><a href="${ contextPath }/qna/list">Q&A리스트</a></li>
 							</c:when>
 							<c:when test="${ loginUser.aid eq 'admin' }">
 							<li><a href="${ contextPath }/admin/main">관리자페이지</a></li>
 							</c:when>
 							<c:otherwise>
 							<li><a href="${ contextPath }/board/insertPage">판매하기</a></li>
-							<li><a href="#about">마이페이지</a></li>
+							<li><a href="${ contextPath }/qna/list">Q&A리스트</a></li>
+							<li><a href="${ contextPath }/mypage">마이페이지</a></li>
 							<li><a href="#pricing">고객센터</a></li>
 							</c:otherwise>
 						</c:choose>
@@ -125,16 +137,16 @@
 				<ul class="M01">
 					<c:forEach items="${ clist }" var="c">
 						<c:if test="${ c.cgroup == 1 }">
-							<li><a href="#">${ c.cname }</a>
+							<li><a href="${ contextPath }/board/category1?cid=${c.cid}">${ c.cname }</a>
 								<ul class="M02">
 								<c:forEach  items="${ clist }" var="c">
 									<c:if test="${ c.cgroup == 2 }">
 									
-											<li><a href="#">${ c.cname }</a>
+											<li><a href="${ contextPath }/board/category2?cid=${c.cid}">${ c.cname }</a>
 											<ul class="M03">
 											<c:forEach  items="${ clist }" var="c">
 												<c:if test="${ c.cgroup == 3 }">
-														<li><a href="#">${ c.cname }</a></li>
+														<li><a href="${ contextPath }/board/category3?cid=${c.cid}">${ c.cname }</a></li>
 												</c:if>
 											</c:forEach>
 											</ul>
@@ -191,7 +203,9 @@
 				window.open("${ contextPath }/list", "", "width=500, height=600, left=" + _left + ", top=" + _top);
 			});
 
-
+		function category1(cid){
+			location.href="${ contextPath }/board/category1?cid="+cid;
+		}
 	</script>
 
 	<script src="<c:url value="/resources/css/assets/js/plugins.js"/>"></script>

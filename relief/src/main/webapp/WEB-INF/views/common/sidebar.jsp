@@ -59,7 +59,7 @@
 }
 #recentlist{
 	width : 90px;
-	min-height : 200px;
+	min-height : 100px;
 	display : inline-block;
 	border : 1px solid lightgray;
 	margin-top : 10px;
@@ -74,6 +74,18 @@
 
 #content_3{
 	margin-top : 200px;
+}
+
+#rlist{
+	width : 90px;
+	min-height : 100px;
+}
+
+#rlist img{
+	width : 70px;
+	height : 70px;
+	margin : 5px;
+	border : 1px solid lightgray;
 }
 </style>
 </head>
@@ -90,7 +102,9 @@
 				<div id="recentlist">
 					<h6>최근 본 상품</h6>
 					<div id="rlist">
-
+						
+						
+						
 					</div>
 				</div>
 				<br>
@@ -118,13 +132,13 @@
 				}
 			})
 			
-			function getCookie(name) { 
-			     var nameOfCookie = name + "="; 
+			function getCookie(bId) { 
+			     var bidOfCookie = bId + "="; 
 			     var x = 0;
 			     while (x <= document.cookie.length) { 
-			          var y = (x + nameOfCookie.length); 
-			          if (document.cookie.substring(x, y) == nameOfCookie) { 
-			               if ((endOfCookie = document.cookie.indexOf(";", y)) == -1) 
+			          var y = (x + bidOfCookie.length); 
+			          if (document.cookie.substring(x, y) == bidOfCookie) { 
+			               if ((endOfCookie = document.cookie.indexOf(",", y)) == -1) 
 			                    endOfCookie = document.cookie.length; 
 			               return unescape(document.cookie.substring(y, endOfCookie)); 
 			          }
@@ -139,7 +153,29 @@
 			if (cookie != "") {
 			}
 
+			const cArr = cookie;
+			const arr = cArr.split(",");
+
+			console.log(arr);
+			for(var i in arr){
+
+				if(i%2 == 1){
+					
+				var fileimg = arr;
+				document.getElementById('rlist').innerHTML += "<a href='${contextPath}/board/detail?board_id=" + fileimg[i-1] + "'><img id='rlist_img' onclick='img_detail()' src='${contextPath}/resources/buploadFiles/" + decodeURIComponent(fileimg[i]) + "'/></a>";
+
+				
+				if(i > 5){
+					$("#rlist_img").eq(0).remove();
+				}
+				
+				i++;
+				}
+				
+				
+			}
 			})
+			
 			
 		
 

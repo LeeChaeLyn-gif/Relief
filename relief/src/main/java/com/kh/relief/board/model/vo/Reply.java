@@ -14,12 +14,12 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Reply {
-	   private int reply_id;
-	   private int bid;
-	   private String aid;
-	   private String title;
-	   private Date create_date;
-	   private Date modify_date;
-	   private String status;
-	   private int reply_id2;
+	private int reply_id;
+	private int bid;
+	private String aid;
+	private String title;
+	private Date create_date;
+	private Date modify_date;
+	private String status;
+	private int reply_id2;
 }

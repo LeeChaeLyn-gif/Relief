@@ -4,11 +4,14 @@ import java.util.List;
 
 import com.kh.relief.admin.model.vo.Category;
 import com.kh.relief.admin.model.vo.Report;
+import com.kh.relief.notice.model.vo.Notice;
+import com.kh.relief.review.model.vo.Review;
 import com.kh.relief.board.model.vo.Board;
 import com.kh.relief.board.model.vo.BoardImage;
 import com.kh.relief.board.model.vo.CategoryBoard;
 import com.kh.relief.board.model.vo.Image;
 import com.kh.relief.board.model.vo.PageInfo;
+import com.kh.relief.board.model.vo.Reply;
 import com.kh.relief.board.model.vo.SearchBoard;
 import com.kh.relief.board.model.vo.Board;
 import com.kh.relief.board.model.vo.Image;
@@ -68,10 +71,15 @@ public interface BoardDao {
 	int reportUser(Report r);
 	int reportUser2(Report r);
 	int reportUser3(Report r);
+	
+	List<Notice> selectadList();
+	
+	List<Review> selectrList(String account_id);
+	
+	void insertReply(Reply r);
+	
+	List<Reply> selectReplyList(int board_id);
 
-//	List<Board> searchList(Search search);
-
-//	List<Wish> selectWlist();
 
 
 }

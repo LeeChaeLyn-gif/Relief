@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"/>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -9,6 +10,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+
+	* {
+		box-sizing: border-box;
+		}
+		
+	div {
+			border: 1px solid transparent;
+			display: block;
+		}
      body{
              height: 100%;
              width: 100%;
@@ -104,9 +114,8 @@
  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-	<jsp:include page="../common/menubar.jsp" />
-	<jsp:include page="../common/sidebar.jsp" /><br>
-	<br><br><br><br><br><br><br><br><br>
+	<jsp:include page="../common/menubar.jsp"/>
+	<jsp:include page="../common/sidebar.jsp"/><br><br><br><br><br><br><br><br><br>
 	<div class="main">
         <div class="result">
             <div class="searchResult">
@@ -331,6 +340,10 @@
     			location.href="${ contextPath }/board/category3?cid=" + cid;
     		})
     		
+    		function detailPage(board_id){
+    			location.href="${ contextPath}/board/detail?board_id=" + board_id;
+    		}
+    	})
     </script>
 </body>
 </html>
