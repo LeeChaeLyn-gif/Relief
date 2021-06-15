@@ -76,9 +76,5 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public int findPwdUpdate(Account a) {
 		return aDao.findPwdUpdate(a);
-	}
-
-	
-
-	
+	}	
 }

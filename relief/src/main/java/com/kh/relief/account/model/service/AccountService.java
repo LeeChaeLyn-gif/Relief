@@ -27,5 +27,5 @@ public interface AccountService {
 	Account findPwd(Account a);
 
 	int findPwdUpdate(Account a);
-
+	// 1
 }

@@ -70,4 +70,5 @@ public class AccountDaoImpl implements AccountDao{
 	public int findPwdUpdate(Account a) {
 		return sqlSession.update("accountMapper.findPwdUpdate", a);
 	}
+	// 1
 }
