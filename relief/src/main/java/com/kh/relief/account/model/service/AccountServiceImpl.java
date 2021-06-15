@@ -1,5 +1,4 @@
 package com.kh.relief.account.model.service;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +8,9 @@ import com.kh.relief.account.model.vo.Account;
 
 import com.kh.relief.account.model.dao.AccountDao;
 import com.kh.relief.account.model.vo.Account;
-
 @Service
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
+
 
 	@Autowired
 	private AccountDao aDao;
@@ -76,8 +75,5 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public int findPwdUpdate(Account a) {
 		return aDao.findPwdUpdate(a);
-	}
-
+	}	
 }
-
-	

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration PUBLIC
+ "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<!-- settings -->
+	<settings>
+		<!-- 만약에 null로 데이터가 잘못 전달 되면 빈칸이 아닌 null로 인식 -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<!-- typeAliases -->
+   	<typeAliases>
+   		<typeAlias type="com.kh.relief.account.model.vo.Account" alias="Account"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Notice" alias="Notice"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Search" alias="search"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Category" alias="Category"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Report" alias="Report"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Qna" alias="Qna"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Faq" alias="Faq"/>
+   		<typeAlias type="com.kh.relief.board.model.vo.Reply" alias="Reply"/>
+   		<typeAlias type="com.kh.relief.admin.model.vo.Chart" alias="Chart"/>
+   		<typeAlias type="com.kh.relief.board.model.vo.Board" alias="Board"/>
+   		<typeAlias type="com.kh.relief.board.model.vo.SearchBoard" alias="SB"/>
+   		<typeAlias type="com.kh.relief.board.model.vo.Image" alias="Image"/>
+   		<typeAlias type="com.kh.relief.board.model.vo.CategoryBoard" alias="CB"/>
+		<typeAlias type="com.kh.relief.board.model.vo.Wish" alias="Wish"/>
+		<typeAlias type="com.kh.relief.board.model.vo.Image" alias="Image"/>
+		<typeAlias type="com.kh.relief.account.model.vo.T_History" alias="T_History"/>
+		<typeAlias type="com.kh.relief.account.model.vo.T_Status" alias="T_Status"/>
+		<typeAlias type="com.kh.relief.faq.model.vo.FAQ" alias="Faq2"/>
+		<typeAlias type="com.kh.relief.notice.model.vo.Notice" alias="Notice2"/>
+		<typeAlias type="com.kh.relief.chat.model.vo.Chat" alias="Chat"/>
+   		<typeAlias type="com.kh.relief.chat.model.vo.ChatHistory" alias="ChatHistory"/>
+   		<typeAlias type="com.kh.relief.chat.model.vo.Room" alias="Room"/>
+   		<typeAlias type="com.kh.relief.chat.model.vo.Block" alias="Block"/>
+   		<typeAlias type="com.kh.relief.board.model.vo.BoardImage" alias="BoardImage"/>
+   		<typeAlias type="com.kh.relief.qna.model.vo.Qna" alias="Qna2"/>
+   		<typeAlias type="com.kh.relief.review.model.vo.Review" alias="Review"/>
+   	</typeAliases>
+   	
+	<!-- mappers -->
+	<mappers>
+		<mapper resource="mappers/account-mapper.xml"/>
+		<mapper resource="mappers/admin-mapper.xml"/>
+		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/faq-mapper.xml"/>
+		<mapper resource="mappers/notice-mapper.xml"/>
+		<mapper resource="mappers/mypage-mapper.xml"/>
+		<mapper resource="mappers/qna-mapper.xml"/>
+		<mapper resource="mappers/chat-mapper.xml"/>
+	</mappers>
+</configuration>

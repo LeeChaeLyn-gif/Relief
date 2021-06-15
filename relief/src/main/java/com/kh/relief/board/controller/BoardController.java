@@ -119,27 +119,6 @@ public class BoardController {
 					bList.get(i).setRenameFileName(image.getRenameFileName());
 				}
 				
-				// 카테고리 리스트
-				List<Category> cList = bService.selectcList();
-				// 검색 물품 카테고리 가져오기
-				int cid = bList.get(0).getCategory_id();
-				Category c1 = bService.selectCategory1(cid);
-				// 2차 카테고리 id
-				int secondCid = c1.getCid2();
-				// 1차 카테고리 id
-				Category c2 = bService.selectCategory1(secondCid);
-				int firstCid = c2.getCid2();
-				
-				model.addAttribute("cList", cList);
-				model.addAttribute("clist", cList);
-				model.addAttribute("secondCid", secondCid);
-				model.addAttribute("firstCid", firstCid);
-				model.addAttribute("cid", cid);
-				model.addAttribute("bList", bList);
-				model.addAttribute("listCount", listCount);
-				model.addAttribute("searchValue", searchValue);
-				model.addAttribute("pi", pi);
-				return "/board/listPage";
 				
 		listCount = bService.selectbListCount(sb);
 		pi = Pagination.getPageInfo(currentPage, listCount);
@@ -178,6 +157,7 @@ public class BoardController {
 			return "/board/listPage";
 		}
 	}
+			}
 
 	@GetMapping("/sort")
 	public String sortList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
@@ -278,38 +258,6 @@ public class BoardController {
 
 		List<Board> bList = bService.selectbListFromCategory(cb, pi);
 		
-		if(!bList.isEmpty()) {
-		for(int i = 0; i < bList.size(); i++) {
-			Image image = bService.selectiList(bList.get(i).getBoard_id());
-			bList.get(i).setRenameFileName(image.getRenameFileName());
-		}
-		
-		// 카테고리 리스트
-		List<Category> cList = bService.selectcList();
-		// 검색 물품 카테고리 가져오기
-		int cid1 = bList.get(0).getCategory_id();
-		Category c3 = bService.selectCategory1(cid1);
-		// 2차 카테고리 id
-		int secondCid = c3.getCid2();
-		// 1차 카테고리 id
-		Category c4 = bService.selectCategory1(secondCid);
-		int firstCid = c4.getCid2();
-		
-		// 카테고리 이름 출력용
-		Category c5 = bService.selectCategory1(cid);
-		
-		model.addAttribute("cList", cList);
-		model.addAttribute("clist", cList);
-		model.addAttribute("secondCid", secondCid);
-		model.addAttribute("firstCid", firstCid);
-		model.addAttribute("cid", cid1);
-		model.addAttribute("bList", bList);
-		model.addAttribute("listCount", listCount);
-		model.addAttribute("categoryValue", cid);
-		model.addAttribute("categoryName", c5.getCname());
-		model.addAttribute("pi", pi);
-		return "/board/listPage";
-
 		if (!bList.isEmpty()) {
 			for (int i = 0; i < bList.size(); i++) {
 				Image image = bService.selectiList(bList.get(i).getBoard_id());
@@ -344,8 +292,8 @@ public class BoardController {
 			model.addAttribute("msg", "검색된 결과가 존재하지 않습니다.");
 			model.addAttribute("url", "/home");
 			return "/board/alertPage";
+			}
 		}
-	}
 
 	@GetMapping("/category2")
 	public String category2(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
