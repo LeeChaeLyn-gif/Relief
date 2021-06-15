@@ -50,6 +50,7 @@
 </head>
 <body>
 	<jsp:include page="listNavPage.jsp"/>
+	
 	<div id="wrap">
 		<h2 class="textClass paddingtop">비밀번호 확인</h2>
 		<hr>
@@ -66,6 +67,7 @@
 		var msg = '${msg}';
 		alert(msg);
 	}
+	
 	</script>
 </body>
 </html>

@@ -40,4 +40,6 @@ public interface MyPageDao {
 	Account memberInfo(Account a);
 
 	int updateMember(Account a, boolean flag);
+
+	int updatePull_Date(int board_id);
 }

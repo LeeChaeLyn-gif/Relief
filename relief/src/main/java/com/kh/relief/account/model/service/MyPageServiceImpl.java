@@ -96,6 +96,11 @@ public class MyPageServiceImpl implements MyPageService{
 		return myDao.updateMember(a, flag);
 	}
 
+	@Override
+	public int updatePull_Date(int board_id) {
+		return myDao.updatePull_Date(board_id);
+	}
+
 
 
 }

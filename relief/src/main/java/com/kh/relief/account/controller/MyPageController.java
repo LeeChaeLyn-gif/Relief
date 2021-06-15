@@ -61,6 +61,7 @@ public class MyPageController {
 			
 			Account a = myService.memberInfo(test);
 			String[] addr = a.getAddress().split(",");
+			
 			for(String tt : addr){
 				System.out.println(tt);
 			}
@@ -210,14 +211,11 @@ public class MyPageController {
 	
 	
 	
-	// 강사님께 여쭤보기
 	@GetMapping("/updateDate")
 	public String updateUp(@RequestParam("modify_date") Date date) {
 		System.out.println(date);
 		return "";
 	}
-	
-	
 	
 	
 	@GetMapping("/purchaseHistory")
@@ -305,7 +303,6 @@ public class MyPageController {
 								  Model model, HttpSession session) {
 		
 		int result = myService.unHide(t_history_id);
-		
 		
 		if(result > 0) {
 			return "redirect:/mypage/hiddenList";

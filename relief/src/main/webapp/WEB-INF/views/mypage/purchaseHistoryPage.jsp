@@ -52,6 +52,7 @@
 			      <th scope="col">판매자</th>
 			      <th scope="col">구매일</th>
 			      <th scope="col">기능</th>
+			      <th scope="col">리뷰</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -63,9 +64,21 @@
 					<td>${ t.seller_id }</td>
 					<td>${ t.t_date }</td>
 					<td>
-					<button type="button" class="btn btn-primary" onclick="deleteBtn(${ t.t_history_id})">삭제</button>
+					<button type="button" class="btn btn-primary" onclick="deleteBtn('${ t.t_history_id}');">삭제</button>
 					</td>
+					
+					<td>
+				    	<div>
+				    	<c:if test="${t.status == 'Y' && t.r_status == 'N'}">
+				    		<button type="button" class="btn btn-primary" onclick="reviewWrite(${t.t_history_id});">작성</button>
+				    	</c:if>
+				    	<c:if test="${t.status == 'Y' && t.r_status == 'Y'}">
+				    		<button type="button" class="btn btn-primary" onclick="reviewDetail(${t.t_history_id});">보기</button>
+				    	</c:if>
+				    	</div>
+			    	</td>
 				</tr>
+				
 			    </c:forEach>
 			    
 			    
@@ -131,6 +144,17 @@
 				location.href = '${contextPath}/mypage/deleteT_History?t_history_id=' + t_history_id +'&pageNum=' + 0 ;
 			}
 		}
+		
+		function reviewWrite(t_history_id){
+			location.href = '${contextPath}/review/write?t_history_id=' + t_history_id;
+				
+		}
+		
+		function reviewDetail(t_history_id){
+			location.href = '${contextPath}/review/detail?t_history_id=' + t_history_id;
+				
+		}
+		
 	</script>
 	
 	
