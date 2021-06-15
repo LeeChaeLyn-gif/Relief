@@ -13,11 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +34,6 @@ import com.kh.relief.account.NaverLoginBO;
 import com.kh.relief.account.model.service.AccountService;
 import com.kh.relief.account.model.service.MailSendService;
 import com.kh.relief.account.model.vo.Account;
-
 
 
 @Controller

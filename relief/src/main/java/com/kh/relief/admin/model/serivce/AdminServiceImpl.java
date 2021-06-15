@@ -8,16 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.kh.relief.account.model.vo.Account;
 import com.kh.relief.admin.model.dao.AdminDao;
+import com.kh.relief.admin.model.vo.Category;
+import com.kh.relief.admin.model.vo.Chart;
+import com.kh.relief.admin.model.vo.Faq;
+import com.kh.relief.admin.model.vo.Notice;
 import com.kh.relief.admin.model.vo.PageInfo;
 import com.kh.relief.admin.model.vo.Qna;
 import com.kh.relief.admin.model.vo.Report;
 import com.kh.relief.admin.model.vo.Sanctions;
 import com.kh.relief.admin.model.vo.Search;
-import com.kh.relief.admin.model.vo.Category;
-import com.kh.relief.admin.model.vo.Chart;
-import com.kh.relief.admin.model.vo.Comment;
-import com.kh.relief.admin.model.vo.Faq;
-import com.kh.relief.admin.model.vo.Notice;
+import com.kh.relief.board.model.vo.Reply;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -291,8 +291,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public Comment commentDetail(int cmid) {
-		return aDao.commentDetail(cmid);
+	public Reply commentDetail(int rid) {
+		return aDao.commentDetail(rid);
 	}
 
 	@Override

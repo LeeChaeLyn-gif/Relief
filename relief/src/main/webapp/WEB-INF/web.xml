@@ -57,10 +57,9 @@
 	<error-page>
 		<!-- 모든 Exception에 대해서 -->
 		<exception-type>java.lang.Exception</exception-type>
-		<!-- errorPage.jsp로 -->
+		errorPage.jsp로
 		<location>/WEB-INF/views/common/errorPage.jsp</location>
-	</error-page>
-	
+	</error-page> -->
 	
 	
 </web-app>

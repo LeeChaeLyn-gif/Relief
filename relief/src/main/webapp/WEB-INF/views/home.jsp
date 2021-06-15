@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
+scope="application"/>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false"%>
 <!DOCTYPE html>
@@ -309,9 +311,9 @@ h2, h4 {
 <jsp:include page="./mypage/listNavPage.jsp"/>
 <br><br><br>
 <center>
-<h2><a href="${ContaxtPath}/faq/list">fqa 바로가기</a></h2>
+<h2><a href="${ContextPath}/faq/list">fqa 바로가기</a></h2>
 <hr>
-<h2><a href="${ContaxtPath}/notice/list">notice 바로가기</a></h2>
+<h2><a href="${ContextPath}/notice/list">notice 바로가기</a></h2>
 </center>
 </body>
 

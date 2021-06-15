@@ -161,15 +161,15 @@
             	<c:when test="${ r.bid != 0 }">
             		<p class="createValue">게시글<input type="hidden" value="${ r.bid }"></p>
             	</c:when>
-            	<c:when test="${ r.cmid != 0 }">
-            		<p class="createValue">댓글<input type="hidden" value="${ r.cmid }"></p>
+            	<c:when test="${ r.rid != 0 }">
+            		<p class="createValue">댓글<input type="hidden" value="${ r.rid }"></p>
             	</c:when>
             </c:choose>
         </div>
         <p class="content">${ r.reportReason }</p>
         <br>
         <button type="button" class="btn">해당 페이지로 가기</button>
-        <form method="post" action="${ contextPath }/admin/ban">
+        <form method="post" action="${ contextPath }/admin/ban" onsubmit="removeHTML()">
         	<h5>제재 사유</h5>
         	<div class="textareaDiv">
 	        <textarea rows="7" cols="20" class="summernote" id="summernote" name="sanctionsReason"></textarea>
@@ -208,7 +208,7 @@
     		<script>
     			$(function(){
     				$(".btn").on("click", function(){
-    					location.href="${ contextPath }/admin/commentDetail?cmid=${ r.cmid }";
+    					location.href="${ contextPath }/admin/commentDetail?rid=${ r.rid }";
     				});
     			})
     		</script>

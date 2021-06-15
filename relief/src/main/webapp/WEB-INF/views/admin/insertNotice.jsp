@@ -123,7 +123,7 @@
                 <br>
                 <textarea id="summernote" class="content" name="ncontent" required></textarea>
                 <br>
-                <button type="submit" class="Btn">등록</button>
+                <button type="submit" class="Btn" onclick="removeHTML()">등록</button>
             </form>
         </div>
     </div>
@@ -142,6 +142,13 @@
     			return false;
     		}
     		return true;
+    	}
+    	
+    	function removeHTML(){
+    		var str = $(".content").val();
+    		str = str.replace(/<br\/>/ig, "\n");
+    		str = str.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+			$(".content").val(str);
     	}
     	
     	$(function () {

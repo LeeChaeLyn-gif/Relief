@@ -83,11 +83,11 @@
 
 				<!-- Start Top Search -->
 				<div class="top-search" style="margin-left: 100px;">
-					<form action="${ contextPath }/board/search" method="get">
+					<form action="${ contextPath }/board/list" method="get">
 						<div class="container">
 							<div class="input-group">
-								<input type="text" class="form-control" placeholder="상품명, 지역명 검색">
-								<span class="input-group-addon"><i class="fa fa-search"></i></span>
+								<input type="text" class="form-control" name="searchValue" placeholder="상품명, 지역명 검색" <c:if test="${ !empty searchValue }"> value="${searchValue }"</c:if>>
+								<button class="input-group-addon" type="submit"><i class="fa fa-search"></i></button>
 							</div>
 						</div>
 					</form>	
@@ -106,8 +106,8 @@
 							<li><a href="${ contextPath }/home"  onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')">판매하기</a></li>
 							<li><a href="#pricing">고객센터</a></li>
 							</c:when>
-							<c:when test="${ loginUser.aid eq admin }">
-							<li><a href="#about">관리자페이지</a></li>
+							<c:when test="${ loginUser.aid eq 'admin' }">
+							<li><a href="${ contextPath }/admin/main">관리자페이지</a></li>
 							</c:when>
 							<c:otherwise>
 							<li><a href="${ contextPath }/board/insertPage">판매하기</a></li>
@@ -182,7 +182,6 @@
 		 	$("#menu2").css({"opacity" : "0", "visibility" : "hidden"});
 		});
 
-		 
 		$(".chatBtn").on("click", function(){
 				var _width = '650';
 			    var _height = '380';
@@ -191,6 +190,7 @@
 	    		
 				window.open("${ contextPath }/list", "", "width=500, height=600, left=" + _left + ", top=" + _top);
 			});
+
 
 	</script>
 

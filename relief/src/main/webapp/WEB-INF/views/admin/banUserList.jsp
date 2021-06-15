@@ -212,7 +212,12 @@
     		$("input[name='aid']:checked").each(function(i){
     			sArr.push($(this).val());
     		})
-    		location.href="${ contextPath }/admin/unbanUser?sArr=" + sArr;
+    		if(sArr.length < 1){
+    			alert("해제할 유저가 없습니다.");
+    		}
+    		if(sArr.length > 0){
+    		location.href="${ contextPath }/admin/unbanUser?sArr=" + sArr;    			
+    		}
     	});
     </script>
 </body>
