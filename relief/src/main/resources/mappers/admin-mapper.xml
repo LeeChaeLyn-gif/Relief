@@ -753,6 +753,8 @@
 		 			</otherwise>
 		 		</choose>
 		 </where>
+		 ORDER BY
+	  			QNA_ID DESC
 	</select>
 	<select id="selectfListCount" resultType="_int">
 		SELECT
@@ -777,6 +779,8 @@
 		  		FAQ
 		 WHERE
 		 		STATUS = 'Y'
+	  ORDER BY
+	  			FAQ_ID DESC
 	</select>
 	<insert id="insertFaq" parameterType="Faq">
 		INSERT
@@ -856,6 +860,8 @@
 		 			</otherwise>
 		 		</choose>
 		 </where>
+		  ORDER BY
+	  			FAQ_ID DESC
 	</select>
 	<select id="selectFaq" parameterType="_int" resultMap="FaqResultSet">
 		SELECT

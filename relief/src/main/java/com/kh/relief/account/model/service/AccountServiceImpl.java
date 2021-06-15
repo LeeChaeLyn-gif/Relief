@@ -78,7 +78,6 @@ public class AccountServiceImpl implements AccountService{
 		return aDao.findPwdUpdate(a);
 	}
 
-	
+}
 
 	
-}

@@ -29,7 +29,4 @@ public interface AccountDao {
 
 	int findPwdUpdate(Account a);
 
-
-
-	
 }
