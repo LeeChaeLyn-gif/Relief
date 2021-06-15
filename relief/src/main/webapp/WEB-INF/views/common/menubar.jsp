@@ -38,13 +38,21 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" jQuery.noConflict();></script>
 	<script src="<c:url value="/resources/css/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"/>"></script>
 <title>menuBar</title>
+<style>
+
+@media (max-width: 992px){
+
+nav.navbar.bootsnav.navbar-fixed .logo-display {
+    display: none !important;
+}
+nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
+    display: block !important;
+}
+}
+</style>
 
 </head>
 <body data-spy="scroll" data-target=".navbar-collapse">
-<%-- 	<c:if test="${ !empty msg }">
-		<script>alert('${msg}');</script>
-		<c:remove var="msg"/>
-	</c:if> --%>
 	
 	<div class="culmn">
 
@@ -77,7 +85,7 @@
 
 					<a class="navbar-brand" href="${contextPath}">
                        <img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-display m-top-10" alt="" width="150px">
-                    	<img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled m-top-10" alt="" width="150px">
+                    	<img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled" alt="" width="150px">
                     </a>
 				</div>
 

@@ -597,7 +597,7 @@ body.on-side .wrap-sticky nav.navbar.bootsnav.sticked{
         text-align: right;
     }
     
-    /* nav.navbar.bootsnav li.dropdown ul.dropdown-menu li.dropdown > a.dropdown-toggle:before{
+    nav.navbar.bootsnav li.dropdown ul.dropdown-menu li.dropdown > a.dropdown-toggle:before{
         font-family: 'FontAwesome';
         float: right;
         content: "\f105";
@@ -609,7 +609,7 @@ body.on-side .wrap-sticky nav.navbar.bootsnav.sticked{
         float: left;
         content: "\f104";
         margin-top: 0;
-    } */
+    }
     
     nav.navbar.bootsnav li.dropdown ul.dropdown-menu ul.dropdown-menu{
         top: -3px;
@@ -1033,6 +1033,14 @@ body.on-side .wrap-sticky nav.navbar.bootsnav.sticked{
 @media (max-width: 992px) {
     /* Navbar Responsive
     =================================*/ 
+    
+        nav.navbar.bootsnav.navbar-fixed .logo-scrolled{
+        display: block !important;
+    }
+
+    nav.navbar.bootsnav.navbar-fixed .logo-display{
+        display: none !important;
+    }
     nav.navbar.bootsnav .navbar-brand    {
         display: inline-block;
         float: none !important;
@@ -1071,6 +1079,7 @@ body.on-side .wrap-sticky nav.navbar.bootsnav.sticked{
     nav.navbar.bootsnav .navbar-collapse.collapse.in {
         display: block !important;
     }
+    
     
     nav.navbar.bootsnav .navbar-nav {
         float: none !important;
@@ -1344,6 +1353,14 @@ body.on-side .wrap-sticky nav.navbar.bootsnav.sticked{
 }
 
 @media (max-width: 767px) {
+	    nav.navbar.bootsnav.navbar-fixed .logo-scrolled{
+        display: block !important;
+    }
+
+    nav.navbar.bootsnav.navbar-fixed .logo-display{
+        display: none !important;
+    }
+    
     nav.navbar.bootsnav .navbar-header {
         padding-left: 15px;
         padding-right: 15px;
