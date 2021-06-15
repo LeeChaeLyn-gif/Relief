@@ -542,8 +542,8 @@ textarea{
 					</div>
 					<div id="detail-btn">
 						<button class="wishbutton"><i class="fa fa-heart" aria-hidden="true"></i>찜버튼</button>
-						<button class="chatbutton" onclick="chat();"><i class="fa fa-commenting" aria-hidden="true"></i>채팅</button>
-						<button class="reportbutton" onclick="report();"><i class="fa fa-bell" aria-hidden="true"></i>신고하기</button>
+						<button class="chatbutton" onclick="chat()"><i class="fa fa-commenting" aria-hidden="true"></i>채팅</button>
+						<button class="reportbutton" onclick="report()"><i class="fa fa-bell" aria-hidden="true"></i>신고하기</button>
 					</div>
 					<br>
 				</div>
@@ -618,7 +618,7 @@ textarea{
 					<div class="sellerinfo"><p style="font-weight : bold">판매자 정보</p></div>
 					<hr>
 					<h4>판매자 아이디</h4>
-					<p>${ board.account_id }</p>
+					<p class="accountId">${ board.account_id }</p>
 					<hr>
 					<h4>리뷰</h4>
 					<c:forEach items="${ rlist }" begin="0" end="2" var="r">
@@ -757,7 +757,6 @@ textarea{
 		}
 
 			$('#counter').html(pos + 1 + ' / ' + totalSlides);
-		}
 
 		function pagination() {
 			$('#pagination-wrap ul li').removeClass('active');

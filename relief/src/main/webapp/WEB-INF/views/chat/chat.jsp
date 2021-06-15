@@ -202,8 +202,8 @@
 			}else{
 				console.warn("unknown type!")
 			}
-			$('#chating').scrollTop($('#chating')[0].scrollHeight);
 		}
+			$('#chating').scrollTop($('#chating')[0].scrollHeight);
 	}
 			document.addEventListener("keypress", function(e){
 				if(e.keyCode == 13){ //enter press

@@ -542,8 +542,8 @@ textarea{
 					</div>
 					<div id="detail-btn">
 						<button class="wishbutton"><i class="fa fa-heart" aria-hidden="true"></i>찜버튼</button>
-						<button class="chatbutton" onclick="chat();"><i class="fa fa-commenting" aria-hidden="true"></i>채팅</button>
-						<button class="reportbutton" onclick="report();"><i class="fa fa-bell" aria-hidden="true"></i>신고하기</button>
+						<button class="chatbutton" onclick="chat()"><i class="fa fa-commenting" aria-hidden="true"></i>채팅</button>
+						<button class="reportbutton" onclick="report()"><i class="fa fa-bell" aria-hidden="true"></i>신고하기</button>
 					</div>
 					<br>
 				</div>
