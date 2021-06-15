@@ -162,14 +162,14 @@
 	$('#chating').scrollTop($('#chating')[0].scrollHeight);
 	
 	var ws;
-
 	 $(function(){
 			wsOpen();	 
 		 });
 	
 	function wsOpen(){
 		//웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
-		ws = new WebSocket("ws://" + location.host + "/relief/"+$("#chatId").val()+"/"+"${loginUser.aid}");
+		/* ws = new WebSocket("ws://" + location.host + "/relief/"+$("#chatId").val()+"/"+"${loginUser.aid}"); */
+		ws = new WebSocket("ws://" + location.host + "/relief/"+$("#chatId").val());
 		wsEvt();
 	}
 	
@@ -178,59 +178,61 @@
 			//소켓이 열리면 동작
 			console.log(data);
 		}
-		
-		ws.onmessage = function(data) {
-			//메시지를 받으면 동작
-			// websocket 에서 보내준 accountId 랑 로그인 한 accountId 랑 비교해서 분기처리 하면 되잖아.
-			var msg = data.data;
-			if(msg != null && msg.trim() != ''){
-				var d = JSON.parse(msg);
-				if(d.type == "getId"){
-					var si = d.accountId != null ? d.accountId : "";
-					if(si != ''){
-						$("#sessionId").val(si); 
-					}
-				}else if(d.type == "message"){
-					if(d.accountId == '${loginUser.aid}'){
-						$("#chating").append("<p class='me'>" + d.msg + "</p>");	
-					}else{
-						$("#chating").append("<p class='others'>" + d.msg + "</p>");
-					}
-						
-				}else{
-					console.warn("unknown type!")
+		ws.onerror = function(e){
+			console.log('error');
+			console.log(e);
+		}
+	ws.onmessage = function(data) {
+		//메시지를 받으면 동작
+		var msg = data.data;
+		if(msg != null && msg.trim() != ''){
+			var d = JSON.parse(msg);
+			if(d.type == "getId"){
+				var si = d.sessionId != null ? d.sessionId : "";
+				if(si != ''){
+					$("#sessionId").val(si); 
 				}
-				$('#chating').scrollTop($('#chating')[0].scrollHeight);
+			}else if(d.type == "message"){
+				if(d.sessionId == $("#sessionId").val()){
+					$("#chating").append("<p class='me'>" + d.msg + "</p>");	
+				}else{
+					$("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
+				}
+					
+			}else{
+				console.warn("unknown type!")
 			}
+			$('#chating').scrollTop($('#chating')[0].scrollHeight);
 		}
-
-		document.addEventListener("keypress", function(e){
-			if(e.keyCode == 13){ //enter press
-				send();
+	}
+			document.addEventListener("keypress", function(e){
+				if(e.keyCode == 13){ //enter press
+					send();
+				}
+			});
+		}
+		 
+		function send() {
+			var option ={
+				type: "message",
+				chatId: $("#chatId").val(),
+				sessionId : $("#sessionId").val(),
+				chatId : '${chatId}',
+				accountId : '${loginUser.aid}',
+				chatSender : '${loginUser.aid}',
+				msg : $("#chatting").val()
 			}
+			console.log(option)
+			ws.send(JSON.stringify(option));
+			$('#chatting').val("");
+		}
+		
+		
+		$('#chatSubMenu').hide();
+		$('#chatMenu2').click(function(){
+			$('#chatSubMenu').slideToggle(300);
 		});
-	}
-	 
-	function send() {
-		var option ={
-			type: "message",
-			chatId: $("#chatId").val(),
-			sessionId : $("#sessionId").val(),
-			chatId : '${chatId}',
-			accountId : '${loginUser.aid}',
-			chatSender : '${loginUser.aid}',
-			msg : $("#chatting").val()
-		}
-		console.log(option)
-		ws.send(JSON.stringify(option));
-		$('#chatting').val("");
-	}
-	
-	
-	$('#chatSubMenu').hide();
-	$('#chatMenu2').click(function(){
-		$('#chatSubMenu').slideToggle(300);
-	});
+
 	
 	function blockChat(){
 		

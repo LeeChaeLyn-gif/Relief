@@ -11,6 +11,7 @@
  		<result property="content" column="CONTENT"/>
  		<result property="chatDate" column="CHAT_DATE"/>
  		<result property="status" column="STATUS"/>
+ 		<result property="status" column="STATUS2"/>
  	</resultMap>
  	
  	<resultMap type="Chat" id="chatResultSet">
@@ -116,7 +117,7 @@
 		, CONTENT
 		, CHAT_DATE
 		, STATUS
-		, NOTICE
+		, STATUS2
 		)
 		VALUES
 		(

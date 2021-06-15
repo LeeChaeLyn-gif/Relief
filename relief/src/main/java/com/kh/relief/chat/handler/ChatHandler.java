@@ -44,46 +44,29 @@ private MainHandler mainHandler;
 		super.afterConnectionEstablished(session);
 		boolean flag = false;
 		String url = session.getUri().toString();
-		String[] urlArray = url.split("/relief/");
-		// chat/user01:1 => 채팅방 들어왔을때. 
-		// account/user01 => main 페이지 소켓 연결했을때
-		if (urlArray[1].equals("account")) {
-			//main 페이지 소켓 연결했을때
-			String accountId = urlArray[2];
-			// TODO 로그인 한 유저 판별해서 userSessionMap 에 key = accountId, value = session 으로 넣기
-			userSessionMap.put(accountId, session);
-		} else {
-			//채팅방 들어왔을때. 
-			String accountId = urlArray[2].split("/")[0];
-			int chatId = Integer.parseInt(urlArray[2].split("/")[1]);
-			boolean existFlag = false;
-			int idx = chatSessionMap.size(); // 방의 사이즈를 조사한다.
-			if (chatSessionMap.size() > 0) {
-				for (int i = 0; i < chatSessionMap.size(); i++) {
-					int rN = (int) chatSessionMap.get(i).get("chatId");
-					if (rN == chatId) {
-						existFlag = true;
-						idx = i;
-						break;
-					}
-				}
-			}
-			if (existFlag) { // 존재하는 방이라면 세션만 추가한다.
-				HashMap<String, Object> map = chatSessionMap.get(idx);
-				map.put(accountId, session);
-			} else { // 최초 생성하는 방이라면 방번호와 세션을 추가한다.
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put("chatId", chatId);
-				map.put(accountId, session);
-				chatSessionMap.add(map);
-			}
-			
-		}
-		
+		/*
+		 * String[] urlArray = url.split("/relief/"); // chat/user01:1 => 채팅방 들어왔을때. //
+		 * account/user01 => main 페이지 소켓 연결했을때 if (urlArray[1].equals("account")) {
+		 * //main 페이지 소켓 연결했을때 String accountId = urlArray[2]; // TODO 로그인 한 유저 판별해서
+		 * userSessionMap 에 key = accountId, value = session 으로 넣기
+		 * userSessionMap.put(accountId, session); } else { //채팅방 들어왔을때. String
+		 * accountId = urlArray[2].split("/")[0]; int chatId =
+		 * Integer.parseInt(urlArray[2].split("/")[1]); boolean existFlag = false; int
+		 * idx = chatSessionMap.size(); // 방의 사이즈를 조사한다. if (chatSessionMap.size() > 0)
+		 * { for (int i = 0; i < chatSessionMap.size(); i++) { int rN = (int)
+		 * chatSessionMap.get(i).get("chatId"); if (rN == chatId) { existFlag = true;
+		 * idx = i; break; } } } if (existFlag) { // 존재하는 방이라면 세션만 추가한다. HashMap<String,
+		 * Object> map = chatSessionMap.get(idx); map.put(accountId, session); } else {
+		 * // 최초 생성하는 방이라면 방번호와 세션을 추가한다. HashMap<String, Object> map = new
+		 * HashMap<String, Object>(); map.put("chatId", chatId); map.put(accountId,
+		 * session); chatSessionMap.add(map); }
+		 * 
+		 * }
+		 */
 		
 		
 		int chatId = Integer.parseInt(url.split("/relief/")[1]);
-		String accountId = url.split("/relief/")[2];
+		// String accountId = url.split("/relief/")[2];
 		System.out.println(url);
 		
 		int idx = lArr.size(); // 방의 사이즈를 조사한다.
