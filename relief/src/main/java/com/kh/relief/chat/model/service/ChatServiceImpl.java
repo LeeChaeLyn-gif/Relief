@@ -102,5 +102,15 @@ public class ChatServiceImpl implements ChatService {
 		return cDao.checkChat2(c);
 	}
 
+	@Override
+	public int exitChat(int chatId) {
+		return cDao.exitChat(chatId);
+	}
+
+	@Override
+	public int exitChat2(int chatId) {
+		return cDao.exitChat2(chatId);
+	}
+
 
 }

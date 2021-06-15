@@ -73,6 +73,7 @@ public class ChatController {
 	         jChat.put("chatDate", chat.getChatDate().toString());
 	         jChat.put("chatId", chat.getChatId());
 	         jChat.put("name", chat.getName());
+	         jChat.put("chatHistoryId", chat.getChatHistoryId());
 	         
 	         jArr.add(jChat);
 	      }
@@ -254,4 +255,28 @@ public class ChatController {
 		return "/board/reportPage";
 	}
 	
+	/*
+	 * @RequestMapping("/exitChat") public ModelAndView exitChat(@RequestParam int
+	 * chatId, ModelAndView mv, HttpSession session, Model model) {
+	 * 
+	 * Account loginUser = (Account) session.getAttribute("loginUser");
+	 * 
+	 * // 로그인유저 String accountId = loginUser.getAid();
+	 * 
+	 * 
+	 * List<ChatHistory> chList = cService.selectChat(chatId);
+	 * 
+	 * ChatHistory ch = new ChatHistory();
+	 * 
+	 * ch.setAccountId(accountId);
+	 * 
+	 * if(ch.getAccountId() == accountId) { model.addAttribute("accountId2",
+	 * ch.getAccountId2()); List<ChatHistory> chList2 = cService.selectChat(chatId);
+	 * int result = cService.exitChat(chatId); } else {
+	 * model.addAttribute("accountId2", ch.getAccountId()); List<ChatHistory>
+	 * chList2 = cService.selectChat(chatId); int result =
+	 * cService.exitChat2(chatId); }
+	 * 
+	 * return null; }
+	 */
 }

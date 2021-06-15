@@ -102,5 +102,15 @@ public class ChatDaoImpl implements ChatDao{
 		return sqlSession.selectOne("chatMapper.checkChat2", c);
 	}
 
+	@Override
+	public int exitChat(int chatId) {
+		return sqlSession.update("chatMapper.exitChat", chatId);
+	}
+
+	@Override
+	public int exitChat2(int chatId) {
+		return sqlSession.update("chatMapper.exitChat2", chatId);
+	}
+
 
 }

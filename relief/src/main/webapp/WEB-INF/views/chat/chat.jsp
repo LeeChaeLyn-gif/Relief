@@ -169,7 +169,7 @@
 	
 	function wsOpen(){
 		//웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
-		ws = new WebSocket("ws://" + location.host + "/relief/"+$("#chatId").val());
+		ws = new WebSocket("ws://" + location.host + "/relief/"+$("#chatId").val()+"/"+"${loginUser.aid}");
 		wsEvt();
 	}
 	
@@ -181,16 +181,17 @@
 		
 		ws.onmessage = function(data) {
 			//메시지를 받으면 동작
+			// websocket 에서 보내준 accountId 랑 로그인 한 accountId 랑 비교해서 분기처리 하면 되잖아.
 			var msg = data.data;
 			if(msg != null && msg.trim() != ''){
 				var d = JSON.parse(msg);
 				if(d.type == "getId"){
-					var si = d.sessionId != null ? d.sessionId : "";
+					var si = d.accountId != null ? d.accountId : "";
 					if(si != ''){
 						$("#sessionId").val(si); 
 					}
 				}else if(d.type == "message"){
-					if(d.sessionId == $("#sessionId").val()){
+					if(d.accountId == '${loginUser.aid}'){
 						$("#chating").append("<p class='me'>" + d.msg + "</p>");	
 					}else{
 						$("#chating").append("<p class='others'>" + d.msg + "</p>");
@@ -254,6 +255,7 @@
 	function exitChat(){
 		
 		if (confirm("채팅방을 나가시겠습니까? \n(채팅방을 나가시면 대화내용이 전부 삭제됩니다.)") == true){
+			location.href="${contextPath}/exitChat?accountId=" + ${loginUser.aid} + "&chid=" + chatId;
 		}
 	}
 	
