@@ -45,7 +45,7 @@
 	</c:if>
 	
 	<div class="headDiv">
-        <a href="${ contextPath }/home"><img src="${ contextPath }/resources/images/relief.jpg" class="homeimg"></a>
+        <a href="${ contextPath }"><img src="${ contextPath }/resources/images/relief.jpg" class="homeimg"></a>
     </div>
     <div class="headDiv2">
         <h1 class="adminPage">관리자 페이지</h1>

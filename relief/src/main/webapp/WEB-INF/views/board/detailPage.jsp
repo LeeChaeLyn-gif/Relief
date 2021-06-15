@@ -137,6 +137,13 @@ textarea{
 .reviewBtn{
 	text-align : right;
 }
+
+.replyText {
+	width : 430px;
+	resize : none;
+}
+
+
 /* 버튼 */
 .wishbutton, .chatbutton, .reportbutton {
 	background-color: rgb(52, 73, 94);
@@ -582,8 +589,10 @@ select {
 					</div>
 					<div id="detail-btn">
 						<button class="wishbutton"><i class="fa fa-heart" aria-hidden="true"></i>찜버튼</button>
-						<button class="chatbutton"><i class="fa fa-commenting" aria-hidden="true"></i>채팅</button>
-						<button class="reportbutton"><i class="fa fa-bell" aria-hidden="true"></i>신고하기</button>
+
+						<button class="chatbutton" onclick="chat()"><i class="fa fa-commenting" aria-hidden="true"></i>채팅</button>
+						<button class="reportbutton" onclick="report()"><i class="fa fa-bell" aria-hidden="true"></i>신고하기</button>
+
 					</div>
 					<br>
 				</div>
@@ -636,22 +645,19 @@ select {
 								<tbody>
 								<c:if test="${ !empty relist }">
 									<c:forEach items="${ relist }" var="e">
-										<c:choose>
-											<c:when test="${ e.reply_id2 == 0 }">
-											<tr class="replytr">
+											<tr class="replyArea">
 												<td>${ e.aid }<input type="hidden" name="rid" value="${ e.reply_id }"></td>
-												<td>${ e.title }</td>
+												<td>${ e.title }<input type="hidden" name="rid2" value="${ e.reply_id2 }"></td>
 												<td>${ e.create_date }</td>
 											</tr>
-											</c:when>
-											<c:otherwise test="${ !empty relist2 }">
-												<tr>
-													<td>${ relist2.aid }</td>
-													<td>${ relist2.title }</td>
-													<td>${ relist2.create_date }</td>
-												</tr>
-											</c:otherwise>
-										</c:choose>
+											<tr class="replyArea2" style="display : none;">
+												<td></td>
+												<td>
+												<textarea class="replyText"></textarea>
+												<button onclick="addReply()" class="btn" type="button">답글달기</button>
+												</td>
+												<td></td>
+											</tr>
 									</c:forEach>
 								</c:if>
 								<c:if test="${ empty relist }">
@@ -669,7 +675,7 @@ select {
 					<div class="sellerinfo"><p style="font-weight : bold">판매자 정보</p></div>
 					<hr>
 					<h4>판매자 아이디</h4>
-					<p>${ board.account_id }</p>
+					<p class="accountId">${ board.account_id }</p>
 					<hr>
 					<h4>리뷰</h4>
 					<c:forEach items="${ rlist }" begin="0" end="2" var="r">
@@ -765,17 +771,29 @@ select {
 			});
 		});
 		
-		$(".replytr").one("click", function(){
-			var rid = $(this).find("input[name=rid]").val();
-			var str = "<tr class='replytr2'><td colspan='3'><textarea width='400' class='replyText'></textarea><button onclick='addReply("+rid+")' type='button'>답글달기</button></td></tr>";
-			$(this).after(str);
-			var submenu = $(this).next("tr");
-
-		});
 		
-		function addReply(rid){
+		$(document).ready(function(){
+			$(".replyArea").on("click", function(){
+				var currentRow = $(this).closest('tr');
+				var detail = currentRow.next('tr');
+				var rid = $(this).find("input[name=rid2]").val();
+				if(detail.is(":visible")){
+					detail.hide();
+				} else {
+					detail.show();
+				}
+				if(rid == 2){
+					detail.hide();
+				}
+			})
+			
+		})
+
+		
+		function addReply(){
 			var title = $(".replyText").val();
 			var bid = ${ board.board_id };
+			var rid = $(this).find("input[name=rid]").val();
 			
 			$.ajax({
 				url : "${ contextPath }/board/insertReply2",
@@ -783,17 +801,6 @@ select {
 				type : "post",
 				dataType : "json",
 				success : function(data){
-/* 					tableBody = $("#replyTable tbody");
-					tableBody.html("");
-					
-					for(var i in data){
-						tr = $("<tr>");
-						account = $("<td width='70'>").tesxt(data[i].aid);
-						content = $("<td>").text(data[i].title);
-						createDate = $("<td width='100'>").text(data[i].create_date);
-						tr.append(account, content, createDate);
-						tableBody.append(tr);
-					} */
 					
 					$(".replyText").val("");
 				}
@@ -870,6 +877,36 @@ select {
 	function pagination(){
 	  $('#pagination-wrap ul li').removeClass('active');
 	  $('#pagination-wrap ul li:eq('+pos+')').addClass('active');
+	}
+	
+	function chat(){
+		var _width = '650';
+	    var _height = '380';
+		var _left = Math.ceil(( window.screen.width - _width ));
+		var _top = Math.ceil(( window.screen.height - _height )/2);
+		var accountId2 = $(".accountId").text();
+		
+		if('${loginUser.aid}' === '${board.account_id}'){
+			alert("자신과는 채팅이 불가능합니다.");
+		} else {
+		window.open("${contextPath}/createChat?accountId2=" + accountId2, "", "width=550, height=600, left=" + _left + ", top=" + _top);
+		}
+		
+	}
+	
+	function report(){
+		var _width = '650';
+	    var _height = '380';
+		var _left = Math.ceil(( window.screen.width - _width ));
+		var _top = Math.ceil(( window.screen.height - _height )/2);
+		var accountId2 = $(".accountId").text();
+		var bid = ${board.board_id};
+		
+		if('${loginUser.aid}' === '${board.account_id}'){
+			alert("자신은 신고가 불가능합니다.");
+		} else {
+		window.open("${contextPath}/board/reportUser?accountId2=" + accountId2 + "&bid=" + bid, "", "width=500, height=400, left=" + _left + ", top=" + _top);
+		}		
 	}
 	</script>
 	

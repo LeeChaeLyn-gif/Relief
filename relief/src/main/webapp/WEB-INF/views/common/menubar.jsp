@@ -57,7 +57,7 @@
 						<c:choose>
 						<c:when test="${ empty sessionScope.loginUser }">
 						<li class="search"><a href="${ contextPath }/account/login"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>로그인</a></li>
-						<li class="search"><a href="${ contextPath }/home" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i>채팅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+						<li class="search"><a href="${ contextPath }" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i>채팅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
 						<script>
 						
 						</script>
@@ -75,9 +75,9 @@
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-menu"></button>
 
-					<a class="navbar-brand" href="${contextPath}/home">
+					<a class="navbar-brand" href="${contextPath}">
                        <img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-display m-top-10" alt="" width="150px">
-                       <img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled" alt="" width="150px">
+                    	<img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled m-top-10" alt="" width="150px">
                     </a>
 				</div>
 
@@ -87,7 +87,6 @@
 						<div class="container">
 							<div class="input-group">
 								<input type="text" class="form-control" name="searchValue" placeholder="상품명, 지역명 검색" <c:if test="${ !empty searchValue }"> value="${searchValue }"</c:if>>
-								<button class="input-group-addon" type="submit"><i class="fa fa-search"></i></button>
 								<c:choose>
 								<c:when test="${ empty sessionScope.loginUser }">
 								<button class="input-group-addon" type="button" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')"><i class="fa fa-search" id="submitBtn"></i></button>
