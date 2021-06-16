@@ -217,5 +217,15 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.nLoginList(pi, searchValue);
 	}
 
+	@Override
+	public int insertThistory(Board board) {
+		return bDao.insertThistory(board);
+	}
+
+	@Override
+	public int insertImage2(BoardImage bi2) {
+		return bDao.insertImage2(bi2);
+	}
+
 	
 }

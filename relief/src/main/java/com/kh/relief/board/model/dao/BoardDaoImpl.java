@@ -233,4 +233,14 @@ public class BoardDaoImpl implements BoardDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return sqlSession.selectList("boardMapper.nLoginList", searchValue, rowBounds);
 	}
+
+	@Override
+	public int insertThistory(Board board) {
+		return sqlSession.insert("boardMapper.insertThistory", board);
+	}
+
+	@Override
+	public int insertImage2(BoardImage bi2) {
+		return sqlSession.insert("boardMapper.insertImage2", bi2);
+	}
 }
