@@ -549,24 +549,40 @@ public class BoardController {
 		int result = bService.insertBoard(b);
 		int bid = bService.selectbId();
 		int result2 = 0;
-		
+		int result3 = 0;
 		List<MultipartFile> fList = mtfrequest.getFiles("file");
 		if(!fList.isEmpty()) {
 			
 			List<String> renameFilename = saveFile(fList, request);
 			BoardImage bi = new BoardImage();
+			BoardImage bi2 = new BoardImage();
 			bi.setBid(bid);
+			bi2.setBid(bid);
+			bi2.setList(renameFilename.get(0));
+			
+			result3 = bService.insertImage2(bi2);
+			
 			for(int i = 0; i < renameFilename.size(); i++) {
-				
-				bi.setList(renameFilename.get(i));
+				if(renameFilename.get(i) != renameFilename.get(0)) {
+					bi.setList(renameFilename.get(i));	
+				}
 				
 				result2 = bService.insertImage(bi);
 			}
-			
-			
 		}
-		
-		return "/home";
+		Board board = new Board();
+		board.setAccount_id(accountId);
+		board.setBoard_id(bid);
+		int result4 = bService.insertThistory(board);
+		if(result > 0 && result2 > 0 && result3 > 0 && result4 > 0) {
+			model.addAttribute("msg", "물품 등록이 완료되었습니다.");
+			model.addAttribute("url", "/home");
+			return "/board/alertPage";
+		} else {
+			model.addAttribute("msg", "물품 등록이 실패하였습니다.");
+			model.addAttribute("url", "/home");
+			return "/board/alertPage";
+		}
 	}
 	
 	private List<String> saveFile(List<MultipartFile> fList, HttpServletRequest request) {

@@ -812,4 +812,39 @@
  		  AND STATUS = 'Y'
  	  ORDER BY PULL_DATE DESC
 	</select>
+	<insert id="insertThistory" parameterType="Board">
+		INSERT
+		  INTO T_HISTORY
+		VALUES
+		(
+			SEQ_TID.NEXTVAL
+		  , #{board_id}
+		  , SYSDATE
+		  , DEFAULT
+		  , #{account_id}
+		  , 'A'
+		  , DEFAULT
+		  , DEFAULT
+		)
+	</insert>
+	<insert id="insertImage2" parameterType="BoardImage">
+		INSERT
+		INTO
+			 IMAGE
+				 (
+				   IMAGE_ID
+				 , BOARD_ID
+				 , FILENAME
+				 , RENAME_FILENAME
+				 , FILE_LEVEL
+				 )
+				 VALUES
+				 (
+			 	  SEQ_IID.NEXTVAL
+			 	, #{bid}
+			 	, #{list}
+			 	, #{list}
+			 	, 0
+				 )
+ 	</insert>
  </mapper>
