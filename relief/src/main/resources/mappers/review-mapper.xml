@@ -54,7 +54,7 @@
 		  , SYSDATE
 		)
 	</insert>
-	
+	 
 	<select id="selectReview" parameterType="_int" resultMap="reviewResultSet">
 		SELECT
 				R.REVIEW_ID

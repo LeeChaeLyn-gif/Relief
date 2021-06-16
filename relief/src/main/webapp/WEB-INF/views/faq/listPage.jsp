@@ -20,7 +20,7 @@
 	* {
 		box-sizing: border-box;
 	}
-	
+	  
 	#wrap {
 		width: 1140px;
 		heigth : auto;

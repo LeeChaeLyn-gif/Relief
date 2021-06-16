@@ -46,7 +46,7 @@
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="listNavPage.jsp"/>
-	
+	 
 	<div id="wrap">
 		<h2 class="text-center paddingtop">구매 내역</h2>	
 		<hr>

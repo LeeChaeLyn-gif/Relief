@@ -24,7 +24,7 @@
        <result property="renameFileName" column="RENAME_FILENAME"/>
        <result property="pk_Id" column="WISH_ID"/>
     </resultMap>
-    
+     
     <resultMap type="T_History" id="T_HistoryResultSet">
     	<id property="t_history_id" column="T_HISTORY_ID"/>
        	<result property="board_id" column="BOARD_ID"/>

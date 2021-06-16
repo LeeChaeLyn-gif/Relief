@@ -31,7 +31,7 @@ public class FAQDaoImpl implements FAQDao{
 	public int insertFAQ(FAQ f) {
 		return sqlSession.insert("faqMapper.insertFAQ", f);
 	}
-
+ 
 	@Override
 	public FAQ selectFAQ(int faq_id) {
 		return sqlSession.selectOne("faqMapper.selectFAQ", faq_id);

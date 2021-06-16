@@ -14,7 +14,7 @@
 		<result property="rename_fileName" column="RENAME_FILENAME"/>
 		<result property="account_id" column="ACCOUNT_ID"/>
 	</resultMap>
-	
+	  
 	<select id="selectListCount" resultType="_int">
 		SELECT
 		       COUNT(*)

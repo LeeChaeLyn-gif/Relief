@@ -223,7 +223,7 @@ public class MyPageController {
 	}
 	
 	
-	
+	 
 	
 	@GetMapping("/purchaseHistory")
 	public ModelAndView purchaseHistoryView(HttpSession session, ModelAndView mv,

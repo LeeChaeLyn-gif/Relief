@@ -38,7 +38,7 @@
 	.tabSize {
 		width : 100%;
 		height: auto; 
-	
+	 
 	}
 	
 	.btsSize {

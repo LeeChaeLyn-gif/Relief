@@ -28,7 +28,7 @@ public class NoticeServiceImpl implements NoticeService{
 	public int insertNotice(Notice n) {
 		return nDao.insertNotice(n);
 	}
-
+ 
 	@Override
 	public Notice selectNotice(int notice_id, boolean flag) {
 		if(flag) nDao.updateReadCount(notice_id);

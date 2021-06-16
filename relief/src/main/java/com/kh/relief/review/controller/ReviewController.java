@@ -32,7 +32,7 @@ public class ReviewController {
 		// 게시글 개수 구하기
 		int listCount = rService.selectListCount();
 		// System.out.println(listCount);
-		
+		 
 		// PageInfo 객체 생성
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		// System.out.println(pi);

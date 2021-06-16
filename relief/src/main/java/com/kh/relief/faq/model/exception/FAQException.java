@@ -5,3 +5,4 @@ public class FAQException extends RuntimeException{
 		super(message);
 	}
 }
+ 

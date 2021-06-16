@@ -50,7 +50,7 @@
 			  <thead>
 			    <tr>
 			      <th scope="col" width="15%">사진</th>
-
+ 
 			      <th scope="col">상품명</th>
 			      <th scope="col">가격</th>
 			      <th scope="col">판매자</th>

@@ -40,7 +40,7 @@ public class FAQController {
 	
 	//로깅 필드 선언
 	private static final Logger logger = LoggerFactory.getLogger(FAQController.class);
-	
+	 
 	
 //	fqa 페이지 이동
 	@GetMapping("/list")

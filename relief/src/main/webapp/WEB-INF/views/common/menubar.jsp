@@ -15,7 +15,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Raleway:400,600,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
-
+ 
 	<link rel="stylesheet" href="${contextPath}/resources/css/assets/css/slick.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/assets/css/slick-theme.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/assets/css/animate.css">

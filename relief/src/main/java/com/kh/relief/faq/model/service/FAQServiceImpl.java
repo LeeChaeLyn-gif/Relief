@@ -28,7 +28,7 @@ public class FAQServiceImpl implements FAQService{
 	@Override
 	public int insertFAQ(FAQ f) {
 		return fDao.insertFAQ(f);
-	}
+	} 
 
 	@Override
 	public FAQ selectFAQ(int faq_id) {

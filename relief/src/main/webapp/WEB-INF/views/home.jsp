@@ -19,7 +19,7 @@
 	min-height: 800px;
 	margin: auto;
 } */
-
+ 
 section, footer, div {
 	border: 1px solid transparent;
 	display: block;

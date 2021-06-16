@@ -26,7 +26,7 @@ public class NoticeDaoImpl implements NoticeDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return sqlSession.selectList("noticeMapper.selectList", null, rowBounds);
 	}
-
+ 
 	@Override
 	public int insertNotice(Notice n) {
 		return sqlSession.insert("noticeMapper.insertNotice", n);
