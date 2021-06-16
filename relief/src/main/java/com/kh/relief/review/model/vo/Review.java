@@ -25,7 +25,7 @@ public class Review {
 	
 	//T_HISTORY의 판매자 아이디
 	private String seller_id;
-	
+	 
 	//T_HISTORY의 구매자 아이디
 	private String consumer_id;
 }

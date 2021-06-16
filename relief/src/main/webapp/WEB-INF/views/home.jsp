@@ -18,7 +18,7 @@
 	min-height: 800px;
 	margin: auto;
 } */
-
+ 
 section, footer, div {
 	border: 1px solid transparent;
 	display: block;
@@ -39,6 +39,8 @@ h2, h4 {
 	width: 100%;
 	height: 10%;
 	float: left;
+	color : #fff;
+	background-color : #34495E;
 }
 
 #content {
@@ -284,7 +286,7 @@ h2, h4 {
 
 			<div class="bottom">
 				<footer id="footer">
-					<hr>
+					<hr style="background-color:#fff">
 					<p>
 						대표이사: 김다행 | 개인정보보호담당자: 이다행 | 주소: 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 7층<br>
 						사업자등록번호: 113-11-22222<br> <br> 다행㈜는 통신판매중개자로서 중고거래마켓 다행의
@@ -296,6 +298,7 @@ h2, h4 {
 		</div>
 		<div id="part3"></div>
 	</div>
+<br><br><br>
 </body>
 
 </html>

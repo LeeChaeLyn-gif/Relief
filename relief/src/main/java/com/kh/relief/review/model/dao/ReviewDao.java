@@ -18,5 +18,5 @@ public interface ReviewDao {
 	List<Review> selectList(PageInfo pi);
 
 	int deleteReview(int review_id);
-
+ 
 }

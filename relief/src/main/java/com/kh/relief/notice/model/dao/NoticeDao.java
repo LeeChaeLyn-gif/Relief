@@ -14,7 +14,7 @@ public interface NoticeDao {
 	int insertNotice(Notice n);
 
 	Notice selectNotice(int Notice_id);
-
+ 
 	int updateNotice(Notice n);
 
 	void updateReadCount(int notice_id);

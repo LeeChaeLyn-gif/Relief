@@ -18,7 +18,7 @@
 	* {
 		box-sizing: border-box;
 	}
-	
+	 
 	#wrap {
 		width: 1140px;
 		heigth : auto;
@@ -36,11 +36,19 @@
 	}
 	
 	.form-control[readonly] {
-    background-color: white;
+    	background-color: white; !important
     }
+    
+    .btn-color {
+		color : #fff;
+		background-color : #34495E;
+	}
+	
 </style>
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
+	<br><br><br><br><br><br><br><br>
 	<div id="wrap">
 		<h2 class="marginTop text-center">Notice 상세</h2>
 		<hr>
@@ -61,18 +69,20 @@
 		  </div>
 		  <div class="custom-file">
 		    <c:if test="${ !empty notice.fileName }">
-			<a class="btn btn-primary" href="${ contextPath }/resources/NoticeuploadFiles/${ notice.rename_fileName }" download="${ notice.fileName }">
+			<a class="btn btn-color" href="${ contextPath }/resources/NoticeuploadFiles/${ notice.rename_fileName }" download="${ notice.fileName }">
 			${ notice.fileName }</a>
 			</c:if>
 		  </div>
 		</div>
+		
 		<!-- 버튼 -->
 		<div class="text-right marginTop">
-			<button type="button" class="btn btn-primary btsSize marginLeft" onclick="location.href='${ contextPath }/notice/list?page=${ param.page }'">뒤로가기</button>
-			<%-- <c:if test="${ loginUser.id eq 'admin' }"> --%>
-			<button type="button" class="btn btn-primary btsSize marginLeft" onclick="location.href='${ contextPath }/notice/updatePage?notice_id=${ notice.notice_id }&page=${ param.page }'">수정</button>
-			<button type="button" class="btn btn-primary btsSize marginLeft" onclick="location.href='${ contextPath }/notice/delete?notice_id=${ notice.notice_id  }'">삭제</button>
-			<%-- </c:if> --%>
+			<button type="button" class="btn btn-color btsSize marginLeft" onclick="location.href='${ contextPath }/notice/list?page=${ param.page }'">뒤로가기</button>
+			
+			<!-- 
+			<button type="button" class="btn btn-color btsSize marginLeft" onclick="location.href='${ contextPath }/notice/updatePage?notice_id=${ notice.notice_id }&page=${ param.page }'">수정</button>
+			<button type="button" class="btn btn-color btsSize marginLeft" onclick="location.href='${ contextPath }/notice/delete?notice_id=${ notice.notice_id  }'">삭제</button>
+			 -->
 		</div>
 	</div>
 

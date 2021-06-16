@@ -37,7 +37,7 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public List<Review> selectList(PageInfo pi) {
 		return rDao.selectList(pi);
-	}
+	} 
 
 	@Override
 	public int deleteReview(int review_id) {

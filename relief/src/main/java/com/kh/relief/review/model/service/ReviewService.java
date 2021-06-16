@@ -18,7 +18,7 @@ public interface ReviewService {
 
 	// 리뷰 리스트 카운트
 	int selectListCount();
-
+  
 	// 리뷰 셀릭트 리스트
 	List<Review> selectList(PageInfo pi);
 	

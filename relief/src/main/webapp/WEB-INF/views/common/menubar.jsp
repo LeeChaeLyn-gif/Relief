@@ -15,7 +15,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Raleway:400,600,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
-
+ 
 	<link rel="stylesheet" href="${contextPath}/resources/css/assets/css/slick.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/assets/css/slick-theme.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/assets/css/animate.css">
@@ -51,6 +51,12 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 }
 </style>
 
+	<style>
+	#userName {
+		font-size : 16px;
+		font-weight : bold;
+	}
+	</style>
 </head>
 <body data-spy="scroll" data-target=".navbar-collapse">
 	
@@ -71,7 +77,7 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 						</script>
 						</c:when>
 						<c:otherwise>
-						<p>${ loginUser.name }님 환영합니다.</p>
+						<p id="userName">${ loginUser.name }님 환영합니다.</p>
 						<li class="search"><a href="${ contextPath }/account/logout"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>로그아웃</a></li>
 						<li class="chatBtn"><a href="#"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i>채팅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
 						</c:otherwise>
@@ -83,6 +89,7 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-menu"></button>
 
+					<a class="navbar-brand" href="${contextPath}/">
 					<a class="navbar-brand" href="${contextPath}">
                        <img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-display m-top-10" alt="" width="150px">
                     	<img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled" alt="" width="150px">
@@ -112,7 +119,7 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 				<!-- End Top Search -->
 			</div>
 			
-
+			<br><br>
 			<div class="container">
 				<div id="cbutton"><i class="fa fa-bars fa-2x"></i></div>
 			
@@ -130,8 +137,10 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 							<c:otherwise>
 							<li><a href="${ contextPath }/board/insertPage">판매하기</a></li>
 							<li><a href="${ contextPath }/qna/list">Q&A리스트</a></li>
-							<li><a href="${ contextPath }/mypage">마이페이지</a></li>
-							<li><a href="#pricing">고객센터</a></li>
+							<li><a href="${ contextPath }/mypage/confirm">마이페이지</a></li>
+							<li><a href="${ contextPath }/faq/list">FAQ</a></li>
+							<li><a href="${ contextPath }/notice/list">공지사항</a></li>
+							<li><a href="${ contextPath }/review/list">리뷰</a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>

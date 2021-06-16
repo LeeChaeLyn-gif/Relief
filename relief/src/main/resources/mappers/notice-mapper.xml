@@ -18,7 +18,7 @@
 		<result property="a_status" column="A_STATUS"/>
 		
 	</resultMap>
-
+ 
 	<select id="selectListCount" resultType="_int">
 		SELECT
 		       COUNT(*)

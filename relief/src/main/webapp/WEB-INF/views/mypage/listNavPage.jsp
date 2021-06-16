@@ -23,7 +23,7 @@ scope="application"/>
 	* {
 		box-sizing: border-box;
 	}
-	
+	 
 	#nav {
 		width: 1140px;
 		heigth : auto;
@@ -31,13 +31,16 @@ scope="application"/>
 		            
 		margin: auto;
 	}
-	a:active {
-		color: #fff;
-	    background-color: #007bff;
+	a{
+		color : #34495E;
+	}
+	.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+		background-color: #34495E;
 	}
 </style>
 </head>
 <body>	
+<br><br><br><br><br><br><br><br><br><br><br>
 <div id="nav">
 	<nav class="nav nav-pills nav-fill">
 	  <a class="nav-item nav-link" href="${ContextPath }/mypage/confirm">회원정보</a>

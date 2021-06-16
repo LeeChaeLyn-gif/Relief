@@ -18,7 +18,7 @@
 	* {
 		box-sizing: border-box;
 	}
-	
+	 
 	#wrap {
 		width: 1140px;
 		heigth : auto;
@@ -34,9 +34,16 @@
 	.marginTop {
 		margin-top : 50px;
 	}
+	
+	.btn-color {
+		color : #fff;
+		background-color : #34495E;
+	}
 </style>
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
+	<br><br><br><br><br><br><br><br>
 	<div id="wrap">
 		<h2 class="text-center marginTop">Notice</h2>
 		<hr>
@@ -82,7 +89,7 @@
 					<!-- 페이지 숫자  -->
 					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 						<c:if test="${ p eq pi.currentPage }">
-							<button type="button" class="btn btn-primary"><b>${ p }</b></button>
+							<button type="button" class="btn btn-color"><b>${ p }</b></button>
 						</c:if>
 						<c:if test="${ p ne pi.currentPage }">
 							<c:url var="pagination" value="/notice/list">
@@ -109,10 +116,11 @@
 		  </table>
 		</div>
 		
-		<!-- 작성버튼 -->
+		<!-- 작성버튼 
 		<div class="text-right marginTop">
-			<button id="insertBts" type="button" class="btn btn-primary">작성</button>
+			<button id="insertBts" type="button" class="btn btn-color">작성</button>
 		</div>
+		-->
 		
 		<script>
 		$(function(){

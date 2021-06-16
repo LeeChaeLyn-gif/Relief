@@ -30,3 +30,4 @@ public class Notice {
 	private String a_status;
 
 }
+ 

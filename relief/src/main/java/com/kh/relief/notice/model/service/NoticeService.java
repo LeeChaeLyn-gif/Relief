@@ -21,7 +21,7 @@ public interface NoticeService {
 	
 	// 게시글 수정
 	int updateNotice(Notice n);
-
+ 
 	// 게시글 삭제
 	int deleteNotice(int notice_id);
 }

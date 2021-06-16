@@ -24,7 +24,7 @@
        <result property="renameFileName" column="RENAME_FILENAME"/>
        <result property="pk_Id" column="WISH_ID"/>
     </resultMap>
-    
+     
     <resultMap type="T_History" id="T_HistoryResultSet">
     	<id property="t_history_id" column="T_HISTORY_ID"/>
        	<result property="board_id" column="BOARD_ID"/>
@@ -122,6 +122,7 @@
 		      , B.TITLE
 		      , B.PRICE
 		      , B.AREA
+		      , T.T_DATE
 		      , T.CONSUMER_ID
 		      , T.SELLER_ID
 		      , T.STATUS
@@ -238,7 +239,7 @@
 	    
     </update>
     
-    <select id="matchesPwd" parameterType="Account" resultMap="AccountResultSet">
+    <select id="matchesPwd" parameterType="Account" resultType="string">
     SELECT
 			PWD
     FROM
@@ -296,4 +297,15 @@
 			ACCOUNT_ID = #{aid}
     
     </update>
+    
+    <update id="updatePull_Date" >
+    	UPDATE
+    		BOARD
+    	SET
+    		PULL_DATE = SYSDATE
+    	WHERE
+    		BOARD_ID = #{board_id}
+    </update>
+    
+    
 </mapper>	

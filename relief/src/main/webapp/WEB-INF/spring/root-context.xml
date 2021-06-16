@@ -22,7 +22,7 @@
 	<!-- log4jdbc-remix 설정을 위해 기존 dataSource id 변경 후 해당 빈을 참조하는 proxyDataSource 만들기 -->
    <bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource">
       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-      <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+      <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
       <property name="username" value="relief"/>
       <property name="password" value="relief"/>
       <property name="defaultAutoCommit" value="false"/>
