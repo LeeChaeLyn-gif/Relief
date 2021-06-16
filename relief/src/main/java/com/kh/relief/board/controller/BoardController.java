@@ -717,11 +717,11 @@ public class BoardController {
 		r.setReply_id2(rid);
 		System.out.println(r);
 		System.out.println(rid);
-		List<Reply> relist2 = bService.insertReply2(r);
+		List<Reply> relist = bService.insertReply2(r);
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 
-		return gson.toJson(relist2);
+		return gson.toJson(relist);
 	}
 	
 

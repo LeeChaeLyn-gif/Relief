@@ -702,7 +702,7 @@
 		      )
 		START WITH REPLY_ID2 = 0
 		CONNECT BY PRIOR REPLY_ID = REPLY_ID2
-		ORDER SIBLINGS BY CREATE_DATE
+		ORDER SIBLINGS BY CREATE_DATE DESC
  	</select>
  	
  	<insert id="insertReply" parameterType="Reply">

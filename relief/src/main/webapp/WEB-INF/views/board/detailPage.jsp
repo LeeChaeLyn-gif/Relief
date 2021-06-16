@@ -142,6 +142,11 @@ textarea{
 	resize : none;
 }
 
+.replyAreaTd {
+	text-align : left;
+	padding-left : 30px;
+}
+
 
 /* 버튼 */
 .wishbutton, .chatbutton, .reportbutton {
@@ -629,8 +634,12 @@ select {
 					<h5>상품 문의 댓글</h5>
 						<textarea id="replyContent" style="resize : none;"></textarea>
 						<br>
+						<c:if test="${ !empty loginUser }">
 						<button class="btn" id="addReply">댓글 등록</button>
-
+						</c:if>
+						<c:if test="${ empty loginUser }">
+						<button class="btn" onclick="validate()">댓글 등록</button>
+						</c:if>
 						<br><hr><br>
 						<div class="replySelectArea">
 							<table id="replyTable">
@@ -646,14 +655,21 @@ select {
 									<c:forEach items="${ relist }" var="e">
 											<tr class="replyArea">
 												<td>${ e.aid }<input type="hidden" name="rid" value="${ e.reply_id }"></td>
-												<td>${ e.title }<input type="hidden" name="rid2" value="${ e.reply_id2 }"></td>
+												<td class="replyAreaTd">${ e.title }<input type="hidden" name="rid2" value="${ e.reply_id2 }"></td>
 												<td>${ e.create_date }</td>
 											</tr>
 											<tr class="replyArea2" style="display : none;">
 												<td></td>
 												<td>
-												<textarea class="replyText"></textarea>
-												<button onclick="addReply()" class="btn" type="button">답글달기</button>
+												<textarea class="replyText" id="${ e.reply_id }"></textarea>
+												<c:choose>
+												<c:when test="${ loginUser.aid == board.account_id }">
+												<button onclick="addReply(${ e.reply_id })" class="btn" type="button">답글달기</button>
+												</c:when>
+												<c:otherwise>
+												<button onclick="validate2()" class="btn" type="button">답글달기</button>
+												</c:otherwise>
+												</c:choose>
 												</td>
 												<td></td>
 											</tr>
@@ -698,7 +714,8 @@ select {
 			for(let i = 0; i < btnArr.length; i++){ 
 				btnArr[i].addEventListener('click',function(e){ 
 					e.preventDefault(); 
-					document.querySelector('.btn' + (i + 1)).scrollIntoView(true); }); 
+					document.querySelector('.btn' + (i + 1)).scrollIntoView(true); 
+					}); 
 				}
 			
 			
@@ -789,24 +806,62 @@ select {
 			
 		})
 
+		function refreshMemList(){
+		location.reload();
+		}
 		
-		function addReply(){
-			var title = $(".replyText").val();
+		function addReply(rid){
+			var title = $("#"+rid).val();
 			var bid = ${ board.board_id };
-			var rid = $(this).find("input[name=rid]").val();
 			
+			var currentRow = $("#"+rid).closest('tr');
+			
+			if(title == ""){
+				alert('답변을 적어주세요.');
+				return false;
+			}
+	
 			$.ajax({
+				async : false,
 				url : "${ contextPath }/board/insertReply2",
 				data : { title : title, bid : bid, rid : rid },
 				type : "post",
 				dataType : "json",
 				success : function(data){
+					tableBody = $("#replyTable tbody");
+					tableBody.html("");
 					
-					$(".replyText").val("");
+					for(var i in data){
+						tr = $("<tr>");
+						account = $("<td width='70'>").text(data[i].aid);
+						content = $("<td style='text-align : left; padding-left : 30px'>").text(data[i].title);
+						createDate = $("<td width='100'>").text(data[i].create_date);
+						
+						tr.append(account, content, createDate);
+						tableBody.append(tr);
+					}
+					
+					$("#"+rid).val("");
+					currentRow.hide();
+					
+					refreshMemList();
 				}
 			})
 		}
 
+		function validate(){
+			if(confirm('다행 회원만 이용 가능합니다. 로그인 하시겠습니까?')){
+				location.href = "${ contextPath }/account/login";
+			} else {
+				return false;
+			}
+		}
+		
+		// 글쓴이가 아닐 경우
+		function validate2(){
+			alert('글쓴이만 답변을 달 수 있습니다.');
+			
+		}
 	</script>
 	<script>
 

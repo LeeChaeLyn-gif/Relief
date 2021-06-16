@@ -200,7 +200,7 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public List<Reply> insertReply2(Reply r) {
 		bDao.insertReply2(r);
-		return bDao.selectReply2List(r.getBid());
+		return bDao.selectReplyList(r.getBid());
 	}
 
 	@Override
