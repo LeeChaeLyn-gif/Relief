@@ -7,6 +7,23 @@
 <meta charset="UTF-8">
 <title>관리자페이지</title>
 	<style>
+	.mainbar{
+			width : 70%;
+			float : left;
+		}
+		.titleArea{
+			width : 800px;
+			height : 52px;
+			float : left;
+			background-color: #597a96;
+		}
+		
+		h2{
+			color : white;
+			font-weight : bold;
+			text-align : center;
+			padding-top : 7px;
+		}
     .headDiv{
         display: inline-block;
     }
@@ -29,49 +46,45 @@
         bottom: 30px;
     }
     .info{
-            border: 2px solid lightgray;
-            margin-left : 100px;
-        	width : 70%;
+        	width : 800px;
         }
     .title1{
         background-color: #597a96;
-        width: 100px;
-        border-radius: 5px;
+        width: 90px;
         display: inline-block;
     }
     .title1 h3{
-        margin: 0px;
         text-align: center;
         color: white;
-        padding: 10px;
     }
     .titleValue{
         display: inline-block;
-        font-weight: bolder;
+            width : 200px;
+            padding-left: 5px;
+            font-weight: bolder;
     }
     .create{
             background-color: #597a96;
-            width: 12%;
-            border-radius: 5px;
+            width : 100px;
+            height : 50px;
             display: inline-block;
     }
     .create h3{
-        margin: 0px;
         text-align: center;
-        color: white;
-        padding: 10px;
+            color: white;
     }
     .createValue{
-        display: inline-block;
-        font-weight: bolder;
+        width : 100px;
+            padding-left: 5px;
+            display: inline-block;
+            font-weight: bolder;
     }
     
     .qna{
         border: 2px solid lightgray;
         height: 300px;
-        width: 53%;
+        width: 800px;
         padding: 0px;
-        margin-left: 20%;
     }
     .qna h1{
         text-align: center;
@@ -94,28 +107,27 @@
 
     }
     .btnArea{
-        	width : 91%;
+        	width : 800px;
         	text-align : center;
         }
      h3{
      	text-align : center;
-     	margin-right : 10%;
      }
     </style>
 </head>
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
 	<div class="mainbar">
-	<div class="title">
-	<h1>문의사항</h1>	
+	<div class="titleArea">
+	<h2>문의사항</h2>	
 	</div>
         <div class="info">
             <div class="title1"><h3>제목</h3></div>
-            <p class="titleValue">${ q.qtitle }</p>
+            <div class="titleValue"><h6>${ q.qtitle }</h6></div>
             <div class="create"><h3>작성일</h3></div>
-            <p class="createValue">${ q.createDate }</p>
+            <div class="createValue"><h6>${ q.createDate }</h6></div>
             <div class="create"><h3>작성자</h3></div>
-            <p class="createValue">${ q.aid }</p>
+            <div class="createValue"><h6>${ q.aid }</h6></div>
         </div>
         <div class="qna">
 			${ q.qcontent }
