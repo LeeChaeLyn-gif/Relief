@@ -11,37 +11,72 @@
 <title>Insert title here</title>
 <style>
 
-	* {
-		box-sizing: border-box;
+		* {
+			box-sizing: border-box;
 		}
 		
-	div {
+		div {
 			border: 1px solid transparent;
 			display: block;
 		}
-     body{
+     	body{
              height: 100%;
              width: 100%;
          }
-         .result{
-             border: 2px solid lightgray;
-             width: 80%;
+         .outer{
+         	width: 70%;
              height: 80%;
-             margin-left : 10%;
+         	border: 2px solid lightgray;
+         	margin : auto;
+         	text-align: center;
+         	margin-bottom : 50px;
          }
+         .result{
+             width: 1100px;
+             
+         }
+         .searchResult{
+         	width : 100%;
+         	height : 60px;
+         	border-bottom : 2px solid lightgray;
+         	
+         }
+         
+         select { 
+			padding: 5px 10px 5px 5px !important;
+			font-family: inherit !important;
+			background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50% !important;
+			border: 1px solid #999 !important; 
+			border-radius: 0px !important;
+			-webkit-appearance: none !important;
+			-moz-appearance: none !important; 
+			appearance: none !important; 
+		}
 
          .searchValue{
-             margin: 0 auto;
-             width: 50px;
              display: inline-block;
-             color: red;
+             font-weight : bold;
              text-align: center;
+         	 color : rgb(52, 73, 94);
+         }
+         
+         .show{
+         	width : 30%;
+         	float : left;
+         }
+         
+         .optionArea{
+         	width : 45%;
+         	float : left;
+         }
+         .sort{
+         	width : 25%;
+         	float : left;
          }
          .h5{
-             color: lightgray;
+             color: rgb(52, 73, 94);
              display: inline-block;
              margin: 0 auto;
-             width: 100px;
          }
          .desc{
              text-decoration-line: none;
@@ -49,24 +84,23 @@
              margin: 5px;
              color: black;
          }
-         .searchResult{
-             float: left;
-         }
+
          .line{
              margin-top: 80px;
-             text-align: center;
+             text-align : left;
          }
          .elements{
-             height: 300px;
-             width: 300px;
+             height: 360px;
+             width: 250px;
              border: 1px solid lightgray;
              display: inline-block;
-             margin-bottom: 10px;
              color : black;
+             margin : 5px;
+             text-align : center;
          }
          .img{
-            height: 150px;
-            width: 300px;
+            height: 250px;
+            width: 250px;
          }
          .btnArea{
             text-align: center;
@@ -81,7 +115,7 @@
              height: 30px;
          }
          .btn:hover{
-             background-color: red;
+             background-color: rgb(52, 73, 94);
              color: white;
          }
          hr{
@@ -89,7 +123,8 @@
              margin-top: 30px;
          }
          .addr{
-            margin-top: 10px;
+         	display : block;
+         	border-top : 1px solid lightgray;
          }
          h5{
              display: inline-block;
@@ -106,6 +141,14 @@
          }
          .material-icons{
             color: rgb(0, 51, 85);
+            display : inline-block;
+         }
+         .pArea{
+         	display : inline-block;
+         	
+         }
+         .titlePrice{
+         	margin-top : 5px;
          }
          .side-menu{
          	margin-left : 1600px;
@@ -116,9 +159,10 @@
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="../common/sidebar.jsp"/><br><br><br><br><br><br><br><br><br>
-	<div class="main">
-        <div class="result">
+	<div class="outer">
+        
             <div class="searchResult">
+            	<div class="show">
                 <p class="resultP"><h5 class="searchValue">
                 <c:choose>
                 	<c:when test="${ !empty searchValue }">
@@ -127,7 +171,9 @@
                 	<c:otherwise>
                 		${ categoryName }
                 	</c:otherwise>
-                </c:choose></h5>의 검색결과&nbsp;<h5 class="h5">${ listCount }개의 결과</h5></p>   
+                </c:choose></h5>의 검색결과&nbsp;<h5 class="h5">${ listCount }</h5>개의 결과</p>  
+                 </div>
+                 <div class="optionArea">
                 <select name="category1" id="category1">
                 <c:forEach items="${ cList }" var="c">
                 	<c:if test="${ c.cgroup == 1 }">
@@ -157,7 +203,7 @@
                 	</c:if>
                 </c:forEach>
                 </select>
-            </div>
+            	</div>
             <div class="sort">
             	<c:choose>
             		<c:when test="${ !empty searchValue }">
@@ -171,17 +217,21 @@
                 
                 
             </div>
+            
+            </div>
+		<div class="result">
             <div class="line">
             	<c:forEach items="${ bList }" var="b">
             		<a class="elements" href="${ contextPath }/board/detail?board_id=${ b.board_id }">
 		                <img src="${ contextPath }/resources/buploadFiles/${ b.renameFileName }" class="img">
-	                    <p>${ b.title }</p>
-	                    <p>${ b.price }원</p>
-	                    <hr>
-	                    <div class="addr">
+		                <span class="titlePrice">
+		                    <h4>${ b.title }</h4>
+		                    <h5>${ b.price }원</h5>
+	                    </span>
+	                    <span class="addr">
 		                    <span class="material-icons"> add_location_alt</span>
-		                    <small>${ b.area }</small>
-	                    </div>
+		                    <span class="pArea"><p>${ b.area }</p></span>
+	                    </span>
 	                </a>
             	</c:forEach>        
             </div>
@@ -234,7 +284,7 @@
 				</c:if>
 				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 						<c:if test="${ p eq pi.currentPage }">
-							<button class="btn" style="background : red">${ p }</button>
+							<button class="btn" style="background : rgb(52, 73, 94); color : white;">${ p }</button>
 						</c:if>
 						<c:if test="${ p ne pi.currentPage }">
 							<c:url var="pagination" value="/board/list">

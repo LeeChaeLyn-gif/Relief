@@ -7,7 +7,29 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.headDiv{
+		.mainbar{
+			width : 70%;
+			float : left;
+		}
+		.titleArea{
+			width : 700px;
+			height : 52px;
+			float : left;
+			background-color: #597a96;
+		}
+		
+		h2{
+			color : white;
+			font-weight : bold;
+			text-align : center;
+			padding-top : 7px;
+		}
+		.tableArea{
+			width : 700px;
+			float : left;
+			display : block;
+		}
+		.headDiv{
             display: inline-block;
         }
         .homeimg{
@@ -31,10 +53,24 @@
         .noticeBoard tr th{
             background-color: lightgray;
             height: 50px;
-            width: 300px;
             text-align: center;
             font-weight: bold;
             padding: 0px;
+        }
+        .noticeBoard tr th:nth-child(1){
+        	width : 100px;
+        }
+        .noticeBoard tr th:nth-child(2){
+        	width : 150px;
+        }
+        .noticeBoard tr th:nth-child(3){
+        	width : 150px;
+        }
+        .noticeBoard tr th:nth-child(4){
+        	width : 150px;
+        }
+        .noticeBoard tr th:nth-child(5){
+        	width : 150px;
         }
         .noticeBoard tr td{
             height: 50px;
@@ -86,19 +122,21 @@
             border: 0;
         }
         .btnArea{
+        	width : 700px;
         	text-align : center;
         }
         .noticeBoard{
-        	width : 57.4%;
+        	width : 700px;
         }
 </style>
 </head>
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
 	<div class="mainbar">
-	<div class="title">
-	<h1>제재회원 목록</h1>	
-	</div>
+		<div class="titleArea">
+			<h2>제재회원 목록</h2>	
+		</div>
+	<div class="tableArea">
     <table class="noticeBoard">
         <tr>
             <th>NO.</th>
@@ -118,6 +156,7 @@
         </c:forEach>
         
     </table>
+    </div>
     <br>
     <br>
     <div class="btnArea">
