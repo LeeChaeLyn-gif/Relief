@@ -165,7 +165,12 @@
     		<script>
     			$(function(){
     				$(".btn1").on("click", function(){
-    					location.href="${ contextPath }/chat/detail?chid=${ r.chid }";
+    					var _width = '650';
+    				    var _height = '380';
+    					var _left = Math.ceil(( window.screen.width - _width ));
+    					var _top = Math.ceil(( window.screen.height - _height )/2);
+    					
+    					window.open("${contextPath}/selectChat?chatId=${ r.chid }", "", "width=550, height=600, left=" + _left + ", top=" + _top);
     				});
     			})
     		</script>
