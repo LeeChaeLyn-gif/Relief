@@ -697,101 +697,105 @@ textarea{
 		});
 	</script>
 	<script>
-		var pos = 0;
-		var totalSlides = $('#slider-wrap ul li').length;
-		var sliderWidth = $('#slider-wrap').width();
+	   var pos = 0;
 
-		$(document).ready(function() {
-			$('#slider-wrap ul#slider').width(sliderWidth * totalSlides);
+	   var totalSlides = $('#slider-wrap ul li').length;
 
-			$('#next').click(function() {
-				slideRight();
-			});
+	   var sliderWidth = $('#slider-wrap').width();
 
-			$('#previous').click(function() {
-				slideLeft();
-			});
-			
-			var autoSlider = setInterval(slideRight, 3000);
 
-			$.each($('#slider-wrap ul li'), function() {
+	   $(document).ready(function(){
+	     
+	     $('#slider-wrap ul#slider').width(sliderWidth*totalSlides);
+	     
+	     $('#next').click(function(){
+	       slideRight();
+	     });
+	     
+	     $('#previous').click(function(){
+	       slideLeft();
+	     });
+	     
+	     
+	     var autoSlider = setInterval(slideRight, 3000);
+	     
+	     $.each($('#slider-wrap ul li'), function() { 
 
-				var li = document.createElement('li');
-				$('#pagination-wrap ul').append(li);
-			});
+	        var li = document.createElement('li');
+	        $('#pagination-wrap ul').append(li);    
+	     });
+	     
+	     countSlides();
+	     
+	     pagination();
+	     
+	     $('#slider-wrap').hover(
+	       function(){ $(this).addClass('active'); clearInterval(autoSlider); }, 
+	       function(){ $(this).removeClass('active'); autoSlider = setInterval(slideRight, 3000); }
+	     );
 
-			countSlides();
+	   });
+	     
 
-			pagination();
+	   function slideLeft(){
+	     pos--;
+	     if(pos==-1){ pos = totalSlides-1; }
+	     $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos));  
+	     
+	     countSlides();
+	     pagination();
+	   }
 
-			$('#slider-wrap').hover(function() {
-				$(this).addClass('active');
-				clearInterval(autoSlider);
-			}, function() {
-				$(this).removeClass('active');
-				autoSlider = setInterval(slideRight, 3000);
-			});
 
-		});
+	   function slideRight(){
+	     pos++;
+	     if(pos==totalSlides){ pos = 0; }
+	     $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos)); 
+	     
 
-		function slideLeft() {
-			pos--;
-			if (pos == -1) {
-				pos = totalSlides - 1;
-			}
-			$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
+	     countSlides();
+	     pagination();
+	   }
 
-			countSlides();
-			pagination();
-		}
+	   function countSlides(){
+	     $('#counter').html(pos+1 + ' / ' + totalSlides);
+	   }
 
-		function slideRight() {
-			pos++;
-			if (pos == totalSlides) {
-				pos = 0;
-			}
-			$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
+	   function pagination(){
+	     $('#pagination-wrap ul li').removeClass('active');
+	     $('#pagination-wrap ul li:eq('+pos+')').addClass('active');
+	   }
+	   
+	   function chat(){
+	      var _width = '650';
+	       var _height = '380';
+	      var _left = Math.ceil(( window.screen.width - _width ));
+	      var _top = Math.ceil(( window.screen.height - _height )/2);
+	      var accountId2 = $(".accountId").text();
+	      
+	      if('${loginUser.aid}' === '${board.account_id}'){
+	         alert("자신과는 채팅이 불가능합니다.");
+	      } else {
+	      window.open("${contextPath}/createChat?accountId2=" + accountId2, "", "width=550, height=600, left=" + _left + ", top=" + _top);
+	      }
+	      
+	   }
+	   
+	   function report(){
+	      var _width = '650';
+	       var _height = '380';
+	      var _left = Math.ceil(( window.screen.width - _width ));
+	      var _top = Math.ceil(( window.screen.height - _height )/2);
+	      var accountId2 = $(".accountId").text();
+	      var bid = ${board.board_id};
+	      
+	      if('${loginUser.aid}' === '${board.account_id}'){
+	         alert("자신은 신고가 불가능합니다.");
+	      } else {
+	      window.open("${contextPath}/board/reportUser?accountId2=" + accountId2 + "&bid=" + bid, "", "width=500, height=400, left=" + _left + ", top=" + _top);
+	      }      
+	   }
 
-			countSlides();
-			pagination();
-		}
-
-			$('#counter').html(pos + 1 + ' / ' + totalSlides);
-
-		function pagination() {
-			$('#pagination-wrap ul li').removeClass('active');
-			$('#pagination-wrap ul li:eq(' + pos + ')').addClass('active');
-		}
-		
-		function chat(){
-			var _width = '650';
-		    var _height = '380';
-			var _left = Math.ceil(( window.screen.width - _width ));
-			var _top = Math.ceil(( window.screen.height - _height )/2);
-			var accountId2 = $(".accountId").text();
-			
-			if('${loginUser.aid}' === '${board.account_id}'){
-				alert("자신과는 채팅이 불가능합니다.");
-			} else {
-			window.open("${contextPath}/createChat?accountId2=" + accountId2, "", "width=550, height=600, left=" + _left + ", top=" + _top);
-			}
-			
-		}
-		
-		function report(){
-			var _width = '650';
-		    var _height = '380';
-			var _left = Math.ceil(( window.screen.width - _width ));
-			var _top = Math.ceil(( window.screen.height - _height )/2);
-			var accountId2 = $(".accountId").text();
-			var bid = ${board.board_id};
-			
-			if('${loginUser.aid}' === '${board.account_id}'){
-				alert("자신은 신고가 불가능합니다.");
-			} else {
-			window.open("${contextPath}/board/reportUser?accountId2=" + accountId2 + "&bid=" + bid, "", "width=500, height=400, left=" + _left + ", top=" + _top);
-			}		
-		}
 	</script>
 	
 </body>

@@ -59,6 +59,8 @@
 		  AND C.ACCOUNT_ID = #{accountId}
 		  AND (C.CHAT_STATUS = 'Y'
 		 	  OR C.CHAT_STATUS2 = 'Y')
+		  AND (B.STATUS = 'Y'
+              OR B.STATUS2 = 'Y')
         UNION ALL
          		 SELECT 
 			  		   C.ACCOUNT_ID, 
@@ -87,6 +89,8 @@
 		 	  AND C.ACCOUNT_ID2 = #{accountId}
 		 	  AND (C.CHAT_STATUS = 'Y'
 		 	  OR C.CHAT_STATUS2 = 'Y')
+		 	  AND (B.STATUS = 'Y'
+              OR B.STATUS2 = 'Y')
          	  )
        ORDER BY 
        		   CHAT_DATE DESC

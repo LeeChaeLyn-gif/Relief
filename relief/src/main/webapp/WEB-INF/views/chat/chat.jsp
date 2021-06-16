@@ -202,8 +202,8 @@
 			}else{
 				console.warn("unknown type!")
 			}
-		}
 			$('#chating').scrollTop($('#chating')[0].scrollHeight);
+		}
 	}
 			document.addEventListener("keypress", function(e){
 				if(e.keyCode == 13){ //enter press
@@ -232,7 +232,6 @@
 		$('#chatMenu2').click(function(){
 			$('#chatSubMenu').slideToggle(300);
 		});
-
 	
 	function blockChat(){
 		
@@ -280,6 +279,5 @@
 		
 		window.open("${contextPath}/reportUser?accountId2=" + accountId2 + "&chid=" + chatId, "", "width=500, height=400, left=" + _left + ", top=" + _top);
 	}
-
 </script>
 </html>

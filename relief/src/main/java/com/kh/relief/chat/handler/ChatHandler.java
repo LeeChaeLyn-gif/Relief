@@ -25,8 +25,6 @@ import com.kh.relief.chat.model.vo.ChatHistory;
 public class ChatHandler extends TextWebSocketHandler {
 @Autowired
 private ChatService cService;
-@Autowired
-private MainHandler mainHandler;
 	// 웹소켓 세션을 담아둘 맵
 	HashMap<String, WebSocketSession> sessionMap = new HashMap<>();
 	// 웹소켓 세션을 담아둘 리스트
