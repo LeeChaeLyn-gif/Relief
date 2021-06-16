@@ -765,4 +765,10 @@ public class BoardController {
 		}
 	}
 
+	@GetMapping("/update")
+	public String updatePage(int board_id, Model model) {
+		Board b = bService.selectBoard(board_id, false);
+		
+		return "";
+	}
 }
