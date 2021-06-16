@@ -74,6 +74,8 @@ public class ChatController {
 			jChat.put("chatId", chat.getChatId());
 			jChat.put("name", chat.getName());
 			jChat.put("chatHistoryId", chat.getChatHistoryId());
+			jChat.put("chatStatus", chat.getStatus());
+			jChat.put("chatStatus2", chat.getStatus2());
 
 			jArr.add(jChat);
 		}

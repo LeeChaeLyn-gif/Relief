@@ -116,9 +116,11 @@ button {
 				var value = "";
 				$(".chatRoom").remove();
 				for(var i in data.cList){
-					value = "<div class='chatRoom' onclick='selectChat( "+ data.cList[i].chatId + ")'><div class='chatUserName'>" + data.cList[i].name + "</div><div class='chatContent'>"
-						+ data.cList[i].content + "</div><div class='chatDate'>" + data.cList[i].chatDate + "</div></div>"
+					console.log(data);
 					
+						
+						value = "<div class='chatRoom' onclick='selectChat( "+ data.cList[i].chatId + ")'><div class='chatUserName'>" + data.cList[i].name + "</div><div class='chatContent'>"
+						+ data.cList[i].content + "</div><div class='chatDate'>" + data.cList[i].chatDate + "</div></div>"
 					$("#roomList").append(value);
 				}
 			},

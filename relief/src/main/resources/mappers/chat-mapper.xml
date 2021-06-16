@@ -11,7 +11,7 @@
  		<result property="content" column="CONTENT"/>
  		<result property="chatDate" column="CHAT_DATE"/>
  		<result property="status" column="STATUS"/>
- 		<result property="status" column="STATUS2"/>
+ 		<result property="status2" column="STATUS2"/>
  	</resultMap>
  	
  	<resultMap type="Chat" id="chatResultSet">
@@ -19,6 +19,7 @@
  		<result property="accountId" column="ACCOUNT_ID"/>
  		<result property="accountId2" column="ACCOUNT_ID2"/>
  		<result property="chatStatus" column="CHAT_STATUS"/>
+ 		<result property="chatStatus2" column="CHAT_STATUS2"/>
  	</resultMap>
  	
  	<resultMap type="Block" id="blockResultSet">
@@ -34,13 +35,16 @@
 		  FROM (
 				SELECT 
 			  		  C.ACCOUNT_ID2, 
+			  		  C.ACCOUNT_ID,
 			  		  B.CONTENT, 
 			  		  B.CHAT_DATE, 
 			  		  B.STATUS,
 			  		  B.STATUS2,
 			  		  C.CHAT_ID,
                       D.NAME,
-                       CHAT_HISTORY_ID
+                      CHAT_HISTORY_ID,
+                      C.CHAT_STATUS,
+                      C.CHAT_STATUS2
 		 		 FROM (
 			  		   SELECT 
 			  	       ROW_NUMBER() OVER
@@ -59,14 +63,17 @@
 		  AND C.ACCOUNT_ID = #{accountId}
         UNION ALL
          		 SELECT 
-			  		   C.ACCOUNT_ID, 
+			  		   C.ACCOUNT_ID,
+			  		   C.ACCOUNT_ID2, 
 			  		   B.CONTENT, 
 			  		   B.CHAT_DATE, 
 			  		   B.STATUS,
 			  		   B.STATUS2, 
 			  		   C.CHAT_ID,
                        D.NAME,
-                       CHAT_HISTORY_ID
+                       CHAT_HISTORY_ID,
+                       C.CHAT_STATUS,
+                       C.CHAT_STATUS2
 		 FROM (
 			  SELECT 
 			  	    ROW_NUMBER() OVER
@@ -197,7 +204,7 @@
  		UPDATE
  			   CHAT
  		   SET
- 			  CHAT_STATUS2 = 'N'
+ 			  CHAT_STATUS = 'N'
  		WHERE
  			  CHAT_ID = #{chatId}
  	</update>
@@ -295,7 +302,7 @@
  		UPDATE
               CHAT
 		SET
-            CHAT_STATUS = 'N'
+            CHAT_STATUS2 = 'N'
 		WHERE ACCOUNT_ID = #{accountId}
 		AND CHAT_ID = #{chatId}
  	</update>
@@ -312,7 +319,7 @@
               CHAT
 		SET
             CHAT_STATUS = 'N'
-		WHERE ACCOUNT_ID = #{accountId}
+		WHERE ACCOUNT_ID2 = #{accountId2}
 		AND CHAT_ID = #{chatId}
  	</update>
  	<update id="exitChat4" parameterType="ChatHistory">
@@ -320,7 +327,7 @@
               CHAT_HISTORY
 		SET
             STATUS = 'N'
-		WHERE ACCOUNT_ID = #{accountId}
+		WHERE ACCOUNT_ID = #{accountId2}
 		AND CHAT_ID = #{chatId}
  	</update>
  	<select id="selectAccount" parameterType="Chat" resultMap="chatResultSet">
