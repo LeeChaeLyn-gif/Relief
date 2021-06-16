@@ -95,7 +95,6 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 						<div class="container">
 							<div class="input-group">
 								<input type="text" class="form-control" name="searchValue" placeholder="상품명, 지역명 검색" <c:if test="${ !empty searchValue }"> value="${searchValue }"</c:if>>
-								<input type="text" class="form-control" id="searchValue" name="searchValue" placeholder="상품명, 지역명 검색" <c:if test="${ !empty searchValue }"> value="${searchValue }"</c:if>>
 								<c:choose>
 								<c:when test="${ empty sessionScope.loginUser }">
 								<button class="input-group-addon" type="button" onClick="unLoginList()"><i class="fa fa-search" id="submitBtn"></i></button>

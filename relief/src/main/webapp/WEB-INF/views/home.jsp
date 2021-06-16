@@ -270,7 +270,7 @@ h2, h4 {
 						}
 					},
 					error : function(e){
-						alert("code : " + e.status + "\n"
+						console.log("code : " + e.status + "\n"
 								+ "message : " + e.responseText);
 					}
 				});

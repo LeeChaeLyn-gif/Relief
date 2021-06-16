@@ -165,7 +165,7 @@ public class MyPageController {
     	}
     	
     }
-    
+ 
 	@GetMapping("/salesHistory")
 	public ModelAndView salesHistoryView(HttpSession session, ModelAndView mv,
 			@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
