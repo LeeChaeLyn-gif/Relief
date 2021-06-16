@@ -35,6 +35,10 @@
 		margin-left : 20px;
 	}
 	
+	.btn-color {
+		color : #fff;
+		background-color : #34495E;
+	}
 </style>
 </head>
 <body>
@@ -65,9 +69,9 @@
 		
 		<!-- 버튼 -->
 		<div class="text-right marginTop">
-			<button type="button" class="btn btn-primary btsSize marginLeft" onclick="location.href='${ contextPath }/notice/list?page=${ param.page }'">뒤로가기</button>
+			<button type="button" class="btn btn-color btsSize marginLeft" onclick="location.href='${ contextPath }/notice/list?page=${ param.page }'">뒤로가기</button>
 			<%-- <c:if test="${ loginUser.id eq 'admin' }"> --%>
-			<button type="submit" class="btn btn-primary btsSize marginLeft">작성</button>
+			<button type="submit" class="btn btn-color btsSize marginLeft">작성</button>
 			<%-- </c:if> --%>
 		</div>
 		

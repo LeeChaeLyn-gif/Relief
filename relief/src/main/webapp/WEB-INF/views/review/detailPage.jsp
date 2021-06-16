@@ -61,58 +61,70 @@
 	.form-control[readonly] {
     background-color: white;
     }
+    .btn-color {
+		color : #fff;
+		background-color : #34495E;
+	}
 </style>
 
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
+	<br><br><br><br><br><br><br><br><br>
+	
 <div id="wrap">
-		<h1 class="text-center TmarginSize">리뷰 상세</h1>
-		<hr class="BmarginSize">
+	<h1 class="text-center TmarginSize">리뷰 상세</h1>
+	<hr class="BmarginSize">
+	
+	<!-- r.review_id 값 넘겨주기 -->
+	<input type="hidden" value="${r.review_id}" name="review_id" disabled>
+	
+	<div class="starRev" style="margin-bottom : 15px">
+	별점&nbsp;
+	<c:forEach var="i" begin="1" end="5">
+		<c:choose>
+			<c:when test="${ i <= r.star}">
+				<span class="starR on">${i}</span>
+			</c:when>
+			<c:otherwise>
+				<span class="starR">${i}</span>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>	
 		
-		<!-- r.review_id 값 넘겨주기 -->
-		<input type="hidden" value="${r.review_id}" name="review_id" disabled>
-		
-		<div class="starRev" style="margin-bottom : 15px">
-		별점&nbsp;
-		<c:forEach var="i" begin="1" end="5">
-			<c:choose>
-				<c:when test="${ i <= r.star}">
-					<span class="starR on">${i}</span>
-				</c:when>
-				<c:otherwise>
-					<span class="starR">${i}</span>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>	
-			
-		  <!-- star 값 넘겨주기 -->
-		  <input id="star" type="hidden" value="0" name="star">
-		  
-		</div>
-		
-		<div class="mb-3">
-		  <label for="title" class="form-label">제목</label>
-		  <input type="text" class="form-control" id="title" placeholder="제목 입력" name="title" value="${r.title}" readonly>
-		</div>
-		
-		<div class="mb-3">
-		  <label for="content" class="form-label">내용</label>
-		  <textarea class="form-control" id="cotent" rows="3" style="resize: none;" name="content" readonly>${r.content}</textarea>
-		</div>
+	  <!-- star 값 넘겨주기 -->
+	  <input id="star" type="hidden" value="0" name="star">
+	  
+	</div>
+	
+	<div class="mb-3">
+	  <label for="title" class="form-label">제목</label>
+	  <input type="text" class="form-control" id="title" placeholder="제목 입력" name="title" value="${r.title}" readonly>
+	</div>
+	
+	<div class="mb-3">
+	  <label for="content" class="form-label">내용</label>
+	  <textarea class="form-control" id="cotent" rows="3" style="resize: none;" name="content" readonly>${r.content}</textarea>
+	</div>
 
-		<div class="text-right">
-			<button type="button" class="btn btn-primary RmarginSize" onclick="window.history.back()">뒤로가기</button>
-			
-			<!-- 본인 일때만 수정 버튼 보이기 -->
-			<%-- <c:if test="admin"> --%>
-				<button type="button" class="btn btn-primary" onclick="location.href='${ contextPath }/review/delete?review_id=${ r.review_id  }'">삭제</button>
-				<button type="button" class="btn btn-primary" onclick="location.href='${ contextPath }/review/modify?review_id=${ r.review_id  }'">수정</button>
-			<%-- </c:if> --%>
-			
-		</div>
-	</form>
+	<div class="text-right">
+		<button type="button" class="btn btn-color RmarginSize" onclick="window.history.back()">뒤로가기</button>
+		
+		<!-- 본인 일때만 수정 버튼 보이기 -->
+		<%-- <c:if test="admin"> --%>
+			<button type="button" class="btn btn-color" onclick="deleteBtn(${ r.review_id  })">삭제</button>
+			<button type="button" class="btn btn-color" onclick="location.href='${ contextPath }/review/modify?review_id=${ r.review_id  }'">수정</button>
+		<%-- </c:if> --%>
+		
+	</div>
 </div>
-
+	<script>
+	function deleteBtn(review_id){
+		if(confirm("삭제 하시겠습니까?")) {
+			location.href = '${ contextPath }/review/delete?review_id=' + review_id +'&pageNum=' + 0 ;
+		}
+	}
+	</script>
 
 </body>
 </html>

@@ -39,12 +39,14 @@
 	<script src="<c:url value="/resources/css/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"/>"></script>
 <title>menuBar</title>
 
+	<style>
+	#userName {
+		font-size : 16px;
+		font-weight : bold;
+	}
+	</style>
 </head>
 <body data-spy="scroll" data-target=".navbar-collapse">
-<%-- 	<c:if test="${ !empty msg }">
-		<script>alert('${msg}');</script>
-		<c:remove var="msg"/>
-	</c:if> --%>
 	
 	<div class="culmn">
 
@@ -63,7 +65,7 @@
 						</script>
 						</c:when>
 						<c:otherwise>
-						<p>${ loginUser.name }님 환영합니다.</p>
+						<p id="userName">${ loginUser.name }님 환영합니다.</p>
 						<li class="search"><a href="${ contextPath }/account/logout"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>로그아웃</a></li>
 						<li class="chatBtn"><a href="#"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i>채팅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
 						</c:otherwise>
@@ -75,7 +77,7 @@
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-menu"></button>
 
-					<a class="navbar-brand" href="${contextPath}/home">
+					<a class="navbar-brand" href="${contextPath}/">
                        <img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-display m-top-10" alt="" width="150px">
                        <img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled" alt="" width="150px">
                     </a>
@@ -87,7 +89,6 @@
 						<div class="container">
 							<div class="input-group">
 								<input type="text" class="form-control" name="searchValue" placeholder="상품명, 지역명 검색" <c:if test="${ !empty searchValue }"> value="${searchValue }"</c:if>>
-								<button class="input-group-addon" type="submit"><i class="fa fa-search"></i></button>
 								<c:choose>
 								<c:when test="${ empty sessionScope.loginUser }">
 								<button class="input-group-addon" type="button" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')"><i class="fa fa-search" id="submitBtn"></i></button>
@@ -105,7 +106,7 @@
 				<!-- End Top Search -->
 			</div>
 			
-
+			<br><br>
 			<div class="container">
 				<div id="cbutton"><i class="fa fa-bars fa-2x"></i></div>
 			
@@ -123,8 +124,10 @@
 							<c:otherwise>
 							<li><a href="${ contextPath }/board/insertPage">판매하기</a></li>
 							<li><a href="${ contextPath }/qna/list">Q&A리스트</a></li>
-							<li><a href="${ contextPath }/mypage">마이페이지</a></li>
-							<li><a href="#pricing">고객센터</a></li>
+							<li><a href="${ contextPath }/mypage/confirm">마이페이지</a></li>
+							<li><a href="${ contextPath }/faq/list">FAQ</a></li>
+							<li><a href="${ contextPath }/notice/list">공지사항</a></li>
+							<li><a href="${ contextPath }/review/list">리뷰</a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>

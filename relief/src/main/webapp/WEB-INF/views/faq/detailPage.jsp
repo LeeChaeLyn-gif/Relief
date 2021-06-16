@@ -8,8 +8,7 @@
 <title>Insert title here</title>
 
 <!-- bootstrap 4.0ver -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" !important>
 
 <!-- Jquery 3.6 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -38,9 +37,16 @@
 	.form-control[readonly] {
     background-color: white;
     }
+    
+    .btn-color {
+		color : #fff;
+		background-color : #34495E;
+	}
 </style>
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
+	<br><br><br><br><br><br><br><br>
 	<div id="wrap">
 		<h2 class="marginTop text-center">FAQ 상세</h2>
 		<hr>
@@ -61,18 +67,19 @@
 		  </div>
 		  <div class="custom-file">
 		    <c:if test="${ !empty faq.fileName }">
-			<a class="btn btn-primary" href="${ contextPath }/resources/FAQuploadFiles/${ faq.rename_fileName }" download="${ faq.fileName }">
+			<a class="btn btn-color" href="${ contextPath }/resources/FAQuploadFiles/${ faq.rename_fileName }" download="${ faq.fileName }">
 			${ faq.fileName }</a>
 			</c:if>
 		  </div>
 		</div>
 		<!-- 버튼 -->
 		<div class="text-right marginTop">
-			<button type="button" class="btn btn-primary btsSize marginLeft" onclick="location.href='${ contextPath }/faq/list?page=${ param.page }'">뒤로가기</button>
-			<%-- <c:if test="${ loginUser.id eq 'admin' }"> --%>
-			<button type="button" class="btn btn-primary btsSize marginLeft" onclick="location.href='${ contextPath }/faq/updatePage?faq_id=${ faq.faq_id }&page=${ param.page }'">수정</button>
-			<button type="button" class="btn btn-primary btsSize marginLeft" onclick="location.href='${ contextPath }/faq/delete?faq_id=${ faq.faq_id  }'">삭제</button>
-			<%-- </c:if> --%>
+			<button type="button" class="btn btn-color btsSize marginLeft" onclick="location.href='${ contextPath }/faq/list?page=${ param.page }'">뒤로가기</button>
+			
+			<!-- 
+			<button type="button" class="btn btn-color btsSize marginLeft" onclick="location.href='${ contextPath }/faq/updatePage?faq_id=${ faq.faq_id }&page=${ param.page }'">수정</button>
+			<button type="button" class="btn btn-color btsSize marginLeft" onclick="location.href='${ contextPath }/faq/delete?faq_id=${ faq.faq_id  }'">삭제</button>
+			-->
 		</div>
 	</div>
 

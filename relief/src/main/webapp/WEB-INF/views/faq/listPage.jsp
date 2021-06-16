@@ -5,14 +5,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>FAQ</title>
+
+<!-- Jquery 3.6 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" jQuery.noConflict();></script>
 
 <!-- bootstrap 4.0ver -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-<!-- Jquery 3.6 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 
 <style type="text/css">
 	* {
@@ -35,10 +37,15 @@
 		margin-top : 50px;
 	}
 	
-
+	.btn-color {
+		color : #fff;
+		background-color : #34495E;
+	}
 </style>
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
+	<br><br><br><br><br><br><br><br>
 	<div id="wrap">
 		<h2 class="text-center marginTop">FAQ</h2>
 		<hr>
@@ -67,7 +74,6 @@
 				</tr>
 				</c:forEach>
 			    
-			    
 			    <!-- 페이징 바 구간 -->
 				<tr>
 					<td colspan="4" style='padding-top: 50px;'>
@@ -79,12 +85,12 @@
 						<c:url var="before" value="/faq/list">
 							<c:param name="page" value="${ pi.currentPage - 1 }"/>
 						</c:url>
-						<a href="${ before }"><button type="button" class="btn btn-secondary">이전</button></a>
+						<a href="${ before }"><button type="button" class="btn btn-secondary btn-dark">이전</button></a>
 					</c:if>
 					<!-- 페이지 숫자  -->
 					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 						<c:if test="${ p eq pi.currentPage }">
-							<button type="button" class="btn btn-primary"><b>${ p }</b></button>
+							<button type="button" class="btn btn-dark"><b>${ p }</b></button>
 						</c:if>
 						<c:if test="${ p ne pi.currentPage }">
 							<c:url var="pagination" value="/faq/list">
@@ -111,10 +117,13 @@
 		  </table>
 		</div>
 		
-		<!-- 작성버튼 -->
+		
+		<!-- 작성버튼 
 		<div class="text-right marginTop">
-			<button id="insertBts" type="button" class="btn btn-primary">작성</button>
+			<button id="insertBts" type="button" class="btn btn-dark">작성</button>
 		</div>
+		-->
+		
 		
 		<script>
 		$(function(){

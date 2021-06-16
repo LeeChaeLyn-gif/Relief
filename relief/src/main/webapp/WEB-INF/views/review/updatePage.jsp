@@ -58,10 +58,17 @@
 	}
 	.starR.on{background-position:0 0;}
 	
+	.btn-color {
+		color : #fff;
+		background-color : #34495E;
+	}
 </style>
 
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
+	<br><br><br><br><br><br><br><br><br>
+	
 <div id="wrap">
 	<form action="${ contextPath }/review/update" method="post" onsubmit="return starValue();">
 		<h1 class="text-center TmarginSize">리뷰 수정</h1>
@@ -99,8 +106,8 @@
 		</div>
 
 		<div class="text-right">
-			<button type="button" class="btn btn-primary RmarginSize" onclick="window.history.back()">뒤로가기</button>
-			<button type="submit" class="btn btn-primary">수정</button>
+			<button type="button" class="btn btn-color RmarginSize" onclick="window.history.back()">뒤로가기</button>
+			<button type="submit" class="btn btn-color">수정</button>
 		</div>
 	</form>
 </div>

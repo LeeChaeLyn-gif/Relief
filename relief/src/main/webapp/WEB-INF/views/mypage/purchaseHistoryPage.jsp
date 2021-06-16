@@ -34,9 +34,17 @@
 	.marginTop{
 		margin-top : 50px;
 	}
+	
+	.btn-color {
+		color : #fff;
+		background-color : #34495E;
+	}
+	
+	
 </style>
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="listNavPage.jsp"/>
 	
 	<div id="wrap">
@@ -51,32 +59,36 @@
 			      <th scope="col">가격</th>
 			      <th scope="col">판매자</th>
 			      <th scope="col">구매일</th>
-			      <th scope="col">기능</th>
 			      <th scope="col">리뷰</th>
+			      <th scope="col">기능</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			  	<c:forEach items="${ list }" var="t">
+			  	<input type="hidden" value="${t.board_id}">
 				<tr class="tdClick">
 					<td><img src="${ contextPath }/resources/images/${ t.rename_fileName }" width="150"/></td>
 					<td>${ t.title }</td>
 					<td>${ t.price }</td>
 					<td>${ t.seller_id }</td>
 					<td>${ t.t_date }</td>
-					<td>
-					<button type="button" class="btn btn-primary" onclick="deleteBtn('${ t.t_history_id}');">삭제</button>
-					</td>
 					
 					<td>
 				    	<div>
-				    	<c:if test="${t.status == 'Y' && t.r_status == 'N'}">
-				    		<button type="button" class="btn btn-primary" onclick="reviewWrite(${t.t_history_id});">작성</button>
+				    	<c:if test="${t.status == 'Y' and t.r_status == 'N'}">
+				    		<button type="button" class="btn btn-color" onclick="reviewWrite('${t.t_history_id}');">작성</button>
 				    	</c:if>
-				    	<c:if test="${t.status == 'Y' && t.r_status == 'Y'}">
-				    		<button type="button" class="btn btn-primary" onclick="reviewDetail(${t.t_history_id});">보기</button>
+				    	<c:if test="${t.status == 'Y' and t.r_status == 'Y'}">
+				    		<button type="button" class="btn btn-color" onclick="reviewDetail('${t.t_history_id}');">보기</button>
 				    	</c:if>
 				    	</div>
 			    	</td>
+			    	
+					<td>
+					<button type="button" class="btn btn-color" onclick="deleteBtn('${ t.t_history_id}');">삭제</button>
+					</td>
+					
+					
 				</tr>
 				
 			    </c:forEach>
@@ -84,7 +96,7 @@
 			    
 			    <!-- 페이징 바 구간 -->
 				<tr>
-					<td colspan="6" style='padding-top: 50px;'>
+					<td colspan="7" style='padding-top: 50px;'>
 					<!-- [이전] -->
 					<c:if test="${ pi.currentPage <= 1 }">
 						<button type="button" class="btn btn-secondary">이전</button>
@@ -98,7 +110,7 @@
 					<!-- 페이지 숫자  -->
 					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 						<c:if test="${ p eq pi.currentPage }">
-							<button type="button" class="btn btn-primary"><b>${ p }</b></button>
+							<button type="button" class="btn btn-color"><b>${ p }</b></button>
 						</c:if>
 						<c:if test="${ p ne pi.currentPage }">
 							<c:url var="pagination" value="/mypage/purchaseHistory">
@@ -129,8 +141,9 @@
 	
 	<script type="text/javascript">
 		$(function(){
-			$(".tdClick td:nth-child(-n+4)").on("click", function(board_id){
-				selectBoard(board_id);
+			$(".tdClick td:nth-child(-n+5)").on("click", function(board_id){
+				var bid = $(this).parent().prev().val();
+				selectBoard(bid);
 			})
 		})
 	</script>

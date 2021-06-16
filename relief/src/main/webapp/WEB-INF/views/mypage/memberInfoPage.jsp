@@ -37,12 +37,19 @@
 		height: auto; 
 	
 	}
+	
 	label {
 		text-align : right; !important
+	}
+	
+	.btn-color {
+		color : #fff;
+		background-color : #34495E;
 	}
 </style>
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="listNavPage.jsp"/>
 		<div id="wrap">
 		<h2 class="text-center paddingtop">회원 정보</h2>
@@ -98,13 +105,13 @@
 			  	<div class="col-sm-4">
 			  		<input type="text" class="form-control postcodify_details" id="addr_details" name="addr_details" value="${addr_details}">
 			  	</div>
-			  	<button id="postcodify_search_button" type="button" class="btn btn-primary">주소 검색</button>
+			  	<button id="postcodify_search_button" type="button" class="btn btn-color">주소 검색</button>
 			  </div>
 			  
 			  
 			  <div class="text-center paddingtop">
-			  <button type="button" class="btn btn-primary" style="margin-right:90px" onclick="deleteBtn('${ a.aid}')">탈퇴하기</button>
-			  <button type="submit" class="btn btn-primary" style="margin-left:90px">수정하기</button>
+			  <button type="button" class="btn btn-color" style="margin-right:90px" onclick="deleteBtn('${ a.aid}')">탈퇴하기</button>
+			  <button type="submit" class="btn btn-color" style="margin-left:90px">수정하기</button>
 			  </div>
 		    </form>
 	   </div>

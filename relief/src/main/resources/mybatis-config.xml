@@ -50,5 +50,6 @@
 		<mapper resource="mappers/mypage-mapper.xml"/>
 		<mapper resource="mappers/qna-mapper.xml"/>
 		<mapper resource="mappers/chat-mapper.xml"/>
+		<mapper resource="mappers/review-mapper.xml"/>
 	</mappers>
 </configuration>

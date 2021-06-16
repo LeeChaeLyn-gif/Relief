@@ -31,11 +31,15 @@
 		padding-top: 50px;
 	}
 
-	
+	.btn-color {
+		color : #fff;
+		background-color : #34495E;
+	}
 	
 </style>
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="listNavPage.jsp"/>
 	
 	<div id="wrap">
@@ -56,13 +60,19 @@
 			  </thead>
 			  <tbody>
 			  	<c:forEach items="${ list }" var="b">
+			  	<input type="hidden" value="${b.board_id}">
 				<tr class="tdClick">
-					<td><img src="${ contextPath }/resources/images/${ b.renameFileName }" width="150"/></td>
-					<td>${ b.title }</td>
+					
+					<td><img src="${ contextPath }/resources/images/${ b.renameFileName }" width="150"/>
+					</td>
+					<td>
+						${ b.title }
+						
+					</td>
 					<td>${ b.price }</td>
 					<td>${ b.account_id }</td>
 					<td>
-					<button type="button" class="btn btn-primary" onclick="deleteBtn(${ b.pk_Id})">삭제</button>
+					<button type="button" class="btn btn-color" onclick="deleteBtn(${ b.pk_Id})">삭제</button>
 					</td>
 				</tr>
 			    </c:forEach>
@@ -70,7 +80,7 @@
 			    
 			    <!-- 페이징 바 구간 -->
 				<tr>
-					<td colspan="4" style='padding-top: 50px;'>
+					<td colspan="5" style='padding-top: 50px;'>
 					<!-- [이전] -->
 					<c:if test="${ pi.currentPage <= 1 }">
 						<button type="button" class="btn btn-secondary">이전</button>
@@ -84,7 +94,7 @@
 					<!-- 페이지 숫자  -->
 					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 						<c:if test="${ p eq pi.currentPage }">
-							<button type="button" class="btn btn-primary"><b>${ p }</b></button>
+							<button type="button" class="btn btn-color"><b>${ p }</b></button>
 						</c:if>
 						<c:if test="${ p ne pi.currentPage }">
 							<c:url var="pagination" value="/mypage/wishList">
@@ -113,9 +123,12 @@
 	</div>
 	<script type="text/javascript">
 	$(function(){
-		$(".tdClick td:nth-child(-n+4)").on("click", function(board_id){
-			selectBoard(board_id);
+		$(".tdClick td:nth-child(-n+4)").on("click", function(){
+			/* var bid = $(this).find("input[name=bid]").val(); */
+			var bid = $(this).parent().prev().val();
+			selectBoard(bid);
 		})
+		
 	})
 	</script>
 	<script type="text/javascript">

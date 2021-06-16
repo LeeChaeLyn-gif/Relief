@@ -43,11 +43,15 @@
 	}
 	.starR.on{background-position:0 0;}
 	
+	.btn-color {
+		color : #fff;
+		background-color : #34495E;
+	}
 </style>
 </head>
 <body>
-	<jsp:include page="../mypage/listNavPage.jsp"/>
-	
+	<jsp:include page="../common/menubar.jsp"/>
+	<br><br><br><br><br><br><br><br><br>
 	<div id="wrap">
 		<h2 class="text-center paddingtop">리뷰 게시판</h2>	
 		<hr>
@@ -99,7 +103,7 @@
 					<!-- 페이지 숫자  -->
 					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 						<c:if test="${ p eq pi.currentPage }">
-							<button type="button" class="btn btn-primary"><b>${ p }</b></button>
+							<button type="button" class="btn btn-color"><b>${ p }</b></button>
 						</c:if>
 						<c:if test="${ p ne pi.currentPage }">
 							<c:url var="pagination" value="/review/list">

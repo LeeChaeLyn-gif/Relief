@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.relief.admin.model.vo.Category;
+import com.kh.relief.board.model.service.BoardService;
 import com.kh.relief.common.PageInfo;
 import com.kh.relief.common.Pagination;
 import com.kh.relief.faq.model.exception.FAQException;
@@ -33,6 +35,9 @@ public class FAQController {
 	@Autowired
 	private FAQService fService;
 	
+	@Autowired
+	private BoardService bService;
+	
 	//로깅 필드 선언
 	private static final Logger logger = LoggerFactory.getLogger(FAQController.class);
 	
@@ -41,6 +46,8 @@ public class FAQController {
 	@GetMapping("/list")
 	public ModelAndView listPageView(ModelAndView mv,
 			@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
+		List<Category> clist = bService.selectcList();
+		
 		// 게시글 개수 구하기
 		int listCount = fService.selectListCount();
 		// System.out.println(listCount);
@@ -56,6 +63,7 @@ public class FAQController {
 		if(list != null) {
 			mv.addObject("list", list);
 			mv.addObject("pi", pi);
+			mv.addObject("clist", clist);
 			mv.setViewName("faq/listPage");
 		} else {
 			throw new FAQException("게시글 전체 조회에 실패하였습니다.");

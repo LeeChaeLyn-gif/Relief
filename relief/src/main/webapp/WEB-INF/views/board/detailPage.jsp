@@ -633,7 +633,7 @@ textarea{
 					</table>
 					</c:forEach>
 					<div class="reviewBtn">
-					<button class="btn">더보기</button>
+					<button class="btn" onclick="location.href='${ contaxtPath }/review/list'">더보기</button>
 					</div>
 				</div>
 			</div>

@@ -11,7 +11,7 @@
 
 <!-- bootstrap 4.0ver -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="<c:url value="/resources/css/assets/js/vendor/bootstrap.min.js"/>"></script>
 
 <!-- Jquery 3.6 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -41,11 +41,16 @@
 	.marginTop {
 		margin-top : 100px;
 	}
-
+	
+	.btn-color {
+		color : #fff;
+		background-color : #34495E;
+	}
 
 </style>
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="listNavPage.jsp"/>
 	
 	<div id="wrap">
@@ -66,6 +71,7 @@
 			  </thead>
 			  <tbody>
 			  	<c:forEach items="${ list }" var="h">
+			  	<input type="hidden" value="${ h.board_id }">
 				<tr class="tdClick">
 					<td><img src="${ contextPath }/resources/images/${ h.rename_fileName }" width="150"/></td>
 					
@@ -81,8 +87,8 @@
 					<td>${ h.seller_id }</td>
 					<td>${ h.modify_date }</td>
 					<td>
-					<div><button type="button" class="btn btn-primary btsSize" onclick="unHideBtn(${h.t_history_id});">숨김해제</button></div>
-					<div><button type="button" class="btn btn-primary btsSize" onclick="deleteBtn(${ h.t_history_id});">삭제</button></div>
+					<div><button type="button" class="btn btn-color btsSize" onclick="unHideBtn(${h.t_history_id});">숨김해제</button></div>
+					<div><button type="button" class="btn btn-color btsSize" onclick="deleteBtn(${ h.t_history_id});">삭제</button></div>
 					</td>
 				</tr>
 			    </c:forEach>
@@ -103,7 +109,7 @@
 					<!-- 페이지 숫자  -->
 					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 						<c:if test="${ p eq pi.currentPage }">
-							<button type="button" class="btn btn-primary"><b>${ p }</b></button>
+							<button type="button" class="btn btn-color"><b>${ p }</b></button>
 						</c:if>
 						<c:if test="${ p ne pi.currentPage }">
 							<c:url var="pagination" value="/mypage/hiddenList">
@@ -132,8 +138,9 @@
 	
 	<script type="text/javascript">
 		$(function(){
-			$(".tdClick td:nth-child(-n+4)").on("click", function(board_id){
-				selectBoard(board_id);
+			$(".tdClick td:nth-child(-n+6)").on("click", function(board_id){
+				var bid = $(this).parent().prev().val();
+				selectBoard(bid);
 			})
 		})
 	</script>
