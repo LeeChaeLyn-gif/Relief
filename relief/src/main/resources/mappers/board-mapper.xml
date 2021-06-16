@@ -772,4 +772,44 @@
 		ORDER BY
 			REPLY_ID DESC
  	</select>
+	<select id="nLoginListCount" parameterType="string" resultType="_int">
+		SELECT
+ 				COUNT(*)
+ 		  FROM
+ 		  		BOARD
+ 		 WHERE
+ 		 	   (TITLE LIKE '%'|| #{searchValue} || '%'
+ 		   OR CONTENT LIKE '%' || #{searchValue} || '%'
+ 		   OR AREA LIKE '%' || #{searchValue} || '%')
+ 		  AND STATUS = 'Y'
+ 	  ORDER BY PULL_DATE DESC
+	</select>
+	<select id="nLoginList" parameterType="string" resultMap="BoardResultSet">
+		SELECT
+				BOARD_ID
+ 			  , ACCOUNT_ID
+ 			  , CATEGORY_ID
+ 			  , TITLE
+ 			  , CONTENT
+ 			  , CREATE_DATE
+ 			  , MODIFY_DATE
+ 			  , COUNT
+ 			  , STATUS
+ 			  , PRODUCT_STATUS
+ 			  , TRADE_STATUS
+ 			  , PRICE
+ 			  , EXCHANGE_STATUS
+ 			  , AMOUNT
+ 			  , PULL_DATE
+ 			  , PRICE_STATUS
+ 			  , AREA
+ 		  FROM
+ 		  		BOARD
+ 		  WHERE
+ 		 	   (TITLE LIKE '%'|| #{searchValue} || '%'
+ 		   OR CONTENT LIKE '%' || #{searchValue} || '%'
+ 		   OR AREA LIKE '%' || #{searchValue} || '%')
+ 		  AND STATUS = 'Y'
+ 	  ORDER BY PULL_DATE DESC
+	</select>
  </mapper>

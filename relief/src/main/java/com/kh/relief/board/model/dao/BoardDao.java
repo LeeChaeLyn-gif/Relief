@@ -79,6 +79,10 @@ public interface BoardDao {
 	void insertReply(Reply r);
 	
 	List<Reply> selectReplyList(int board_id);
+	
+	int nLoginListCount(String searchValue);
+	
+	List<Board> nLoginList(PageInfo pi, String searchValue);
 
 	void insertReply2(Reply r);
 	// 대댓글

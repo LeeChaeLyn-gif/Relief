@@ -222,4 +222,15 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Reply> selectReply2List(int board_id) {
 		return sqlSession.selectList("boardMapper.selectReply2List", board_id);
 	}
+	@Override
+	public int nLoginListCount(String searchValue) {
+		return sqlSession.selectOne("boardMapper.nLoginListCount", searchValue);
+	}
+
+	@Override
+	public List<Board> nLoginList(PageInfo pi, String searchValue) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return sqlSession.selectList("boardMapper.nLoginList", searchValue, rowBounds);
+	}
 }

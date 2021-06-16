@@ -848,6 +848,13 @@ select {
 				}
 			})
 		}
+			$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
+
+			countSlides();
+			pagination();
+		}
+
+			$('#counter').html(pos + 1 + ' / ' + totalSlides);
 
 		function validate(){
 			if(confirm('다행 회원만 이용 가능합니다. 로그인 하시겠습니까?')){

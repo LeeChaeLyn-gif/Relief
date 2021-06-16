@@ -98,4 +98,8 @@ public interface BoardService {
 	// 대댓글 가져오기
 	List<Reply> selectReply2List(int board_id);
 
+	int nLoginListCount(String searchValue);
+
+	List<Board> nLoginList(PageInfo pi, String searchValue);
+
 }
