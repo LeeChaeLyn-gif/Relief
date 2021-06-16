@@ -61,14 +61,12 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
     display: block !important;
 }
 }
-</style>
 
-	<style>
 	#userName {
 		font-size : 16px;
 		font-weight : bold;
 	}
-	</style>
+</style>
 </head>
 <body data-spy="scroll" data-target=".navbar-collapse">
 	
