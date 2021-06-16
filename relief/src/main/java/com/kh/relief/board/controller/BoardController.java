@@ -300,7 +300,9 @@ public class BoardController {
 			int cid, Model model, HttpSession session) {
 		List<Category> c1 = bService.selectcListFromCid2(cid);
 		List<Integer> iList = new ArrayList<>();
-
+		int listCount = 0;
+		PageInfo pi = null;
+		List<Board> bList = new ArrayList<>();
 		Account loginUser = (Account) session.getAttribute("loginUser");
 		CategoryBoard cb = new CategoryBoard();
 		String addr = "";
@@ -317,16 +319,18 @@ public class BoardController {
 			}
 		}
 
-		for (int i = 0; i < c1.size(); i++) {
-			iList.add(c1.get(i).getCid());
+		if(!c1.isEmpty()) {
+			for (int i = 0; i < c1.size(); i++) {
+				iList.add(c1.get(i).getCid());
+			}
+			cb = new CategoryBoard(0, iList, addr);
+			listCount = bService.selectbListFromCategoryCount(cb);
+			pi = Pagination.getPageInfo(currentPage, listCount);
+			bList = bService.selectbListFromCategory(cb, pi);
 		}
 
-		cb = new CategoryBoard(0, iList, addr);
-		int listCount = bService.selectbListFromCategoryCount(cb);
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		List<Board> bList = bService.selectbListFromCategory(cb, pi);
 
-		if (!bList.isEmpty()) {
+		if (!bList.isEmpty() && !c1.isEmpty() && iList.isEmpty()) {
 			for (int i = 0; i < bList.size(); i++) {
 				Image image = bService.selectiList(bList.get(i).getBoard_id());
 				bList.get(i).setRenameFileName(image.getRenameFileName());

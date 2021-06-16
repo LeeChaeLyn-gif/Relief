@@ -21,43 +21,12 @@
             margin-bottom: 0px;
             margin-top: 0px;
             margin-left: 20px;
-            color: rgb(0, 51, 85);
+            color: #597a96;
             text-align: center;
         }
         .headDiv2{
             display: inline-block;
             bottom: 30px;
-        }
-        .navbar1 ul li a{
-            text-decoration: none;
-            color: white;
-            background-color: rgb(0, 51, 85);
-            display: block;
-            width: 300px;
-            height: 50px;
-        }
-        .navbar1 ul li{
-            float: left;
-        }
-        .navbar1{
-            width: 50px;
-        }
-        ul{
-            list-style:none;
-        }
-        .navbar1 ul li a h2{
-            text-align: center;
-            margin: 0px;
-            padding: 5px;
-        }
-        .navbar1 ul li a:hover{
-            background-color: red;
-        }
-        .mainbar h1{
-            color: white;
-            background-color: rgb(0, 51, 85);
-            margin: 0px;
-            margin-left: 340px;
         }
         .noticeBoard tr th{
             background-color: lightgray;
@@ -76,12 +45,12 @@
             cursor : pointer;
         }
         .noticeInsertBtn{
-            background-color: rgb(0, 51, 85);
+            background-color: #597a96;
             color: white;
             width: 150px;
             height: 50px;
             border-radius: 5px;
-            margin-right : 25px;
+            margin-left : 22%;
         }
         .searchCondition{
             width: 100px;
@@ -92,7 +61,7 @@
             height: 23px;
         }
         .searchBtn{
-            background-color: rgb(0, 51, 85);
+            background-color: #597a96;
             color: white;
             width: 100px;
             height: 30px;
@@ -117,14 +86,20 @@
             border: 0;
         }
         .btnArea{
-        	margin-left : 350px;
+        	margin-right : 350px;
         	text-align : center;
+        }
+        .noticeBoard{
+        	width : 57.4%;
         }
 </style>
 </head>
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
-	<div class="mainbar"><h1>공지사항</h1>
+	<div class="mainbar">
+	<div class="title">
+	<h1>광고관리</h1>
+	</div>
     <table class="noticeBoard">
         <tr>
             <th>NO.</th>

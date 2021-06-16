@@ -618,7 +618,7 @@ textarea{
 					<div class="sellerinfo"><p style="font-weight : bold">판매자 정보</p></div>
 					<hr>
 					<h4>판매자 아이디</h4>
-					<p>${ board.account_id }</p>
+					<p class="accountId">${ board.account_id }</p>
 					<hr>
 					<h4>리뷰</h4>
 					<c:forEach items="${ rlist }" begin="0" end="2" var="r">
@@ -757,7 +757,6 @@ textarea{
 		}
 
 			$('#counter').html(pos + 1 + ' / ' + totalSlides);
-		}
 
 		function pagination() {
 			$('#pagination-wrap ul li').removeClass('active');

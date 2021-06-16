@@ -11,7 +11,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
+		*{
+			box-sizing : border-box;
+		}
         .headDiv{
             display: inline-block;
         }
@@ -35,6 +39,45 @@
         }
         .adminPage{
         	cursor:pointer;
+        }
+        .navbar1 ul li a{
+            text-decoration: none;
+            color: rgb(52, 73, 94);
+            background-color: #597a96;
+            display: block;
+            width: 300px;
+            height: 50px;
+        }
+        .navbar1 ul li{
+            float: left;
+            border : 1px solid rgb(52, 73, 94);
+        }
+        .navbar1{
+            width: 50px;
+        }
+        ul{
+            list-style:none;
+        }
+        .navbar1 ul li a h2{
+            text-align: center;
+            margin: 0px;
+            padding: 5px;
+        }
+        .navbar1 ul li a:hover{
+            background-color: #78A5CC;
+        }
+        .mainbar h1{
+            color: rgb(52, 73, 94);
+            background-color: #597a96;
+            margin: 0px;
+        }
+        .title {
+        	margin-left : 100px;
+        	width : 70%;
+        }
+        .navbar1{
+        	width : 30%;
+        	height : 100%;
         }
  </style>
 </head>
@@ -62,10 +105,6 @@
         </ul>
     </nav>
     <script>
-        $("#navbar1 ul li a").on("click",function(){
-            $("#navbar1 ul li a").css("background","rgb(0, 51, 85)");
-            $(this).css("background", "red");
-        });
         
         $(".adminPage").on("click", function(){
         	location.href="${ contextPath }/admin/main";

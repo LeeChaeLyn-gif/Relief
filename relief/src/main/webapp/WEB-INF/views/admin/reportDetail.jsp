@@ -28,49 +28,18 @@
         display: inline-block;
         bottom: 30px;
     }
-    .navbar1 ul li a{
-        text-decoration: none;
-        color: white;
-        background-color: rgb(0, 51, 85);
-        display: block;
-        width: 300px;
-        height: 50px;
-    }
-    .navbar1 ul li{
-        float: left;
-    }
-    .navbar1{
-        width: 50px;
-    }
-    ul{
-        list-style:none;
-    }
-    .navbar1 ul li a h2{
-        text-align: center;
-        margin: 0px;
-        padding: 5px;
-    }
-    .navbar1 ul li a:hover{
-        background-color: red;
-    }
-    .mainbar h1{
-        color: white;
-        background-color: rgb(0, 51, 85);
-        margin: 0px;
-        margin-left: 340px;
-    }
     .info{
-        border: 2px solid lightgray;
-        height: 50px;
-        margin-left: 340px;
-    }
-    .title{
-        background-color: rgb(0, 51, 85);
-        width: 100px;
+            border: 2px solid lightgray;
+            margin-left : 100px;
+        	width : 70%;
+        }
+    .title1{
+        background-color: #597a96;
+        width: 120px;
         border-radius: 5px;
         display: inline-block;
     }
-    .title h3{
+    .title1 h3{
         margin: 0px;
         text-align: center;
         color: white;
@@ -82,8 +51,8 @@
         font-weight: bolder;
     }
     .create{
-        background-color: rgb(0, 51, 85);
-        width: 100px;
+        background-color: #597a96;
+        width: 150px;
         border-radius: 5px;
         display: inline-block;
     }
@@ -102,33 +71,30 @@
         height: 500px;
         width: 700px;
         padding: 0px;
-        margin-left: 750px;
+        margin-left: 30%;
         border : 1px solid lightgray;
     }
     .ban{
-		margin-left : 400px;
+		margin-left : 45%;
         height: 30px;
-        width: 100px;
+        width: 120px;
         border-radius: 5px;
 
     }
     .dBtn{
-        background-color: rgb(0, 51, 85);
+        background-color: #597a96;
         height: 30px;
         width: 100px;
         border-radius: 5px;
         color: white;
     }
-    .btn{
-    	background-color: rgb(0, 51, 85);
-        width: 140px;
+    .btn1{
+    	background-color: #597a96;
+        width: 160px;
         height : 50px;
         border-radius: 5px;
         color : white;
-        margin-left : 300px;
-    }
-    .mainbar{
-    	text-align : center;
+        margin-left : 43%;
     }
     h5{
     	text-align : center;
@@ -138,20 +104,23 @@
 		height: 500px;
         width: 700px;
         padding: 0px;
-        margin-left: 750px;
+        margin-left: 30%;
 	}
 </style>
 </head>
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
 	
-	<div class="mainbar"><h1>신고</h1>
+	<div class="mainbar">
+	<div class="title">
+	<h1>신고</h1>	
+	</div>
         <div class="info">
             <div class="create"><h3>등록일</h3></div>
             <p class="createValue">${ r.reportDate }</p>
             <div class="create"><h3>게시자</h3></div>
             <p class="createValue">${ r.aid }</p>
-            <div class="create"><h3>피신고자</h3></div>
+            <div class="create"><h3>신고대상</h3></div>
             <p class="createValue">${ r.aid2 }</p>
             <div class="create"><h3>분류</h3></div>
             <c:choose>
@@ -168,9 +137,8 @@
         </div>
         <p class="content">${ r.reportReason }</p>
         <br>
-        <button type="button" class="btn">해당 페이지로 가기</button>
+        <button type="button" class="btn1">해당 페이지로 가기</button>
         <form method="post" action="${ contextPath }/admin/ban" onsubmit="removeHTML()">
-        	<h5>제재 사유</h5>
         	<div class="textareaDiv">
 	        <textarea rows="7" cols="20" class="summernote" id="summernote" name="sanctionsReason"></textarea>
 	        </div>
@@ -189,7 +157,7 @@
     	<c:when test="${ r.chid != 0 }">
     		<script>
     			$(function(){
-    				$(".btn").on("click", function(){
+    				$(".btn1").on("click", function(){
     					location.href="${ contextPath }/chat/detail?chid=${ r.chid }";
     				});
     			})
@@ -198,8 +166,8 @@
     	<c:when test="${ r.bid != 0 }">
     		<script>
     			$(function(){
-    				$(".btn").on("click", function(){
-    					location.href="${ contextPath }/board/detail?bid=${ r.bid }";
+    				$(".btn1").on("click", function(){
+    					location.href="${ contextPath }/board/detail?board_id=${ r.bid }";
     				});
     			})
     		</script>
@@ -207,7 +175,7 @@
     	<c:otherwise>
     		<script>
     			$(function(){
-    				$(".btn").on("click", function(){
+    				$(".btn1").on("click", function(){
     					location.href="${ contextPath }/admin/commentDetail?rid=${ r.rid }";
     				});
     			})
