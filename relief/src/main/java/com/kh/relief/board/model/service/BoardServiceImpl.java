@@ -197,5 +197,15 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.selectReplyList(board_id);
 	}
 
+	@Override
+	public int nLoginListCount(String searchValue) {
+		return bDao.nLoginListCount(searchValue);
+	}
+
+	@Override
+	public List<Board> nLoginList(PageInfo pi, String searchValue) {
+		return bDao.nLoginList(pi, searchValue);
+	}
+
 	
 }

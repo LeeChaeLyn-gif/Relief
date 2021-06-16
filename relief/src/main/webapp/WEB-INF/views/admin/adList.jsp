@@ -196,10 +196,11 @@
     		})
     		location.href="${ contextPath }/admin/adUpdate?iArr1=" + iArr1 + "&iArr2=" + iArr2;
     	});
-    	
-    	/* function selectNotice(nid){
+    	$("tr td:nth-child(-n+4)").on("click", function(){
+    		var nid = $(this).parent().children().eq(0).text();
     		location.href="${ contextPath }/admin/noticeDetail?nid=" + nid + "&page=${ pi.currentPage }";
-    	} */
+    	})
+    	
     </script>
 </body>
 </html>

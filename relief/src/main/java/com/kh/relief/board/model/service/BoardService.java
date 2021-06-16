@@ -93,4 +93,8 @@ public interface BoardService {
 
 	List<Reply> selectReplyList(int board_id);
 
+	int nLoginListCount(String searchValue);
+
+	List<Board> nLoginList(PageInfo pi, String searchValue);
+
 }

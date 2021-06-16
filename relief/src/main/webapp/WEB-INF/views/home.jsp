@@ -3,7 +3,6 @@
 <c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page session="false"%>
 <!DOCTYPE html>
 <html>
 <head>

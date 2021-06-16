@@ -86,11 +86,10 @@
 					<form action="${ contextPath }/board/list" method="get">
 						<div class="container">
 							<div class="input-group">
-								<input type="text" class="form-control" name="searchValue" placeholder="상품명, 지역명 검색" <c:if test="${ !empty searchValue }"> value="${searchValue }"</c:if>>
-								<button class="input-group-addon" type="submit"><i class="fa fa-search"></i></button>
+								<input type="text" class="form-control" id="searchValue" name="searchValue" placeholder="상품명, 지역명 검색" <c:if test="${ !empty searchValue }"> value="${searchValue }"</c:if>>
 								<c:choose>
 								<c:when test="${ empty sessionScope.loginUser }">
-								<button class="input-group-addon" type="button" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')"><i class="fa fa-search" id="submitBtn"></i></button>
+								<button class="input-group-addon" type="button" onClick="unLoginList()"><i class="fa fa-search" id="submitBtn"></i></button>
 								
 								</c:when>
 								<c:otherwise>
@@ -205,6 +204,10 @@
 
 		function category1(cid){
 			location.href="${ contextPath }/board/category1?cid="+cid;
+		}
+		function unLoginList(){
+			var searchValue = $("#searchValue").val();
+			loation.href="${ contextPath }/board/nloginlist?searchValue=" + searchValue;
 		}
 	</script>
 
