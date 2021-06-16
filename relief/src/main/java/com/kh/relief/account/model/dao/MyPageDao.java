@@ -23,7 +23,7 @@ public interface MyPageDao {
 
 	int selectHiddenListCount(String seller_id);
 
-	List<Board> selectselectHiddenList(PageInfo pi, String seller_id);
+	List<Board> selectHiddenList(PageInfo pi, String seller_id);
 
 	int unHide(int t_history_id);
 

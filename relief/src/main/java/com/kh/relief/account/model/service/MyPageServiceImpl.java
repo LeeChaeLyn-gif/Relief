@@ -53,7 +53,7 @@ public class MyPageServiceImpl implements MyPageService{
 
 	@Override
 	public List<Board> selectHiddenList(PageInfo pi, String seller_id) {
-		return myDao.selectselectHiddenList(pi, seller_id);
+		return myDao.selectHiddenList(pi, seller_id);
 	}
 
 	@Override
