@@ -7,8 +7,7 @@
 <meta charset="UTF-8">
 <title>detail Page</title>
 <style>
-<
-style>* {
+* {
 	box-sizing: border-box;
 }
 
@@ -103,19 +102,19 @@ textarea{
 }
 
 #replyTable th:nth-child(1) {
-      width : 70px;
-      text-align:center;
-   }
+    width : 70px;
+    text-align:center;
+}
    
-   #replyTable th:nth-child(2) {
-      width : 430px;
-      text-align:center;
-   }
+#replyTable th:nth-child(2) {
+    width : 430px;
+    text-align:center;
+}
    
-   #replyTable th:nth-child(3) {
-      width : 100px;
-      text-align:center;
-   }
+#replyTable th:nth-child(3) {
+    width : 100px;
+    text-align:center;
+}
 
 .reviewTable{
 	border : 1px solid lightgray;
@@ -773,6 +772,7 @@ select {
 		
 		
 		$(document).ready(function(){
+			
 			$(".replyArea").on("click", function(){
 				var currentRow = $(this).closest('tr');
 				var detail = currentRow.next('tr');
