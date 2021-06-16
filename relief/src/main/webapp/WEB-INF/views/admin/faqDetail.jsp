@@ -6,23 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-		.mainbar{
-			width : 70%;
-			float : left;
-		}
-		.titleArea{
-			width : 700px;
-			height : 52px;
-			float : left;
-			background-color: #597a96;
-		}
-		
-		h2{
-			color : white;
-			font-weight : bold;
-			text-align : center;
-			padding-top : 7px;
-		}
                 .headDiv{
             display: inline-block;
         }
@@ -45,45 +28,48 @@
             bottom: 30px;
         }
         .info{
-        	width : 700px;
+            border: 2px solid lightgray;
+            margin-left : 100px;
+        	width : 70%;
         }
         .title1{
             background-color: #597a96;
-            width : 80px;
-            height : 50px;
+            width: 100px;
+            border-radius: 5px;
             display: inline-block;
         }
         .title1 h3{
+            margin: 0px;
             text-align: center;
             color: white;
+            padding: 10px;
         }
         .titleValue{
             display: inline-block;
-            width : 300px;
-            padding-left: 10px;
             font-weight: bolder;
         }
         .create{
             background-color: #597a96;
-            width : 100px;
-            height : 50px;
+            width: 12%;
+            border-radius: 5px;
             display: inline-block;
         }
         .create h3{
+            margin: 0px;
             text-align: center;
             color: white;
+            padding: 10px;
         }
         .createValue{
-            width : 190px;
-            padding-left: 10px;
             display: inline-block;
             font-weight: bolder;
         }
         .content{
             resize: none;
             height: 500px;
-            width: 700px;
+            width: 53%;
             padding: 0px;
+            margin-left : 40px;
         }
         .uBtn{
             background-color: #597a96;
@@ -103,11 +89,8 @@
             border-radius: 5px;
             color: white;
         }
-        .textArea{
-        	width : 700px;
-        }
         .btnArea{
-        	width : 700px;
+        	width : 91%;
         	text-align : center;
         }
     </style>
@@ -115,7 +98,7 @@
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
 	<div class="mainbar">
-	<div class="titleArea">
+	<div class="title">
 	<h1>FAQ</h1>	
 	</div>
         <div class="info">
@@ -125,9 +108,7 @@
             <div class="create"><h3>등록일</h3></div>
             <p class="createValue">${ f.createDate }</p>
         </div>
-        <div class="textArea">
         <textarea readonly class="content">${ f.content }</textarea>
-        </div>
         <br>
         <div class="btnArea">
 	        <button type="button" class="uBtn">수정</button>

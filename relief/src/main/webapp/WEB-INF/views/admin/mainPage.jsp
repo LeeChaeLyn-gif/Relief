@@ -7,14 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-		.adminMainPage{
-			width : 70%;
-			float : left;
-		}
-		.top{
-			width : 100%;
-			float : left;
-		}
+	
         .el{
             border: 1px solid rgb(0, 51, 85);
             width: 250px;
@@ -44,19 +37,17 @@
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
 	<div class="adminMainPage">
-		<div class="top">
-        	<div class="el">
-	            <p>다행 회원수</p>
-	            <h3>${ aCount }명</h3>
-	        </div>
-	        <div class="el">
-	            <p>오늘 가입한회원수</p>
-	            <h3>${ todayAccount }명</h3>
-	        </div>
-	        <div class="el">
-	            <p>오늘 접수된 신고</p>
-	            <h3>${ rCount }건</h3>
-	        </div>
+        <div class="el">
+            <p>다행 회원수</p>
+            <h3>${ aCount }명</h3>
+        </div>
+        <div class="el">
+            <p>오늘 가입한회원수</p>
+            <h3>${ todayAccount }명</h3>
+        </div>
+        <div class="el">
+            <p>오늘 접수된 신고</p>
+            <h3>${ rCount }건</h3>
         </div>
         <div class="container"><canvas id="myChart" class="myChart"></canvas></div>
     </div>

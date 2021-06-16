@@ -6,23 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
     <style>
-    	.mainbar{
-			width : 70%;
-			float : left;
-		}
-		.titleArea{
-			width : 700px;
-			height : 52px;
-			float : left;
-			background-color: #597a96;
-		}
-		
-		h2{
-			color : white;
-			font-weight : bold;
-			text-align : center;
-			padding-top : 7px;
-		}
         .headDiv{
             display: inline-block;
         }
@@ -46,9 +29,10 @@
         }
         .insertDiv{
             border: 1px solid lightgray;
-            width: 700px;
-            height: 675px;
+            width: 50%;
+            height: 650px;
             text-align : center;
+            margin-left : 20%;
             margin-top : 1%;
         }
         .title1{
@@ -68,25 +52,23 @@
             margin-top : 10px;
         }
         .content{
-            width: 700px;
+            width: 350px;
             height: 300px;
             margin-top : 10px;
-            margin-left: 20px;
+            text-align :left;
         }
         .Btn{
             background-color: #597a96;
-            width: 100px;
-            border-radius: 5px;
             color: white;
+            width: 100px;
+            height: 30px;
+            border-radius: 5px;
+            border: 0px;
         }
         #imgVal{
         	text-align : center;
         	display : block;
         	height : 20px;
-        }
-        .btnArea{
-        	width : 700px;
-        	text-align : center;
         }
     </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -95,8 +77,8 @@
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
 	<div class="mainbar">
-	<div class="titleArea">
-	<h2>공지사항</h2>	
+	<div class="title">
+	<h1>공지사항</h1>	
 	</div>
         <div class="insertDiv">
             <form action="${ contextPath }/admin/insertNotice" method="POST" onsubmit="return validate();" enctype="multipart/form-data">
@@ -123,9 +105,9 @@
 		</div>
 		
 		<!-- 버튼 -->
-		<div class="btnArea">
-			<button type="button" class="Btn" onclick="location.href='${ contextPath }/admin/notice'">뒤로가기</button>
-			<button type="submit" class="Btn" onclick="removeHTML()">작성</button>
+		<div class="text-right marginTop">
+			<button type="button" class="btn btn-primary btsSize marginLeft" onclick="location.href='${ contextPath }/admin/notice'">뒤로가기</button>
+			<button type="submit" class="btn btn-primary btsSize marginLeft" onclick="removeHTML()">작성</button>
 		</div>
             </form>
         </div>

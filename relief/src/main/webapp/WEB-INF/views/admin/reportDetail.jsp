@@ -7,23 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.mainbar{
-			width : 70%;
-			float : left;
-		}
-		.titleArea{
-			width : 700px;
-			height : 52px;
-			float : left;
-			background-color: #597a96;
-		}
-		
-		h2{
-			color : white;
-			font-weight : bold;
-			text-align : center;
-			padding-top : 7px;
-		}
     .headDiv{
         display: inline-block;
     }
@@ -46,45 +29,50 @@
         bottom: 30px;
     }
     .info{
-        	width : 700px;
+            border: 2px solid lightgray;
+            margin-left : 100px;
+        	width : 70%;
         }
-        .title1{
-            background-color: #597a96;
-            width : 80px;
-            height : 50px;
-            display: inline-block;
-        }
-        .title1 h3{
-            text-align: center;
-            color: white;
-        }
-        .titleValue{
-            display: inline-block;
-            width : 300px;
-            padding-left: 10px;
-            font-weight: bolder;
-        }
-        .create{
-            background-color: #597a96;
-            width : 100px;
-            height : 50px;
-            display: inline-block;
-        }
-        .create h3{
-            text-align: center;
-            color: white;
-        }
-        .createValue{
-            width : 190px;
-            padding-left: 10px;
-            display: inline-block;
-            font-weight: bolder;
-        }
+    .title1{
+        background-color: #597a96;
+        width: 120px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+    .title1 h3{
+        margin: 0px;
+        text-align: center;
+        color: white;
+        padding: 10px;
+    }
+    .titleValue{
+        display: inline-block;
+        width: 600px;
+        font-weight: bolder;
+    }
+    .create{
+        background-color: #597a96;
+        width: 150px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+    .create h3{
+        margin: 0px;
+        text-align: center;
+        color: white;
+        padding: 10px;
+    }
+    .createValue{
+        display: inline-block;
+        font-weight: bolder;
+    }
     .content{
         resize: none;
-            height: 500px;
-            width: 700px;
-            padding: 0px;
+        height: 500px;
+        width: 700px;
+        padding: 0px;
+        margin-left: 30%;
+        border : 1px solid lightgray;
     }
     .ban{
 		margin-left : 45%;
@@ -99,28 +87,33 @@
         width: 100px;
         border-radius: 5px;
         color: white;
-        text-align : center;
+    }
+    .btn1{
+    	background-color: #597a96;
+        width: 160px;
+        height : 50px;
+        border-radius: 5px;
+        color : white;
+        margin-left : 43%;
     }
     h5{
     	text-align : center;
+    	margin-left : 300px;
     }
 	.textareaDiv{
 		height: 500px;
         width: 700px;
         padding: 0px;
+        margin-left: 30%;
 	}
-	.btnArea{
-        	width : 700px;
-        	text-align : center;
-        }
 </style>
 </head>
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
 	
 	<div class="mainbar">
-	<div class="titleArea">
-	<h2>신고</h2>	
+	<div class="title">
+	<h1>신고</h1>	
 	</div>
         <div class="info">
             <div class="create"><h3>등록일</h3></div>

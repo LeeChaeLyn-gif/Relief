@@ -7,29 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-		.mainbar{
-			width : 70%;
-			float : left;
-		}
-		.titleArea{
-			width : 700px;
-			height : 52px;
-			float : left;
-			background-color: #597a96;
-		}
-		
-		h2{
-			color : white;
-			font-weight : bold;
-			text-align : center;
-			padding-top : 7px;
-		}
-		.tableArea{
-			width : 700px;
-			float : left;
-			display : block;
-		}
-		.headDiv{
+	.headDiv{
             display: inline-block;
         }
         .homeimg{
@@ -72,6 +50,7 @@
             width: 150px;
             height: 50px;
             border-radius: 5px;
+            margin-left : 22%;
         }
         .searchCondition{
             width: 100px;
@@ -107,21 +86,20 @@
             border: 0;
         }
         .btnArea{
-        	width : 700px;
+        	margin-right : 350px;
         	text-align : center;
         }
         .noticeBoard{
-        	width : 700px;
+        	width : 57.4%;
         }
 </style>
 </head>
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
 	<div class="mainbar">
-		<div class="titleArea">
-		<h2>광고관리</h2>
-		</div>
-	<div class="tableArea">
+	<div class="title">
+	<h1>광고관리</h1>
+	</div>
     <table class="noticeBoard">
         <tr>
             <th>NO.</th>
@@ -142,7 +120,6 @@
         </tr>
         </c:forEach>
     </table>
-    </div>
     <br>
     <br>
     <div class="btnArea">

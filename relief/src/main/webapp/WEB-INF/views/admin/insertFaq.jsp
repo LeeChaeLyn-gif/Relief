@@ -6,23 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
     <style>
-    	.mainbar{
-			width : 70%;
-			float : left;
-		}
-		.titleArea{
-			width : 700px;
-			height : 52px;
-			float : left;
-			background-color: #597a96;
-		}
-		
-		h2{
-			color : white;
-			font-weight : bold;
-			text-align : center;
-			padding-top : 7px;
-		}
         .headDiv{
             display: inline-block;
         }
@@ -46,9 +29,10 @@
         }
         .insertDiv{
             border: 1px solid lightgray;
-            width: 700px;
-            height: 675px;
+            width: 50%;
+            height: 600px;
             text-align : center;
+            margin-left : 20%;
             margin-top : 1%;
         }
         .title1{
@@ -67,35 +51,35 @@
             width: 150px;
             height: 40px;
             margin-top : 10px;
+            margin-left: 120px;
         }
         .content{
-            width: 700px;
+            width: 350px;
             height: 300px;
             margin-top : 10px;
             margin-left: 20px;
         }
         .Btn{
-            background-color: #597a96;
-            width: 100px;
-            border-radius: 5px;
+            background-color: rgb(0, 51, 85);
             color: white;
+            width: 100px;
+            height: 30px;
+            border-radius: 5px;
+            border: 0px;
+            margin-left: 148px;
         }
         #imgVal{
         	text-align : center;
         	display : block;
         	height : 20px;
         }
-        .btnArea{
-        	width : 700px;
-        	text-align : center;
-        }
     </style>
 </head>
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
 	<div class="mainbar">
-	<div class="titleArea">
-	<h2>FAQ</h2>	
+	<div class="title">
+	<h1>FAQ</h1>	
 	</div>
         <div class="insertDiv">
             <form action="${ contextPath }/admin/insertFaq" method="POST" enctype="multipart/form-data" onsubmit="removeHTML();">
@@ -115,9 +99,9 @@
 				  </div>
 				</div>
                 <!-- 버튼 -->
-				<div class="btnArea">
-					<button type="button" class="Btn" onclick="location.href='${ contextPath }/admin/faq'">뒤로가기</button>
-					<button type="submit" class="Btn" onclick="removeHTML()">작성</button>
+				<div class="text-right marginTop">
+					<button type="button" class="btn btn-primary btsSize marginLeft" onclick="location.href='${ contextPath }/admin/faq'">뒤로가기</button>
+					<button type="submit" class="btn btn-primary btsSize marginLeft" onclick="removeHTML()">작성</button>
 				</div>
             </form>
         </div>

@@ -7,23 +7,6 @@
 <meta charset="UTF-8">
 <title>관리자페이지</title>
 	<style>
-	.mainbar{
-			width : 70%;
-			float : left;
-		}
-		.titleArea{
-			width : 800px;
-			height : 52px;
-			float : left;
-			background-color: #597a96;
-		}
-		
-		h2{
-			color : white;
-			font-weight : bold;
-			text-align : center;
-			padding-top : 7px;
-		}
     .headDiv{
         display: inline-block;
     }
@@ -46,44 +29,48 @@
         bottom: 30px;
     }
     .info{
-        	width : 800px;
+            border: 2px solid lightgray;
+            margin-left : 100px;
+        	width : 70%;
         }
     .title1{
         background-color: #597a96;
-        width: 90px;
+        width: 100px;
+        border-radius: 5px;
         display: inline-block;
     }
     .title1 h3{
+        margin: 0px;
         text-align: center;
         color: white;
+        padding: 10px;
     }
     .titleValue{
         display: inline-block;
-            width : 200px;
-            padding-left: 5px;
-            font-weight: bolder;
+        font-weight: bolder;
     }
     .create{
-            background-color: #597a96;
-            width : 100px;
-            height : 50px;
+        background-color: #597a96;
+            width: 12%;
+            border-radius: 5px;
             display: inline-block;
     }
     .create h3{
+        margin: 0px;
         text-align: center;
-            color: white;
+        color: white;
+        padding: 10px;
     }
     .createValue{
-        width : 100px;
-            padding-left: 5px;
-            display: inline-block;
-            font-weight: bolder;
+        display: inline-block;
+        font-weight: bolder;
     }
-
+    
     .qna{
         border: 2px solid lightgray;
-        width: 800px;
+        width: 50%;
         height : 300px;
+        margin-left: 20%;
     }
     .qna h1{
         background-color: white;
@@ -95,7 +82,7 @@
         color: black;
         margin: 0 auto;
     }
-    .Btn{
+    .btn1{
         background-color: #597a96;
         width: 100px;
         height: 50px;
@@ -104,24 +91,25 @@
     }
     .btnArea{
     	text-align : center;
-    	width: 800px;
+    	margin-left : 150px;
     }
     input[name=atitle]{
-    	height : 40px;
-    	width : 800px;
+    	height : 25px;
+    	width : 300px;
     	margin : 0 auto;
     }
     .insert{
     	height : 400px;
-    	width: 800px;
+    	width: 50%;
+        margin-left: 20%;
     }
     </style>
 </head>
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
 	<div class="mainbar">
-	<div class="titleArea">
-	<h2>문의사항</h2>	
+	<div class="title">
+	<h1>문의사항</h1>	
 	</div>
         <div class="info">
             <div class="title1"><h3>제목</h3></div>
@@ -145,14 +133,13 @@
 			            	${ q.acontent }
 		            </textarea>
 	        		</div>
-		        <div class="btnArea">
-					<button type="button" class="Btn" onclick="location.href='${ contextPath }/admin/qna'">뒤로가기</button>
-					<button type="submit" class="Btn" onclick="removeHTML()">수정</button>
+		        <div class="text-right marginTop">
+					<button type="button" class="btn btn-primary btsSize marginLeft" onclick="location.href='${ contextPath }/admin/qna'">뒤로가기</button>
+					<button type="submit" class="btn btn-primary btsSize marginLeft" onclick="removeHTML()">수정</button>
 				</div>  
 	        </div>
         </form>
     </div>
-    <br><br><br><br><br><br>
     <script>
     $('#summernote').summernote({
     	placeholder: '답변을 입력해주세요.', 
