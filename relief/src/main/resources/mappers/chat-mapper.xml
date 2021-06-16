@@ -57,10 +57,6 @@
 		  AND B.CHAT_ID = C.CHAT_ID
           AND C.ACCOUNT_ID2 = D.ACCOUNT_ID
 		  AND C.ACCOUNT_ID = #{accountId}
-		  AND (C.CHAT_STATUS = 'Y'
-		 	  OR C.CHAT_STATUS2 = 'Y')
-		  AND (B.STATUS = 'Y'
-              OR B.STATUS2 = 'Y')
         UNION ALL
          		 SELECT 
 			  		   C.ACCOUNT_ID, 
@@ -87,10 +83,6 @@
 		 	  AND B.CHAT_ID = C.CHAT_ID
               AND C.ACCOUNT_ID = D.ACCOUNT_ID
 		 	  AND C.ACCOUNT_ID2 = #{accountId}
-		 	  AND (C.CHAT_STATUS = 'Y'
-		 	  OR C.CHAT_STATUS2 = 'Y')
-		 	  AND (B.STATUS = 'Y'
-              OR B.STATUS2 = 'Y')
          	  )
        ORDER BY 
        		   CHAT_DATE DESC
@@ -299,4 +291,54 @@
  		  FROM BLOCK
  		 WHERE CHAT_ID = #{chatId}
  	</delete>
+ 	<update id="exitChat" parameterType="Chat">
+ 		UPDATE
+              CHAT
+		SET
+            CHAT_STATUS = 'N'
+		WHERE ACCOUNT_ID = #{accountId}
+		AND CHAT_ID = #{chatId}
+ 	</update>
+ 	<update id="exitChat2" parameterType="ChatHistory">
+ 		UPDATE
+              CHAT_HISTORY
+		SET
+            STATUS = 'N'
+		WHERE ACCOUNT_ID = #{accountId}
+		AND CHAT_ID = #{chatId}
+ 	</update>
+ 	<update id="exitChat3" parameterType="Chat">
+ 		UPDATE
+              CHAT
+		SET
+            CHAT_STATUS = 'N'
+		WHERE ACCOUNT_ID = #{accountId}
+		AND CHAT_ID = #{chatId}
+ 	</update>
+ 	<update id="exitChat4" parameterType="ChatHistory">
+ 		UPDATE
+              CHAT_HISTORY
+		SET
+            STATUS = 'N'
+		WHERE ACCOUNT_ID = #{accountId}
+		AND CHAT_ID = #{chatId}
+ 	</update>
+ 	<select id="selectAccount" parameterType="Chat" resultMap="chatResultSet">
+ 		SELECT
+			  CHAT_ID,
+			  ACCOUNT_ID,
+			  ACCOUNT_ID2,
+			  CHAT_STATUS,
+			  CHAT_STATUS2
+		FROM 
+			  CHAT C
+		WHERE
+			(
+			ACCOUNT_ID = #{accountId}
+			OR 
+			ACCOUNT_ID2 = #{accountId}
+			)
+		  AND 
+		  	  CHAT_ID = #{chatId}
+ 	</select>
  </mapper>

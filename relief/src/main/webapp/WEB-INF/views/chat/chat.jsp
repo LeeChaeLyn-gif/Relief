@@ -202,6 +202,7 @@
 			}else{
 				console.warn("unknown type!")
 			}
+			
 			$('#chating').scrollTop($('#chating')[0].scrollHeight);
 		}
 	}
@@ -254,9 +255,11 @@
 	}
 	
 	function exitChat(){
+		var chatId = $("#chatId").val();
+		var accountId = '${loginUser.aid}';
 		
 		if (confirm("채팅방을 나가시겠습니까? \n(채팅방을 나가시면 대화내용이 전부 삭제됩니다.)") == true){
-			location.href="${contextPath}/exitChat?accountId=" + ${loginUser.aid} + "&chid=" + chatId;
+			location.href="${contextPath}/exitChat?accountId=" + accountId + "&chid=" + chatId;
 		}
 	}
 	
