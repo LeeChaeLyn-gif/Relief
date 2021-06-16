@@ -63,7 +63,7 @@
 			  	<input type="hidden" value="${b.board_id}">
 				<tr class="tdClick">
 					
-					<td><img src="${ contextPath }/resources/images/${ b.renameFileName }" width="150"/>
+					<td><img src="${ contextPath }/resources/buploadFiles/${ b.renameFileName }" width="150"/>
 					</td>
 					<td>
 						${ b.title }

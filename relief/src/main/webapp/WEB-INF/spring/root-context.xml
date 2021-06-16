@@ -88,7 +88,6 @@
 	  -->
 	  <!-- 
 	  	어노테이션을 통한 transaction 적용 (namespance:tx 추가)
->>>>>>> garam-L
 	  	Spring AOP가 이용이 되며 AOP는 기본적으로 Dynamic Proxy를 이용(메소드 호출 시 동적으로 weaving)
 	  	=> proxy-target-class="true" 설정(인터페이스가 없어도 동작 가능)
 	   -->

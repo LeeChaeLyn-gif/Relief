@@ -67,7 +67,7 @@
 			  	<c:forEach items="${ list }" var="t">
 			  	<input type="hidden" value="${t.board_id}">
 				<tr class="tdClick">
-					<td><img src="${ contextPath }/resources/images/${ t.rename_fileName }" width="150"/></td>
+					<td><img src="${ contextPath }/resources/buploadFiles/${ t.rename_fileName }" width="150"/></td>
 					<td>${ t.title }</td>
 					<td>${ t.price }</td>
 					<td>${ t.seller_id }</td>

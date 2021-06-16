@@ -73,7 +73,7 @@
 			  	<c:forEach items="${ list }" var="h">
 			  	<input type="hidden" value="${ h.board_id }">
 				<tr class="tdClick">
-					<td><img src="${ contextPath }/resources/images/${ h.rename_fileName }" width="150"/></td>
+					<td><img src="${ contextPath }/resources/buploadFiles/${ h.rename_fileName }" width="150"/></td>
 					
 					<c:if test="${h.status == 'Y'}">
 						<td>거래완료</td>

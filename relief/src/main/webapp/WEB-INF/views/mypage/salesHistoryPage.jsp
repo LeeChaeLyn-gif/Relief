@@ -82,7 +82,7 @@
 				  <c:forEach items="${ list }" var="s">
 				  <input type="hidden" value="${s.board_id}"/>
 					<tr class="tdClick">
-						<td><img src="${ contextPath }/resources/images/${ s.rename_fileName }" width="150"/></td>
+						<td><img src="${ contextPath }/resources/buploadFiles/${ s.rename_fileName }" width="150"/></td>
 						
 						<td>
 						<!-- 판매 상태 -->
@@ -196,6 +196,7 @@
 		function upBtn(pull_date, board_id){
 			var date = new Date();
 			date = getFormatDate(date);
+			console.log(date);
 			if(date === pull_date) {
 				alert("하루에 한 번씩 할 수 있습니다.");
 			} else {

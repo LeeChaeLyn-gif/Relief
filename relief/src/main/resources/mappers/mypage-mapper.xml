@@ -140,13 +140,29 @@
     	
     </select>
     
-    <select id="deleteT_History" parameterType="_int">
-    	DELETE
-    	FROM
-    		T_HISTORY
+    <update id="deleteT_History" parameterType="_int">
+   		UPDATE
+   			T_HISTORY
+   		SET
+    		STATUS = 'N'
     	WHERE
     		T_HISTORY_ID = #{t_history_id}
-    </select>
+    </update>
+    
+    <update id="depeteBoard" parameterType="_int">
+	    UPDATE
+	    	BOARD
+		SET
+		    STATUS = 'N'
+		WHERE
+		    BOARD_ID = 
+			    (SELECT
+			        BOARD_ID
+			     FROM
+			        T_HISTROY
+			     where
+			        T_HISTORY_ID = #{T_HISTORY_ID})
+    </update>
     
     <select id="selectHiddenListCount" parameterType="string" resultType="_int">
     	SELECT
@@ -158,7 +174,7 @@
    			AND SELLER_ID = #{seller_id}
     </select>
     
-    <select id="selectselectHiddenList" parameterType="string" resultMap="T_HistoryResultSet">
+    <select id="selectHiddenList" parameterType="string" resultMap="T_HistoryResultSet">
 		SELECT
 		    	T_HISTORY_ID
 		      , T.BOARD_ID
@@ -217,6 +233,8 @@
 		      , T.HIDE_STATUS
 		      , I.RENAME_FILENAME
 		      , B.MODIFY_DATE
+		      , T.R_STATUS
+		      , B.PULL_DATE
 		FROM
 			    T_HISTORY T 
 			    JOIN BOARD B ON(T.BOARD_ID = B.BOARD_ID)
@@ -296,6 +314,15 @@
 		WHERE
 			ACCOUNT_ID = #{aid}
     
+    </update>
+    
+    <update id="updateR_Status" parameterType="_int">
+    	UPDATE
+    		T_HISTORY
+    	SET
+    		R_STATUS = 'Y'
+    	WHERE
+    		T_HISTORY_ID = #{t_history_id}
     </update>
     
     <update id="updatePull_Date" >
