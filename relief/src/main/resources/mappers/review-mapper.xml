@@ -15,7 +15,7 @@
 		<result property="seller_id" column="SELLER_ID"/>
 
 	</resultMap>
-	
+	 
 	<resultMap id="reviewResultSet2" type="Review">
 		<id property="review_id" column="REVIEW_ID"/>
 		<result property="t_history_id" column="T_HISTORY_ID"/>

@@ -208,7 +208,7 @@ public class MyPageController {
 	
 	
 	
-	// 업버튼
+	//  업버튼
 	@GetMapping("/updatePull_Date")
 	public String updatePull_Date(@RequestParam("board_id") int board_id,
 								  Model model){
