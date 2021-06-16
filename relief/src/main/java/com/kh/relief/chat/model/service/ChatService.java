@@ -42,6 +42,10 @@ public interface ChatService {
 	int deleteBlock2(int chatId);
 	// 채팅 확인
 	Chat checkChat2(Chat c);
-	int exitChat(int chatId);
-	int exitChat2(int chatId);
+	
+	int exitChat(Chat c);
+	int exitChat2(ChatHistory ch);
+	int exitChat3(Chat c);
+	int exitChat4(ChatHistory ch);
+	Chat selectAccount(Chat c);
 }

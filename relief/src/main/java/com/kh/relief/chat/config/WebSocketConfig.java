@@ -7,7 +7,6 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 import com.kh.relief.chat.handler.ChatHandler;
-import com.kh.relief.chat.handler.MainHandler;
 
 
 @Configuration
@@ -15,13 +14,9 @@ import com.kh.relief.chat.handler.MainHandler;
 public class WebSocketConfig implements WebSocketConfigurer {
 	@Autowired
 	private ChatHandler chatHandler;
-	@Autowired
-	private MainHandler mainHandler;
 
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		registry.addHandler(chatHandler, "{chatId}");
-		// registry.addHandler(chatHandler, "/{type}/{targetId}");
-		registry.addHandler(mainHandler, "main/{accountId}");
 	}
 }

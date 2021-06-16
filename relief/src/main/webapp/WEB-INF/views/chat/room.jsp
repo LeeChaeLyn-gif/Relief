@@ -92,7 +92,6 @@ button {
 		<h4>다행톡</h4>
 		<div id="roomContainer" class="roomContainer">
 			<input type="hidden" id="accountId" name="accountId" value="${ loginUser.aid }">
-			<input type="text" id="chatHistoryId" name="chatHistoryId" value="">
 			<div id="roomList" class="roomList">
 			</div>
 		</div>
@@ -117,9 +116,11 @@ button {
 				var value = "";
 				$(".chatRoom").remove();
 				for(var i in data.cList){
-					value = "<div class='chatRoom' onclick='selectChat( "+ data.cList[i].chatId + ")'><div class='chatUserName'>" + data.cList[i].name + "</div><div class='chatContent'>"
-						+ data.cList[i].content + "</div><div class='chatDate'>" + data.cList[i].chatDate + "</div><input type='text' value=" + data.cList[i].chatHistoryId +"></div>"
+					console.log(data);
 					
+						
+						value = "<div class='chatRoom' onclick='selectChat( "+ data.cList[i].chatId + ")'><div class='chatUserName'>" + data.cList[i].name + "</div><div class='chatContent'>"
+						+ data.cList[i].content + "</div><div class='chatDate'>" + data.cList[i].chatDate + "</div></div>"
 					$("#roomList").append(value);
 				}
 			},

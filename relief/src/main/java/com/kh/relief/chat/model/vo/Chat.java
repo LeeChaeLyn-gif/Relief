@@ -16,5 +16,6 @@ public class Chat {
 	private String accountId;
 	private String accountId2;
 	private String chatStatus;
+	private String chatStatus2;
 	private String name;
 }
