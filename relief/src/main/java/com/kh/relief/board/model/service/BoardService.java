@@ -92,5 +92,14 @@ public interface BoardService {
 	List<Reply> insertReply(Reply r);
 
 	List<Reply> selectReplyList(int board_id);
+	
+	List<Reply> insertReply2(Reply r);
+
+	// 대댓글 가져오기
+	List<Reply> selectReply2List(int board_id);
+
+	int nLoginListCount(String searchValue);
+
+	List<Board> nLoginList(PageInfo pi, String searchValue);
 
 }

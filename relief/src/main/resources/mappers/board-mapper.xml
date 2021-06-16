@@ -667,7 +667,7 @@
 		WHERE ROWNUM <![CDATA[<=]]> 3
  	</select>
  	
- 	<select id="selectReplyList" parameterType="_int" resultMap="ReplyResultSet">
+<!--  	<select id="selectReplyList" parameterType="_int" resultMap="ReplyResultSet">
  		SELECT
 			REPLY_ID
 		  , BOARD_ID
@@ -684,6 +684,25 @@
 		AND STATUS = 'Y'
 		ORDER BY
 			REPLY_ID DESC
+ 	</select> -->
+ 	
+ 	<select id="selectReplyList" parameterType="_int" resultMap="ReplyResultSet">
+		 SELECT REPLY_ID
+	      , BOARD_ID
+	      , ACCOUNT_ID
+	      , CREATE_DATE
+	      , MODIFY_DATE
+	      , STATUS
+	      , LEVEL REPLY_ID2
+	      , CASE WHEN LEVEL = 1 THEN '' ELSE LPAD('└  ',LEVEL*2,' ') END ||
+	        CASE WHEN STATUS ='N' THEN '***삭제된 댓글입니다***' ELSE TITLE END TITLE
+		FROM (SELECT *
+		      FROM REPLY
+		      WHERE BOARD_ID = #{bid}
+		      )
+		START WITH REPLY_ID2 = 0
+		CONNECT BY PRIOR REPLY_ID = REPLY_ID2
+		ORDER SIBLINGS BY CREATE_DATE DESC
  	</select>
  	
  	<insert id="insertReply" parameterType="Reply">
@@ -712,4 +731,85 @@
 		  , #{reply_id2}
 		)
 	</insert>
+	
+	<insert id="insertReply2" parameterType="Reply">
+		INSERT
+			INTO
+		REPLY
+		(
+			REPLY_ID
+		  , BOARD_ID
+		  , ACCOUNT_ID
+		  , TITLE
+		  , CREATE_DATE
+		  , MODIFY_DATE
+		  , STATUS
+		  , REPLY_ID2
+		)
+		VALUES
+		(
+			SEQ_CMID.NEXTVAL
+		  , #{bid}
+		  , #{aid}
+		  , #{title}
+		  , SYSDATE
+		  , SYSDATE
+		  , DEFAULT
+		  , #{reply_id2}
+		)
+	</insert>
+	
+	<select id="selectReply2List" parameterType="_int" resultMap="ReplyResultSet">
+ 		SELECT
+		    ACCOUNT_ID
+		  , TITLE
+		  , CREATE_DATE
+		FROM
+			REPLY
+		WHERE
+			REPLY_ID2 = #{ reply_id }
+		AND STATUS = 'Y'
+		ORDER BY
+			REPLY_ID DESC
+ 	</select>
+	<select id="nLoginListCount" parameterType="string" resultType="_int">
+		SELECT
+ 				COUNT(*)
+ 		  FROM
+ 		  		BOARD
+ 		 WHERE
+ 		 	   (TITLE LIKE '%'|| #{searchValue} || '%'
+ 		   OR CONTENT LIKE '%' || #{searchValue} || '%'
+ 		   OR AREA LIKE '%' || #{searchValue} || '%')
+ 		  AND STATUS = 'Y'
+ 	  ORDER BY PULL_DATE DESC
+	</select>
+	<select id="nLoginList" parameterType="string" resultMap="BoardResultSet">
+		SELECT
+				BOARD_ID
+ 			  , ACCOUNT_ID
+ 			  , CATEGORY_ID
+ 			  , TITLE
+ 			  , CONTENT
+ 			  , CREATE_DATE
+ 			  , MODIFY_DATE
+ 			  , COUNT
+ 			  , STATUS
+ 			  , PRODUCT_STATUS
+ 			  , TRADE_STATUS
+ 			  , PRICE
+ 			  , EXCHANGE_STATUS
+ 			  , AMOUNT
+ 			  , PULL_DATE
+ 			  , PRICE_STATUS
+ 			  , AREA
+ 		  FROM
+ 		  		BOARD
+ 		  WHERE
+ 		 	   (TITLE LIKE '%'|| #{searchValue} || '%'
+ 		   OR CONTENT LIKE '%' || #{searchValue} || '%'
+ 		   OR AREA LIKE '%' || #{searchValue} || '%')
+ 		  AND STATUS = 'Y'
+ 	  ORDER BY PULL_DATE DESC
+	</select>
  </mapper>

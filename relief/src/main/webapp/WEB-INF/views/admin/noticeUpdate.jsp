@@ -28,44 +28,15 @@
             display: inline-block;
             bottom: 30px;
         }
-        .navbar1 ul li a{
-            text-decoration: none;
-            color: white;
-            background-color: rgb(0, 51, 85);
-            display: block;
-            width: 300px;
-            height: 50px;
-        }
-        .navbar1 ul li{
-            float: left;
-        }
-        .navbar1{
-            width: 50px;
-        }
-        ul{
-            list-style:none;
-        }
-        .navbar1 ul li a h2{
-            text-align: center;
-            margin: 0px;
-            padding: 5px;
-        }
-        .navbar1 ul li a:hover{
-            background-color: red;
-        }
-        .mainbar h1{
-            color: white;
-            background-color: rgb(0, 51, 85);
-            margin: 0px;
-            margin-left: 340px;
-        }
         .insertDiv{
             border: 1px solid lightgray;
-            width: 400px;
-            height: 650px;
-            margin-left: 850px;
+            width: 50%;
+            height: 675px;
+            text-align : center;
+            margin-left : 20%;
+            margin-top : 1%;
         }
-        .title{
+        .title1{
             width: 300px;
             height: 40px;
             border: 1px solid lightgray;
@@ -81,7 +52,6 @@
             width: 150px;
             height: 40px;
             margin-top : 10px;
-            margin-left: 120px;
         }
         .content{
             width: 350px;
@@ -107,20 +77,19 @@
 </head>
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
-	<div class="mainbar"><h1>공지사항</h1>
+	<div class="mainbar">
+	<div class="title">
+	<h1>공지사항</h1>	
+	</div>
         <div class="insertDiv">
             <form action="${ contextPath }/admin/noticeUpdate" method="POST" onsubmit="return validate();" enctype="multipart/form-data">
-                <input type="text" class="title" name="title"placeholder="제목" value="${ n.title }" required>
-                <br><br>
-                <button type="button" class="Btn" id="btn-upload">이미지 변경</button>
-                <p id="imgVal">
+                <div class="form-group ">
+		    		<input type="text" class="form-control" placeholder="제목" name="title" value="${ n.title }" required>
+		  		</div>
                 <c:if test="${ !empty n.fileName }">
-                ${ n.fileName }
                 <input type="hidden" name="fileName" value="${ n.fileName }">
                 <input type="hidden" name="renameFileName" value="${ n.renameFileName }">
                 </c:if>
-                </p>
-                <input type="file" class="adImg" name="uploadFile" id="file">
                 <input type="hidden" name="nid" value="${ n.nid }">
                 <br>
                 <select class="condition" name="nstatus">
@@ -128,10 +97,24 @@
                     <option value="1" <c:if test="${ n.nstatus == 1 }">selected</c:if>>공지</option>
                     <option value="2" <c:if test="${ n.nstatus == 2 }">selected</c:if>>광고</option>
                 </select>
-                <br>
-                <textarea class="content" name="ncontent">${ n.ncontent }</textarea>
-                <br>
-                <button type="submit" class="Btn">수정</button>
+                <div class="form-group">
+		    		<textarea id="summernote" class="content" rows="3" placeholder="내용" style="resize: none; width:100%; height: 400px;" name="ncontent">${ n.ncontent }</textarea>
+		  	    </div>
+                <div class="input-group mb-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">첨부파일</span>
+				  </div>
+				  <div class="custom-file">
+				    <input type="file" class="custom-file-input" id="fileName" name="uploadFile" value="${ n.renameFileName }">
+				    <label class="custom-file-label" for="fileName">${ n.fileName }</label>
+				  </div>
+				</div>
+		
+		<!-- 버튼 -->
+		<div class="text-right marginTop">
+			<button type="button" class="btn btn-primary btsSize marginLeft" onclick="location.href='${ contextPath }/admin/notice'">뒤로가기</button>
+			<button type="submit" class="btn btn-primary btsSize marginLeft" onclick="removeHTML()">수정</button>
+		</div>
             </form>
         </div>
     </div>
@@ -148,26 +131,24 @@
     		}
     	}
     	
-    	$(function () {
-
-    		$('#btn-upload').click(function (e) {
-
-    		e.preventDefault();
-
-    		$('#file').click();
-				
+    	$('#summernote').summernote({
+	    	placeholder: '답변을 입력해주세요.', 
+	    	tabsize: 2,
+	    	minHeight: null,
+	    	maxHeight: null,
+	    	lang : 'ko-KR',
+	    	height: 370 });
+    	function removeHTML(){
+    		var str = $(".content").val();
+    		str = str.replace(/<br\/>/ig, "\n");
+    		str = str.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+			$(".content").val(str);
+    	}
+    	
+    	$(function(){
+    		$("input[type='file']").on('change', function(){
+    			$(this).next('.custom-file-label').html(event.target.files[0].name);
     		});
-
-    		})
-    	var imgVal = document.getElementById("imgVal");
-    	$("#file").on("change", function(){
-    		if(window.FileReader){
-    		      var filename = $(this)[0].files[0].name;
-    		    } else {
-    		      var filename = $(this).val().split('/').pop().split('\\').pop();
-    		    }
-				console.log(filename);
-    		    imgVal.innerHTML = filename;
     	})
     </script>
 </body>

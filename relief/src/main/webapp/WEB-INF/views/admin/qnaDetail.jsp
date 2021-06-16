@@ -21,57 +21,25 @@
         margin-bottom: 0px;
         margin-top: 0px;
         margin-left: 20px;
-        color: rgb(0, 51, 85);
+        color: #597a96;
         text-align: center;
     }
     .headDiv2{
         display: inline-block;
         bottom: 30px;
     }
-    .navbar1 ul li a{
-        text-decoration: none;
-        color: white;
-        background-color: rgb(0, 51, 85);
-        display: block;
-        width: 300px;
-        height: 50px;
-    }
-    .navbar1 ul li{
-        float: left;
-    }
-    .navbar1{
-        width: 50px;
-    }
-    ul{
-        list-style:none;
-    }
-    .navbar1 ul li a h2{
-        text-align: center;
-        margin: 0px;
-        padding: 5px;
-    }
-    .navbar1 ul li a:hover{
-        background-color: red;
-    }
-    .mainbar h1{
-        color: white;
-        background-color: rgb(0, 51, 85);
-        margin: 0px;
-        margin-left: 340px;
-    }
     .info{
-        border: 2px solid lightgray;
-        height: 50px;
-        margin-left: 340px;
-        text-align: center;
-    }
-    .title{
-        background-color: rgb(0, 51, 85);
+            border: 2px solid lightgray;
+            margin-left : 100px;
+        	width : 70%;
+        }
+    .title1{
+        background-color: #597a96;
         width: 100px;
         border-radius: 5px;
         display: inline-block;
     }
-    .title h3{
+    .title1 h3{
         margin: 0px;
         text-align: center;
         color: white;
@@ -79,14 +47,13 @@
     }
     .titleValue{
         display: inline-block;
-        width: 600px;
         font-weight: bolder;
     }
     .create{
-        background-color: rgb(0, 51, 85);
-        width: 100px;
-        border-radius: 5px;
-        display: inline-block;
+            background-color: #597a96;
+            width: 12%;
+            border-radius: 5px;
+            display: inline-block;
     }
     .create h3{
         margin: 0px;
@@ -101,9 +68,10 @@
     
     .qna{
         border: 2px solid lightgray;
-        width: 1100px;
-        height: 500px;
-        margin-left: 500px;
+        height: 300px;
+        width: 53%;
+        padding: 0px;
+        margin-left: 20%;
     }
     .qna h1{
         text-align: center;
@@ -117,8 +85,8 @@
         color: black;
         margin: 0 auto;
     }
-    .btn{
-        background-color: rgb(0, 51, 85);
+    .btn1{
+        background-color: #597a96;
         width: 100px;
         height: 50px;
         border-radius: 5px;
@@ -126,16 +94,23 @@
 
     }
     .btnArea{
-    	text-align : center;
-    	margin-left : 150px;
-    }
+        	width : 91%;
+        	text-align : center;
+        }
+     h3{
+     	text-align : center;
+     	margin-right : 10%;
+     }
     </style>
 </head>
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
-	<div class="mainbar"><h1>문의사항</h1>
+	<div class="mainbar">
+	<div class="title">
+	<h1>문의사항</h1>	
+	</div>
         <div class="info">
-            <div class="title"><h3>제목</h3></div>
+            <div class="title1"><h3>제목</h3></div>
             <p class="titleValue">${ q.qtitle }</p>
             <div class="create"><h3>작성일</h3></div>
             <p class="createValue">${ q.createDate }</p>
@@ -145,19 +120,19 @@
         <div class="qna">
 			${ q.qcontent }
         </div>
+        <c:if test="${ empty q.acontent }">
+        <h3>답변을 기다리고 있습니다!</h3>
+        </c:if>
+        <c:if test="${ !empty q.acontent }">
         <div class="qna">
-            <div class="title"><h3>제목</h3></div>
+            <div class="title1"><h3>제목</h3></div>
             <p class="titleValue">${ q.atitle }</p>
             <hr>
-            <c:if test="${ empty q.acontent }">
-            <h1>답변을 기다리고 있습니다!</h1>
-            </c:if>
-            <c:if test="${ !empty q.acontent }">
             	${ q.acontent }
-            </c:if>
         </div>
+        </c:if>
         <div class="btnArea">
-        	<button type="button" class="btn" onclick="location.href='${ contextPath }/admin/qnaUpdate?qid=${ q.qid }'">답변하기</button>
+        	<button type="button" class="btn1" onclick="location.href='${ contextPath }/admin/qnaUpdate?qid=${ q.qid }'">답변하기</button>
         </div>
     </div>
 </body>

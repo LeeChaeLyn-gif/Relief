@@ -7,31 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.navbar1 ul li a{
-            text-decoration: none;
-            color: white;
-            background-color: rgb(0, 51, 85);
-            display: block;
-            width: 300px;
-            height: 50px;
-        }
-        .navbar1 ul li{
-            float: left;
-        }
-        .navbar1{
-            width: 50px;
-        }
-        ul{
-            list-style:none;
-        }
-        .navbar1 ul li a h2{
-            text-align: center;
-            margin: 0px;
-            padding: 5px;
-        }
-        .navbar1 ul li a:hover{
-            background-color: red;
-        }
+	
         .el{
             border: 1px solid rgb(0, 51, 85);
             width: 250px;
@@ -54,7 +30,7 @@
         	width : 700px !important;
         }
 </style>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+ 
     <!-- 차트 링크 --> 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>

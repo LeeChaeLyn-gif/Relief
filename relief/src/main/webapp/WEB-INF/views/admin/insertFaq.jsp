@@ -27,44 +27,15 @@
             display: inline-block;
             bottom: 30px;
         }
-        .navbar1 ul li a{
-            text-decoration: none;
-            color: white;
-            background-color: rgb(0, 51, 85);
-            display: block;
-            width: 300px;
-            height: 50px;
-        }
-        .navbar1 ul li{
-            float: left;
-        }
-        .navbar1{
-            width: 50px;
-        }
-        ul{
-            list-style:none;
-        }
-        .navbar1 ul li a h2{
-            text-align: center;
-            margin: 0px;
-            padding: 5px;
-        }
-        .navbar1 ul li a:hover{
-            background-color: red;
-        }
-        .mainbar h1{
-            color: white;
-            background-color: rgb(0, 51, 85);
-            margin: 0px;
-            margin-left: 340px;
-        }
         .insertDiv{
             border: 1px solid lightgray;
-            width: 400px;
-            height: 650px;
-            margin-left: 850px;
+            width: 50%;
+            height: 600px;
+            text-align : center;
+            margin-left : 20%;
+            margin-top : 1%;
         }
-        .title{
+        .title1{
             width: 300px;
             height: 40px;
             border: 1px solid lightgray;
@@ -106,19 +77,32 @@
 </head>
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
-	<div class="mainbar"><h1>FAQ</h1>
+	<div class="mainbar">
+	<div class="title">
+	<h1>FAQ</h1>	
+	</div>
         <div class="insertDiv">
             <form action="${ contextPath }/admin/insertFaq" method="POST" enctype="multipart/form-data" onsubmit="removeHTML();">
-                <input type="text" class="title" name="title"placeholder="제목" required>
-                <br><br>
-                <button type="button" class="Btn" id="btn-upload">이미지 등록</button>
-                <p id="imgVal"></p>
-                <input type="file" class="adImg" name="uploadFile" id="file">
-                <br>
-                <br>
-                <textarea id="summernote" class="content" name="content"></textarea>
-                <br>
-                <button type="submit" class="Btn">등록</button>
+                <div class="form-group ">
+                <input type="text" class="form-control" name="title"placeholder="제목" required>                
+                </div>
+                <div class="form-group">
+		    		<textarea id="summernote" class="content" rows="3" placeholder="내용" style="resize: none; width:100%; height: 400px;" name="content"></textarea>
+		  	   </div>
+		  	   <div class="input-group mb-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">첨부파일</span>
+				  </div>
+				  <div class="custom-file">
+				    <input type="file" class="custom-file-input" id="fileName" name="uploadFile">
+				    <label class="custom-file-label" for="fileName">파일선택</label>
+				  </div>
+				</div>
+                <!-- 버튼 -->
+				<div class="text-right marginTop">
+					<button type="button" class="btn btn-primary btsSize marginLeft" onclick="location.href='${ contextPath }/admin/faq'">뒤로가기</button>
+					<button type="submit" class="btn btn-primary btsSize marginLeft" onclick="removeHTML()">작성</button>
+				</div>
             </form>
         </div>
     </div>
@@ -137,27 +121,6 @@
     		str = str.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
 			$(".content").val(str);
     	}
-    	$(function () {
-
-    		$('#btn-upload').click(function (e) {
-
-    		e.preventDefault();
-
-    		$('#file').click();
-				
-    		});
-
-    		})
-    	var imgVal = document.getElementById("imgVal");
-    	$("#file").on("change", function(){
-    		if(window.FileReader){
-    		      var filename = $(this)[0].files[0].name;
-    		    } else {
-    		      var filename = $(this).val().split('/').pop().split('\\').pop();
-    		    }
-				console.log(filename);
-    		    imgVal.innerHTML = filename;
-    	})
     </script>
 </body>
 </html>

@@ -7,8 +7,7 @@
 <meta charset="UTF-8">
 <title>detail Page</title>
 <style>
-<
-style>* {
+* {
 	box-sizing: border-box;
 }
 
@@ -91,18 +90,31 @@ textarea{
       width : 600px;
       line-height : 2.5;
       border-collapse : collapse;
+      border : 1px solid lightgray;
    }
+   
+#replyTable th {
+	border : 1px solid lightgray;
+}
+
+#replyTable tr {
+	border : 1px solid lightgray;
+}
+
 #replyTable th:nth-child(1) {
-      width : 70px;
-   }
+    width : 70px;
+    text-align:center;
+}
    
-   #replyTable th:nth-child(2) {
-      width : 430px;
-   }
+#replyTable th:nth-child(2) {
+    width : 430px;
+    text-align:center;
+}
    
-   #replyTable th:nth-child(3) {
-      width : 100px;
-   }
+#replyTable th:nth-child(3) {
+    width : 100px;
+    text-align:center;
+}
 
 .reviewTable{
 	border : 1px solid lightgray;
@@ -124,6 +136,18 @@ textarea{
 .reviewBtn{
 	text-align : right;
 }
+
+.replyText {
+	width : 430px;
+	resize : none;
+}
+
+.replyAreaTd {
+	text-align : left;
+	padding-left : 30px;
+}
+
+
 /* 버튼 */
 .wishbutton, .chatbutton, .reportbutton {
 	background-color: rgb(52, 73, 94);
@@ -271,6 +295,25 @@ textarea{
 	background : rgb(52, 73, 94);
 	
 }
+
+#clabel{
+	font-size : 25px;
+	margin-right : 10px;
+	margin-left : 10px;
+}
+
+select { 
+
+	padding: 5px 5px;
+	font-family: inherit;
+	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+	border: 1px solid #999; 
+	border-radius: 0px;
+	-webkit-appearance: none;
+	-moz-appearance: none; 
+	appearance: none; 
+}
+
 
 /* 이미지 슬라이드 */
 /*GLOBALS*/
@@ -429,27 +472,35 @@ textarea{
 		<div class="part2">
 			<div class="category-box">
 				<form>
-					<label for="category">카테고리</label> <select id="category1"
-						name="category1">
+					<label for="category" id="clabel">카테고리</label> 
+					<select id="category1" name="category1">
 						<option value="">카테고리 1</option>
 						<c:forEach items="${ clist }" var="c">
 						<c:if test="${ c.cgroup == 1 }">
-							<option value="#">${ c.cname }</option>
+							<option value="${ c.cid }" <c:if test="${ c.cid == firstCid }">selected</c:if>>
+                		 ${ c.cname }
+                		 </option>  
 							</c:if>
 						</c:forEach>
 						
-					</select> <select id="category2" name="category2">
+					</select> 
+					<select id="category2" name="category2">
 						<option value="">카테고리 2</option>
 						<c:forEach items="${ clist }" var="c">
 						<c:if test="${ c.cgroup == 2 }">
-							<option value="#">${ c.cname }</option>
+							<option value="${ c.cid }" <c:if test="${ c.cid == secondCid }">selected</c:if>>
+                		 ${ c.cname }
+                		 </option>
 							</c:if>
 						</c:forEach>
-					</select> <select id="category3" name="category3">
+					</select> 
+					<select id="category3" name="category3">
 						<option value="">카테고리 3</option>
 						<c:forEach items="${ clist }" var="c">
 						<c:if test="${ c.cgroup == 3 }">
-							<option value="#">${ c.cname }</option>
+							<option value="${ c.cid }" <c:if test="${ c.cid == cid }">selected</c:if>>
+                		 ${ c.cname }
+                		 </option>
 							</c:if>
 						</c:forEach>
 					</select>
@@ -461,7 +512,7 @@ textarea{
 					<div id="wrapper">
 						<div id="slider-wrap">
 							<ul id="slider">
-								<c:forEach items="${ ilist }" var="i" begin="0" end="9">
+								<c:forEach items="${ ilist }" var="i">
 									<li>
 										<img src="${ contextPath }/resources/buploadFiles/${ i.renameFileName }">
 									</li>
@@ -542,8 +593,10 @@ textarea{
 					</div>
 					<div id="detail-btn">
 						<button class="wishbutton"><i class="fa fa-heart" aria-hidden="true"></i>찜버튼</button>
+
 						<button class="chatbutton" onclick="chat()"><i class="fa fa-commenting" aria-hidden="true"></i>채팅</button>
 						<button class="reportbutton" onclick="report()"><i class="fa fa-bell" aria-hidden="true"></i>신고하기</button>
+
 					</div>
 					<br>
 				</div>
@@ -581,8 +634,12 @@ textarea{
 					<h5>상품 문의 댓글</h5>
 						<textarea id="replyContent" style="resize : none;"></textarea>
 						<br>
+						<c:if test="${ !empty loginUser }">
 						<button class="btn" id="addReply">댓글 등록</button>
-
+						</c:if>
+						<c:if test="${ empty loginUser }">
+						<button class="btn" onclick="validate()">댓글 등록</button>
+						</c:if>
 						<br><hr><br>
 						<div class="replySelectArea">
 							<table id="replyTable">
@@ -596,11 +653,26 @@ textarea{
 								<tbody>
 								<c:if test="${ !empty relist }">
 									<c:forEach items="${ relist }" var="e">
-									<tr>
-										<td>${ e.aid }</td>
-										<td>${ e.title }</td>
-										<td>${ e.create_date }</td>
-									</tr>
+											<tr class="replyArea">
+												<td>${ e.aid }<input type="hidden" name="rid" value="${ e.reply_id }"></td>
+												<td class="replyAreaTd">${ e.title }<input type="hidden" name="rid2" value="${ e.reply_id2 }"></td>
+												<td>${ e.create_date }</td>
+											</tr>
+											<tr class="replyArea2" style="display : none;">
+												<td></td>
+												<td>
+												<textarea class="replyText" id="${ e.reply_id }"></textarea>
+												<c:choose>
+												<c:when test="${ loginUser.aid == board.account_id }">
+												<button onclick="addReply(${ e.reply_id })" class="btn" type="button">답글달기</button>
+												</c:when>
+												<c:otherwise>
+												<button onclick="validate2()" class="btn" type="button">답글달기</button>
+												</c:otherwise>
+												</c:choose>
+												</td>
+												<td></td>
+											</tr>
 									</c:forEach>
 								</c:if>
 								<c:if test="${ empty relist }">
@@ -642,7 +714,8 @@ textarea{
 			for(let i = 0; i < btnArr.length; i++){ 
 				btnArr[i].addEventListener('click',function(e){ 
 					e.preventDefault(); 
-					document.querySelector('.btn' + (i + 1)).scrollIntoView(true); }); 
+					document.querySelector('.btn' + (i + 1)).scrollIntoView(true); 
+					}); 
 				}
 			
 			
@@ -661,6 +734,24 @@ textarea{
 				var board_id = $("#board_id").val();
 				location.href="${ contextPath }/board/wish?board_id=" + board_id;
 			});
+			
+			
+			$(function(){
+	    		$("#category1").on('change', function(){
+	    			var cid = $("#category1 option:selected").val();
+	    			location.href="${ contextPath }/board/category1?cid=" + cid;
+	    		})
+	    		
+	    		$("#category2").on('change', function(){
+	    			var cid = $("#category2 option:selected").val();
+	    			location.href="${ contextPath }/board/category2?cid=" + cid;
+	    		})
+	    		
+	    		$("#category3").on('change', function(){
+	    			var cid = $("#category3 option:selected").val();
+	    			location.href="${ contextPath }/board/category3?cid=" + cid;
+	    		})
+	    	})
 
 			</script>
 		</div>
@@ -695,61 +786,68 @@ textarea{
 				}
 			});
 		});
-	</script>
-	<script>
-		var pos = 0;
-		var totalSlides = $('#slider-wrap ul li').length;
-		var sliderWidth = $('#slider-wrap').width();
-
-		$(document).ready(function() {
-			$('#slider-wrap ul#slider').width(sliderWidth * totalSlides);
-
-			$('#next').click(function() {
-				slideRight();
-			});
-
-			$('#previous').click(function() {
-				slideLeft();
-			});
+		
+		
+		$(document).ready(function(){
 			
-			var autoSlider = setInterval(slideRight, 3000);
+			$(".replyArea").on("click", function(){
+				var currentRow = $(this).closest('tr');
+				var detail = currentRow.next('tr');
+				var rid = $(this).find("input[name=rid2]").val();
+				if(detail.is(":visible")){
+					detail.hide();
+				} else {
+					detail.show();
+				}
+				if(rid == 2){
+					detail.hide();
+				}
+			})
+			
+		})
 
-			$.each($('#slider-wrap ul li'), function() {
-
-				var li = document.createElement('li');
-				$('#pagination-wrap ul').append(li);
-			});
-
-			countSlides();
-
-			pagination();
-
-			$('#slider-wrap').hover(function() {
-				$(this).addClass('active');
-				clearInterval(autoSlider);
-			}, function() {
-				$(this).removeClass('active');
-				autoSlider = setInterval(slideRight, 3000);
-			});
-
-		});
-
-		function slideLeft() {
-			pos--;
-			if (pos == -1) {
-				pos = totalSlides - 1;
-			}
-			$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
-
-			countSlides();
-			pagination();
+		function refreshMemList(){
+		location.reload();
 		}
-
-		function slideRight() {
-			pos++;
-			if (pos == totalSlides) {
-				pos = 0;
+		
+		function addReply(rid){
+			var title = $("#"+rid).val();
+			var bid = ${ board.board_id };
+			
+			var currentRow = $("#"+rid).closest('tr');
+			
+			if(title == ""){
+				alert('답변을 적어주세요.');
+				return false;
 			}
+	
+			$.ajax({
+				async : false,
+				url : "${ contextPath }/board/insertReply2",
+				data : { title : title, bid : bid, rid : rid },
+				type : "post",
+				dataType : "json",
+				success : function(data){
+					tableBody = $("#replyTable tbody");
+					tableBody.html("");
+					
+					for(var i in data){
+						tr = $("<tr>");
+						account = $("<td width='70'>").text(data[i].aid);
+						content = $("<td style='text-align : left; padding-left : 30px'>").text(data[i].title);
+						createDate = $("<td width='100'>").text(data[i].create_date);
+						
+						tr.append(account, content, createDate);
+						tableBody.append(tr);
+					}
+					
+					$("#"+rid).val("");
+					currentRow.hide();
+					
+					refreshMemList();
+				}
+			})
+		}
 			$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
 
 			countSlides();
@@ -758,40 +856,120 @@ textarea{
 
 			$('#counter').html(pos + 1 + ' / ' + totalSlides);
 
-		function pagination() {
-			$('#pagination-wrap ul li').removeClass('active');
-			$('#pagination-wrap ul li:eq(' + pos + ')').addClass('active');
-		}
-		
-		function chat(){
-			var _width = '650';
-		    var _height = '380';
-			var _left = Math.ceil(( window.screen.width - _width ));
-			var _top = Math.ceil(( window.screen.height - _height )/2);
-			var accountId2 = $(".accountId").text();
-			
-			if('${loginUser.aid}' === '${board.account_id}'){
-				alert("자신과는 채팅이 불가능합니다.");
+		function validate(){
+			if(confirm('다행 회원만 이용 가능합니다. 로그인 하시겠습니까?')){
+				location.href = "${ contextPath }/account/login";
 			} else {
-			window.open("${contextPath}/createChat?accountId2=" + accountId2, "", "width=550, height=600, left=" + _left + ", top=" + _top);
+				return false;
 			}
-			
 		}
 		
-		function report(){
-			var _width = '650';
-		    var _height = '380';
-			var _left = Math.ceil(( window.screen.width - _width ));
-			var _top = Math.ceil(( window.screen.height - _height )/2);
-			var accountId2 = $(".accountId").text();
-			var bid = ${board.board_id};
+		// 글쓴이가 아닐 경우
+		function validate2(){
+			alert('글쓴이만 답변을 달 수 있습니다.');
 			
-			if('${loginUser.aid}' === '${board.account_id}'){
-				alert("자신은 신고가 불가능합니다.");
-			} else {
-			window.open("${contextPath}/board/reportUser?accountId2=" + accountId2 + "&bid=" + bid, "", "width=500, height=400, left=" + _left + ", top=" + _top);
-			}		
 		}
+	</script>
+	<script>
+
+	var pos = 0;
+
+	var totalSlides = $('#slider-wrap ul li').length;
+
+	var sliderWidth = $('#slider-wrap').width();
+
+
+	$(document).ready(function(){
+	  
+	  $('#slider-wrap ul#slider').width(sliderWidth*totalSlides);
+	  
+	  $('#next').click(function(){
+	    slideRight();
+	  });
+	  
+	  $('#previous').click(function(){
+	    slideLeft();
+	  });
+	  
+	  
+	  var autoSlider = setInterval(slideRight, 3000);
+	  
+	  $.each($('#slider-wrap ul li'), function() { 
+
+	     var li = document.createElement('li');
+	     $('#pagination-wrap ul').append(li);    
+	  });
+	  
+	  countSlides();
+	  
+	  pagination();
+	  
+	  $('#slider-wrap').hover(
+	    function(){ $(this).addClass('active'); clearInterval(autoSlider); }, 
+	    function(){ $(this).removeClass('active'); autoSlider = setInterval(slideRight, 3000); }
+	  );
+
+	});
+	  
+
+	function slideLeft(){
+	  pos--;
+	  if(pos==-1){ pos = totalSlides-1; }
+	  $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos));  
+	  
+	  countSlides();
+	  pagination();
+	}
+
+
+	function slideRight(){
+	  pos++;
+	  if(pos==totalSlides){ pos = 0; }
+	  $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos)); 
+	  
+
+	  countSlides();
+	  pagination();
+	}
+
+	function countSlides(){
+	  $('#counter').html(pos+1 + ' / ' + totalSlides);
+	}
+
+	function pagination(){
+	  $('#pagination-wrap ul li').removeClass('active');
+	  $('#pagination-wrap ul li:eq('+pos+')').addClass('active');
+	}
+	
+	function chat(){
+		var _width = '650';
+	    var _height = '380';
+		var _left = Math.ceil(( window.screen.width - _width ));
+		var _top = Math.ceil(( window.screen.height - _height )/2);
+		var accountId2 = $(".accountId").text();
+		
+		if('${loginUser.aid}' === '${board.account_id}'){
+			alert("자신과는 채팅이 불가능합니다.");
+		} else {
+		window.open("${contextPath}/createChat?accountId2=" + accountId2, "", "width=550, height=600, left=" + _left + ", top=" + _top);
+		}
+		
+	}
+	
+	function report(){
+		var _width = '650';
+	    var _height = '380';
+		var _left = Math.ceil(( window.screen.width - _width ));
+		var _top = Math.ceil(( window.screen.height - _height )/2);
+		var accountId2 = $(".accountId").text();
+		var bid = ${board.board_id};
+		
+		if('${loginUser.aid}' === '${board.account_id}'){
+			alert("자신은 신고가 불가능합니다.");
+		} else {
+		window.open("${contextPath}/board/reportUser?accountId2=" + accountId2 + "&bid=" + bid, "", "width=500, height=400, left=" + _left + ", top=" + _top);
+		}		
+	}
 	</script>
 	
 </body>

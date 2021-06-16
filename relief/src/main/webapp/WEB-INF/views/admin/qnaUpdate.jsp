@@ -21,57 +21,25 @@
         margin-bottom: 0px;
         margin-top: 0px;
         margin-left: 20px;
-        color: rgb(0, 51, 85);
+        color: #597a96;
         text-align: center;
     }
     .headDiv2{
         display: inline-block;
         bottom: 30px;
     }
-    .navbar1 ul li a{
-        text-decoration: none;
-        color: white;
-        background-color: rgb(0, 51, 85);
-        display: block;
-        width: 300px;
-        height: 50px;
-    }
-    .navbar1 ul li{
-        float: left;
-    }
-    .navbar1{
-        width: 50px;
-    }
-    ul{
-        list-style:none;
-    }
-    .navbar1 ul li a h2{
-        text-align: center;
-        margin: 0px;
-        padding: 5px;
-    }
-    .navbar1 ul li a:hover{
-        background-color: red;
-    }
-    .mainbar h1{
-        color: white;
-        background-color: rgb(0, 51, 85);
-        margin: 0px;
-        margin-left: 340px;
-    }
     .info{
-        border: 2px solid lightgray;
-        height: 50px;
-        margin-left: 340px;
-        text-align: center;
-    }
-    .title{
-        background-color: rgb(0, 51, 85);
+            border: 2px solid lightgray;
+            margin-left : 100px;
+        	width : 70%;
+        }
+    .title1{
+        background-color: #597a96;
         width: 100px;
         border-radius: 5px;
         display: inline-block;
     }
-    .title h3{
+    .title1 h3{
         margin: 0px;
         text-align: center;
         color: white;
@@ -79,14 +47,13 @@
     }
     .titleValue{
         display: inline-block;
-        width: 600px;
         font-weight: bolder;
     }
     .create{
-        background-color: rgb(0, 51, 85);
-        width: 100px;
-        border-radius: 5px;
-        display: inline-block;
+        background-color: #597a96;
+            width: 12%;
+            border-radius: 5px;
+            display: inline-block;
     }
     .create h3{
         margin: 0px;
@@ -101,24 +68,22 @@
     
     .qna{
         border: 2px solid lightgray;
-        width: 1100px;
-        height: 500px;
-        margin-left: 500px;
+        width: 50%;
+        height : 300px;
+        margin-left: 20%;
     }
     .qna h1{
-        text-align: center;
         background-color: white;
         color: black;
         margin: 0 auto;
     }
     .qna h5{
-        text-align: center;
         background-color: white;
         color: black;
         margin: 0 auto;
     }
-    .btn{
-        background-color: rgb(0, 51, 85);
+    .btn1{
+        background-color: #597a96;
         width: 100px;
         height: 50px;
         border-radius: 5px;
@@ -133,13 +98,21 @@
     	width : 300px;
     	margin : 0 auto;
     }
+    .insert{
+    	height : 400px;
+    	width: 50%;
+        margin-left: 20%;
+    }
     </style>
 </head>
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
-	<div class="mainbar"><h1>문의사항</h1>
+	<div class="mainbar">
+	<div class="title">
+	<h1>문의사항</h1>	
+	</div>
         <div class="info">
-            <div class="title"><h3>제목</h3></div>
+            <div class="title1"><h3>제목</h3></div>
             <p class="titleValue">${ q.qtitle }</p>
             <div class="create"><h3>작성일</h3></div>
             <p class="createValue">${ q.createDate }</p>
@@ -150,18 +123,21 @@
 			${ q.qcontent }
         </div>
         <form action="${ contextPath }/admin/qnaUpdate" method="post">
-	        <div class="qna">
+	        <div class="insert">
 	        		<input type="hidden" value="${ q.qid }" name="qid">
-		            <div class="title"><h3>제목</h3></div>
-		            <input type="text" name="atitle" value="${ q.atitle }">
-		            <hr>
-		            <textarea id="summernote" name="acontent">
+	        		<div class="form-group ">
+		            <input type="text" class="form-control" name="atitle" value="${ q.atitle }" placeholder="제목을 입력해주세요.">       		
+	        		</div>
+	        		<div class="form-group">
+		            <textarea id="summernote" class="content" name="acontent">
 			            	${ q.acontent }
 		            </textarea>
+	        		</div>
+		        <div class="text-right marginTop">
+					<button type="button" class="btn btn-primary btsSize marginLeft" onclick="location.href='${ contextPath }/admin/qna'">뒤로가기</button>
+					<button type="submit" class="btn btn-primary btsSize marginLeft" onclick="removeHTML()">수정</button>
+				</div>  
 	        </div>
-	        <div class="btnArea">
-	            <button type="submit" class="btn">확인</button>
-	        </div>    
         </form>
     </div>
     <script>
@@ -172,6 +148,13 @@
     	maxHeight: null,
     	lang : 'ko-KR',
     	height: 370 });
+    
+    function removeHTML(){
+		var str = $(".content").val();
+		str = str.replace(/<br\/>/ig, "\n");
+		str = str.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+		$(".content").val(str);
+	}
     </script>
 </body>
 </html>

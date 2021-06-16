@@ -28,7 +28,7 @@
 		<result property="consumer_id" column="CONSUMER_ID"/>
 
 	</resultMap>
-	
+	 
 	<insert id="insertReview" parameterType="Review">
 		INSERT INTO
 		REVIEW

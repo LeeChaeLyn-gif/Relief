@@ -38,6 +38,18 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" jQuery.noConflict();></script>
 	<script src="<c:url value="/resources/css/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"/>"></script>
 <title>menuBar</title>
+<style>
+
+@media (max-width: 992px){
+
+nav.navbar.bootsnav.navbar-fixed .logo-display {
+    display: none !important;
+}
+nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
+    display: block !important;
+}
+}
+</style>
 
 	<style>
 	#userName {
@@ -59,7 +71,7 @@
 						<c:choose>
 						<c:when test="${ empty sessionScope.loginUser }">
 						<li class="search"><a href="${ contextPath }/account/login"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>로그인</a></li>
-						<li class="search"><a href="${ contextPath }/home" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i>채팅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+						<li class="search"><a href="${ contextPath }" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i>채팅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
 						<script>
 						
 						</script>
@@ -78,8 +90,9 @@
 					<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-menu"></button>
 
 					<a class="navbar-brand" href="${contextPath}/">
+					<a class="navbar-brand" href="${contextPath}">
                        <img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-display m-top-10" alt="" width="150px">
-                       <img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled" alt="" width="150px">
+                    	<img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled" alt="" width="150px">
                     </a>
 				</div>
 
@@ -91,7 +104,7 @@
 								<input type="text" class="form-control" name="searchValue" placeholder="상품명, 지역명 검색" <c:if test="${ !empty searchValue }"> value="${searchValue }"</c:if>>
 								<c:choose>
 								<c:when test="${ empty sessionScope.loginUser }">
-								<button class="input-group-addon" type="button" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')"><i class="fa fa-search" id="submitBtn"></i></button>
+								<button class="input-group-addon" type="button" onClick="unLoginList()"><i class="fa fa-search" id="submitBtn"></i></button>
 								
 								</c:when>
 								<c:otherwise>
@@ -208,6 +221,10 @@
 
 		function category1(cid){
 			location.href="${ contextPath }/board/category1?cid="+cid;
+		}
+		function unLoginList(){
+			var searchValue = $("#searchValue").val();
+			loation.href="${ contextPath }/board/nloginlist?searchValue=" + searchValue;
 		}
 	</script>
 
