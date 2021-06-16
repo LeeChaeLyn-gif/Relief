@@ -39,6 +39,18 @@
 	<script src="<c:url value="/resources/css/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"/>"></script>
 <title>menuBar</title>
 <style>
+nav.navbar.bootsnav{
+    margin-bottom: 0;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    background-color: #fff;
+    border: none;
+    height : 170px !important;
+    border-bottom: solid 1px #e0e0e0;
+    z-index: 9;
+}
 
 @media (max-width: 992px){
 
@@ -89,11 +101,8 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-menu"></button>
 
-					<a class="navbar-brand" href="${contextPath}/">
-					<a class="navbar-brand" href="${contextPath}">
                        <img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-display m-top-10" alt="" width="150px">
                     	<img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled" alt="" width="150px">
-                    </a>
 				</div>
 
 				<!-- Start Top Search -->

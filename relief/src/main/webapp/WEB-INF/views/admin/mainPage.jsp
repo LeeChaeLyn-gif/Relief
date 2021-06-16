@@ -27,6 +27,7 @@
         }
         .el h3{
             text-align: center;
+            color : black;
         }
         .container{
             width: 600px;
