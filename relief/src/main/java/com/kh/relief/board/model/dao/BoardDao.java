@@ -87,5 +87,8 @@ public interface BoardDao {
 	void insertReply2(Reply r);
 	// 대댓글
 	List<Reply> selectReply2List(int board_id);
+	
+	int insertThistory(Board board);
+	int insertImage2(BoardImage bi2);
 
 }

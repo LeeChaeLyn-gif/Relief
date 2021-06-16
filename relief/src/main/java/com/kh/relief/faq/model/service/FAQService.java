@@ -25,5 +25,5 @@ public interface FAQService {
 	// 게시글 삭제
 	int deleteFAQ(int faq_id);
 	
-	
+	 
 }

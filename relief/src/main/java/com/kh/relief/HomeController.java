@@ -50,6 +50,18 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String index(Model model, HttpServletResponse response, HttpServletRequest request) {
+		
+		List<Category> clist = bService.selectcList();
+		model.addAttribute("clist", clist);
+		
+		List<Notice> nlist = bService.selectadList();
+		model.addAttribute("nlist", nlist);	
+	
+		
+		return "home";
+	}
+	
 	public String home2(Model model, HttpServletResponse response, HttpServletRequest request) {
 		
 		List<Category> clist = bService.selectcList();

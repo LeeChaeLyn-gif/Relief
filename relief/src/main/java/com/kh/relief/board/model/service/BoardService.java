@@ -102,4 +102,8 @@ public interface BoardService {
 
 	List<Board> nLoginList(PageInfo pi, String searchValue);
 
+	int insertThistory(Board board);
+
+	int insertImage2(BoardImage bi2);
+
 }

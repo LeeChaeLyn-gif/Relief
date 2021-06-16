@@ -24,7 +24,7 @@
        <result property="renameFileName" column="RENAME_FILENAME"/>
        <result property="pk_Id" column="WISH_ID"/>
     </resultMap>
-    
+     
     <resultMap type="T_History" id="T_HistoryResultSet">
     	<id property="t_history_id" column="T_HISTORY_ID"/>
        	<result property="board_id" column="BOARD_ID"/>
@@ -122,6 +122,7 @@
 		      , B.TITLE
 		      , B.PRICE
 		      , B.AREA
+		      , T.T_DATE
 		      , T.CONSUMER_ID
 		      , T.SELLER_ID
 		      , T.STATUS
@@ -139,13 +140,29 @@
     	
     </select>
     
-    <select id="deleteT_History" parameterType="_int">
-    	DELETE
-    	FROM
-    		T_HISTORY
+    <update id="deleteT_History" parameterType="_int">
+   		UPDATE
+   			T_HISTORY
+   		SET
+    		STATUS = 'N'
     	WHERE
     		T_HISTORY_ID = #{t_history_id}
-    </select>
+    </update>
+    
+    <update id="depeteBoard" parameterType="_int">
+	    UPDATE
+	    	BOARD
+		SET
+		    STATUS = 'N'
+		WHERE
+		    BOARD_ID = 
+			    (SELECT
+			        BOARD_ID
+			     FROM
+			        T_HISTROY
+			     where
+			        T_HISTORY_ID = #{T_HISTORY_ID})
+    </update>
     
     <select id="selectHiddenListCount" parameterType="string" resultType="_int">
     	SELECT
@@ -157,7 +174,7 @@
    			AND SELLER_ID = #{seller_id}
     </select>
     
-    <select id="selectselectHiddenList" parameterType="string" resultMap="T_HistoryResultSet">
+    <select id="selectHiddenList" parameterType="string" resultMap="T_HistoryResultSet">
 		SELECT
 		    	T_HISTORY_ID
 		      , T.BOARD_ID
@@ -216,6 +233,8 @@
 		      , T.HIDE_STATUS
 		      , I.RENAME_FILENAME
 		      , B.MODIFY_DATE
+		      , T.R_STATUS
+		      , B.PULL_DATE
 		FROM
 			    T_HISTORY T 
 			    JOIN BOARD B ON(T.BOARD_ID = B.BOARD_ID)
@@ -238,7 +257,7 @@
 	    
     </update>
     
-    <select id="matchesPwd" parameterType="Account" resultMap="AccountResultSet">
+    <select id="matchesPwd" parameterType="Account" resultType="string">
     SELECT
 			PWD
     FROM
@@ -296,4 +315,24 @@
 			ACCOUNT_ID = #{aid}
     
     </update>
+    
+    <update id="updateR_Status" parameterType="_int">
+    	UPDATE
+    		T_HISTORY
+    	SET
+    		R_STATUS = 'Y'
+    	WHERE
+    		T_HISTORY_ID = #{t_history_id}
+    </update>
+    
+    <update id="updatePull_Date" >
+    	UPDATE
+    		BOARD
+    	SET
+    		PULL_DATE = SYSDATE
+    	WHERE
+    		BOARD_ID = #{board_id}
+    </update>
+    
+    
 </mapper>	

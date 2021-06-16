@@ -41,7 +41,7 @@ public class NoticeController {
 	//로깅 필드 선언
 	private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
 	
-	
+	 
 //	Notice 페이지 이동
 	@GetMapping("/list")
 	public ModelAndView listPageView(ModelAndView mv,

@@ -18,5 +18,5 @@ public interface FAQDao {
 	int updateFAQ(FAQ f);
 
 	int deleteFAQ(int faq_id);
-
+ 
 }

@@ -24,4 +24,4 @@ public class FAQ {
 	private String rename_fileName;
 	private String account_id;
 	
-}
+} 

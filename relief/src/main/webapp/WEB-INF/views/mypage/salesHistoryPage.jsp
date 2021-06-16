@@ -38,7 +38,7 @@
 	.tabSize {
 		width : 100%;
 		height: auto; 
-	
+	 
 	}
 	
 	.btsSize {
@@ -49,10 +49,16 @@
 	.marginTop {
 		margin-top : 100px;
 	}
-
+	
+	.btn-color {
+		color : #fff;
+		background-color : #34495E;
+	}
 </style>
 </head>
 <body>
+    <jsp:include page="../common/menubar.jsp"/>
+    
 	<jsp:include page="listNavPage.jsp"/>
 	
 	<div id="wrap">
@@ -74,8 +80,9 @@
 			  </thead>
 			  <tbody>
 				  <c:forEach items="${ list }" var="s">
+				  <input type="hidden" value="${s.board_id}"/>
 					<tr class="tdClick">
-						<td><img src="${ contextPath }/resources/images/${ s.rename_fileName }" width="150"/></td>
+						<td><img src="${ contextPath }/resources/buploadFiles/${ s.rename_fileName }" width="150"/></td>
 						
 						<td>
 						<!-- 판매 상태 -->
@@ -99,10 +106,10 @@
 						<td>${ s.modify_date }</td>
 						<td>
 							<c:if test="${s.status != 'Y'}">
-							<div><button type="button" class="btn btn-primary btsSize" onclick="upBtn('${s.pull_date}', ${s.board_id});">UP</button></div>
+							<div><button type="button" class="btn btn-color btsSize" onclick="upBtn('${s.pull_date}', ${s.board_id});">UP</button></div>
 							</c:if>
-					      	<div><button type="button" class="btn btn-primary btsSize" onclick="updateBtn(${s.board_id});">수정</button></div>
-					      	<div><button type="button" class="btn btn-primary btsSize" onclick="deleteBtn(${s.t_history_id});">삭제</button></div>
+					      	<div><button type="button" class="btn btn-color btsSize" onclick="updateBtn(${s.board_id});">수정</button></div>
+					      	<div><button type="button" class="btn btn-color btsSize" onclick="deleteBtn(${s.t_history_id});">삭제</button></div>
 					    </td>
 					    
 					</tr>
@@ -124,7 +131,7 @@
 						<!-- 페이지 숫자  -->
 						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 							<c:if test="${ p eq pi.currentPage }">
-								<button type="button" class="btn btn-primary"><b>${ p }</b></button>
+								<button type="button" class="btn btn-color"><b>${ p }</b></button>
 							</c:if>
 							<c:if test="${ p ne pi.currentPage }">
 								<c:url var="pagination" value="/mypage/hiddenList">
@@ -153,9 +160,10 @@
 	
 	<script type="text/javascript">
 		$(function(){
-			$(".tdClick td:nth-child(1), .tdClick td:nth-child(n+3):nth-child(-n+6)").on("click", function(board_id){
-				this.
-				selectBoard(this);
+			$(".tdClick td:nth-child(1), .tdClick td:nth-child(n+3):nth-child(-n+6)").on("click", function(){
+				/* var bid = $(this).find("input[name=bid]").val(); */
+				var bid = $(this).parent().prev().val();
+				selectBoard(bid);
 			})
 			
 			$("select").on('change', function(){
@@ -188,6 +196,7 @@
 		function upBtn(pull_date, board_id){
 			var date = new Date();
 			date = getFormatDate(date);
+			console.log(date);
 			if(date === pull_date) {
 				alert("하루에 한 번씩 할 수 있습니다.");
 			} else {
@@ -205,7 +214,7 @@
 		    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
 		    var day = date.getDate();                   //d
 		    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
-		    return  year + '-' + month + '-' + day;     // '-' 추가하여 yyyy-mm-dd 형태 생성 가능
+		    return  year + '/' + month + '/' + day;     // '-' 추가하여 yyyy-mm-dd 형태 생성 가능
 		}
 		
 		function statusUpdate(status){

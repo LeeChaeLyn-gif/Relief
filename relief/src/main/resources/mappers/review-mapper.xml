@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reviewMapper">
+	<resultMap id="reviewResultSet" type="Review">
+		<id property="review_id" column="REVIEW_ID"/>
+		<result property="t_history_id" column="T_HISTORY_ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="status" column="STATUS"/>
+		<result property="star" column="STAR"/>
+		<result property="create_date" column="CREATE_DATE"/>
+		<result property="modify_date" column="MODIFY_DATE"/>
+		<result property="seller_id" column="SELLER_ID"/>
+
+	</resultMap>
+	 
+	<resultMap id="reviewResultSet2" type="Review">
+		<id property="review_id" column="REVIEW_ID"/>
+		<result property="t_history_id" column="T_HISTORY_ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="status" column="STATUS"/>
+		<result property="star" column="STAR"/>
+		<result property="create_date" column="CREATE_DATE"/>
+		<result property="modify_date" column="MODIFY_DATE"/>
+		<result property="consumer_id" column="CONSUMER_ID"/>
+
+	</resultMap>
+	 
+	<insert id="insertReview" parameterType="Review">
+		INSERT INTO
+		REVIEW
+		(
+			REVIEW_ID
+		  , T_HISTORY_ID
+		  , TITLE
+		  , CONTENT
+		  , STATUS
+		  , STAR
+		  , CREATE_DATE
+		  , MODIFY_DATE
+		)
+		VALUES
+		(
+			SEQ_RVID.NEXTVAL
+		  , #{t_history_id}
+		  , #{title}
+		  , #{content}
+		  , DEFAULT
+		  , #{star}
+		  , SYSDATE
+		  , SYSDATE
+		)
+	</insert>
+	 
+	<select id="selectReview" parameterType="_int" resultMap="reviewResultSet">
+		SELECT
+				R.REVIEW_ID
+			  , R.T_HISTORY_ID
+			  , R.TITLE
+			  , R.CONTENT
+			  , R.STATUS
+			  , R.STAR
+			  , R.CREATE_DATE
+			  , R.MODIFY_DATE
+			  , T.SELLER_ID
+		FROM
+			REVIEW R 
+			JOIN T_HISTORY T ON (R.T_HISTORY_ID = T.T_HISTORY_ID)
+		WHERE
+			REVIEW_ID = #{review_id}
+	</select>
+	
+	<select id="selectReview_tid" parameterType="_int" resultMap="reviewResultSet">
+		SELECT
+				R.REVIEW_ID
+			  , R.T_HISTORY_ID
+			  , R.TITLE
+			  , R.CONTENT
+			  , R.STATUS
+			  , R.STAR
+			  , R.CREATE_DATE
+			  , R.MODIFY_DATE
+			  , T.SELLER_ID
+		FROM
+			REVIEW R 
+			JOIN T_HISTORY T ON (R.T_HISTORY_ID = T.T_HISTORY_ID)
+		WHERE
+			R.T_HISTORY_ID = #{t_history_id}
+	</select>
+	
+	<select id="selectReview_rid" parameterType="_int" resultMap="reviewResultSet">
+		SELECT
+				R.REVIEW_ID
+			  , R.T_HISTORY_ID
+			  , R.TITLE
+			  , R.CONTENT
+			  , R.STATUS
+			  , R.STAR
+			  , R.CREATE_DATE
+			  , R.MODIFY_DATE
+			  , T.SELLER_ID
+		FROM
+			REVIEW R 
+			JOIN T_HISTORY T ON (R.T_HISTORY_ID = T.T_HISTORY_ID)
+		WHERE
+			R.REVIEW_ID = #{ REVIEW_ID }
+	</select>
+	
+	<update id="updateReview" parameterType="Review">
+	UPDATE 
+		REVIEW
+	SET
+	      TITLE = #{title}
+	    , CONTENT = #{content}
+	    , STAR = #{star}
+	    , MODIFY_DATE = SYSDATE
+	    
+	WHERE 
+	    REVIEW_ID = #{review_id}
+	</update>
+	
+	<select id="selectListCount" resultType="_int">
+	SELECT
+	       COUNT(*)
+	  FROM
+	       REVIEW
+	 WHERE
+	       STATUS = 'Y'
+	</select>
+	
+	<select id="selectList" resultMap="reviewResultSet2">
+	SELECT
+	       R.REVIEW_ID
+	     , R.T_HISTORY_ID
+	     , R.TITLE
+	     , R.CONTENT
+	     , R.STAR
+	     , R.CREATE_DATE
+	     , R.MODIFY_DATE
+	     , T.CONSUMER_ID
+	  FROM
+	       REVIEW R
+	       JOIN T_HISTORY T ON (R.T_HISTORY_ID = T.T_HISTORY_ID)
+	 WHERE
+	       R.STATUS = 'Y'
+  ORDER BY
+           REVIEW_ID DESC
+	</select>
+	
+	<update id="delete_r_status" parameterType="_int">
+	UPDATE
+	    T_HISTORY
+	SET
+	    R_STATUS = 'Y'
+	WHERE 
+		T_HISTORY_ID = 
+					(SELECT 
+						T_HISTORY_ID
+					 FROM 
+					 	REVIEW
+					 WHERE 
+					 	REVIEW_ID = #{review_id}) 
+	</update>
+	
+	<update id="deleteReview" parameterType="_int">
+	UPDATE
+		REVIEW
+	SET
+		STATUS = 'N'
+	WHERE
+		REVIEW_ID = #{review_id}
+		
+	</update>
+	
+</mapper>	

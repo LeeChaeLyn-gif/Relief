@@ -17,7 +17,7 @@
 	* {
 		box-sizing: border-box;
 	}
-	
+	 
 	#wrap {
 		width: 1140px;
 		heigth : auto;
@@ -55,10 +55,17 @@
 	}
 	.starR.on{background-position:0 0;}
 	
+	.btn-color {
+		color : #fff;
+		background-color : #34495E;
+	}
 </style>
 
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
+	<br><br><br><br><br><br><br><br><br>
+
 <div id="wrap">
 	<form action="${ contextPath }/review/insert" method="post" onsubmit="return starValue();">
 		<h1 class="text-center TmarginSize">리뷰작성</h1>
@@ -87,8 +94,8 @@
 		</div>
 
 		<div class="text-right">
-			<button type="button" class="btn btn-primary RmarginSize" onclick="location.href='${ contextPath }/review/list">뒤로가기</button>
-			<button type="submit" class="btn btn-primary">작성</button>
+			<button type="button" class="btn btn-color RmarginSize" onclick="location.href='${ contextPath }/review/list">뒤로가기</button>
+			<button type="submit" class="btn btn-color">작성</button>
 		</div>
 	</form>
 </div>

@@ -26,7 +26,7 @@ public class ReviewDaoImpl implements ReviewDao{
 		}
 		
 	}
-
+ 
 	@Override
 	public int updateReview(Review review) {
 		return sqlSession.update("reviewMapper.updateReview", review);

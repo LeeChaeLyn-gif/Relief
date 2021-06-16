@@ -49,7 +49,14 @@ public class MyPageDaoImpl implements MyPageDao{
 
 	@Override
 	public int deleteT_History(int t_history_id) {
-		return sqlSession.delete("mypageMapper.deleteT_History", t_history_id);
+		int result1 = sqlSession.update("mypageMapper.deleteT_History", t_history_id);
+		int result2 = sqlSession.update("mypageMapper.depeteBoard", t_history_id);
+		
+		if(result1 > 0 && result2 > 0) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 	@Override
@@ -58,10 +65,10 @@ public class MyPageDaoImpl implements MyPageDao{
 	}
 
 	@Override
-	public List<Board> selectselectHiddenList(PageInfo pi, String seller_id) {
+	public List<Board> selectHiddenList(PageInfo pi, String seller_id) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return sqlSession.selectList("mypageMapper.selectselectHiddenList", seller_id, rowBounds);
+		return sqlSession.selectList("mypageMapper.selectHiddenList", seller_id, rowBounds);
 	}
 
 	@Override
