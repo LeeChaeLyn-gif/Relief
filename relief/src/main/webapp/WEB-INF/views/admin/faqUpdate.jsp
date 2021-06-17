@@ -49,7 +49,6 @@
             width: 700px;
             height: 600px;
             text-align : center;
-            margin-left : 20%;
             margin-top : 1%;
         }
         .adImg{
