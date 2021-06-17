@@ -207,8 +207,8 @@
             <div class="sort">
             	<c:choose>
             		<c:when test="${ !empty searchValue }">
-            			<a href="${ contextPath }/board/sort?sortValue=desc&searchValue=${searchValue}" class="desc">가격낮은순</a>
-            			<a href="${ contextPath }/board/sort?sortValue=asc&searchValue=${searchValue}" class="desc">가격높은순</a>
+            			<a href="${ contextPath }/board/sort?sortValue=desc&searchValue=${searchValue}" class="desc">가격높은순</a>
+            			<a href="${ contextPath }/board/sort?sortValue=asc&searchValue=${searchValue}" class="desc">가격낮은순</a>
             		</c:when>
             		<c:otherwise>
             			
