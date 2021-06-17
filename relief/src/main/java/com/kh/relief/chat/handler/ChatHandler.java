@@ -23,8 +23,8 @@ import com.kh.relief.chat.model.vo.ChatHistory;
 
 @Component
 public class ChatHandler extends TextWebSocketHandler {
-@Autowired
-private ChatService cService;
+	@Autowired
+	private ChatService cService;
 	// 웹소켓 세션을 담아둘 맵
 	HashMap<String, WebSocketSession> sessionMap = new HashMap<>();
 	// 웹소켓 세션을 담아둘 리스트
@@ -32,7 +32,7 @@ private ChatService cService;
 
 	// 로그인 한 유저 세션
 	Map<String, WebSocketSession> userSessionMap = new HashMap<>();
-	
+
 	// 채팅방 내부 사람들 세션
 	List<HashMap<String, Object>> chatSessionMap = new ArrayList<>();
 	
@@ -41,32 +41,57 @@ private ChatService cService;
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		super.afterConnectionEstablished(session);
 		boolean flag = false;
+		String accountId = null;
+		int chatId = 0;
+		
+		// session의 uri값을 url에 담는다.
 		String url = session.getUri().toString();
-		/*
-		 * String[] urlArray = url.split("/relief/"); // chat/user01:1 => 채팅방 들어왔을때. //
-		 * account/user01 => main 페이지 소켓 연결했을때 if (urlArray[1].equals("account")) {
-		 * //main 페이지 소켓 연결했을때 String accountId = urlArray[2]; // TODO 로그인 한 유저 판별해서
-		 * userSessionMap 에 key = accountId, value = session 으로 넣기
-		 * userSessionMap.put(accountId, session); } else { //채팅방 들어왔을때. String
-		 * accountId = urlArray[2].split("/")[0]; int chatId =
-		 * Integer.parseInt(urlArray[2].split("/")[1]); boolean existFlag = false; int
-		 * idx = chatSessionMap.size(); // 방의 사이즈를 조사한다. if (chatSessionMap.size() > 0)
-		 * { for (int i = 0; i < chatSessionMap.size(); i++) { int rN = (int)
-		 * chatSessionMap.get(i).get("chatId"); if (rN == chatId) { existFlag = true;
-		 * idx = i; break; } } } if (existFlag) { // 존재하는 방이라면 세션만 추가한다. HashMap<String,
-		 * Object> map = chatSessionMap.get(idx); map.put(accountId, session); } else {
-		 * // 최초 생성하는 방이라면 방번호와 세션을 추가한다. HashMap<String, Object> map = new
-		 * HashMap<String, Object>(); map.put("chatId", chatId); map.put(accountId,
-		 * session); chatSessionMap.add(map); }
-		 * 
-		 * }
-		 */
+
+		// url을 배열로 만들고 "/relief/"를 기준으로 스플릿 처리한다.
+		String[] urlArray = url.split("/relief/");
+		String type = urlArray[1].split("/")[0];
+		String targetId = urlArray[1].split("/")[1];
+		
+		if(targetId.contains("_")) {
+			accountId = urlArray[1].split("/")[1].split("_")[0];
+			chatId = Integer.parseInt(targetId.split("_")[1]);
+		} else {
+			accountId = urlArray[1].split("/")[1];
+		}
 		
 		
-		int chatId = Integer.parseInt(url.split("/relief/")[1]);
-		// String accountId = url.split("/relief/")[2];
-		System.out.println(url);
+		System.out.println("url : " + url);
 		
+		// chat/user01_1 => 채팅방 들어왔을때.
+		// account/user01 => main 페이지 소켓 연결했을때.
+		if (type.equals("account")) {
+			// main 페이지 소켓 연결했을때
+			// 로그인 한 유저 판별해서 userSessionMap 에 key = accountId, value = session 으로 넣기
+			System.out.println(accountId);
+			userSessionMap.put(accountId, session);
+			
+		} else { // 채팅방 들어왔을때.
+			boolean existFlag = false;
+			int idx = chatSessionMap.size();
+			// 방의 사이즈를 조사한다.
+			if (chatSessionMap.size() > 0) {
+				for (int i = 0; i < chatSessionMap.size(); i++) {
+					int rN = (int) chatSessionMap.get(i).get("chatId");
+					if (rN == chatId) {
+						existFlag = true;
+						idx = i;
+						break;
+					}
+				}
+			}
+			// 채팅 들어온 유저 판별해서 chatSessionMap 에 key = chatId, value = chatId,key = accountId, value = session  으로 넣기
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("chatId", chatId);
+			map.put(accountId, session);
+			chatSessionMap.add(map);
+		}
+
+
 		int idx = lArr.size(); // 방의 사이즈를 조사한다.
 		if (lArr.size() > 0) {
 			for (int i = 0; i < lArr.size(); i++) {
@@ -81,18 +106,20 @@ private ChatService cService;
 
 		if (flag) { // 존재하는 방이라면 세션만 추가한다.
 			HashMap<String, Object> map = lArr.get(idx);
-			map.put(session.getId(), session);
+			map.put(accountId, session);
 		} else { // 최초 생성하는 방이라면 방번호와 세션을 추가한다.
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("chatId", chatId);
-			map.put(session.getId(), session);
+			map.put(accountId, session);
 			lArr.add(map);
 		}
 
 		// 세션등록이 끝나면 발급받은 세션ID값의 메시지를 발송한다.
 		JSONObject obj = new JSONObject();
-		obj.put("type", "getId");
 		obj.put("sessionId", session.getId());
+		obj.put("type", "getId");
+		obj.put("type2", type);
+		obj.put("targetId", targetId);
 		session.sendMessage(new TextMessage(obj.toJSONString()));
 	}
 
@@ -101,18 +128,21 @@ private ChatService cService;
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String msg = message.getPayload();
 		JSONObject obj = JsonToObjectParser(msg);
-		
+
+
 		// obj 내 원하는 값 추출
 		int chatId = Integer.parseInt((String) obj.get("chatId"));
 		String accountId = (String) obj.get("accountId");
+		String accountId2 = (String) obj.get("accountId2");
 		String chat = (String) obj.get("msg");
-		
+		String type = (String) obj.get("type");
+
 		// chat insert
 		ChatHistory ch = new ChatHistory();
 		ch.setChatId(chatId);
 		ch.setAccountId(accountId);
 		ch.setContent(chat);
-		
+
 		int result = cService.insertChat(ch);
 		
 		HashMap<String, Object> temp = new HashMap<String, Object>();
@@ -134,14 +164,38 @@ private ChatService cService;
 				WebSocketSession wss = (WebSocketSession) temp.get(k);
 				if (wss != null) {
 					try {
-						TextMessage tmpMsg = new TextMessage("<a target='_blank' href='"+ "/selectChat?chatId=" + chatId +"'>" + obj.get("msg") + "</a>" );
 						wss.sendMessage(new TextMessage(obj.toJSONString()));
-						wss.sendMessage(tmpMsg);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}
 			}
+		}
+		
+		int index = 0;
+		
+		for(int i = 0; i < chatSessionMap.size(); i++) {
+			int cId = (int) chatSessionMap.get(i).get("chatId"); 
+			if( cId == chatId) {
+				temp = chatSessionMap.get(i);
+				index = i;
+				break;
+			}
+		}
+		
+		
+		Map<String, Object> chatSession = chatSessionMap.get(index);
+		if(chatSession.get(obj.get("accountId2")) != null) {
+			WebSocketSession targetSession = (WebSocketSession)chatSession.get(obj.get("accountId2"));
+			TextMessage sendmsg = new TextMessage(obj.toJSONString());
+			System.out.println("sendmsg : " + sendmsg);
+			targetSession.sendMessage(sendmsg);
+			
+		} else {
+				WebSocketSession targetSession = (WebSocketSession)userSessionMap.get(obj.get("accountId2"));
+				
+				TextMessage alram = new TextMessage(obj.toJSONString());
+				targetSession.sendMessage(alram);
 		}
 	}
 

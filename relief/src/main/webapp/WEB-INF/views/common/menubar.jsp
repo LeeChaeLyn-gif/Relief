@@ -90,6 +90,9 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 						<p id="userName">${ loginUser.name }님 환영합니다.</p>
 						<li class="search"><a href="${ contextPath }/account/logout"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>로그아웃</a></li>
 						<li class="chatBtn"><a href="#"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i>채팅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+						<ul>
+							<li id="testAlram"></li>
+						</ul>
 						</c:otherwise>
 						</c:choose>
 						
@@ -99,8 +102,8 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-menu"></button>
 
-                       <img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-display m-top-10" alt="" width="150px">
-                    	<img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled" alt="" width="150px">
+                       <a href="${contextPath }"><img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-display m-top-10" alt="" width="150px"></a>
+                    	<a href="${contextPath }"><img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled" alt="" width="150px"></a>
 				</div>
 
 				<!-- Start Top Search -->
@@ -129,13 +132,12 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 			<br><br>
 			<div class="container">
 				<div id="cbutton"><i class="fa fa-bars fa-2x"></i></div>
-			
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right ml-auto" data-in="fadeInDown" data-out="fadeOutUp" style="float:right;">
 						<c:choose>
 							<c:when test="${ empty sessionScope.loginUser }">
 							<li><a href="${ contextPath }/home"  onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')">판매하기</a></li>
-							<li><a href="#pricing">고객센터</a></li>
+							<li><a href="${ contextPath }/faq/list"">고객센터</a></li>
 							<li><a href="${ contextPath }/qna/list">Q&A리스트</a></li>
 							</c:when>
 							<c:when test="${ loginUser.aid eq 'admin' }">
@@ -225,6 +227,7 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 	    		
 				window.open("${ contextPath }/list", "", "width=500, height=600, left=" + _left + ", top=" + _top);
 			});
+		
 
 		function category1(cid){
 			location.href="${ contextPath }/board/category1?cid="+cid;
@@ -232,6 +235,59 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 		function unLoginList(){
 			var searchValue = $("#searchValue").val();
 			loation.href="${ contextPath }/board/nloginlist?searchValue=" + searchValue;
+		}
+		
+		var ws;
+		
+		function wsOpen(){
+			var type = "account";
+			var targetId = "${loginUser.aid}";
+			//웹소켓 전송시 현재 로그인한 아이디 값을 넘겨서 보낸다.
+			ws = new WebSocket("ws://" + location.host + "/relief/" + type + "/"  + targetId);
+			wsEvt();
+			}
+
+		
+		function wsEvt() {
+			ws.onopen = function(data){
+				//소켓이 열리면 동작
+				console.log(data);
+			}
+			
+			
+		ws.onmessage = function(data) {
+			//메시지를 받으면 동작
+			console.log("data : " + data.data);
+			
+			var alram = data.data;
+			var d = JSON.parse(alram);
+			
+			console.log("message : " + d.msg );
+			console.log("aid2 : " + d.accountId2);
+			
+			if(typeof d.msg != 'undefined'){
+				$("#testAlram").append("<p>" + d.accountId2 + " : "+ d.msg + "</p>");	
+				$(".fa-commenting").css("color","red");
+			}
+			
+			}
+		}
+		
+		$(".chatBtn").on('click', function(){
+			$(".fa-commenting").css("color","rgb(52, 73, 94)");
+			$("#testAlram").remove();
+		});
+		
+		function send() {
+			var option ={
+				type2: "account",
+				sessionId : $("#sessionId").val(),
+				accountId : '${loginUser.aid}',
+				message : $("#testAlram").val()
+			}
+			console.log(option);
+			ws.send(JSON.stringify(option));
+			$('#testAlram').val("");
 		}
 	</script>
 
