@@ -373,4 +373,20 @@
     		T_HISTORY_ID = #{t_history_id}
     </update>
     
+    <select id="getbid" parameterType="_int" resultType="_int">
+    	SELECT
+    			BOARD_ID
+    	  FROM
+    	  		T_HISTORY
+    	 WHERE
+    	 		T_HISTORY_ID = #{tid}
+    </select>
+    <update id="updateBoard" parameterType="_int">
+    	UPDATE
+    			BOARD
+    	   SET
+    	   		STATUS = 'N'
+    	 WHERE
+    	 		BOARD_ID = #{bid}
+    </update>
 </mapper>	

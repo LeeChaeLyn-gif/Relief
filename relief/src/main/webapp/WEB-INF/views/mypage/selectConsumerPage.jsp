@@ -49,7 +49,7 @@
 				<td scope="col">
 					<button class="btn btn-color"  onclick="selectConsumer('${consumer_id}', '${t_history_id}')">확정</button>
 				</td>
-			</tr>네
+			</tr>
 			</c:forEach>
 		</table>
 	

@@ -110,12 +110,9 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 						<p id="userName">${ loginUser.name }님 환영합니다.</p>
 						<li class="search"><a href="${ contextPath }/account/logout"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>로그아웃</a></li>
 						<li class="chatBtn"><a href="#"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i>채팅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-<<<<<<< HEAD
 						<div id="alramBox">
 							<div id="testAlram"></div>
 						</div>
-=======
->>>>>>> seonmi-L
 						</c:otherwise>
 						</c:choose>
 						
@@ -271,9 +268,11 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 				return true;
 			}
 		}
-<<<<<<< HEAD
 		
 		var ws;
+		$(function(){
+				wsOpen();	 
+			 });
 		
 		function wsOpen(){
 			var type = "account";
@@ -304,7 +303,7 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 			
 			if(d.msg){
 				$("#testAlram *").remove();
-				$("#testAlram").append("<p id='alramUser'>" + d.accountId2 + "님의 메세지 : "+ "</p>" + "<p id='alramContent'>" + d.msg + "</p>");	
+				$("#testAlram").append("<p id='alramUser'>" + d.accountId2 + "님의 메세지"+ "</p>" + "<p id='alramContent'>" + "ㄴ " +d.msg + "</p>");	
 				$(".fa-commenting").css("color","red");
 			}
 			}
@@ -326,8 +325,6 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 			$('#testAlram').val("");
 		}
 		
-=======
->>>>>>> seonmi-L
 	</script>
 
 	<script src="<c:url value="/resources/css/assets/js/plugins.js"/>"></script>

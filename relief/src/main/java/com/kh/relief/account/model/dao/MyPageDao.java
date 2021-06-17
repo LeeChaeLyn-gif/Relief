@@ -50,4 +50,8 @@ public interface MyPageDao {
 	int T_Complete(T_History t);
 
 	int Hide(int t_history_id);
+
+	int getbid(int tid);
+
+	int updateBoard(int bid);
 }

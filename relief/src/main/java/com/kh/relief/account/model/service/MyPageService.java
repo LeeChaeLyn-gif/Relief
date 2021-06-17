@@ -69,6 +69,12 @@ public interface MyPageService {
 
 	// 숨김처리
 	int Hide(int t_history_id);
+	
+	// 보드 아이디 가져오기
+	int getbid(int tid);
+
+	// 보드 업데이트
+	int updateBoard(int bid);
 
 	
 	

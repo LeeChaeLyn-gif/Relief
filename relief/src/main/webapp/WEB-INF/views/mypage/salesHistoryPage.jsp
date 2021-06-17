@@ -236,7 +236,7 @@
 		}
 		
 		function statusUpdate(status){
-			location.href = '${contextPath}/mypage/statusUpdate?status=' + status ;	
+			location.href = '${contextPath}/mypage/statusUpdate?status=' + status;	
 		}
 		
 		

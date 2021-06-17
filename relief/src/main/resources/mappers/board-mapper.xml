@@ -100,7 +100,7 @@
  		 	   (B.TITLE LIKE '%'|| #{searchValue} || '%'
  		   OR B.CONTENT LIKE '%'|| #{searchValue} || '%'
  		   OR B.AREA LIKE '%'|| #{searchValue} || '%')
- 		   AND B.AREA LIKE '%'|| #{searchValue} || '%'
+ 		   AND B.AREA LIKE '%'|| #{address} || '%'
  		   AND B.STATUS = 'Y'
            AND HIDE_STATUS = 'N'
  	</select>
@@ -130,7 +130,7 @@
  		 	   (B.TITLE LIKE '%'|| #{searchValue} || '%'
  		   OR B.CONTENT LIKE '%'|| #{searchValue} || '%'
  		   OR B.AREA LIKE '%'|| #{searchValue} || '%')
- 		   AND B.AREA LIKE '%'|| #{searchValue} || '%'
+ 		   AND B.AREA LIKE '%'|| #{address} || '%'
  		   AND B.STATUS = 'Y'
            AND HIDE_STATUS = 'N'
  	  ORDER BY B.PULL_DATE DESC
@@ -357,24 +357,27 @@
 	   ORDER BY B.PULL_DATE DESC	
 	</select>
 	<select id="selectTodayList" resultMap="BoardResultSet">
-		SELECT *
-		FROM (SELECT *
-			     FROM
-			     	BOARD
-			     WHERE
-			     	STATUS = 'Y'
-			     ORDER BY
-			     	CREATE_DATE DESC, BOARD_ID DESC
-			     )
-		JOIN
-		(SELECT IMAGE_ID, BOARD_ID, FILENAME, RENAME_FILENAME
-		FROM IMAGE
-		WHERE IMAGE_ID IN (SELECT MIN(IMAGE_ID)
-		                   FROM IMAGE
-		                   GROUP BY BOARD_ID)) IMG USING(BOARD_ID)
-		JOIN T_HISTORY USING (BOARD_ID)
-		WHERE
-			ROWNUM <![CDATA[<=]]> 20
+	  SELECT *
+      FROM (SELECT *
+              FROM
+                 BOARD
+              WHERE
+                 STATUS = 'Y'
+              ORDER BY
+                 CREATE_DATE DESC, BOARD_ID DESC
+              )
+      JOIN
+      (SELECT IMAGE_ID, BOARD_ID, FILENAME, RENAME_FILENAME
+      FROM IMAGE
+      WHERE IMAGE_ID IN (SELECT MIN(IMAGE_ID)
+                         FROM IMAGE
+                         GROUP BY BOARD_ID)) IMG USING(BOARD_ID)
+      JOIN T_HISTORY USING (BOARD_ID)
+      WHERE
+         HIDE_STATUS = 'N'
+         AND
+            ROWNUM <![CDATA[<=]]> 20
+         ORDER BY CREATE_DATE DESC
 	</select>
 	
 	<update id="updateReadCount" parameterType="_int">
@@ -592,7 +595,7 @@
  			 	   	REPORT_ID
 				  , CHAT_ID
 				  , BOARD_ID
-				  , COMMENT_ID
+				  , REPLY_ID
 				  , REPORT_REASON
 				  , ACCOUNT_ID
 				  , ACCOUNT_ID2
@@ -618,7 +621,7 @@
  			 	   	REPORT_ID
 				  , CHAT_ID
 				  , BOARD_ID
-				  , COMMENT_ID
+				  , REPLY_ID
 				  , REPORT_REASON
 				  , ACCOUNT_ID
 				  , ACCOUNT_ID2
@@ -644,7 +647,7 @@
  			 	   	REPORT_ID
 				  , CHAT_ID
 				  , BOARD_ID
-				  , COMMENT_ID
+				  , REPLY_ID
 				  , REPORT_REASON
 				  , ACCOUNT_ID
 				  , ACCOUNT_ID2
