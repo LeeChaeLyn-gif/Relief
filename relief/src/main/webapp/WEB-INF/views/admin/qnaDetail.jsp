@@ -106,11 +106,11 @@
         color: white;
 
     }
-    .btnArea{
+    .btnArea {
         	width : 800px;
         	text-align : center;
         }
-     .answer{
+     .answer {
      	width : 800px;
      	height : 50px;
      	text-align : center;

@@ -183,7 +183,7 @@
 	        <input type="hidden" value="${ r.rpid }" name="rpid">
 	        <button type="submit" class="dBtn">제재하기</button>
 	        </div>
-	        <br><br><br><br><br>
+	        <br><br><br><br><br> 
         </form>
     </div>
     <c:choose>
