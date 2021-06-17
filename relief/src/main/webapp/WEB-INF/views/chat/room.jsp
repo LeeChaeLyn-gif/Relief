@@ -73,6 +73,11 @@ button {
 	float:left;
 	display : inline-block;
 	padding-top:5%;
+	text-overflow:ellipsis;
+ 	white-space:nowrap;
+	word-wrap:normal;
+	overflow:hidden;
+	text-align : center;
 }
 
 .chatDate {

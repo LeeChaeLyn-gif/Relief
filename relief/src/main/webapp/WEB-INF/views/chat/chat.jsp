@@ -108,7 +108,6 @@
 			</li>
 		</ul>
 		</div>
-		<input type="hidden" id="sessionId" value="">
 		<input type="hidden" id="chatId" value="${chatId}">
 		
 		<div id="chating" class="chating">
@@ -194,28 +193,19 @@
 	ws.onmessage = function(data) {
 		//메시지를 받으면 동작
 		var msg = data.data;
-		if(msg != null && msg.trim() != ''){
+		if (msg != null && msg.trim() != '') {
 			var d = JSON.parse(msg);
-			console.log(d.sessionId);
-			if(d.msg != null && d.msg.trim() != '') {
-			console.log('d.msg : ' + d.msg);
-			if(d.type == "getId"){
-				var si = d.sessionId != null ? d.sessionId : "";
-				if(si != ''){
-					$("#sessionId").val(si); 
-				}
-			}else if(d.type2 == "chat"){
-				if(d.sessionId == $("#sessionId").val()){
-					$("#chating").append("<p class='me'>" + d.msg + "</p>");	
-				}else{
-					$("#chating").append("<p class='others'>" + d.msg + "</p>");
-				}
+			
+				console.log('d.msg : ' + msg);
 					
-			}else{
-				console.warn("unknown type!")
-		}
-			$('#chating').scrollTop($('#chating')[0].scrollHeight);
-	}
+				if($("#accountId2").val() == "${loginUser.aid}"){
+						$("#chating").append("<p class='me'>" + d.msg + "</p>");
+					}else{
+						$("#chating").append("<p class='others'>" + d.msg + "</p>");
+					}
+					
+				$('#chating').scrollTop($('#chating')[0].scrollHeight);
+				
 			document.addEventListener("keypress", function(e){
 				if(e.keyCode == 13){ //enter press
 					send();
@@ -236,14 +226,21 @@
 		var option ={
 			type2: "chat",
 			chatId: $("#chatId").val(),
-			sessionId : $("#sessionId").val(),
 			chatId : '${chatId}',
 			accountId : '${loginUser.aid}',
 			accountId2 : $("#accountId2").val(),
 			msg : $("#chatting").val()
 		}
-		console.log(option)
 		ws.send(JSON.stringify(option));
+		
+		if(option.accountId = "${loginUser.aid}"){
+			$("#chating").append("<p class='me'>" + option.msg + "</p>");
+		}else{
+			$("#chating").append("<p class='others'>" + option.msg + "</p>");
+		}
+		
+		$('#chating').scrollTop($('#chating')[0].scrollHeight);
+		
 		$('#chatting').val("");
 	}
 	

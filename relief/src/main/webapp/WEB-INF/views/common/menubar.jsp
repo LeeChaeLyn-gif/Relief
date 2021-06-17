@@ -66,6 +66,26 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 		font-size : 16px;
 		font-weight : bold;
 	}
+	#testAlram {
+		width:150px;
+		float:right;
+		margin-top:-15%;
+		margin-right:-25%;
+	}
+	#alramBox {
+		height : 150px;
+		margin-top : 10%;
+	}
+	#alramUser {
+		margin:auto;
+	}
+	#alramContent {
+		margin:auto;
+		text-overflow:ellipsis;
+		white-space:nowrap;
+		word-wrap:normal;
+		overflow:hidden;
+	}
 </style>
 </head>
 <body data-spy="scroll" data-target=".navbar-collapse">
@@ -90,9 +110,9 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 						<p id="userName">${ loginUser.name }님 환영합니다.</p>
 						<li class="search"><a href="${ contextPath }/account/logout"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>로그아웃</a></li>
 						<li class="chatBtn"><a href="#"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i>채팅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-						<ul>
-							<li id="testAlram"></li>
-						</ul>
+						<div id="alramBox">
+							<div id="testAlram"></div>
+						</div>
 						</c:otherwise>
 						</c:choose>
 						
@@ -108,22 +128,27 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 
 				<!-- Start Top Search -->
 				<div class="top-search" style="margin-left: 100px;">
-					<form action="${ contextPath }/board/list" method="get">
 						<div class="container">
-							<div class="input-group">
-								<input type="text" class="form-control" name="searchValue" placeholder="상품명, 지역명 검색" <c:if test="${ !empty searchValue }"> value="${searchValue }"</c:if>>
 								<c:choose>
 								<c:when test="${ empty sessionScope.loginUser }">
-								<button class="input-group-addon" type="button" onClick="unLoginList()"><i class="fa fa-search" id="submitBtn"></i></button>
-								
+								<form action="${ contextPath }/board/nloginlist" method="get" onsubmit="return validate()">
+								<div class="input-group">
+									<input type="text" class="form-control" name="searchValue" id="searchValue" placeholder="상품명, 지역명 검색" <c:if test="${ !empty searchValue }"> value="${searchValue }"</c:if>>
+									<button class="input-group-addon" type="submit"><i class="fa fa-search" id="submitBtn"></i></button>
+								</div>	
+								</form>
 								</c:when>
 								<c:otherwise>
-								<button class="input-group-addon" type="submit"><i class="fa fa-search" id="submitBtn"></i></button>
+								<form action="${ contextPath }/board/list" method="get"  onsubmit="return validate()">
+								<div class="input-group">
+									<input type="text" class="form-control" name="searchValue" id="searchValue" placeholder="상품명, 지역명 검색" <c:if test="${ !empty searchValue }"> value="${searchValue }"</c:if>>
+									<button class="input-group-addon" type="submit"><i class="fa fa-search" id="submitBtn"></i></button>
+								</div>
+								</form>	
 								</c:otherwise>
 								</c:choose>
-							</div>
+							
 						</div>
-					</form>	
 					
 				</div>
 				<!-- End Top Search -->
@@ -232,9 +257,15 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 		function category1(cid){
 			location.href="${ contextPath }/board/category1?cid="+cid;
 		}
-		function unLoginList(){
+		function validate(){
 			var searchValue = $("#searchValue").val();
-			loation.href="${ contextPath }/board/nloginlist?searchValue=" + searchValue;
+			
+			if(searchValue == null || searchValue == ''){
+				alert("한글자 이상의 검색어를 입력해주세요");
+				return false;
+			} else{
+				return true;
+			}
 		}
 		
 		var ws;
@@ -265,11 +296,12 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 			console.log("message : " + d.msg );
 			console.log("aid2 : " + d.accountId2);
 			
-			if(typeof d.msg != 'undefined'){
-				$("#testAlram").append("<p>" + d.accountId2 + " : "+ d.msg + "</p>");	
+			
+			if(d.msg){
+				$("#testAlram *").remove();
+				$("#testAlram").append("<p id='alramUser'>" + d.accountId2 + "님의 메세지 : "+ "</p>" + "<p id='alramContent'>" + d.msg + "</p>");	
 				$(".fa-commenting").css("color","red");
 			}
-			
 			}
 		}
 		
@@ -281,7 +313,6 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 		function send() {
 			var option ={
 				type2: "account",
-				sessionId : $("#sessionId").val(),
 				accountId : '${loginUser.aid}',
 				message : $("#testAlram").val()
 			}
@@ -289,6 +320,7 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 			ws.send(JSON.stringify(option));
 			$('#testAlram').val("");
 		}
+		
 	</script>
 
 	<script src="<c:url value="/resources/css/assets/js/plugins.js"/>"></script>

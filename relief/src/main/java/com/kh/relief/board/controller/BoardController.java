@@ -562,7 +562,7 @@ public class BoardController {
 			
 			result3 = bService.insertImage2(bi2);
 			
-			for(int i = 0; i < renameFilename.size(); i++) {
+			for(int i = 1; i < renameFilename.size(); i++) {
 				if(renameFilename.get(i) != renameFilename.get(0)) {
 					bi.setList(renameFilename.get(i));	
 				}
@@ -729,6 +729,7 @@ public class BoardController {
 	@GetMapping("/nloginlist")
 	public String nLoginList(@RequestParam(value="searchValue") String searchValue,
 							 Model model,@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage) {
+		System.out.println(searchValue);
 		int listCount = bService.nLoginListCount(searchValue);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		List<Board> bList =bService.nLoginList(pi,searchValue);
@@ -818,7 +819,7 @@ public class BoardController {
 				result1 = bService.deleteImage(iList.get(i).getIid());
 			}
 			
-			for(int i = 0; i < renameFilename.size(); i++) {
+			for(int i = 1; i < renameFilename.size(); i++) {
 				if(renameFilename.get(i) != renameFilename.get(0)) {
 					bi.setList(renameFilename.get(i));	
 				}

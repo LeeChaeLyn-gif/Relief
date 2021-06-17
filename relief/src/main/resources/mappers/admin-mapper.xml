@@ -398,7 +398,7 @@
 		  FROM
 		  		CATEGORY
 		 WHERE
-		 		CATEGORY_ID = #{cid}
+		 		CATEGORY_ID2 = #{cid}
 		   AND  C_STATUS = 'Y'
 	</select>
 	<update id="updateCategory" parameterType="Category">

@@ -21,15 +21,10 @@ import com.kh.relief.account.model.vo.Account;
 import com.kh.relief.chat.model.service.ChatService;
 import com.kh.relief.chat.model.vo.ChatHistory;
 
-@Component
+//@Component
 public class ChatHandler extends TextWebSocketHandler {
 	@Autowired
 	private ChatService cService;
-	// 웹소켓 세션을 담아둘 맵
-	HashMap<String, WebSocketSession> sessionMap = new HashMap<>();
-	// 웹소켓 세션을 담아둘 리스트
-	List<HashMap<String, Object>> lArr = new ArrayList<>();
-
 	// 로그인 한 유저 세션
 	Map<String, WebSocketSession> userSessionMap = new HashMap<>();
 
@@ -84,43 +79,18 @@ public class ChatHandler extends TextWebSocketHandler {
 					}
 				}
 			}
-			// 채팅 들어온 유저 판별해서 chatSessionMap 에 key = chatId, value = chatId,key = accountId, value = session  으로 넣기
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("chatId", chatId);
-			map.put(accountId, session);
-			chatSessionMap.add(map);
-		}
-
-
-		int idx = lArr.size(); // 방의 사이즈를 조사한다.
-		if (lArr.size() > 0) {
-			for (int i = 0; i < lArr.size(); i++) {
-				int rN = (int) lArr.get(i).get("chatId");
-				if (rN == chatId) {
-					flag = true;
-					idx = i;
-					break;
-				}
+			if(existFlag) {
+				// 기존 채팅방 세션 맵 불러와서 담기
+				HashMap<String, Object> map = chatSessionMap.get(idx);
+				map.put(accountId, session);
+			} else {
+				// 채팅 들어온 유저 판별해서 chatSessionMap 에 key = chatId, value = chatId,key = accountId, value = session  으로 넣기
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("chatId", chatId);
+				map.put(accountId, session);
+				chatSessionMap.add(map);
 			}
 		}
-
-		if (flag) { // 존재하는 방이라면 세션만 추가한다.
-			HashMap<String, Object> map = lArr.get(idx);
-			map.put(accountId, session);
-		} else { // 최초 생성하는 방이라면 방번호와 세션을 추가한다.
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("chatId", chatId);
-			map.put(accountId, session);
-			lArr.add(map);
-		}
-
-		// 세션등록이 끝나면 발급받은 세션ID값의 메시지를 발송한다.
-		JSONObject obj = new JSONObject();
-		obj.put("sessionId", session.getId());
-		obj.put("type", "getId");
-		obj.put("type2", type);
-		obj.put("targetId", targetId);
-		session.sendMessage(new TextMessage(obj.toJSONString()));
 	}
 
 	// 메세지 발송
@@ -133,7 +103,7 @@ public class ChatHandler extends TextWebSocketHandler {
 		// obj 내 원하는 값 추출
 		int chatId = Integer.parseInt((String) obj.get("chatId"));
 		String accountId = (String) obj.get("accountId");
-		String accountId2 = (String) obj.get("accountId2");
+		String targetAccountId = (String) obj.get("accountId2");
 		String chat = (String) obj.get("msg");
 		String type = (String) obj.get("type");
 
@@ -145,66 +115,48 @@ public class ChatHandler extends TextWebSocketHandler {
 
 		int result = cService.insertChat(ch);
 		
-		HashMap<String, Object> temp = new HashMap<String, Object>();
-		if (lArr.size() > 0) {
-			for (int i = 0; i < lArr.size(); i++) {
-				int cId = (int) lArr.get(i).get("chatId");
-				if (cId == chatId) { // 같은값의 방이 존재한다면
-					temp = lArr.get(i); // 해당 방번호의 세션리스트의 존재하는 모든 object값을 가져온다.
-					break;
-				}
-			}
-
-			// 해당 방의 세션들만 찾아서 메시지를 발송해준다.
-			for (String k : temp.keySet()) {
-				if (k.equals("chatId")) { // 다만 방번호일 경우에는 건너뛴다.
-					continue;
-				}
-
-				WebSocketSession wss = (WebSocketSession) temp.get(k);
-				if (wss != null) {
-					try {
-						wss.sendMessage(new TextMessage(obj.toJSONString()));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-		
-		int index = 0;
+		Map<String, Object> chatSession = new HashMap<>();
 		
 		for(int i = 0; i < chatSessionMap.size(); i++) {
 			int cId = (int) chatSessionMap.get(i).get("chatId"); 
 			if( cId == chatId) {
-				temp = chatSessionMap.get(i);
-				index = i;
+				chatSession = chatSessionMap.get(i);
 				break;
 			}
 		}
 		
 		
-		Map<String, Object> chatSession = chatSessionMap.get(index);
-		if(chatSession.get(obj.get("accountId2")) != null) {
+		if(chatSession.get(targetAccountId) != null) {
 			WebSocketSession targetSession = (WebSocketSession)chatSession.get(obj.get("accountId2"));
 			TextMessage sendmsg = new TextMessage(obj.toJSONString());
 			System.out.println("sendmsg : " + sendmsg);
 			targetSession.sendMessage(sendmsg);
 			
 		} else {
+			if (userSessionMap.get(targetAccountId)!=null) {
 				WebSocketSession targetSession = (WebSocketSession)userSessionMap.get(obj.get("accountId2"));
-				
 				TextMessage alram = new TextMessage(obj.toJSONString());
+				System.out.println("t : " + targetSession);
 				targetSession.sendMessage(alram);
+			}
 		}
 	}
 
 	// 소켓종료
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		if (lArr.size() > 0) { // 소켓이 종료되면 해당 세션값들을 찾아서 지운다.
-			for (int i = 0; i < lArr.size(); i++) {
-				lArr.get(i).remove(session.getId());
+		if (chatSessionMap.size() > 0) { // 소켓이 종료되면 해당 세션값들을 찾아서 지운다.
+			
+			for (int i = 0; i < chatSessionMap.size(); i++) {
+				Map<String, Object> chatSession = chatSessionMap.get(i);
+				
+				for(String key : chatSession.keySet()) {
+					
+					if (session == chatSession.get(key)) {
+						chatSession.remove(key);
+						break;
+					}
+				}
 			}
 		}
 		super.afterConnectionClosed(session, status);
