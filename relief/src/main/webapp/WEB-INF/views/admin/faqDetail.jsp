@@ -106,7 +106,7 @@
         .textArea{
         	width : 700px;
         }
-        .btnArea {
+        .btnArea{
         	width : 700px;
         	text-align : center;
         }

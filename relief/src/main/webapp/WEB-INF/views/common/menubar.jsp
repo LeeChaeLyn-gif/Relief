@@ -98,9 +98,10 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-menu"></button>
-
+						<a class="navbar-brand" href="${contextPath}">
                        <img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-display m-top-10" alt="" width="150px">
                     	<img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled" alt="" width="150px">
+						</a>
 				</div>
 
 				<!-- Start Top Search -->

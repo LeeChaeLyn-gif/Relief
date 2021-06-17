@@ -116,7 +116,7 @@
      	text-align : center;
      	color : black;
      }
-     .answer h3{
+     .answer h3 {
      	text-align : center;
      	color : black;
      }

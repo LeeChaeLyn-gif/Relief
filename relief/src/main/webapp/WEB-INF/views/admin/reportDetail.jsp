@@ -129,7 +129,7 @@
         width: 850px;
         padding: 0px;
 	}
-	.btnArea{
+	.btnArea {
         	width : 850px;
         	text-align : center;
         }
