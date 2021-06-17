@@ -374,7 +374,9 @@
 		                   GROUP BY BOARD_ID)) IMG USING(BOARD_ID)
 		JOIN T_HISTORY USING (BOARD_ID)
 		WHERE
-			ROWNUM <![CDATA[<=]]> 20
+			HIDE_STATUS = 'N'
+			AND
+				ROWNUM <![CDATA[<=]]> 20
 	</select>
 	
 	<update id="updateReadCount" parameterType="_int">
@@ -421,12 +423,13 @@
             , RENAME_FILENAME
          FROM
                IMAGE
-         JOIN T_HISTORY USING(BOARD_ID)
         WHERE
               BOARD_ID = #{board_id}
-              	AND HIDE_STATUS = 'N'
                 AND (IMAGE_ID,BOARD_ID) IN(SELECT MIN(IMAGE_ID), BOARD_ID
-                FROM IMAGE GROUP BY BOARD_ID)
+                FROM IMAGE 
+                JOIN T_HISTORY USING(BOARD_ID)
+                where HIDE_STATUS = 'N'
+                GROUP BY BOARD_ID)
     </select>
     
     <select id="selectImageList" parameterType="_int" resultMap="ImageResultSet">

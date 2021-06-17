@@ -110,12 +110,11 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 						<p id="userName">${ loginUser.name }님 환영합니다.</p>
 						<li class="search"><a href="${ contextPath }/account/logout"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>로그아웃</a></li>
 						<li class="chatBtn"><a href="#"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i>채팅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-<<<<<<< HEAD
+
 						<div id="alramBox">
 							<div id="testAlram"></div>
 						</div>
-=======
->>>>>>> seonmi-L
+
 						</c:otherwise>
 						</c:choose>
 						
@@ -271,7 +270,7 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 				return true;
 			}
 		}
-<<<<<<< HEAD
+
 		
 		var ws;
 		
@@ -326,8 +325,7 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 			$('#testAlram').val("");
 		}
 		
-=======
->>>>>>> seonmi-L
+
 	</script>
 
 	<script src="<c:url value="/resources/css/assets/js/plugins.js"/>"></script>
