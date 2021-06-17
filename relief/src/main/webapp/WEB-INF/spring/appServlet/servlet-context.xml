@@ -30,15 +30,15 @@
 	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
 	<beans:bean id="naverLoginBO" class="com.kh.relief.account.NaverLoginBO" />
 	<!-- chatHandler -->
-	<!-- <beans:bean id="chatHandler" class="com.kh.relief.chat.handler.ChatHandler" />
+	<beans:bean id="chatHandler" class="com.kh.relief.chat.handler.ChatHandler" />
 
 	<websocket:handlers>
-		<websocket:mapping handler="chatHandler" path="/chat/**" />
+		<websocket:mapping handler="chatHandler" path="/relief/**" />
 		<websocket:handshake-interceptors>
-	         <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
-	      </websocket:handshake-interceptors>
+	       <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+	    </websocket:handshake-interceptors>
 		<websocket:sockjs />
-	</websocket:handlers> -->
+	</websocket:handlers>
 	
 	<!-- 메일 인증 -->
 	<beans:bean id="mailSender"	class="org.springframework.mail.javamail.JavaMailSenderImpl">
