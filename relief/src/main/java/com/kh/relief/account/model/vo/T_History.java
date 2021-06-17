@@ -26,7 +26,6 @@ public class T_History {
 	private String seller_id;
 	private String status;
 	private String hide_status;
-	
 	// 이미지 경로
 	private String rename_fileName;
 	

@@ -106,4 +106,8 @@ public interface BoardService {
 
 	int insertImage2(BoardImage bi2);
 
+	int deleteImage(int iid);
+
+	int updateBoard(Board b);
+
 }

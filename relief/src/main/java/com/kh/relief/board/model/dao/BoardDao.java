@@ -90,5 +90,7 @@ public interface BoardDao {
 	
 	int insertThistory(Board board);
 	int insertImage2(BoardImage bi2);
+	int deleteImage(int iid);
+	int updateBoard(Board b);
 
 }

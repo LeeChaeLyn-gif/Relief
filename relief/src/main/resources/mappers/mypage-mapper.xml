@@ -26,18 +26,20 @@
     </resultMap>
      
     <resultMap type="T_History" id="T_HistoryResultSet">
-    	<id property="t_history_id" column="T_HISTORY_ID"/>
-       	<result property="board_id" column="BOARD_ID"/>
-       	<result property="title" column="TITLE"/>
-       	<result property="price" column="PRICE"/>
-       	<result property="area" column="AREA"/>
-       	<result property="t_date" column="T_DATE"/>
-       	<result property="consumer_id" column="CONSUMER_ID"/>
-       	<result property="seller_id" column="SELLER_ID"/>
-       	<result property="status" column="STATUS"/>
-       	<result property="hide_status" column="HIDE_STATUS"/>
-       	<result property="rename_fileName" column="RENAME_FILENAME"/>
-       	<result property="modify_date" column="MODIFY_DATE"/>
+       <id property="t_history_id" column="T_HISTORY_ID"/>
+          <result property="board_id" column="BOARD_ID"/>
+          <result property="title" column="TITLE"/>
+          <result property="price" column="PRICE"/>
+          <result property="area" column="AREA"/>
+          <result property="t_date" column="T_DATE"/>
+          <result property="consumer_id" column="CONSUMER_ID"/>
+          <result property="seller_id" column="SELLER_ID"/>
+          <result property="status" column="STATUS"/>
+          <result property="hide_status" column="HIDE_STATUS"/>
+          <result property="rename_fileName" column="RENAME_FILENAME"/>
+          <result property="modify_date" column="MODIFY_DATE"/>
+          <result property="r_status" column="R_STATUS"/>
+          <result property="pull_date" column="PULL_DATE"/>
     </resultMap>
     
     <resultMap type="Account" id="AccountResultSet">
@@ -128,6 +130,7 @@
 		      , T.STATUS
 		      , T.HIDE_STATUS
 		      , I.RENAME_FILENAME
+		      , T.R_STATUS
 		FROM
 			    T_HISTORY T 
 			    JOIN BOARD B ON(T.BOARD_ID = B.BOARD_ID)
@@ -159,7 +162,7 @@
 			    (SELECT
 			        BOARD_ID
 			     FROM
-			        T_HISTROY
+			        T_HISTORY
 			     where
 			        T_HISTORY_ID = #{T_HISTORY_ID})
     </update>
@@ -242,6 +245,7 @@
 		WHERE
 			    SELLER_ID = #{seller_id}
 			    AND FILE_LEVEL = 0
+			    AND B.STATUS = 'Y'
 			    AND T.HIDE_STATUS = 'N'
 		ORDER BY 
 				T_HISTORY_ID DESC

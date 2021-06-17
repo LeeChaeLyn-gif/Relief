@@ -12,7 +12,7 @@
 			float : left;
 		}
 		.titleArea{
-			width : 850px;
+			width : 700px;
 			height : 52px;
 			float : left;
 			background-color: #597a96;
