@@ -135,9 +135,9 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 					<ul class="nav navbar-nav navbar-right ml-auto" data-in="fadeInDown" data-out="fadeOutUp" style="float:right;">
 						<c:choose>
 							<c:when test="${ empty sessionScope.loginUser }">
-							<li><a href="${ contextPath }/home"  onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')">판매하기</a></li>
-							<li><a href="#pricing">고객센터</a></li>
-							<li><a href="${ contextPath }/qna/list">Q&A리스트</a></li>
+							<li><a href="${ contextPath }/home" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')">판매하기</a></li>
+							<li><a href="${ contextPath }/qna/list" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')">Q&A리스트</a></li>
+							<li><a href="${ contextPath }/faq/list">FAQ</a></li>
 							</c:when>
 							<c:when test="${ loginUser.aid eq 'admin' }">
 							<li><a href="${ contextPath }/admin/main">관리자페이지</a></li>
