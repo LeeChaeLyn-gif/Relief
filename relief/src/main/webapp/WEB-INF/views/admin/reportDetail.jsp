@@ -158,7 +158,7 @@
     		<script>
     			$(function(){
     				$(".btn1").on("click", function(){
-    					location.href="${ contextPath }/chat/detail?chid=${ r.chid }";
+    					location.href="${ contextPath }/chat/selectChat?chatId=${ r.chid }";
     				});
     			})
     		</script>

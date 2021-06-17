@@ -227,5 +227,15 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.insertImage2(bi2);
 	}
 
+	@Override
+	public int deleteImage(int iid) {
+		return bDao.deleteImage(iid);
+	}
+
+	@Override
+	public int updateBoard(Board b) {
+		return bDao.updateBoard(b);
+	}
+
 	
 }

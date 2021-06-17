@@ -23,8 +23,8 @@
 		<result property="area" column="AREA"/>
  	</resultMap>
  	<resultMap type="Image" id="ImageResultSet">
- 		<id property="iId" column="IMAGE_ID"/>
- 		<result property="bId" column="BOARD_ID"/>
+ 		<id property="iid" column="IMAGE_ID"/>
+ 		<result property="bid" column="BOARD_ID"/>
  		<result property="fileName" column="FILENAME"/>
  		<result property="renameFileName" column="RENAME_FILENAME"/>
  	</resultMap>
@@ -409,7 +409,11 @@
     </select>
     
     <select id="selectImageList" parameterType="_int" resultMap="ImageResultSet">
-    	SELECT *
+    	SELECT 
+    		  IMAGE_ID
+            , BOARD_ID
+            , FILENAME
+            , RENAME_FILENAME
 		FROM IMAGE
 		WHERE BOARD_ID = #{board_id}
 		ORDER BY	
@@ -847,4 +851,26 @@
 			 	, 0
 				 )
  	</insert>
+ 	<delete id="deleteImage" parameterType="_int">
+ 		DELETE
+ 		  FROM IMAGE
+ 		 WHERE
+ 		 	   IMAGE_ID = #{iid}
+ 	</delete>
+ 	<update id="updateBoard">
+ 		UPDATE
+ 				BOARD
+ 		   SET
+ 		   		CATEGORY_ID = #{category_id}
+ 		   	  , TITLE = #{title}
+ 		   	  , CONTENT = #{content}
+ 		   	  , MODIFY_DATE = SYSDATE
+ 		   	  , PRODUCT_STATUS = #{product_status}
+ 		   	  , PRICE = #{price}
+ 		   	  , EXCHANGE_STATUS = #{exchange_status}
+ 		   	  , AMOUNT = #{amount}
+ 		   	  , PRICE_STATUS = #{price_status}
+ 	 	  WHERE
+ 	 	  		BOARD_ID = #{board_id} 
+ 	</update>
  </mapper>

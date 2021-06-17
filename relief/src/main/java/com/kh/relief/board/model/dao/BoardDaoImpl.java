@@ -243,4 +243,14 @@ public class BoardDaoImpl implements BoardDao {
 	public int insertImage2(BoardImage bi2) {
 		return sqlSession.insert("boardMapper.insertImage2", bi2);
 	}
+
+	@Override
+	public int deleteImage(int iid) {
+		return sqlSession.delete("boardMapper.deleteImage", iid);
+	}
+
+	@Override
+	public int updateBoard(Board b) {
+		return sqlSession.update("boardMapper.updateBoard", b);
+	}
 }

@@ -768,7 +768,84 @@ public class BoardController {
 	@GetMapping("/update")
 	public String updatePage(int board_id, Model model) {
 		Board b = bService.selectBoard(board_id, false);
+		List<Image> iList = bService.selectImageList(board_id);
+		List<Category> list = bService.selectcList();
+		if(b != null && !iList.isEmpty() && !list.isEmpty()) {			
+			model.addAttribute("list", list);
+			model.addAttribute("b", b);
+			model.addAttribute("iList", iList);
+			return "/board/updatePage";
+		} else {
+			model.addAttribute("msg", "수정페이지 호출실패");
+			model.addAttribute("url", "/home");
+			return "/board/alertPage";
+		}
+	}
+	
+	@PostMapping("/update")
+	public String update(@ModelAttribute Image image, Model model, @ModelAttribute Board b,
+						 MultipartHttpServletRequest mtfrequest, HttpServletRequest request, HttpSession session) {
+		List<Image> iList = new ArrayList<>();
+		if(session.getAttribute("loginUser") != null) {
+			Account loginUser = (Account) session.getAttribute("loginUser");
+			String aid = loginUser.getAid();
+			b.setAccount_id(aid);
+		}
+		if(b.getPrice_status() == null) {
+			b.setPrice_status("N");
+		}
 		
-		return "";
+		for(int i = 0; i < image.getIList().size(); i++) {
+			iList.addAll(image.getIList());
+		}
+		
+		List<MultipartFile> fList = mtfrequest.getFiles("file");
+		int result1 = 0;
+		int result2 = 0;
+		int result3 = 0;
+		if(!fList.isEmpty()) {
+			deleteFile(iList, request);
+			List<String> renameFilename = saveFile(fList, request);
+			BoardImage bi = new BoardImage();
+			BoardImage bi2 = new BoardImage();
+			bi.setBid(b.getBoard_id());
+			bi2.setBid(b.getBoard_id());
+			bi2.setList(renameFilename.get(0));
+			
+			result3 = bService.insertImage2(bi2);
+			
+			for(int i = 0; i < iList.size(); i++) {
+				result1 = bService.deleteImage(iList.get(i).getIid());
+			}
+			
+			for(int i = 0; i < renameFilename.size(); i++) {
+				if(renameFilename.get(i) != renameFilename.get(0)) {
+					bi.setList(renameFilename.get(i));	
+				}
+				
+				result2 = bService.insertImage(bi);
+			}
+		}
+		int result4 = bService.updateBoard(b);
+		if(result4 > 0) {
+			model.addAttribute("msg", "완료되었습니다.");
+			model.addAttribute("url", "/board/detail?board_id="+b.getBoard_id());
+			return "/board/alertPage";
+		} else {
+			model.addAttribute("msg", "수정실패하였습니다.");
+			model.addAttribute("url", "/board/update?board_id="+b.getBoard_id());
+			return "/board/alertPage";
+		}
+	}
+
+	private void deleteFile(List<Image> iList, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "//buploadFiles";
+		File folder = new File(savePath);
+		for(Image i : iList) {
+			File f = new File(savePath + "\\" + i.getRenameFileName());
+			if(f.exists()) f.delete();
+		}
+		
 	}
 }

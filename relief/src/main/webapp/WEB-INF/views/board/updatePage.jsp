@@ -2,11 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>다행 / 판매하기</title>
+<title>다행 / 게시글 수정</title>
 </head>
 <style>
 	* {
@@ -159,7 +160,8 @@
 			<h4 class="star">*</h4>
 			</div>
 			<div class="title2">
-			<input type="text" id="title2" name="title" placeholder="상품 제목을 입력해주세요. (최대 40자까지 입력가능)" maxlength="40" required>
+			<input type="text" id="title2" name="title" value="${ b.title }" placeholder="상품 제목을 입력해주세요. (최대 40자까지 입력가능)" maxlength="40" required>
+			<input type="hidden" name="board_id" value="${ b.board_id }">
 		</div>
 		<hr>
 		<div class="categoryDiv">
@@ -170,14 +172,26 @@
 			<select class="category">
 				<option value="0">1차 카테고리</option>
 				<c:forEach items="${ list }" var="c">
-					<option value="${ c.cid }">${ c.cname }</option>
+					<c:if test="${ c.cgroup == 1 }">
+						<option value="${ c.cid }">${ c.cname }</option>
+					</c:if>
 				</c:forEach>
 			</select> 
 			<select class="category2">
 			<option value="0">2차 카테고리</option>
+			<c:forEach items="${ list }" var="c">
+					<c:if test="${ c.cgroup == 2 }">
+						<option value="${ c.cid }">${ c.cname }</option>
+					</c:if>
+			</c:forEach>
 			</select> 
 			<select class="category3" name="category_id">
 			<option value="0">3차 카테고리</option>
+			<c:forEach items="${ list }" var="c">
+					<c:if test="${ c.cgroup == 3 }">
+						<option value="${ c.cid }" <c:if test="${ b.category_id == c.cid }">selected</c:if>>${ c.cname }</option>
+					</c:if>
+			</c:forEach>
 			</select>
 		</div>
 		<hr>
@@ -186,7 +200,7 @@
 			<h4 class="star">*</h4>
 			</div>
 			<div class="area2">
-			<input type="text" readonly name="area" value="${ addr }">
+			<input type="text" readonly name="area" value="${ b.area }">
 		</div>
 		<hr>
 		<div class="state">
@@ -194,8 +208,8 @@
 			<h4 class="star">*</h4>
 			</div>
 			<div class="state2">
-			<input type="radio" id="used" name="product_status" value="중고상품"><label for="used">중고상품</label>
-			<input type="radio" id="new" name="product_status" value="새상품"><label for="new">새상품</label>
+			<input type="radio" id="used" name="product_status" value="중고상품" <c:if test="${ b.product_status == '중고상품' }">checked</c:if>><label for="used">중고상품</label>
+			<input type="radio" id="new" name="product_status" value="새상품" <c:if test="${ b.product_status == '새상품' }">checked</c:if>><label for="new">새상품</label>
 		</div>
 		<hr>
 		<div class="change">
@@ -203,8 +217,8 @@
 			<h4 class="star">*</h4>
 			</div>
 			<div class="change2">
-			<input type="radio" id="ok" name="exchange_status" value="N"><label for="ok">교환불가</label>
-			<input type="radio" id="no" name="exchange_status" value="Y"><label for="no">교환가능</label>
+			<input type="radio" id="ok" name="exchange_status" value="N"<c:if test="${ b.exchange_status == 'N' }">checked</c:if>><label for="ok">교환불가</label>
+			<input type="radio" id="no" name="exchange_status" value="Y"<c:if test="${ b.exchange_status == 'Y' }">checked</c:if>><label for="no">교환가능</label>
 		</div>
 		<hr>
 		<div class="price">
@@ -212,28 +226,33 @@
 			<h4 class="star">*</h4>
 			</div>
 			<div class="price2">
-			<input type="number" min="0" name="price"><h6>원</h6>
-			<input type="checkBox" id="price" name="price_status" value="Y"><label for="price">가격협의 가능</label>
+			<input type="number" min="0" name="price" value="${ b.price }"><h6>원</h6>
+			<input type="checkBox" id="price" name="price_status" value="Y" <c:if test="${ b.price_status == 'Y' }">checked</c:if>><label for="price">가격협의 가능</label>
 		</div>
 		<hr>
 		<div class="etc">
 			<h4>설명</h4>
 		</div>
 		<div class="etc2">
-			<textarea id="etcText" name="content" style="resize: none;"></textarea>
+			<textarea id="etcText" name="content" style="resize: none;">${ b.content }</textarea>
 		</div>
 		<hr>
 		<div class="number">
 			<h4>수량</h4>
 			</div>
 			<div class="number2">
-			<input type="number" min="1" name="amount">
+			<input type="number" min="1" name="amount" value="${ b.amount }">
 			<h6>개</h6>
 		</div>
 		<div class="btnArea">
 			<button class="submitBtn" type="submit">등록하기</button>
 		</div>
 	</div>
+		<c:forEach var="j" begin="0" end="${fn:length(iList)-1 }">
+			<input type="hidden" name="iList[${j}].iid" value="${ iList[j].iid }">
+			<input type="hidden" name="iList[${j}].fileName" value="${ iList[j].fileName }">
+	        <input type="hidden" name="iList[${j}].renameFileName" value="${ iList[j].renameFileName }">
+		</c:forEach>
 	</form>
 </body>
 <script>
@@ -423,6 +442,8 @@
 			}
 		});
 	});
+
+		
 	
 </script>
 </html>
