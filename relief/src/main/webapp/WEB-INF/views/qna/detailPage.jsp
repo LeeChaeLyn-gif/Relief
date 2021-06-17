@@ -62,7 +62,7 @@ h1, h3 {
 	height: 200px;
 }
 
-#boardTable pre {
+.contentArea {
 	min-height: 200px;
 	text-align: left;
 	overflow: auto;
@@ -161,7 +161,7 @@ h1, h3 {
 				</tr>
 				<tr>
 					<td colspan="5">
-					<pre style="font-size : 15px;">${ qna.qcontent }</pre>
+					<div class="contentArea"style="font-size : 15px;">${ qna.qcontent }</div>
 					</td>
 				</tr>
 			</table>
