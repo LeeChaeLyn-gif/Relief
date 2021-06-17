@@ -136,7 +136,7 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 						<c:choose>
 							<c:when test="${ empty sessionScope.loginUser }">
 							<li><a href="${ contextPath }/home" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')">판매하기</a></li>
-							<li><a href="${ contextPath }/qna/list" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')">Q&A리스트</a></li>
+							<li><a href="${ contextPath }/home" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')">Q&A리스트</a></li>
 							<li><a href="${ contextPath }/faq/list">FAQ</a></li>
 							</c:when>
 							<c:when test="${ loginUser.aid eq 'admin' }">
