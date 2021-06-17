@@ -18,7 +18,7 @@
 		}
 		
 		h2{
-			color : white;
+			color : white !important;
 			font-weight : bold;
 			text-align : center;
 			padding-top : 7px;
@@ -45,7 +45,6 @@
             bottom: 30px;
         }
         .insertDiv{
-            border: 1px solid lightgray;
             width: 700px;
             height: 675px;
             text-align : center;
@@ -70,8 +69,6 @@
         .content{
             width: 700px;
             height: 300px;
-            margin-top : 10px;
-            margin-left: 20px;
         }
         .Btn{
             background-color: #597a96;
@@ -109,7 +106,7 @@
                     <option value="2">광고</option>
                 </select>
                <div class="form-group">
-		    		<textarea id="summernote" class="content" rows="3" placeholder="내용" style="resize: none; width:100%; height: 400px;" name="ncontent"></textarea>
+		    		<textarea class="content" rows="3" placeholder="내용" style="resize: none; width:100%; height: 400px;" name="ncontent"></textarea>
 		  	   </div>
                 <!-- 첨부파일 -->
 		<div class="input-group mb-3">
@@ -125,33 +122,18 @@
 		<!-- 버튼 -->
 		<div class="btnArea">
 			<button type="button" class="Btn" onclick="location.href='${ contextPath }/admin/notice'">뒤로가기</button>
-			<button type="submit" class="Btn" onclick="removeHTML()">작성</button>
+			<button type="submit" class="Btn">작성</button>
 		</div>
             </form>
         </div>
     </div>
-    <script>
-	    $('#summernote').summernote({
-	    	placeholder: '답변을 입력해주세요.', 
-	    	tabsize: 2,
-	    	minHeight: null,
-	    	maxHeight: null,
-	    	lang : 'ko-KR',
-	    	height: 370 });
-	    
+    <script>   
     	function validate(){
     		if($(".condition").val() == 0){
     			alert("공지/광고의 구분값 입력해주세요.");
     			return false;
     		}
     		return true;
-    	}
-    	
-    	function removeHTML(){
-    		var str = $(".content").val();
-    		str = str.replace(/<br\/>/ig, "\n");
-    		str = str.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
-			$(".content").val(str);
     	}
     	
     	$(function(){

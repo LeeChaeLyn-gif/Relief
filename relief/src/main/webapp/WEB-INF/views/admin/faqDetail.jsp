@@ -46,10 +46,11 @@
         }
         .info{
         	width : 700px;
+        	border-right : 1px solid lightgray;
         }
         .title1{
             background-color: #597a96;
-            width : 80px;
+            width : 100px;
             height : 50px;
             display: inline-block;
         }
@@ -59,7 +60,7 @@
         }
         .titleValue{
             display: inline-block;
-            width : 300px;
+            width : 590px;
             padding-left: 10px;
             font-weight: bolder;
         }
@@ -74,7 +75,7 @@
             color: white;
         }
         .createValue{
-            width : 190px;
+            width : 590px;
             padding-left: 10px;
             display: inline-block;
             font-weight: bolder;
@@ -121,9 +122,9 @@
         <div class="info">
             <div class="title1"><h3>제목</h3>
             </div>
-            <p class="titleValue">${ f.title }</p>
+            <div class="titleValue">${ f.title }</div>
             <div class="create"><h3>등록일</h3></div>
-            <p class="createValue">${ f.createDate }</p>
+            <div class="createValue">${ f.createDate }</div>
         </div>
         <div class="textArea">
         <textarea readonly class="content">${ f.content }</textarea>

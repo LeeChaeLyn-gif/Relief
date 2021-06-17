@@ -47,10 +47,11 @@
     }
     .info{
         	width : 800px;
+        	border-right : 1px solid lightgray;
         }
     .title1{
         background-color: #597a96;
-        width: 90px;
+        width: 100px;
         display: inline-block;
     }
     .title1 h3{
@@ -59,9 +60,10 @@
     }
     .titleValue{
         display: inline-block;
-            width : 200px;
+            width : 670px;
             padding-left: 5px;
             font-weight: bolder;
+            border-bottom : 1px solid lightgray;
     }
     .create{
             background-color: #597a96;
@@ -74,7 +76,7 @@
             color: white;
     }
     .createValue{
-        width : 100px;
+        width : 250px;
             padding-left: 5px;
             display: inline-block;
             font-weight: bolder;

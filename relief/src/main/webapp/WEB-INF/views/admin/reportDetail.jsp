@@ -125,10 +125,14 @@
     	text-align : center;
     }
 	.textareaDiv{
-		height: 500px;
+		height: 450px;
         width: 850px;
         padding: 0px;
 	}
+	.content{
+            width: 850px;
+            height: 300px;
+        }
 	.btnArea{
         	width : 850px;
         	text-align : center;
@@ -170,7 +174,7 @@
         <br>
         <form method="post" action="${ contextPath }/admin/ban" onsubmit="removeHTML()">
         	<div class="textareaDiv">
-	        <textarea rows="7" cols="20" class="summernote" id="summernote" name="sanctionsReason"></textarea>
+	        <textarea class="content" rows="3" style="resize: none; width:100%; height: 400px;" name="sanctionsReason"></textarea>
 	        </div>
 	        <div class="btnArea">
 	        <select name="ban" id="ban" class="ban">
@@ -220,21 +224,5 @@
     		</script>
     	</c:otherwise>
     </c:choose>
-	
-	<script>
-	$('#summernote').summernote({
-    	placeholder: '제제사유를 입력해주세요.', 
-    	tabsize: 2,
-    	minHeight: null,
-    	maxHeight: null,
-    	lang : 'ko-KR',
-    	height: 370 });
-	
-	function removeHTML(){
-		var str = $(".summernote").val();
-		str = str.replace(/(<([^>]+)>)/ig,"");
-		$(".summernote").val(str);
-	}
-	</script>
 </body>
 </html>

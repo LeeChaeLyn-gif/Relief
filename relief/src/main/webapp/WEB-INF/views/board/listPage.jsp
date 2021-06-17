@@ -106,6 +106,14 @@
             text-align: center;
             margin-right: 100px;
          }
+         .itemTitle{
+         	text-overflow:ellipsis;
+			  white-space:nowrap;
+			  word-wrap:normal;
+			  width:250px;
+			  overflow:hidden;
+			  text-align : center;
+         }
          .btn{
              background-color: white;
              border: 0px;
@@ -225,7 +233,7 @@
             		<a class="elements" href="${ contextPath }/board/detail?board_id=${ b.board_id }">
 		                <img src="${ contextPath }/resources/buploadFiles/${ b.renameFileName }" class="img">
 		                <span class="titlePrice">
-		                    <h4>${ b.title }</h4>
+		                    <h4 class="itemTitle">${ b.title }</h4>
 		                    <h5>${ b.price }원</h5>
 	                    </span>
 	                    <span class="addr">

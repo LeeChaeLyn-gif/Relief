@@ -47,12 +47,6 @@ h2, h4 {
 	height: 100%;
 	float: left;
 }
-/* .product {
-	width: 200px;
-	height: 320px;
-	margin: 10px;
-	text-align : center;
-} */
 .product img {
 	width: 200px;
 	height: 220px;
@@ -65,6 +59,15 @@ h2, h4 {
 	text-align : center;
 	border : 1px solid lightgray;
 	display : inline-block;
+}
+
+.itemTitle{
+	text-overflow:ellipsis;
+	  white-space:nowrap;
+	  word-wrap:normal;
+	  width:200px;
+	  overflow:hidden;
+	  text-align : center;
 }
 #todayList img {
 	width: 200px;
@@ -235,7 +238,7 @@ h2, h4 {
 							var div = $("<div onclick='selectBoard("+ data[i].board_id +")'>");
 							var file = data[i].renameFileName;
 							var img = $("<img>", {"src" : "${ contextPath }/resources/buploadFiles/"+ file});
-							var name = $("<h4>").text(data[i].title);
+							var name = $("<h4 class='itemTitle'>").text(data[i].title);
 							var p1 = data[i].price;
 							const pr = p1.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 							var bprice = $("<p>").text(pr);
