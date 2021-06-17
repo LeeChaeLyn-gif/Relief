@@ -3,8 +3,10 @@ package com.kh.relief.account.model.service;
 import java.util.List;
 
 import com.kh.relief.account.model.vo.Account;
+import com.kh.relief.account.model.vo.T_History;
 import com.kh.relief.account.model.vo.T_Status;
 import com.kh.relief.board.model.vo.Board;
+import com.kh.relief.chat.model.vo.Chat;
 import com.kh.relief.common.PageInfo;
 
 public interface MyPageService {
@@ -58,6 +60,15 @@ public interface MyPageService {
 	
 	// Board 테이블에 pull_date 업데이트
 	int updatePull_Date(int board_id);
+
+	// 채팅했던 ID 불러오기
+	List<Chat> selectConsumer(Account account);
+
+	// 판매내역의 board를 찾아 구매자 이름 업데이트
+	int T_Complete(T_History t);
+
+	// 숨김처리
+	int Hide(int t_history_id);
 
 	
 	

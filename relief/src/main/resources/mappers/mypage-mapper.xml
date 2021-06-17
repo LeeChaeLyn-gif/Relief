@@ -55,6 +55,12 @@
        	<result property="authKey" column="authKey"/>
        	<result property="createDate" column="CREATE_DATE"/>
     </resultMap>
+    
+    <resultMap type="Chat" id="ChatResultSet">
+		<id property="chat_id" column="CHAT_ID"/>
+		<result property="accountId" column="ACCOUNT_ID"/>
+		<result property="accountId2" column="ACCOUNT_ID2"/>
+	</resultMap>
 
     <select id="selectWishListCount" parameterType="string" resultType="_int">
 	    SELECT
@@ -337,6 +343,34 @@
     	WHERE
     		BOARD_ID = #{board_id}
     </update>
+    <select id="selectConsumer" parameterType="Account" resultMap="ChatResultSet">
+	    SELECT
+	    	ACCOUNT_ID
+	      , ACCOUNT_ID2
+	    FROM
+	    	CHAT
+	    WHERE
+    		ACCOUNT_ID = #{aid}
+    	   OR
+    		ACCOUNT_ID2 = #{aid}	
+    </select>
     
+    <update id="T_Complete" parameterType="Chat">
+    	UPDATE
+    		T_HISTORY
+    	SET
+    		CONSUMER_ID = #{consumer_id}
+    	WHERE
+    		T_HISTORY_ID = #{t_history_id}
+    </update>
+    
+    <update id="Hide" parameterType="_int">
+    	UPDATE
+    		T_HISTORY
+    	SET
+    		HIDE_STATUS = 'Y'
+    	WHERE
+    		T_HISTORY_ID = #{t_history_id}
+    </update>
     
 </mapper>	

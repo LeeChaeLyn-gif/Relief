@@ -110,6 +110,7 @@
 							</c:if>
 					      	<div><button type="button" class="btn btn-color btsSize" onclick="updateBtn(${s.board_id});">수정</button></div>
 					      	<div><button type="button" class="btn btn-color btsSize" onclick="deleteBtn(${s.t_history_id});">삭제</button></div>
+					      	<div><button type="button" class="btn btn-color btsSize" onclick="HideBtn(${s.t_history_id});">숨김</button></div>
 					    </td>
 					    
 					</tr>
@@ -166,10 +167,20 @@
 				selectBoard(bid);
 			})
 			
+			// 거래 상태 select태그 변경 시 동작
 			$("select").on('change', function(){
-				statusUpdate(this.value);
+				if(confirm("판매 완료 처리 하시겠습니까?")) {
+					window.open("${contextPath}/mypage/selectConsumer?status=" + this.value, "구매자 선택", "width=500, height=500, resizable=yes");
+					// 상태업데이트
+					statusUpdate(this.value);
+					
+					return false;
+				}
+
 			});
 			
+
+			// 삭제 메시지 alert
 			if ('${msg}' != "") {
 				var msg = '${msg}';
 				alert(msg);
@@ -189,6 +200,13 @@
 		function deleteBtn(t_history_id){
 			if(confirm("삭제 하시겠습니까?")) {
 				location.href = '${contextPath}/mypage/deleteT_History?t_history_id=' + t_history_id +'&pageNum=' + 1 ;
+			}
+				
+		}
+		
+		function HideBtn(t_history_id){
+			if(confirm("숨김 하시겠습니까?")) {
+				location.href = '${contextPath}/mypage/hide?t_history_id=' + t_history_id;
 			}
 				
 		}

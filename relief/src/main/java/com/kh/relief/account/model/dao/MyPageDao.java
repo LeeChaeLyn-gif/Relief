@@ -3,8 +3,10 @@ package com.kh.relief.account.model.dao;
 import java.util.List;
 
 import com.kh.relief.account.model.vo.Account;
+import com.kh.relief.account.model.vo.T_History;
 import com.kh.relief.account.model.vo.T_Status;
 import com.kh.relief.board.model.vo.Board;
+import com.kh.relief.chat.model.vo.Chat;
 import com.kh.relief.common.PageInfo;
 
 public interface MyPageDao {
@@ -42,4 +44,10 @@ public interface MyPageDao {
 	int updateMember(Account a, boolean flag);
 
 	int updatePull_Date(int board_id);
+
+	List<Chat> selectConsumer(Account account);
+
+	int T_Complete(T_History t);
+
+	int Hide(int t_history_id);
 }

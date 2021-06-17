@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.kh.relief.account.model.dao.MyPageDao;
 import com.kh.relief.account.model.vo.Account;
+import com.kh.relief.account.model.vo.T_History;
 import com.kh.relief.account.model.vo.T_Status;
 import com.kh.relief.board.model.vo.Board;
+import com.kh.relief.chat.model.vo.Chat;
 import com.kh.relief.common.PageInfo;
 
 @Service
@@ -99,6 +101,21 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public int updatePull_Date(int board_id) {
 		return myDao.updatePull_Date(board_id);
+	}
+
+	@Override
+	public List<Chat> selectConsumer(Account account) {
+		return myDao.selectConsumer(account);
+	}
+
+	@Override
+	public int T_Complete(T_History t) {
+		return myDao.T_Complete(t);
+	}
+
+	@Override
+	public int Hide(int t_history_id) {
+		return myDao.Hide(t_history_id);
 	}
 
 
