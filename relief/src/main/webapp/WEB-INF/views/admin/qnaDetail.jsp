@@ -47,10 +47,11 @@
     }
     .info{
         	width : 800px;
+        	border-right : 1px solid lightgray;
         }
     .title1{
         background-color: #597a96;
-        width: 90px;
+        width: 100px;
         display: inline-block;
     }
     .title1 h3{
@@ -59,9 +60,10 @@
     }
     .titleValue{
         display: inline-block;
-            width : 200px;
+            width : 670px;
             padding-left: 5px;
             font-weight: bolder;
+            border-bottom : 1px solid lightgray;
     }
     .create{
             background-color: #597a96;
@@ -74,7 +76,7 @@
             color: white;
     }
     .createValue{
-        width : 100px;
+        width : 250px;
             padding-left: 5px;
             display: inline-block;
             font-weight: bolder;
@@ -106,12 +108,19 @@
         color: white;
 
     }
-    .btnArea{
+    .btnArea {
         	width : 800px;
         	text-align : center;
         }
-     h3{
+     .answer {
+     	width : 800px;
+     	height : 50px;
      	text-align : center;
+     	color : black;
+     }
+     .answer h3 {
+     	text-align : center;
+     	color : black;
      }
     </style>
 </head>
@@ -133,7 +142,9 @@
 			${ q.qcontent }
         </div>
         <c:if test="${ empty q.acontent }">
-        <h3>답변을 기다리고 있습니다!</h3>
+        <div class="answer">
+        	<h3>답변을 기다리고 있습니다!</h3>
+        </div>
         </c:if>
         <c:if test="${ !empty q.acontent }">
         <div class="qna">

@@ -130,7 +130,7 @@
 				},
 				error : function(e){
 				}
-			});
+			})
 			
 			function getCookie(bId) { 
 			     var bidOfCookie = bId + "="; 

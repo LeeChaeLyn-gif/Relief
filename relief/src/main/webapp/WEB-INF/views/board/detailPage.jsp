@@ -711,7 +711,6 @@ select {
 			</div>
 			<script>
 			const btnArr = document.getElementsByTagName('button'); 
-			
 			for(let i = 0; i < btnArr.length; i++){ 
 				btnArr[i].addEventListener('click',function(e){ 
 					e.preventDefault(); 
@@ -751,8 +750,8 @@ select {
 	    		$("#category3").on('change', function(){
 	    			var cid = $("#category3 option:selected").val();
 	    			location.href="${ contextPath }/board/category3?cid=" + cid;
-	    		});
-	    	});
+	    		})
+	    	})
 
 			</script>
 		</div>
@@ -787,6 +786,7 @@ select {
 				}
 			});
 		});
+<<<<<<< HEAD
 		
 		
 		$(document).ready(function(){
@@ -803,9 +803,9 @@ select {
 				if(rid == 2){
 					detail.hide();
 				}
-			});
+			})
 			
-		});
+		})
 
 		function refreshMemList(){
 		location.reload();
@@ -847,12 +847,13 @@ select {
 					
 					refreshMemList();
 				}
-			});
+			})
 		}
 			$('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
 
 			countSlides();
 			pagination();
+		}
 
 			$('#counter').html(pos + 1 + ' / ' + totalSlides);
 
@@ -869,6 +870,7 @@ select {
 			alert('글쓴이만 답변을 달 수 있습니다.');
 			
 		}
+=======
 	</script>
 	<script>
 	   var pos = 0;
@@ -970,6 +972,108 @@ select {
 	      }      
 	   }
 
+>>>>>>> chaelyn-L
+	</script>
+	<script>
+
+	var pos = 0;
+
+	var totalSlides = $('#slider-wrap ul li').length;
+
+	var sliderWidth = $('#slider-wrap').width();
+
+
+	$(document).ready(function(){
+	  
+	  $('#slider-wrap ul#slider').width(sliderWidth*totalSlides);
+	  
+	  $('#next').click(function(){
+	    slideRight();
+	  });
+	  
+	  $('#previous').click(function(){
+	    slideLeft();
+	  });
+	  
+	  
+	  var autoSlider = setInterval(slideRight, 3000);
+	  
+	  $.each($('#slider-wrap ul li'), function() { 
+
+	     var li = document.createElement('li');
+	     $('#pagination-wrap ul').append(li);    
+	  });
+	  
+	  countSlides();
+	  
+	  pagination();
+	  
+	  $('#slider-wrap').hover(
+	    function(){ $(this).addClass('active'); clearInterval(autoSlider); }, 
+	    function(){ $(this).removeClass('active'); autoSlider = setInterval(slideRight, 3000); }
+	  );
+
+	});
+	  
+
+	function slideLeft(){
+	  pos--;
+	  if(pos==-1){ pos = totalSlides-1; }
+	  $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos));  
+	  
+	  countSlides();
+	  pagination();
+	}
+
+
+	function slideRight(){
+	  pos++;
+	  if(pos==totalSlides){ pos = 0; }
+	  $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos)); 
+	  
+
+	  countSlides();
+	  pagination();
+	}
+
+	function countSlides(){
+	  $('#counter').html(pos+1 + ' / ' + totalSlides);
+	}
+
+	function pagination(){
+	  $('#pagination-wrap ul li').removeClass('active');
+	  $('#pagination-wrap ul li:eq('+pos+')').addClass('active');
+	}
+	
+	function chat(){
+		var _width = '650';
+	    var _height = '380';
+		var _left = Math.ceil(( window.screen.width - _width ));
+		var _top = Math.ceil(( window.screen.height - _height )/2);
+		var accountId2 = $(".accountId").text();
+		
+		if('${loginUser.aid}' === '${board.account_id}'){
+			alert("자신과는 채팅이 불가능합니다.");
+		} else {
+		window.open("${contextPath}/createChat?accountId2=" + accountId2, "", "width=550, height=600, left=" + _left + ", top=" + _top);
+		}
+		
+	}
+	
+	function report(){
+		var _width = '650';
+	    var _height = '380';
+		var _left = Math.ceil(( window.screen.width - _width ));
+		var _top = Math.ceil(( window.screen.height - _height )/2);
+		var accountId2 = $(".accountId").text();
+		var bid = ${board.board_id};
+		
+		if('${loginUser.aid}' === '${board.account_id}'){
+			alert("자신은 신고가 불가능합니다.");
+		} else {
+		window.open("${contextPath}/board/reportUser?accountId2=" + accountId2 + "&bid=" + bid, "", "width=500, height=400, left=" + _left + ", top=" + _top);
+		}		
+	}
 	</script>
 	
 </body>

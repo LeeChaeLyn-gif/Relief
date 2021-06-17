@@ -57,6 +57,21 @@
             font-weight: bold;
             padding: 0px;
         }
+        .noticeBoard tr th:nth-child(1){
+            width : 50px;
+        }
+        .noticeBoard tr th:nth-child(2){
+            width : 380px;
+        }
+        .noticeBoard tr th:nth-child(3){
+            width : 70px;
+        }
+        .noticeBoard tr th:nth-child(4){
+            width : 100px;
+        }
+        .noticeBoard tr th:nth-child(5){
+            width : 100px;
+        }
         .noticeBoard tr td{
             height: 50px;
             text-align: center;

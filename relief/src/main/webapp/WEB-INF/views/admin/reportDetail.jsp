@@ -12,7 +12,7 @@
 			float : left;
 		}
 		.titleArea{
-			width : 700px;
+			width : 850px;
 			height : 52px;
 			float : left;
 			background-color: #597a96;
@@ -41,12 +41,9 @@
         color: rgb(0, 51, 85);
         text-align: center;
     }
-    .headDiv2{
-        display: inline-block;
-        bottom: 30px;
-    }
+
     .info{
-        	width : 700px;
+        	width : 850px;
         }
         .title1{
             background-color: #597a96;
@@ -70,29 +67,50 @@
             height : 50px;
             display: inline-block;
         }
+        .create:nth-child(5){
+            background-color: #597a96;
+            width : 130px;
+            height : 50px;
+            display: inline-block;
+        }
         .create h3{
             text-align: center;
             color: white;
         }
         .createValue{
-            width : 190px;
+            width : 110px;
+            padding-left: 10px;
+            display: inline-block;
+            font-weight: bolder;
+        }
+       .createValue:nth-child(4){
+            width : 80px;
+            padding-left: 10px;
+            display: inline-block;
+            font-weight: bolder;
+        }
+       .createValue:nth-child(6){
+            width : 80px;
             padding-left: 10px;
             display: inline-block;
             font-weight: bolder;
         }
     .content{
-        resize: none;
-        height: 500px;
-        width: 700px;
-        padding: 0px;
-        margin-left: 30%;
-        border : 1px solid lightgray;
+        	resize: none;
+            height: 300px;
+            width: 850px;
+            padding: 5px;
+            border-left : 1px solid lightgray;
+            border-right : 1px solid lightgray;
+            border-bottom : 1px solid lightgray;
     }
-    .ban{
-		margin-left : 45%;
-        height: 30px;
-        width: 120px;
+    .btn1{
+        height: 50px;
+        width: 200px;
         border-radius: 5px;
+        background-color: #597a96;
+        color: white;
+        font-size : 20px;
 
     }
     .dBtn{
@@ -107,12 +125,16 @@
     	text-align : center;
     }
 	.textareaDiv{
-		height: 500px;
-        width: 700px;
+		height: 450px;
+        width: 850px;
         padding: 0px;
 	}
+	.content{
+            width: 850px;
+            height: 300px;
+        }
 	.btnArea{
-        	width : 700px;
+        	width : 850px;
         	text-align : center;
         }
 </style>
@@ -144,13 +166,17 @@
             	</c:when>
             </c:choose>
         </div>
-        <p class="content">${ r.reportReason }</p>
+        <div class="content"><p>${ r.reportReason }</p></div>
         <br>
+        <div class="btnArea">
         <button type="button" class="btn1">해당 페이지로 가기</button>
+        </div>
+        <br>
         <form method="post" action="${ contextPath }/admin/ban" onsubmit="removeHTML()">
         	<div class="textareaDiv">
-	        <textarea rows="7" cols="20" class="summernote" id="summernote" name="sanctionsReason"></textarea>
+	        <textarea class="content" rows="3" style="resize: none; width:100%; height: 400px;" name="sanctionsReason"></textarea>
 	        </div>
+	        <div class="btnArea">
 	        <select name="ban" id="ban" class="ban">
 	            <option value="0">정지없음</option>
 	            <option value="7">7일정지</option>
@@ -160,6 +186,8 @@
 	        <input type="hidden" value="${ r.aid2 }" name="aid">
 	        <input type="hidden" value="${ r.rpid }" name="rpid">
 	        <button type="submit" class="dBtn">제재하기</button>
+	        </div>
+	        <br><br><br><br><br>
         </form>
     </div>
     <c:choose>
@@ -196,21 +224,5 @@
     		</script>
     	</c:otherwise>
     </c:choose>
-	
-	<script>
-	$('#summernote').summernote({
-    	placeholder: '제제사유를 입력해주세요.', 
-    	tabsize: 2,
-    	minHeight: null,
-    	maxHeight: null,
-    	lang : 'ko-KR',
-    	height: 370 });
-	
-	function removeHTML(){
-		var str = $(".summernote").val();
-		str = str.replace(/(<([^>]+)>)/ig,"");
-		$(".summernote").val(str);
-	}
-	</script>
 </body>
 </html>

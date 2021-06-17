@@ -45,7 +45,6 @@
             bottom: 30px;
         }
         .insertDiv{
-            border: 1px solid lightgray;
             width: 700px;
             height: 675px;
             text-align : center;
@@ -71,8 +70,6 @@
         .content{
             width: 700px;
             height: 300px;
-            margin-top : 10px;
-            margin-left: 20px;
         }
         .Btn{
             background-color: #597a96;
@@ -103,7 +100,7 @@
                 <input type="text" class="form-control" name="title"placeholder="제목" required>                
                 </div>
                 <div class="form-group">
-		    		<textarea id="summernote" class="content" rows="3" placeholder="내용" style="resize: none; width:100%; height: 400px;" name="content"></textarea>
+		    		<textarea class="content" rows="3" placeholder="내용" style="resize: none; width:100%; height: 400px;" name="content"></textarea>
 		  	   </div>
 		  	   <div class="input-group mb-3">
 				  <div class="input-group-prepend">
@@ -117,13 +114,10 @@
                 <!-- 버튼 -->
 				<div class="btnArea">
 					<button type="button" class="Btn" onclick="location.href='${ contextPath }/admin/faq'">뒤로가기</button>
-					<button type="submit" class="Btn" onclick="removeHTML()">작성</button>
+					<button type="submit" class="Btn">작성</button>
 				</div>
             </form>
         </div>
     </div>
-    <script>
-	    
-    </script>
 </body>
 </html>

@@ -46,8 +46,7 @@
             bottom: 30px;
         }
         .insertDiv{
-            border: 1px solid lightgray;
-            width: 50%;
+            width: 700px;
             height: 600px;
             text-align : center;
             margin-left : 20%;
@@ -60,27 +59,25 @@
             width: 150px;
             height: 40px;
             margin-top : 10px;
-            margin-left: 120px;
         }
         .content{
-            width: 350px;
+            width: 700px;
             height: 300px;
-            margin-top : 10px;
-            margin-left: 20px;
         }
         .Btn{
-            background-color: rgb(0, 51, 85);
-            color: white;
+            background-color: #597a96;
             width: 100px;
-            height: 30px;
             border-radius: 5px;
-            border: 0px;
-            margin-left: 148px;
+            color: white;
         }
         #imgVal{
         	text-align : center;
         	display : block;
         	height : 20px;
+        }
+        .btnArea{
+        	width : 700px;
+        	text-align : center;
         }
     </style>
 </head>
@@ -104,7 +101,7 @@
                 <input type="hidden" name="fid" value="${ f.fid }">
                 
                 <div class="form-group">
-                <textarea id="summernote" class="content" style="resize: none; width:100%;" name="content">${ f.content }</textarea>
+                <textarea class="content" style="resize: none; width:100%; name="content">${ f.content }</textarea>
                 </div>
                 <div class="input-group mb-3">
 				  <div class="input-group-prepend">
@@ -119,13 +116,33 @@
 				<!-- 버튼 -->
 				<div class="btnArea">
 					<button type="button" class="Btn" onclick="location.href='${ contextPath }/admin/faqDetail?fid=${ f.fid }'">뒤로가기</button>
-					<button type="submit" class="Btn" onclick="removeHTML()">수정</button>
+					<button type="submit" class="Btn">수정</button>
 				</div>
             </form>
         </div>
     </div>
     <script>
-	    
+    	$(function () {
+
+    		$('#btn-upload').click(function (e) {
+
+    		e.preventDefault();
+
+    		$('#file').click();
+				
+    		});
+
+    		})
+    	var imgVal = document.getElementById("imgVal");
+    	$("#file").on("change", function(){
+    		if(window.FileReader){
+    		      var filename = $(this)[0].files[0].name;
+    		    } else {
+    		      var filename = $(this).val().split('/').pop().split('\\').pop();
+    		    }
+				console.log(filename);
+    		    imgVal.innerHTML = filename;
+    	})
     </script>
 </body>
 </html>

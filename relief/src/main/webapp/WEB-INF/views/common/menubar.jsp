@@ -110,9 +110,12 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 						<p id="userName">${ loginUser.name }님 환영합니다.</p>
 						<li class="search"><a href="${ contextPath }/account/logout"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>로그아웃</a></li>
 						<li class="chatBtn"><a href="#"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i>채팅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+<<<<<<< HEAD
 						<div id="alramBox">
 							<div id="testAlram"></div>
 						</div>
+=======
+>>>>>>> seonmi-L
 						</c:otherwise>
 						</c:choose>
 						
@@ -121,9 +124,10 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-menu"></button>
-
-                       <a href="${ contextPath }"><img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-display m-top-10" alt="" width="150px"></a>
-                    	<a href="${ contextPath }"><img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled" alt="" width="150px"></a>
+						<a class="navbar-brand" href="${contextPath}">
+                       <img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-display m-top-10" alt="" width="150px">
+                    	<img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled" alt="" width="150px">
+						</a>
 				</div>
 
 				<!-- Start Top Search -->
@@ -157,13 +161,14 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 			<br><br>
 			<div class="container">
 				<div id="cbutton"><i class="fa fa-bars fa-2x"></i></div>
+			
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right ml-auto" data-in="fadeInDown" data-out="fadeOutUp" style="float:right;">
 						<c:choose>
 							<c:when test="${ empty sessionScope.loginUser }">
-							<li><a href="${ contextPath }/home"  onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')">판매하기</a></li>
-							<li><a href="${ contextPath }/faq/list">고객센터</a></li>
-							<li><a href="${ contextPath }/qna/list">Q&A리스트</a></li>
+							<li><a href="${ contextPath }/home" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')">판매하기</a></li>
+							<li><a href="${ contextPath }/home" onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')">Q&A리스트</a></li>
+							<li><a href="${ contextPath }/faq/list">FAQ</a></li>
 							</c:when>
 							<c:when test="${ loginUser.aid eq 'admin' }">
 							<li><a href="${ contextPath }/admin/main">관리자페이지</a></li>
@@ -252,7 +257,6 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 	    		
 				window.open("${ contextPath }/list", "", "width=500, height=600, left=" + _left + ", top=" + _top);
 			});
-		
 
 		function category1(cid){
 			location.href="${ contextPath }/board/category1?cid="+cid;
@@ -267,6 +271,7 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 				return true;
 			}
 		}
+<<<<<<< HEAD
 		
 		var ws;
 		
@@ -321,6 +326,8 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 			$('#testAlram').val("");
 		}
 		
+=======
+>>>>>>> seonmi-L
 	</script>
 
 	<script src="<c:url value="/resources/css/assets/js/plugins.js"/>"></script>

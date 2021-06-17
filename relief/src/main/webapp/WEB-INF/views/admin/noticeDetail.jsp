@@ -49,7 +49,7 @@
         }
         .title1{
             background-color: #597a96;
-            width : 80px;
+            width : 100px;
             height : 50px;
             display: inline-block;
         }
@@ -59,7 +59,7 @@
         }
         .titleValue{
             display: inline-block;
-            width : 300px;
+            width : 590px;
             padding-left: 10px;
             font-weight: bolder;
         }
@@ -74,7 +74,7 @@
             color: white;
         }
         .createValue{
-            width : 190px;
+            width : 590px;
             padding-left: 10px;
             display: inline-block;
             font-weight: bolder;

@@ -188,7 +188,6 @@
 			//소켓이 열리면 동작
 			console.log(data);
 		}
-
 		
 	ws.onmessage = function(data) {
 		//메시지를 받으면 동작
@@ -219,7 +218,6 @@
 		$('#chatMenu2').click(function(){
 			$('#chatSubMenu').slideToggle(300);
 		});
-
 	}
 	 
 	function send() {
@@ -290,7 +288,5 @@
 		
 		window.open("${contextPath}/reportUser?accountId2=" + accountId2 + "&chid=" + chatId, "", "width=500, height=400, left=" + _left + ", top=" + _top);
 		}
-
-
 </script>
 </html>

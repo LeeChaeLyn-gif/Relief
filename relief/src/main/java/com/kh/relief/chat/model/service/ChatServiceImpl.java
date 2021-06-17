@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.relief.admin.model.vo.Report;
 import com.kh.relief.chat.model.dao.ChatDao;
 import com.kh.relief.chat.model.vo.Block;
 import com.kh.relief.chat.model.vo.Chat;
@@ -126,11 +125,6 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public Chat selectAccount(Chat c) {
 		return cDao.selectAccount(c);
-	}
-
-	@Override
-	public List<Report> selectrList(int chatId) {
-		return cDao.selectrList(chatId);
 	}
 
 
