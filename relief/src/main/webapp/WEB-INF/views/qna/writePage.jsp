@@ -94,7 +94,7 @@ textarea {
 				<table id="writeTable">
 					<tr>
 						<td style="background : rgb(52, 73, 94); color : white; width : 70px;">작성자</td>
-						<td>${ loginUser.aid }</td>
+						<td>${ loginUser.aid }<input type="hidden" value="${ loginUser.aid }" name="aid"></td>
 					</tr>
 					<tr>
 						<td colspan="2" style="background : rgb(52, 73, 94); color : white;">Q&A 제목</td>

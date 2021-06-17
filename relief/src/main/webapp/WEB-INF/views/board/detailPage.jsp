@@ -786,7 +786,7 @@ select {
 				}
 			});
 		});
-<<<<<<< HEAD
+
 		
 		
 		$(document).ready(function(){
@@ -853,7 +853,7 @@ select {
 
 			countSlides();
 			pagination();
-		}
+		
 
 			$('#counter').html(pos + 1 + ' / ' + totalSlides);
 
@@ -870,7 +870,7 @@ select {
 			alert('글쓴이만 답변을 달 수 있습니다.');
 			
 		}
-=======
+
 	</script>
 	<script>
 	   var pos = 0;
@@ -972,7 +972,7 @@ select {
 	      }      
 	   }
 
->>>>>>> chaelyn-L
+
 	</script>
 	<script>
 

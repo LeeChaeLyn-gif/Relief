@@ -99,8 +99,8 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-menu"></button>
 
-                       <img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-display m-top-10" alt="" width="150px">
-                    	<img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled" alt="" width="150px">
+                       <a href="${ contextPath }"><img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-display m-top-10" alt="" width="150px"></a>
+                    	<a href="${ contextPath }"><img src="${contextPath}/resources/css/assets/images/logo7.jpg" class="logo logo-scrolled" alt="" width="150px"></a>
 				</div>
 
 				<!-- Start Top Search -->
@@ -135,7 +135,7 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 						<c:choose>
 							<c:when test="${ empty sessionScope.loginUser }">
 							<li><a href="${ contextPath }/home"  onClick="alert('다행 회원만 이용 가능합니다. 로그인 해주세요.')">판매하기</a></li>
-							<li><a href="#pricing">고객센터</a></li>
+							<li><a href="${ contextPath }/faq/list">고객센터</a></li>
 							<li><a href="${ contextPath }/qna/list">Q&A리스트</a></li>
 							</c:when>
 							<c:when test="${ loginUser.aid eq 'admin' }">

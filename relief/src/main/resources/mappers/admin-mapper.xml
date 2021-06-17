@@ -1022,4 +1022,19 @@
 		 WHERE
 		 		REPLY_ID = #{rid}
 	</select>
+	<select id="selectReportByChat" parameterType="_int" resultMap="ReportResultSet">
+		SELECT
+				REPORT_ID
+			  , CHAT_ID
+			  , BOARD_ID
+			  , REPLY_ID
+			  , REPORT_REASON
+			  , ACCOUNT_ID
+			  , ACCOUNT_ID2
+			  , REPORT_DATE
+		  FROM
+		  		REPORT
+		 WHERE
+		 		CHAT_ID = #{chatId}
+	</select>
  </mapper>
