@@ -118,6 +118,16 @@ public class MyPageServiceImpl implements MyPageService{
 		return myDao.Hide(t_history_id);
 	}
 
+	@Override
+	public int getbid(int tid) {
+		return myDao.getbid(tid);
+	}
+
+	@Override
+	public int updateBoard(int bid) {
+		return myDao.updateBoard(bid);
+	}
+
 
 
 }

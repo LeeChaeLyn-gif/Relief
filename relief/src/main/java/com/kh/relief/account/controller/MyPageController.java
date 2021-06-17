@@ -207,8 +207,12 @@ public class MyPageController {
 		String str[] = status.split(",");
 //		str[0] = t_history_id, str[1] = status 'Y' or 'A'
 		T_Status t_status = new T_Status(Integer.parseInt((str[0])), str[1]); 
-		
 		int result = myService.statusUpdate(t_status);
+		int tid = t_status.getT_history_id();
+		int bid = myService.getbid(tid);
+		
+		// 보드 업데이트 (status = 'n')
+		int result2 = myService.updateBoard(bid);
 		
 		if(result > 0) {
 			return "redirect:/mypage/salesHistory";

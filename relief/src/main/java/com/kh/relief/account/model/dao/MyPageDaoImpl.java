@@ -139,6 +139,16 @@ public class MyPageDaoImpl implements MyPageDao{
 	public int Hide(int t_history_id) {
 		return sqlSession.update("mypageMapper.Hide", t_history_id);
 	}
+
+	@Override
+	public int getbid(int tid) {
+		return sqlSession.selectOne("mypageMapper.getbid", tid);
+	}
+
+	@Override
+	public int updateBoard(int bid) {
+		return sqlSession.update("mypageMapper.updateBoard", bid);
+	}
 	
 	
 

@@ -67,7 +67,7 @@
  		   , 'N'
  		   , DEFAULT
  		   , DEFAULT
- 		   , SYSDATE
+ 		   , DEFAULT
  		  )
  	</insert>
  	<insert id="insertNaverAccount" parameterType="Account">

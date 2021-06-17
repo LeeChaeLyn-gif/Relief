@@ -111,10 +111,10 @@
 		<button type="button" class="btn btn-color RmarginSize" onclick="window.history.back()">뒤로가기</button>
 		
 		<!-- 본인 일때만 수정 버튼 보이기 -->
-		<%-- <c:if test="admin"> --%>
+		<c:if test="${ loginUser.aid == r.consumer_id }">
 			<button type="button" class="btn btn-color" onclick="deleteBtn(${ r.review_id  })">삭제</button>
 			<button type="button" class="btn btn-color" onclick="location.href='${ contextPath }/review/modify?review_id=${ r.review_id  }'">수정</button>
-		<%-- </c:if> --%>
+		</c:if>
 		
 	</div>
 </div>

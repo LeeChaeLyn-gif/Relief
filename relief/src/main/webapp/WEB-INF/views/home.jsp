@@ -164,11 +164,6 @@ h2, h4 {
 			<div class="top">
 				<div id="part2-up">
 					<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" jQuery.noConflict();></script>
-					<script>
-						$('.carousel').carousel({
-							interval : 1000
-						})
-					</script>
 					<h2>공지사항 / 이벤트</h2><br>
 					<div id="demo" class="carousel slide" data-ride="carousel"
 						style="width: 600px; height: 300px; text-align: center;">
