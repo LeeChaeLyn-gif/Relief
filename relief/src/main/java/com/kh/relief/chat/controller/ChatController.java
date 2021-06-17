@@ -113,7 +113,9 @@ public class ChatController {
 	public ModelAndView chating(@RequestParam int chatId, ModelAndView mv, HttpSession session) {
 
 		Account loginUser = (Account) session.getAttribute("loginUser");
-
+		List<Report> rList = cService.selectrList(chatId);
+		if(!rList.isEmpty())mv.addObject("rList", rList);
+		
 		List<ChatHistory> chList = cService.selectChat(chatId);
 
 		Chat c = new Chat();

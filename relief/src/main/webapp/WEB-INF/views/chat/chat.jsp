@@ -117,25 +117,34 @@
 			<c:forEach items="${ chList }" var="ch">
 				<fmt:formatDate value="${ch.chatDate}" pattern="yyyy-MM-dd" var="chatDate" />  
 				<fmt:formatDate value="${b.blockDate }" pattern="yyyy-MM-dd" var="blockDate"/>
+			<c:if test="${ loginUser.aid != 'admin' }">
+				<c:if test="${!empty b}">
+				<c:if test="${ chatDate < blockDate }">
+				<c:if test="${ loginUser.aid == ch.accountId }">
+					<p class='me'> ${ ch.content } </p> 
+				</c:if>
+				<c:if test="${ loginUser.aid != ch.accountId }">
+					<p class='others'> ${ ch.content } </p>
+				</c:if>
+				</c:if>
+				</c:if>
 				
-			<c:if test="${!empty b}">
-			<c:if test="${ chatDate < blockDate }">
-			<c:if test="${ loginUser.aid == ch.accountId }">
-				<p class='me'> ${ ch.content } </p> 
+				<c:if test="${empty b}">
+				<c:if test="${ loginUser.aid == ch.accountId }">
+					<p class='me'> ${ ch.content } </p> 
+				</c:if>
+				<c:if test="${ loginUser.aid != ch.accountId }">
+					<p class='others'> ${ ch.content } </p>
+				</c:if>
+				</c:if>
 			</c:if>
-			<c:if test="${ loginUser.aid != ch.accountId }">
-				<p class='others'> ${ ch.content } </p>
-			</c:if>
-			</c:if>
-			</c:if>
-			
-			<c:if test="${empty b}">
-			<c:if test="${ loginUser.aid == ch.accountId }">
-				<p class='me'> ${ ch.content } </p> 
-			</c:if>
-			<c:if test="${ loginUser.aid != ch.accountId }">
-				<p class='others'> ${ ch.content } </p>
-			</c:if>
+			<c:if test="${ loginUser.aid == 'admin' }">
+				<c:if test="${ rList[0].aid == ch.accountId }">
+					<p class='me'> ${ ch.content } </p> 
+				</c:if>
+				<c:if test="${ rList[0].aid2 == ch.accountId }">
+					<p class='others'> ${ ch.content } </p> 
+				</c:if>
 			</c:if>
 			</c:forEach>
 		</c:if>

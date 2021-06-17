@@ -167,7 +167,6 @@
     		<script>
     			$(function(){
     				$(".btn1").on("click", function(){
-    					location.href="${ contextPath }/chat/selectChat?chatId=${ r.chid }";
     					var _width = '650';
     				    var _height = '380';
     					var _left = Math.ceil(( window.screen.width - _width ));
