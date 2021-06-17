@@ -68,7 +68,7 @@
             height: 40px;
             margin-top : 10px;
         }
-        .content{
+        .content {
             width: 700px;
             height: 300px;
         }

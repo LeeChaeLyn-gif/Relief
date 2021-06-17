@@ -17,7 +17,7 @@
 			background-color: #597a96;
 		}
 		
-		h2{
+		h2 {
 			color : white !important;
 			font-weight : bold;
 			text-align : center;

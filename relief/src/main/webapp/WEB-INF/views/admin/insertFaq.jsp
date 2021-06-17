@@ -92,7 +92,7 @@
 	<jsp:include page="../admin/menubar.jsp"/>
 	<div class="mainbar">
 	<div class="titleArea">
-	<h2>FAQ</h2>	
+	<h2>FAQ</h2> 	
 	</div>
         <div class="insertDiv">
             <form action="${ contextPath }/admin/insertFaq" method="POST" enctype="multipart/form-data" onsubmit="removeHTML();">

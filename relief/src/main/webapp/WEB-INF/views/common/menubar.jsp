@@ -39,7 +39,7 @@
 	<script src="<c:url value="/resources/css/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"/>"></script>
 <title>menuBar</title>
 <style>
-nav.navbar.bootsnav{
+nav.navbar.bootsnav {
     margin-bottom: 0;
     -moz-border-radius: 0px;
     -webkit-border-radius: 0px;
