@@ -110,8 +110,15 @@
         	width : 800px;
         	text-align : center;
         }
-     h3{
+     .answer{
+     	width : 800px;
+     	height : 50px;
      	text-align : center;
+     	color : black;
+     }
+     .answer h3{
+     	text-align : center;
+     	color : black;
      }
     </style>
 </head>
@@ -133,7 +140,9 @@
 			${ q.qcontent }
         </div>
         <c:if test="${ empty q.acontent }">
-        <h3>답변을 기다리고 있습니다!</h3>
+        <div class="answer">
+        	<h3>답변을 기다리고 있습니다!</h3>
+        </div>
         </c:if>
         <c:if test="${ !empty q.acontent }">
         <div class="qna">

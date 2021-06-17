@@ -116,7 +116,7 @@
 	<jsp:include page="../admin/menubar.jsp"/>
 	<div class="mainbar">
 	<div class="titleArea">
-	<h1>FAQ</h1>	
+	<h2>FAQ</h2>	
 	</div>
         <div class="info">
             <div class="title1"><h3>제목</h3>
