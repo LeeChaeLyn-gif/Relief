@@ -6,6 +6,23 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<style>
+		.mainbar{
+			width : 70%;
+			float : left;
+		}
+		.titleArea{
+			width : 700px;
+			height : 52px;
+			float : left;
+			background-color: #597a96;
+		}
+		
+		h2{
+			color : white;
+			font-weight : bold;
+			text-align : center;
+			padding-top : 7px;
+		}
         .headDiv{
             display: inline-block;
         }
@@ -13,7 +30,6 @@
             width: 200px;
             height: 100px;
             display: inline-block;
-            margin-left: 100px;
         }
         .adminPage{
             display: inline-block;
@@ -27,23 +43,22 @@
             display: inline-block;
             bottom: 30px;
         }
-        .categoryRadio{
-            margin-left: 400px;
-        }
         .c_name{
             width: 300px;
             height: 40px;
             border: 1px solid lightgray;
             border-radius: 5px;
-            margin-left: 480px;
             margin-top: 40px;
             font-size: large;
+        }
+        .radioArea{
+        	width : 700px;
+        	text-align : center;
         }
         .condition{
             width: 150px;
             height: 40px;
             margin-top : 10px;
-            margin-left: 550px;
         }
         .btn1{
             background-color: #597a96;
@@ -55,16 +70,16 @@
         }
         h3{
         	text-align : center;
-        	margin-right : 300px;
         }
         </style>
 </head>
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
 	<div class="mainbar">
-	<div class="title">
-	<h1>카테고리</h1>	
+	<div class="titleArea">
+	<h2>카테고리</h2>	
 	</div>
+		<div class="radioArea">
         <form method="POST" action="${ contextPath }/admin/insertCategory">
         <input type="radio" name="cgroup" id="1" value="0" checked class="categoryRadio"><label for="1">1차 카테고리 등록</label>
         <input type="radio" name="cgroup" id="2" value="1"><label for="2">2차 카테고리 등록</label>
@@ -77,6 +92,7 @@
             </select>
             <input type="submit" value="확인" class="btn1">
         </form>
+        </div>>
     </div>
     <script>
        $(function(){

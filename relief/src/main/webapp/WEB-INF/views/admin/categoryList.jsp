@@ -7,7 +7,29 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.headDiv{
+		.mainbar{
+			width : 70%;
+			float : left;
+		}
+		.titleArea{
+			width : 700px;
+			height : 52px;
+			float : left;
+			background-color: #597a96;
+		}
+		
+		h2{
+			color : white;
+			font-weight : bold;
+			text-align : center;
+			padding-top : 7px;
+		}
+		.tableArea{
+			width : 700px;
+			float : left;
+			display : block;
+		}
+		.headDiv{
             display: inline-block;
         }
         .homeimg{
@@ -86,6 +108,7 @@
             border: 0;
         }
         .btnArea{
+        	width : 700px;
         	text-align : center;
         }
         .btn1{
@@ -96,16 +119,18 @@
             border-radius: 5px;
         }
         .noticeBoard{
-        	width : 57%;
+        	width : 100%;
         }
 </style>
 </head>
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
 		
-	<div class="mainbar"><div class="title">
-	<h1>카테고리</h1>	
-	</div>
+	<div class="mainbar">
+		<div class="titleArea">
+			<h2>카테고리</h2>	
+		</div>
+	<div class="tableArea">
     <table class="noticeBoard">
         <tr>
             <th>NO.</th>
@@ -125,6 +150,7 @@
         </c:forEach>
         
     </table>
+    </div>
     <br>
     <br>
     <div class="btnArea">

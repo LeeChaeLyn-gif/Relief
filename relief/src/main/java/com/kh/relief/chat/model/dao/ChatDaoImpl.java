@@ -103,14 +103,30 @@ public class ChatDaoImpl implements ChatDao{
 	}
 
 	@Override
-	public int exitChat(int chatId) {
-		return sqlSession.update("chatMapper.exitChat", chatId);
+	public int exitChat(Chat c) {
+		return sqlSession.update("chatMapper.exitChat", c);
 	}
 
 	@Override
-	public int exitChat2(int chatId) {
-		return sqlSession.update("chatMapper.exitChat2", chatId);
+	public int exitChat2(ChatHistory ch) {
+		return sqlSession.update("chatMapper.exitChat2", ch);
 	}
+
+	@Override
+	public int exitChat3(Chat c) {
+		return sqlSession.update("chatMapper.exitChat3", c);
+	}
+
+	@Override
+	public int exitChat4(ChatHistory ch) {
+		return sqlSession.update("chatMapper.exitChat", ch);
+	}
+
+	@Override
+	public Chat selectAccount(Chat c) {
+		return sqlSession.selectOne("chatMapper.selectAccount", c);
+	}
+
 
 
 }

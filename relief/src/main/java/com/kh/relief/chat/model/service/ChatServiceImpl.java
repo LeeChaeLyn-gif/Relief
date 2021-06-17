@@ -103,14 +103,30 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public int exitChat(int chatId) {
-		return cDao.exitChat(chatId);
+	public int exitChat(Chat c) {
+		return cDao.exitChat(c);
 	}
 
 	@Override
-	public int exitChat2(int chatId) {
-		return cDao.exitChat2(chatId);
+	public int exitChat2(ChatHistory ch) {
+		return cDao.exitChat2(ch);
 	}
+
+	@Override
+	public int exitChat3(Chat c) {
+		return cDao.exitChat3(c);
+	}
+
+	@Override
+	public int exitChat4(ChatHistory ch) {
+		return cDao.exitChat4(ch);
+	}
+
+	@Override
+	public Chat selectAccount(Chat c) {
+		return cDao.selectAccount(c);
+	}
+
 
 
 }

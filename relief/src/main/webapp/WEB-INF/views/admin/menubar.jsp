@@ -16,8 +16,10 @@
 		*{
 			box-sizing : border-box;
 		}
-        .headDiv{
-            display: inline-block;
+		
+        .head{
+            width : 100%;
+            float : left;
         }
         .homeimg{
             width: 200px;
@@ -33,37 +35,59 @@
             color: rgb(0, 51, 85);
             text-align: center;
         }
+        .headDiv{
+        	width : 315px;
+        	float : left;
+        }
         .headDiv2{
-            display: inline-block;
-            bottom: 30px;
+        	width : 700px;
+        	height : 100px;
+        	padding-top : 20px;
+        	text-align : center;
+        	float : left;
+            
         }
         .adminPage{
-        	cursor:pointer;
+        	text-align : center;
+        	font-weight : bold;
         }
-        .navbar1 ul li a{
+        .nav ul li a{
             text-decoration: none;
             color: rgb(52, 73, 94);
             background-color: #597a96;
             display: block;
-            width: 300px;
+            width: 270px;
             height: 50px;
         }
-        .navbar1 ul li{
+        
+        .nav ul {
+        	width : 270px;
+        }
+        .nav ul li{
             float: left;
             border : 1px solid rgb(52, 73, 94);
         }
-        .navbar1{
-            width: 50px;
+        .nav{
+        	width : 312px;
+        	height : 100%;
+        	float : left;
         }
+        
+        .nav2 {
+        	width : 70%;
+        	height : 100%;
+        	float : left;
+        }
+
         ul{
             list-style:none;
         }
-        .navbar1 ul li a h2{
+        .nav ul li a h2{
             text-align: center;
             margin: 0px;
             padding: 5px;
         }
-        .navbar1 ul li a:hover{
+        .nav ul li a:hover{
             background-color: #78A5CC;
         }
         .mainbar h1{
@@ -75,10 +99,15 @@
         	margin-left : 100px;
         	width : 70%;
         }
-        .navbar1{
-        	width : 30%;
-        	height : 100%;
+        
+        h3 {
+        	color : white;
+        	font-weight : bold;
+        	text-align : center;
+        	padding-top : 7px;
         }
+        
+        
  </style>
 </head>
 <body>
@@ -87,23 +116,26 @@
 		<c:remove var="msg"/>
 	</c:if>
 	
-	<div class="headDiv">
-        <a href="${ contextPath }"><img src="${ contextPath }/resources/images/relief.jpg" class="homeimg"></a>
+	<div class="head">
+		<div class="headDiv">
+        	<a href="${ contextPath }"><img src="${ contextPath }/resources/images/relief.jpg" class="homeimg"></a>
+        </div>
+        <div class="headDiv2">
+        	<h1 class="adminPage">관리자 페이지</h1>
+    	</div>
     </div>
-    <div class="headDiv2">
-        <h1 class="adminPage">관리자 페이지</h1>
-    </div>
-    <nav class="navbar1" id="navbar1">
-        <ul>
-            <li><a href="${ contextPath }/admin/notice"><h2>공지사항</h2></a></li>
-            <li><a href="${ contextPath }/admin/category"><h2>카테고리</h2></a></li>
-            <li><a href="${ contextPath }/admin/report"><h2>신고</h2></a></li>
-            <li><a href="${ contextPath }/admin/block"><h2>제재회원 목록</h2></a></li>
-            <li><a href="${ contextPath }/admin/qna"><h2>문의사항</h2></a></li>
-            <li><a href="${ contextPath }/admin/faq"><h2>자주묻는질문</h2></a></li>
-            <li><a href="${ contextPath }/admin/ad"><h2>광고관리</h2></a></li>
-        </ul>
-    </nav>
+	<div class="nav" id="navbar1">
+	        <ul>
+	            <li><a href="${ contextPath }/admin/notice"><h3>공지사항</h3></a></li>
+	            <li><a href="${ contextPath }/admin/category"><h3>카테고리</h3></a></li>
+	            <li><a href="${ contextPath }/admin/report"><h3>신고</h3></a></li>
+	            <li><a href="${ contextPath }/admin/block"><h3>제재회원 목록</h3></a></li>
+	            <li><a href="${ contextPath }/admin/qna"><h3>문의사항</h3></a></li>
+	            <li><a href="${ contextPath }/admin/faq"><h3>자주묻는질문</h3></a></li>
+	            <li><a href="${ contextPath }/admin/ad"><h3>광고관리</h3></a></li>
+	        </ul>
+	</div>
+	<div class="nav2"></div>
     <script>
         
         $(".adminPage").on("click", function(){

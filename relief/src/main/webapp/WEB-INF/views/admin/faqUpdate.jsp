@@ -7,6 +7,23 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
     <style>
+    	.mainbar{
+			width : 70%;
+			float : left;
+		}
+		.titleArea{
+			width : 700px;
+			height : 52px;
+			float : left;
+			background-color: #597a96;
+		}
+		
+		h2{
+			color : white;
+			font-weight : bold;
+			text-align : center;
+			padding-top : 7px;
+		}
         .headDiv{
             display: inline-block;
         }
@@ -70,8 +87,8 @@
 <body>
 	<jsp:include page="../admin/menubar.jsp"/>
 	<div class="mainbar">
-	<div class="title">
-	<h1>FAQ</h1>	
+	<div class="titleArea">
+	<h2>FAQ</h2>	
 	</div>
         <div class="insertDiv">
             <form action="${ contextPath }/admin/faqUpdate" method="POST" enctype="multipart/form-data" onsubmit="removeHTML();">
@@ -100,9 +117,9 @@
 				</div>
                 
 				<!-- 버튼 -->
-				<div class="text-right marginTop">
-					<button type="button" class="btn btn-primary btsSize marginLeft" onclick="location.href='${ contextPath }/admin/faqDetail?fid=${ f.fid }'">뒤로가기</button>
-					<button type="submit" class="btn btn-primary btsSize marginLeft" onclick="removeHTML()">수정</button>
+				<div class="btnArea">
+					<button type="button" class="Btn" onclick="location.href='${ contextPath }/admin/faqDetail?fid=${ f.fid }'">뒤로가기</button>
+					<button type="submit" class="Btn" onclick="removeHTML()">수정</button>
 				</div>
             </form>
         </div>
