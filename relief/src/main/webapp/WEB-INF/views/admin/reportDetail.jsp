@@ -12,7 +12,7 @@
 			float : left;
 		}
 		.titleArea{
-			width : 700px;
+			width : 850px;
 			height : 52px;
 			float : left;
 			background-color: #597a96;
@@ -129,7 +129,7 @@
         width: 850px;
         padding: 0px;
 	}
-	.btnArea {
+	.btnArea{
         	width : 850px;
         	text-align : center;
         }
@@ -183,7 +183,7 @@
 	        <input type="hidden" value="${ r.rpid }" name="rpid">
 	        <button type="submit" class="dBtn">제재하기</button>
 	        </div>
-	        <br><br><br><br><br> 
+	        <br><br><br><br><br>
         </form>
     </div>
     <c:choose>
