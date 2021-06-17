@@ -740,7 +740,6 @@ public class AdminController {
 				f.setRenameFileName(renameFileName);
 			}
 		}
-		
 		int result = aService.updateFaq(f);
 		
 		if(result > 0) {

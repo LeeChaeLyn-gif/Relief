@@ -104,7 +104,7 @@
                 <input type="hidden" name="fid" value="${ f.fid }">
                 
                 <div class="form-group">
-                <textarea id="summernote" class="content" style="resize: none; width:100%; name="content">${ f.content }</textarea>
+                <textarea id="summernote" class="content" style="resize: none; width:100%;" name="content">${ f.content }</textarea>
                 </div>
                 <div class="input-group mb-3">
 				  <div class="input-group-prepend">
@@ -125,41 +125,7 @@
         </div>
     </div>
     <script>
-	    $('#summernote').summernote({
-	    	placeholder: '내용을 입력해주세요.', 
-	    	tabsize: 2,
-	    	minHeight: null,
-	    	maxHeight: null,
-	    	lang : 'ko-KR',
-	    	height: 370 });
 	    
-    	function removeHTML(){
-    		var str = $(".content").val();
-    		str = str.replace(/<br\/>/ig, "\n");
-    		str = str.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
-			$(".content").val(str);
-    	}
-    	$(function () {
-
-    		$('#btn-upload').click(function (e) {
-
-    		e.preventDefault();
-
-    		$('#file').click();
-				
-    		});
-
-    		})
-    	var imgVal = document.getElementById("imgVal");
-    	$("#file").on("change", function(){
-    		if(window.FileReader){
-    		      var filename = $(this)[0].files[0].name;
-    		    } else {
-    		      var filename = $(this).val().split('/').pop().split('\\').pop();
-    		    }
-				console.log(filename);
-    		    imgVal.innerHTML = filename;
-    	})
     </script>
 </body>
 </html>

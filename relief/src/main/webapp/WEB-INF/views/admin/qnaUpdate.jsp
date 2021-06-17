@@ -154,20 +154,7 @@
     </div>
     <br><br><br><br><br><br>
     <script>
-    $('#summernote').summernote({
-    	placeholder: '답변을 입력해주세요.', 
-    	tabsize: 2,
-    	minHeight: null,
-    	maxHeight: null,
-    	lang : 'ko-KR',
-    	height: 370 });
     
-    function removeHTML(){
-		var str = $(".content").val();
-		str = str.replace(/<br\/>/ig, "\n");
-		str = str.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
-		$(".content").val(str);
-	}
     </script>
 </body>
 </html>
