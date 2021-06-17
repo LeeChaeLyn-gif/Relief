@@ -12,60 +12,46 @@
 * {
 	box-sizing: border-box;
 }
-
 /* #outside {
 	width: 1000px;
 	min-height: 800px;
 	margin: auto;
 } */
-
 section, footer, div {
 	border: 1px solid transparent;
 	display: block;
 }
-
 h2, h4 {
 	text-align: center;
 	color: rgb(52, 73, 94) !important;
 }
-
 .top {
 	width: 100%;
 	height: 90%;
 	float: left;
 }
-
 .bottom {
 	width: 100%;
 	height: 10%;
 	float: left;
+	color : #fff;
+	background-color : #34495E;
 }
-
 #content {
 	width: 100%;
 	height: 95%;
 	float: left;
 }
-
 #part1 {
 	width: 10%;
 	height: 100%;
 	float: left;
 }
-
-/* .product {
-	width: 200px;
-	height: 320px;
-	margin: 10px;
-	text-align : center;
-} */
-
 .product img {
 	width: 200px;
 	height: 220px;
 	margin: 10px;
 }
-
 #todayList div {
 	width: 200px;
 	height: 300px;
@@ -89,36 +75,30 @@ h2, h4 {
 	text-align : center;
 	margin-bottom : 15px;
 }
-
 .product2 {
 	width: 200px;
 	height: 30px;
 	text-align: center;
 }
-
 .product3 {
 	width: 200px;
 	height: 30px;
 	text-align: center;
 }
-
 .item-img {
 	width: 200px;
 	height: 220px;
 	margin-bottom: 10px;
 }
-
 #part2 {
 	width: 80%;
 	height: 100%;
 	float: left;
 }
-
 #part2-up {
 	height: 600px;
 	text-align: center;
 }
-
 #demo {
 	height: 300px;
 	width: 600px;
@@ -126,20 +106,17 @@ h2, h4 {
 	left: 50%;
 	transform: translateX(-50%);
 }
-
 #part2-down {
 /* 	width: 1115px; */
 	min-height: 600px;
 	margin:0 auto;
 	float: left;
 }
-
 #part3 {
 	width: 10%;
 	height: 100%;
 	float: left;
 }
-
 .side_menu {
 	width: 100px;
 	min-height: 280px;
@@ -147,12 +124,9 @@ h2, h4 {
 	text-align: center;
 	/* border : 1px solid lightgray; */
 }
-
-
 .fa fa-heart{
 	color: rgb(255, 153, 153);
 }
-
 #wishlist {
 	width : 90px;
 	height : 60px;
@@ -170,7 +144,6 @@ h2, h4 {
 	margin-top : 10px;
 	padding-top : 10px;
 }
-
 .scrollup{
 	margin-top : 10px;
 	display : inline-block;
@@ -179,7 +152,6 @@ h2, h4 {
 .carousel-inner{
 	border : 1px solid rgb(52, 73, 94);
 }
-
 </style>
 </head>
 <body>
@@ -191,8 +163,12 @@ h2, h4 {
 		<div id="part2">
 			<div class="top">
 				<div id="part2-up">
-				<input type="hidden" id="sessionId" value="">
 					<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" jQuery.noConflict();></script>
+					<script>
+						$('.carousel').carousel({
+							interval : 1000
+						})
+					</script>
 					<h2>공지사항 / 이벤트</h2><br>
 					<div id="demo" class="carousel slide" data-ride="carousel"
 						style="width: 600px; height: 300px; text-align: center;">
@@ -228,6 +204,7 @@ h2, h4 {
 						</div>
 					</div>
 				</div>
+
 				<div id="part2-down">
 					<div id="content_1">
 						<h2>오늘의 추천상품</h2>
@@ -242,9 +219,7 @@ h2, h4 {
 			
 			
 			<script>
-			
 			$(function(){
-				wsOpen();	 
 				todayList();
 				setInterval(todayList, 100000);
 			})
@@ -264,8 +239,6 @@ h2, h4 {
 							var file = data[i].renameFileName;
 							var img = $("<img>", {"src" : "${ contextPath }/resources/buploadFiles/"+ file});
 							var name = $("<h4 class='itemTitle'>").text(data[i].title);
-							var name = $("<h4>").text(data[i].title);
-
 							var p1 = data[i].price;
 							const pr = p1.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 							var bprice = $("<p>").text(pr);
@@ -276,7 +249,7 @@ h2, h4 {
 						}
 					},
 					error : function(e){
-						alert("code : " + e.status + "\n"
+						console.log("code : " + e.status + "\n"
 								+ "message : " + e.responseText);
 					}
 				});
@@ -285,12 +258,11 @@ h2, h4 {
 			function selectBoard(board_id){
 				location.href='${contextPath}/board/detail?board_id=' + board_id;
 			}
-				 
 		</script>
 
 			<div class="bottom">
 				<footer id="footer">
-					<hr>
+					<hr style="background-color:#fff">
 					<p>
 						대표이사: 김다행 | 개인정보보호담당자: 이다행 | 주소: 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 7층<br>
 						사업자등록번호: 113-11-22222<br> <br> 다행㈜는 통신판매중개자로서 중고거래마켓 다행의

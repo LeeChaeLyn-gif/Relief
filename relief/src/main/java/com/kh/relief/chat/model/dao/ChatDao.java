@@ -2,7 +2,6 @@ package com.kh.relief.chat.model.dao;
 
 import java.util.List;
 
-import com.kh.relief.admin.model.vo.Report;
 import com.kh.relief.chat.model.vo.Block;
 import com.kh.relief.chat.model.vo.Chat;
 import com.kh.relief.chat.model.vo.ChatHistory;
@@ -49,7 +48,5 @@ public interface ChatDao {
 	int exitChat3(Chat c);
 	int exitChat4(ChatHistory ch);
 	Chat selectAccount(Chat c);
-	// 신고여부 확인용
-	List<Report> selectrList(int chatId);
 
 }

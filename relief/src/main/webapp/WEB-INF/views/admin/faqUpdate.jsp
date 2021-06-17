@@ -27,7 +27,7 @@
         .headDiv{
             display: inline-block;
         }
-        .homeimg {
+        .homeimg{
             width: 200px;
             height: 100px;
             display: inline-block;

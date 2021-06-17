@@ -65,7 +65,7 @@
             font-weight: bolder;
             border-bottom : 1px solid lightgray;
     }
-    .create {
+    .create{
             background-color: #597a96;
             width : 100px;
             height : 50px;

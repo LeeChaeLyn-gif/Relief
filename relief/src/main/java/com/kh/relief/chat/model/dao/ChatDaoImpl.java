@@ -6,7 +6,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.kh.relief.admin.model.vo.Report;
 import com.kh.relief.chat.model.vo.Block;
 import com.kh.relief.chat.model.vo.Chat;
 import com.kh.relief.chat.model.vo.ChatHistory;
@@ -126,11 +125,6 @@ public class ChatDaoImpl implements ChatDao{
 	@Override
 	public Chat selectAccount(Chat c) {
 		return sqlSession.selectOne("chatMapper.selectAccount", c);
-	}
-
-	@Override
-	public List<Report> selectrList(int chatId) {
-		return sqlSession.selectList("adminMapper.selectReportByChat", chatId);
 	}
 
 

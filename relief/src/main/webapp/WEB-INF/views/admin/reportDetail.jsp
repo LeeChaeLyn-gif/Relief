@@ -133,7 +133,7 @@
             width: 850px;
             height: 300px;
         }
-	.btnArea {
+	.btnArea{
         	width : 850px;
         	text-align : center;
         }
