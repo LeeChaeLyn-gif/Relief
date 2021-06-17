@@ -115,6 +115,10 @@
     	height : 400px;
     	width: 800px;
     }
+    .content{
+            width: 700px;
+            height: 300px;
+        }
     </style>
 </head>
 <body>
@@ -141,7 +145,7 @@
 		            <input type="text" class="form-control" name="atitle" value="${ q.atitle }" placeholder="제목을 입력해주세요.">       		
 	        		</div>
 	        		<div class="form-group">
-		            <textarea id="summernote" class="content" name="acontent">
+		            <textarea style="resize: none; width:100%;" class="content" name="acontent">
 			            	${ q.acontent }
 		            </textarea>
 	        		</div>
