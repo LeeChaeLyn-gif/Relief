@@ -116,7 +116,7 @@
 		  FROM
 		  		ACCOUNT
 		 WHERE
-		 		CREATE_DATE = TO_DATE(TO_CHAR(SYSDATE))
+		 		 TO_DATE(TO_CHAR(CREATE_DATE, 'YYYYMMDD')) = TO_DATE(TO_CHAR(SYSDATE, 'YYYYMMDD'))
 	</select>
 	<select id="reportCount" resultType="_int">
 		SELECT
@@ -124,7 +124,7 @@
 		  FROM
 		  		REPORT
 		 WHERE
-		 		REPORT_DATE = TO_DATE(TO_CHAR(SYSDATE))
+		 		 TO_DATE(TO_CHAR(REPORT_DATE, 'YYYYMMDD')) = TO_DATE(TO_CHAR(SYSDATE, 'YYYYMMDD'))
 	</select>
 	<select id="selectnListCount" resultType="_int">
 		SELECT
@@ -398,7 +398,7 @@
 		  FROM
 		  		CATEGORY
 		 WHERE
-		 		CATEGORY_ID = #{cid}
+		 		CATEGORY_ID2 = #{cid}
 		   AND  C_STATUS = 'Y'
 	</select>
 	<update id="updateCategory" parameterType="Category">

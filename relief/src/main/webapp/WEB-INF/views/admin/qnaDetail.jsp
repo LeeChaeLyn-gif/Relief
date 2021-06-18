@@ -150,7 +150,7 @@
         <div class="qna">
             <div class="title1"><h3>제목</h3></div>
             <p class="titleValue">${ q.atitle }</p>
-            <hr>
+            <br>
             	${ q.acontent }
         </div>
         </c:if>

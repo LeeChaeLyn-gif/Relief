@@ -17,7 +17,6 @@ button {
 	padding: 3px;
 	margin: 3px;
 }
-
 #container {
 	width: 290px;
 	background: #fff;
@@ -29,32 +28,26 @@ button {
 	left: 50%;
 	margin-left: -155px;
 }
-
 .container h4 {
 	text-align: center;
 	padding: 5px 5px 5px 15px;
 	color: rgb(52, 73, 94);
 	border-bottom: 2px solid rgb(52, 73, 94);
 }
-
 #roomContainer {
 	position: absolute;
 	width: 100%;
 	height: 100%;
 }
-
 .chatRoom {
 	height: 70px;
 	border-bottom: 1px solid #e7ebee;
 	position: relative;
 }
-
 .chatRoom:hover {
 	background: #f1f4f6;
 	cursor: pointer;
 }
-
-
 .chatUserName {
 	width:30%;
 	text-align:center;
@@ -63,7 +56,6 @@ button {
 	display : inline-block;
 	padding-top:5%;
 }
-
 .chatContent {
 	width:50%;
 	text-align:center;
@@ -73,8 +65,12 @@ button {
 	float:left;
 	display : inline-block;
 	padding-top:5%;
+	text-overflow:ellipsis;
+ 	white-space:nowrap;
+	word-wrap:normal;
+	overflow:hidden;
+	text-align : center;
 }
-
 .chatDate {
 	width:20%;
 	text-align:center;
@@ -119,7 +115,7 @@ button {
 					console.log(data);
 					
 						
-						value = "<div class='chatRoom' onclick='selectChat( "+ data.cList[i].chatId + ")'><div class='chatUserName'>" + data.cList[i].name + "</div><div class='chatContent'>"
+						value = "<div class='chatRoom' onclick='selectChat( "+ data.cList[i].chatId + ")'><div class='chatUserName'>" + data.cList[i].accountId2 + "</div><div class='chatContent'>"
 						+ data.cList[i].content + "</div><div class='chatDate'>" + data.cList[i].chatDate + "</div></div>"
 					$("#roomList").append(value);
 				}
@@ -139,10 +135,9 @@ button {
 		var _left = Math.ceil(( window.screen.width - _width ));
 		var _top = Math.ceil(( window.screen.height - _height )/2);
 		
-		window.open("${contextPath}/selectChat?chatId=" + chatId, "", "width=550, height=600, left=" + _left + ", top=" + _top);
+		window.open("${contextPath}/selectChat?chatId=" + chatId, "", "width=550, height=680, left=" + _left + ", top=" + _top);
 		
 	}
-
 </script>
 </body>
 </html>

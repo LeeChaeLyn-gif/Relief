@@ -6,24 +6,28 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자페이지</title>
-	<style>
-	.mainbar{
-			width : 70%;
-			float : left;
-		}
-		.titleArea{
-			width : 800px;
-			height : 52px;
-			float : left;
-			background-color: #597a96;
-		}
-		
-		h2{
-			color : white;
-			font-weight : bold;
-			text-align : center;
-			padding-top : 7px;
-		}
+   <style>
+   .mainbar{
+         width : 70%;
+         float : left;
+      }
+      .titleArea{
+         width : 800px;
+         height : 52px;
+         float : left;
+         background-color: #597a96;
+      }
+      .content{
+            width: 800px;
+            height: 300px;
+        }
+      
+      h2{
+         color : white;
+         font-weight : bold;
+         text-align : center;
+         padding-top : 7px;
+      }
     .headDiv{
         display: inline-block;
     }
@@ -46,7 +50,7 @@
         bottom: 30px;
     }
     .info{
-        	width : 800px;
+           width : 800px;
         }
     .title1{
         background-color: #597a96;
@@ -103,26 +107,26 @@
         color: white;
     }
     .btnArea{
-    	text-align : center;
-    	width: 800px;
+       text-align : center;
+       width: 800px;
     }
     input[name=atitle]{
-    	height : 40px;
-    	width : 800px;
-    	margin : 0 auto;
+       height : 40px;
+       width : 800px;
+       margin : 0 auto;
     }
     .insert{
-    	height : 400px;
-    	width: 800px;
+       height : 400px;
+       width: 800px;
     }
     </style>
 </head>
 <body>
-	<jsp:include page="../admin/menubar.jsp"/>
-	<div class="mainbar">
-	<div class="titleArea">
-	<h2>문의사항</h2>	
-	</div>
+   <jsp:include page="../admin/menubar.jsp"/>
+   <div class="mainbar">
+   <div class="titleArea">
+   <h2>문의사항</h2>   
+   </div>
         <div class="info">
             <div class="title1"><h3>제목</h3></div>
             <p class="titleValue">${ q.qtitle }</p>
@@ -132,42 +136,24 @@
             <p class="createValue">${ q.aid }</p>
         </div>
         <div class="qna">
-			${ q.qcontent }
+         ${ q.qcontent }
         </div>
         <form action="${ contextPath }/admin/qnaUpdate" method="post">
-	        <div class="insert">
-	        		<input type="hidden" value="${ q.qid }" name="qid">
-	        		<div class="form-group ">
-		            <input type="text" class="form-control" name="atitle" value="${ q.atitle }" placeholder="제목을 입력해주세요.">       		
-	        		</div>
-	        		<div class="form-group">
-		            <textarea id="summernote" class="content" name="acontent">
-			            	${ q.acontent }
-		            </textarea>
-	        		</div>
-		        <div class="btnArea">
-					<button type="button" class="Btn" onclick="location.href='${ contextPath }/admin/qna'">뒤로가기</button>
-					<button type="submit" class="Btn" onclick="removeHTML()">수정</button>
-				</div>  
-	        </div>
+           <div class="insert">
+                 <input type="hidden" value="${ q.qid }" name="qid">
+                 <div class="form-group ">
+                  <input type="text" class="form-control" name="atitle" value="${ q.atitle }" placeholder="제목을 입력해주세요.">             
+                 </div>
+                 <div class="form-group">
+                  <textarea class="content" name="acontent">${ q.acontent }</textarea>
+                 </div>
+              <div class="btnArea">
+               <button type="button" class="Btn" onclick="location.href='${ contextPath }/admin/qna'">뒤로가기</button>
+               <button type="submit" class="Btn" onclick="removeHTML()">수정</button>
+            </div>  
+           </div>
         </form>
     </div>
     <br><br><br><br><br><br>
-    <script>
-    $('#summernote').summernote({
-    	placeholder: '답변을 입력해주세요.', 
-    	tabsize: 2,
-    	minHeight: null,
-    	maxHeight: null,
-    	lang : 'ko-KR',
-    	height: 370 });
-    
-    function removeHTML(){
-		var str = $(".content").val();
-		str = str.replace(/<br\/>/ig, "\n");
-		str = str.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
-		$(".content").val(str);
-	}
-    </script>
 </body>
 </html>

@@ -127,7 +127,9 @@
             </form>
         </div>
     </div>
-    <script>   
+    <script>
+	
+	    
     	function validate(){
     		if($(".condition").val() == 0){
     			alert("공지/광고의 구분값 입력해주세요.");

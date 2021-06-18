@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.relief.account.model.vo.Account;
+import com.kh.relief.account.model.vo.T_History;
 import com.kh.relief.account.model.vo.T_Status;
 import com.kh.relief.board.model.vo.Board;
+import com.kh.relief.chat.model.vo.Chat;
 import com.kh.relief.common.PageInfo;
 
 @Repository
@@ -122,5 +124,32 @@ public class MyPageDaoImpl implements MyPageDao{
 	public int updatePull_Date(int board_id) {
 		return sqlSession.update("mypageMapper.updatePull_Date", board_id);
 	}
+
+	@Override
+	public List<Chat> selectConsumer(Account account) {
+		return sqlSession.selectList("mypageMapper.selectConsumer", account);
+	}
+
+	@Override
+	public int T_Complete(T_History t) {
+		return sqlSession.update("mypageMapper.T_Complete", t);
+	}
+
+	@Override
+	public int Hide(int t_history_id) {
+		return sqlSession.update("mypageMapper.Hide", t_history_id);
+	}
+
+	@Override
+	public int getbid(int tid) {
+		return sqlSession.selectOne("mypageMapper.getbid", tid);
+	}
+
+	@Override
+	public int updateBoard(int bid) {
+		return sqlSession.update("mypageMapper.updateBoard", bid);
+	}
+	
+	
 
 }

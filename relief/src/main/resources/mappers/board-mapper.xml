@@ -94,42 +94,46 @@
  		SELECT
  				COUNT(*)
  		  FROM
- 		  		BOARD
+ 		  		BOARD B
+         JOIN T_HISTORY USING(BOARD_ID)
  		 WHERE
- 		 	   (TITLE LIKE '%'|| #{searchValue} || '%'
- 		   OR CONTENT LIKE '%' || #{searchValue} || '%'
- 		   OR AREA LIKE '%' || #{searchValue} || '%')
- 		   AND AREA LIKE '%' || #{address} || '%'
- 		   AND STATUS = 'Y'
+ 		 	   (B.TITLE LIKE '%'|| #{searchValue} || '%'
+ 		   OR B.CONTENT LIKE '%'|| #{searchValue} || '%'
+ 		   OR B.AREA LIKE '%'|| #{searchValue} || '%')
+ 		   AND B.AREA LIKE '%'|| #{address} || '%'
+ 		   AND B.STATUS = 'Y'
+           AND HIDE_STATUS = 'N'
  	</select>
  	<select id="selectbList" parameterType="SB" resultMap="BoardResultSet">
  		SELECT
  				BOARD_ID
- 			  , ACCOUNT_ID
- 			  , CATEGORY_ID
- 			  , TITLE
- 			  , CONTENT
- 			  , CREATE_DATE
- 			  , MODIFY_DATE
- 			  , COUNT
- 			  , STATUS
- 			  , PRODUCT_STATUS
- 			  , TRADE_STATUS
- 			  , PRICE
- 			  , EXCHANGE_STATUS
- 			  , AMOUNT
- 			  , PULL_DATE
- 			  , PRICE_STATUS
- 			  , AREA
+ 			  , B.ACCOUNT_ID
+ 			  , B.CATEGORY_ID
+ 			  , B.TITLE
+ 			  , B.CONTENT
+ 			  , B.CREATE_DATE
+ 			  , B.MODIFY_DATE
+ 			  , B.COUNT
+ 			  , B.STATUS
+ 			  , B.PRODUCT_STATUS
+ 			  , B.TRADE_STATUS
+ 			  , B.PRICE
+ 			  , B.EXCHANGE_STATUS
+ 			  , B.AMOUNT
+ 			  , B.PULL_DATE
+ 			  , B.PRICE_STATUS
+ 			  , B.AREA
  		  FROM
- 		  		BOARD
+ 		  		BOARD B
+ 		 JOIN T_HISTORY USING(BOARD_ID)
  		 WHERE
- 		 	   (TITLE LIKE '%'|| #{searchValue} || '%'
- 		   OR CONTENT LIKE '%' || #{searchValue} || '%'
- 		   OR AREA LIKE '%' || #{searchValue} || '%')
- 		   AND AREA LIKE '%' || #{address} || '%'
- 		   AND STATUS = 'Y'
- 	  ORDER BY PULL_DATE DESC
+ 		 	   (B.TITLE LIKE '%'|| #{searchValue} || '%'
+ 		   OR B.CONTENT LIKE '%'|| #{searchValue} || '%'
+ 		   OR B.AREA LIKE '%'|| #{searchValue} || '%')
+ 		   AND B.AREA LIKE '%'|| #{address} || '%'
+ 		   AND B.STATUS = 'Y'
+           AND HIDE_STATUS = 'N'
+ 	  ORDER BY B.PULL_DATE DESC
  	</select>
  	<select id="selectiList" parameterType="_int" resultMap="ImageResultSet">
  		SELECT
@@ -139,68 +143,74 @@
  			  , RENAME_FILENAME
  		  FROM
  		  		IMAGE
+ 		  JOIN  T_HISTORY USING(BOARD_ID)
  		 WHERE
  		 		BOARD_ID = #{board_id}
+ 		 		AND HIDE_STATUS = 'N'
                 AND (IMAGE_ID,BOARD_ID) IN(SELECT MIN(IMAGE_ID), BOARD_ID
                 FROM IMAGE GROUP BY BOARD_ID)
  	</select>
  	<select id="selectdescbList" parameterType="SB" resultMap="BoardResultSet">
  		SELECT
  				BOARD_ID
- 			  , ACCOUNT_ID
- 			  , CATEGORY_ID
- 			  , TITLE
- 			  , CONTENT
- 			  , CREATE_DATE
- 			  , MODIFY_DATE
- 			  , COUNT
- 			  , STATUS
- 			  , PRODUCT_STATUS
- 			  , TRADE_STATUS
- 			  , PRICE
- 			  , EXCHANGE_STATUS
- 			  , AMOUNT
- 			  , PULL_DATE
- 			  , PRICE_STATUS
- 			  , AREA
+ 			  , B.ACCOUNT_ID
+ 			  , B.CATEGORY_ID
+ 			  , B.TITLE
+ 			  , B.CONTENT
+ 			  , B.CREATE_DATE
+ 			  , B.MODIFY_DATE
+ 			  , B.COUNT
+ 			  , B.STATUS
+ 			  , B.PRODUCT_STATUS
+ 			  , B.TRADE_STATUS
+ 			  , B.PRICE
+ 			  , B.EXCHANGE_STATUS
+ 			  , B.AMOUNT
+ 			  , B.PULL_DATE
+ 			  , B.PRICE_STATUS
+ 			  , B.AREA
  		  FROM
- 		  		BOARD
+ 		  		BOARD B
+ 		  JOIN T_HISTORY USING(BOARD_ID)
  		 WHERE
- 		 	   (TITLE LIKE '%'|| #{searchValue} || '%'
- 		   OR CONTENT LIKE '%' || #{searchValue} || '%'
- 		   OR AREA LIKE '%' || #{searchValue} || '%')
- 		   AND AREA LIKE '%' || #{address} || '%'
- 		   AND STATUS = 'Y'
- 		   ORDER BY PRICE DESC
+ 		 	   (B.TITLE LIKE '%'|| #{searchValue} || '%'
+ 		   OR B.CONTENT LIKE '%' || #{searchValue} || '%'
+ 		   OR B.AREA LIKE '%' || #{searchValue} || '%')
+ 		   AND B.AREA LIKE '%' || #{address} || '%'
+ 		   AND B.STATUS = 'Y'
+ 		   AND HIDE_STATUS = 'N'
+ 		   ORDER BY B.PRICE DESC
  	</select>
  	<select id="selectascbList" parameterType="SB" resultMap="BoardResultSet">
  		SELECT
  				BOARD_ID
- 			  , ACCOUNT_ID
- 			  , CATEGORY_ID
- 			  , TITLE
- 			  , CONTENT
- 			  , CREATE_DATE
- 			  , MODIFY_DATE
- 			  , COUNT
- 			  , STATUS
- 			  , PRODUCT_STATUS
- 			  , TRADE_STATUS
- 			  , PRICE
- 			  , EXCHANGE_STATUS
- 			  , AMOUNT
- 			  , PULL_DATE
- 			  , PRICE_STATUS
- 			  , AREA
+ 			  , B.ACCOUNT_ID
+ 			  , B.CATEGORY_ID
+ 			  , B.TITLE
+ 			  , B.CONTENT
+ 			  , B.CREATE_DATE
+ 			  , B.MODIFY_DATE
+ 			  , B.COUNT
+ 			  , B.STATUS
+ 			  , B.PRODUCT_STATUS
+ 			  , B.TRADE_STATUS
+ 			  , B.PRICE
+ 			  , B.EXCHANGE_STATUS
+ 			  , B.AMOUNT
+ 			  , B.PULL_DATE
+ 			  , B.PRICE_STATUS
+ 			  , B.AREA
  		  FROM
- 		  		BOARD
+ 		  		BOARD B
+ 		  JOIN T_HISTORY USING(BOARD_ID)
  		 WHERE
- 		 	   (TITLE LIKE '%'|| #{searchValue} || '%'
- 		   OR CONTENT LIKE '%' || #{searchValue} || '%'
- 		   OR AREA LIKE '%' || #{searchValue} || '%')
- 		   AND AREA LIKE '%' || #{address} || '%'
- 		   AND STATUS = 'Y'
- 		   ORDER BY PRICE ASC
+ 		 	   (B.TITLE LIKE '%'|| #{searchValue} || '%'
+ 		   OR B.CONTENT LIKE '%' || #{searchValue} || '%'
+ 		   OR B.AREA LIKE '%' || #{searchValue} || '%')
+ 		   AND B.AREA LIKE '%' || #{address} || '%'
+ 		   AND B.STATUS = 'Y'
+ 		   AND HIDE_STATUS = 'N'
+ 		   ORDER BY B.PRICE ASC
  	</select>
  	<select id="selectcList" resultMap="CategoryResultSet">
  		SELECT
@@ -262,100 +272,112 @@
  		SELECT
  				COUNT(*)
  		  FROM
- 		  		BOARD
+ 		  		BOARD B
+ 		  JOIN T_HISTORY USING(BOARD_ID)
  		 WHERE
- 		 		STATUS = 'Y'
- 		   AND (CATEGORY_ID =
+ 		 		B.STATUS = 'Y'
+ 		   AND (B.CATEGORY_ID =
  		   		<foreach item="item" collection="list"
-   		   		separator="OR CATEGORY_ID =" close=")">#{item}</foreach>
-   		   AND AREA LIKE '%' || #{address} || '%'
- 		   AND STATUS = 'Y'
+   		   		separator="OR B.CATEGORY_ID =" close=")">#{item}</foreach>
+   		   AND B.AREA LIKE '%' || #{address} || '%'
+   		   AND HIDE_STATUS = 'N'
+ 		   AND B.STATUS = 'Y'
  	</select>
  	<select id="selectbListFromCategory" parameterType="CB" resultMap="BoardResultSet">
-		SELECT
- 				BOARD_ID
- 			  , ACCOUNT_ID
- 			  , CATEGORY_ID
- 			  , TITLE
- 			  , CONTENT
- 			  , CREATE_DATE
- 			  , MODIFY_DATE
- 			  , COUNT
- 			  , STATUS
- 			  , PRODUCT_STATUS
- 			  , TRADE_STATUS
- 			  , PRICE
- 			  , EXCHANGE_STATUS
- 			  , AMOUNT
- 			  , PULL_DATE
- 			  , PRICE_STATUS
- 			  , AREA
+ 		SELECT
+				BOARD_ID
+ 			  , B.ACCOUNT_ID
+ 			  , B.CATEGORY_ID
+ 			  , B.TITLE
+ 			  , B.CONTENT
+ 			  , B.CREATE_DATE
+ 			  , B.MODIFY_DATE
+ 			  , B.COUNT
+ 			  , B.STATUS
+ 			  , B.PRODUCT_STATUS
+ 			  , B.TRADE_STATUS
+ 			  , B.PRICE
+ 			  , B.EXCHANGE_STATUS
+ 			  , B.AMOUNT
+ 			  , B.PULL_DATE
+ 			  , B.PRICE_STATUS
+ 			  , B.AREA
  		  FROM
- 		  		BOARD
+ 		  		BOARD B
+ 		  JOIN T_HISTORY USING(BOARD_ID)
  		 WHERE
- 		 		STATUS = 'Y'
- 		   AND (CATEGORY_ID =
+ 		 		B.STATUS = 'Y'
+ 		   AND (B.CATEGORY_ID =
  		   		<foreach item="item" collection="list"
-   		   		separator="OR CATEGORY_ID =" close=")">#{item}</foreach>
-   		   AND AREA LIKE '%' || #{address} || '%'
- 		   AND STATUS = 'Y'
-   	  ORDER BY PULL_DATE DESC
+   		   		separator="OR B.CATEGORY_ID =" close=")">#{item}</foreach>
+   		   AND B.AREA LIKE '%' || #{address} || '%'
+ 		   AND B.STATUS = 'Y'
+ 		   AND HIDE_STATUS = 'N'
+   	  ORDER BY B.PULL_DATE DESC
 	</select>
 	<select id="selectbListFromCategoryCount2" parameterType="CB" resultType="_int">
 		SELECT
 				COUNT(*)
 		  FROM
-		  		BOARD
+		  		BOARD B
+		  JOIN T_HISTORY USING(BOARD_ID)
 		 WHERE
-		 		CATEGORY_ID = #{categoryValue}
-		   AND AREA LIKE '%' || #{address} || '%'
- 		   AND STATUS = 'Y'
+		 		B.CATEGORY_ID = #{categoryValue}
+		   AND B.AREA LIKE '%' || #{address} || '%'
+		   AND HIDE_STATUS = 'N'
+ 		   AND B.STATUS = 'Y'
 	</select>
 	<select id="selectbListFromCategory2" parameterType="CB" resultMap="BoardResultSet">
 		SELECT
  				BOARD_ID
- 			  , ACCOUNT_ID
- 			  , CATEGORY_ID
- 			  , TITLE
- 			  , CONTENT
- 			  , CREATE_DATE
- 			  , MODIFY_DATE
- 			  , COUNT
- 			  , STATUS
- 			  , PRODUCT_STATUS
- 			  , TRADE_STATUS
- 			  , PRICE
- 			  , EXCHANGE_STATUS
- 			  , AMOUNT
- 			  , PULL_DATE
- 			  , PRICE_STATUS
- 			  , AREA
+ 			  , B.ACCOUNT_ID
+ 			  , B.CATEGORY_ID
+ 			  , B.TITLE
+ 			  , B.CONTENT
+ 			  , B.CREATE_DATE
+ 			  , B.MODIFY_DATE
+ 			  , B.COUNT
+ 			  , B.STATUS
+ 			  , B.PRODUCT_STATUS
+ 			  , B.TRADE_STATUS
+ 			  , B.PRICE
+ 			  , B.EXCHANGE_STATUS
+ 			  , B.AMOUNT
+ 			  , B.PULL_DATE
+ 			  , B.PRICE_STATUS
+ 			  , B.AREA
  		  FROM
- 		  		BOARD
+ 		  		BOARD B
+ 		  JOIN T_HISTORY USING(BOARD_ID)
 		  WHERE
-		 		CATEGORY_ID = #{categoryValue}
-		   AND AREA LIKE '%' || #{address} || '%'
- 		   AND STATUS = 'Y'
-	   ORDER BY PULL_DATE DESC	
+		 		B.CATEGORY_ID = #{categoryValue}
+		   AND B.AREA LIKE '%' || #{address} || '%'
+ 		   AND B.STATUS = 'Y'
+ 		   AND HIDE_STATUS = 'N'
+	   ORDER BY B.PULL_DATE DESC	
 	</select>
 	<select id="selectTodayList" resultMap="BoardResultSet">
-		SELECT *
-		FROM (SELECT *
-			     FROM
-			     	BOARD
-			     WHERE
-			     	STATUS = 'Y'
-			     ORDER BY
-			     	CREATE_DATE DESC, BOARD_ID DESC
-			     )
-		JOIN
-		(SELECT IMAGE_ID, BOARD_ID, FILENAME, RENAME_FILENAME
-		FROM IMAGE
-		WHERE IMAGE_ID IN (SELECT MIN(IMAGE_ID)
-		                   FROM IMAGE
-		                   GROUP BY BOARD_ID)) IMG USING(BOARD_ID)
-		WHERE
-			ROWNUM <![CDATA[<=]]> 20
+	  SELECT *
+      FROM (SELECT *
+              FROM
+                 BOARD
+              WHERE
+                 STATUS = 'Y'
+              ORDER BY
+                 CREATE_DATE DESC, BOARD_ID DESC
+              )
+      JOIN
+      (SELECT IMAGE_ID, BOARD_ID, FILENAME, RENAME_FILENAME
+      FROM IMAGE
+      WHERE IMAGE_ID IN (SELECT MIN(IMAGE_ID)
+                         FROM IMAGE
+                         GROUP BY BOARD_ID)) IMG USING(BOARD_ID)
+      JOIN T_HISTORY USING (BOARD_ID)
+      WHERE
+         HIDE_STATUS = 'N'
+         AND
+            ROWNUM <![CDATA[<=]]> 20
+         ORDER BY CREATE_DATE DESC
 	</select>
 	
 	<update id="updateReadCount" parameterType="_int">
@@ -368,30 +390,30 @@
 	</update>
 	
 	<select id="selectBoard" parameterType="_int" resultMap="BoardResultSet">
-		SELECT BOARD.BOARD_ID
- 			  , BOARD.ACCOUNT_ID
- 			  , BOARD.CATEGORY_ID
- 			  , BOARD.TITLE
- 			  , BOARD.CONTENT
- 			  , BOARD.CREATE_DATE
- 			  , BOARD.MODIFY_DATE
- 			  , BOARD.COUNT
- 			  , BOARD.STATUS
- 			  , BOARD.PRODUCT_STATUS
- 			  , BOARD.TRADE_STATUS
- 			  , BOARD.PRICE
- 			  , BOARD.EXCHANGE_STATUS
- 			  , BOARD.AMOUNT
- 			  , BOARD.PULL_DATE
- 			  , BOARD.PRICE_STATUS
- 			  , BOARD.AREA
-              , ACCOUNT.NAME
+		SELECT BOARD_ID
+ 			  , B.ACCOUNT_ID
+ 			  , B.CATEGORY_ID
+ 			  , B.TITLE
+ 			  , B.CONTENT
+ 			  , B.CREATE_DATE
+ 			  , B.MODIFY_DATE
+ 			  , B.COUNT
+ 			  , B.STATUS
+ 			  , B.PRODUCT_STATUS
+ 			  , B.TRADE_STATUS
+ 			  , B.PRICE
+ 			  , B.EXCHANGE_STATUS
+ 			  , B.AMOUNT
+ 			  , B.PULL_DATE
+ 			  , B.PRICE_STATUS
+ 			  , B.AREA
 		FROM
-			BOARD, ACCOUNT
+			BOARD B
+        JOIN T_HISTORY USING(BOARD_ID)
 		WHERE
             BOARD_ID = #{board_id}
-        AND BOARD.STATUS = 'Y'
-        AND BOARD.ACCOUNT_ID = ACCOUNT.ACCOUNT_ID
+        AND B.STATUS = 'Y'
+        AND HIDE_STATUS = 'N'
 	</select>
 	
 	<select id="selectImage" parameterType="_int" resultMap="ImageResultSet">
@@ -402,8 +424,10 @@
             , RENAME_FILENAME
          FROM
                IMAGE
+         JOIN T_HISTORY USING(BOARD_ID)
         WHERE
               BOARD_ID = #{board_id}
+              	AND HIDE_STATUS = 'N'
                 AND (IMAGE_ID,BOARD_ID) IN(SELECT MIN(IMAGE_ID), BOARD_ID
                 FROM IMAGE GROUP BY BOARD_ID)
     </select>
@@ -415,7 +439,9 @@
             , FILENAME
             , RENAME_FILENAME
 		FROM IMAGE
+		JOIN T_HISTORY USING(BOARD_ID)
 		WHERE BOARD_ID = #{board_id}
+		  AND HIDE_STATUS = 'N'
 		ORDER BY	
 			IMAGE_ID ASC
     </select>
@@ -569,7 +595,7 @@
  			 	   	REPORT_ID
 				  , CHAT_ID
 				  , BOARD_ID
-				  , COMMENT_ID
+				  , REPLY_ID
 				  , REPORT_REASON
 				  , ACCOUNT_ID
 				  , ACCOUNT_ID2
@@ -595,7 +621,7 @@
  			 	   	REPORT_ID
 				  , CHAT_ID
 				  , BOARD_ID
-				  , COMMENT_ID
+				  , REPLY_ID
 				  , REPORT_REASON
 				  , ACCOUNT_ID
 				  , ACCOUNT_ID2
@@ -621,7 +647,7 @@
  			 	   	REPORT_ID
 				  , CHAT_ID
 				  , BOARD_ID
-				  , COMMENT_ID
+				  , REPLY_ID
 				  , REPORT_REASON
 				  , ACCOUNT_ID
 				  , ACCOUNT_ID2
@@ -780,41 +806,45 @@
 		SELECT
  				COUNT(*)
  		  FROM
- 		  		BOARD
+ 		  		BOARD B
+ 		  JOIN T_HISTORY USING(BOARD_ID)
  		 WHERE
- 		 	   (TITLE LIKE '%'|| #{searchValue} || '%'
- 		   OR CONTENT LIKE '%' || #{searchValue} || '%'
- 		   OR AREA LIKE '%' || #{searchValue} || '%')
- 		  AND STATUS = 'Y'
- 	  ORDER BY PULL_DATE DESC
+ 		 	   (B.TITLE LIKE '%'|| #{searchValue} || '%'
+ 		   OR B.CONTENT LIKE '%' || #{searchValue} || '%'
+ 		   OR B.AREA LIKE '%' || #{searchValue} || '%')
+ 		  AND B.STATUS = 'Y'
+ 		  AND HIDE_STATUS = 'N'
+ 	  ORDER BY B.PULL_DATE DESC
 	</select>
 	<select id="nLoginList" parameterType="string" resultMap="BoardResultSet">
 		SELECT
 				BOARD_ID
- 			  , ACCOUNT_ID
- 			  , CATEGORY_ID
- 			  , TITLE
- 			  , CONTENT
- 			  , CREATE_DATE
- 			  , MODIFY_DATE
- 			  , COUNT
- 			  , STATUS
- 			  , PRODUCT_STATUS
- 			  , TRADE_STATUS
- 			  , PRICE
- 			  , EXCHANGE_STATUS
- 			  , AMOUNT
- 			  , PULL_DATE
- 			  , PRICE_STATUS
- 			  , AREA
+ 			  , B.ACCOUNT_ID
+ 			  , B.CATEGORY_ID
+ 			  , B.TITLE
+ 			  , B.CONTENT
+ 			  , B.CREATE_DATE
+ 			  , B.MODIFY_DATE
+ 			  , B.COUNT
+ 			  , B.STATUS
+ 			  , B.PRODUCT_STATUS
+ 			  , B.TRADE_STATUS
+ 			  , B.PRICE
+ 			  , B.EXCHANGE_STATUS
+ 			  , B.AMOUNT
+ 			  , B.PULL_DATE
+ 			  , B.PRICE_STATUS
+ 			  , B.AREA
  		  FROM
- 		  		BOARD
+ 		  		BOARD B
+ 		  JOIN T_HISTORY USING(BOARD_ID)
  		  WHERE
- 		 	   (TITLE LIKE '%'|| #{searchValue} || '%'
- 		   OR CONTENT LIKE '%' || #{searchValue} || '%'
- 		   OR AREA LIKE '%' || #{searchValue} || '%')
- 		  AND STATUS = 'Y'
- 	  ORDER BY PULL_DATE DESC
+ 		 	   (B.TITLE LIKE '%'|| #{searchValue} || '%'
+ 		   OR B.CONTENT LIKE '%' || #{searchValue} || '%'
+ 		   OR B.AREA LIKE '%' || #{searchValue} || '%')
+ 		  AND B.STATUS = 'Y'
+ 		  AND HIDE_STATUS = 'N'
+ 	  ORDER BY B.PULL_DATE DESC
 	</select>
 	<insert id="insertThistory" parameterType="Board">
 		INSERT

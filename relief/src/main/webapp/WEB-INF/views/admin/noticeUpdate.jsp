@@ -144,7 +144,6 @@
     			return false;
     		}
     	}
-
     	
     	$(function(){
     		$("input[type='file']").on('change', function(){

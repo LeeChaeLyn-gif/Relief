@@ -108,34 +108,42 @@
 			</li>
 		</ul>
 		</div>
-		<input type="hidden" id="sessionId" value="">
 		<input type="hidden" id="chatId" value="${chatId}">
 		
 		<div id="chating" class="chating">
 		<c:if test="${!empty chList }">
+		<input type="hidden" id="accountId2" value="${loginUser.aid == chList.get(0).getAccountId() ? chList.get(0).getAccountId2() : chList.get(0).getAccountId() }">
 			<c:forEach items="${ chList }" var="ch">
-			
 				<fmt:formatDate value="${ch.chatDate}" pattern="yyyy-MM-dd" var="chatDate" />  
 				<fmt:formatDate value="${b.blockDate }" pattern="yyyy-MM-dd" var="blockDate"/>
+			<c:if test="${ loginUser.aid != 'admin' }">
+				<c:if test="${!empty b}">
+				<c:if test="${ chatDate < blockDate }">
+				<c:if test="${ loginUser.aid == ch.accountId }">
+					<p class='me'> ${ ch.content } </p> 
+				</c:if>
+				<c:if test="${ loginUser.aid != ch.accountId }">
+					<p class='others'> ${ ch.content } </p>
+				</c:if>
+				</c:if>
+				</c:if>
 				
-			<c:if test="${!empty b}">
-			<c:if test="${ chatDate < blockDate }">
-			<c:if test="${ loginUser.aid == ch.accountId }">
-				<p class='me'> ${ ch.content } </p> 
+				<c:if test="${empty b}">
+				<c:if test="${ loginUser.aid == ch.accountId }">
+					<p class='me'> ${ ch.content } </p> 
+				</c:if>
+				<c:if test="${ loginUser.aid != ch.accountId }">
+					<p class='others'> ${ ch.content } </p>
+				</c:if>
+				</c:if>
 			</c:if>
-			<c:if test="${ loginUser.aid != ch.accountId }">
-				<p class='others'> ${ ch.content } </p>
-			</c:if>
-			</c:if>
-			</c:if>
-			
-			<c:if test="${empty b}">
-			<c:if test="${ loginUser.aid == ch.accountId }">
-				<p class='me'> ${ ch.content } </p> 
-			</c:if>
-			<c:if test="${ loginUser.aid != ch.accountId }">
-				<p class='others'> ${ ch.content } </p>
-			</c:if>
+			<c:if test="${ loginUser.aid == 'admin' }">
+				<c:if test="${ rList[0].aid == ch.accountId }">
+					<p class='me'> ${ ch.content } </p> 
+				</c:if>
+				<c:if test="${ rList[0].aid2 == ch.accountId }">
+					<p class='others'> ${ ch.content } </p> 
+				</c:if>
 			</c:if>
 			</c:forEach>
 		</c:if>
@@ -167,72 +175,72 @@
 		 });
 	
 	function wsOpen(){
+		var type = "chat";
+		var targetId = "${loginUser.aid}" + "_" +  $("#chatId").val();
 		//웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
-		/* ws = new WebSocket("ws://" + location.host + "/relief/"+$("#chatId").val()+"/"+"${loginUser.aid}"); */
-		ws = new WebSocket("ws://" + location.host + "/relief/"+$("#chatId").val());
+		ws = new WebSocket("ws://" + location.host + "/relief/" + type + "/"  + targetId);
 		wsEvt();
 	}
+	
 	
 	function wsEvt() {
 		ws.onopen = function(data){
 			//소켓이 열리면 동작
 			console.log(data);
 		}
-		ws.onerror = function(e){
-			console.log('error');
-			console.log(e);
-		}
+		
 	ws.onmessage = function(data) {
 		//메시지를 받으면 동작
 		var msg = data.data;
-		if(msg != null && msg.trim() != ''){
+		if (msg != null && msg.trim() != '') {
 			var d = JSON.parse(msg);
-			if(d.type == "getId"){
-				var si = d.sessionId != null ? d.sessionId : "";
-				if(si != ''){
-					$("#sessionId").val(si); 
-				}
-			}else if(d.type == "message"){
-				if(d.sessionId == $("#sessionId").val()){
-					$("#chating").append("<p class='me'>" + d.msg + "</p>");	
-				}else{
-					$("#chating").append("<p class='others'>" + d.msg + "</p>");
-				}
-					
-			}else{
-				console.warn("unknown type!")
-			}
 			
-			$('#chating').scrollTop($('#chating')[0].scrollHeight);
-		}
-	}
+				console.log('d.msg : ' + msg);
+					
+				if($("#accountId2").val() == "${loginUser.aid}"){
+						$("#chating").append("<p class='me'>" + d.msg + "</p>");
+					}else{
+						$("#chating").append("<p class='others'>" + d.msg + "</p>");
+					}
+					
+				$('#chating').scrollTop($('#chating')[0].scrollHeight);
+				
 			document.addEventListener("keypress", function(e){
 				if(e.keyCode == 13){ //enter press
 					send();
 				}
 			});
 		}
-		 
-		function send() {
-			var option ={
-				type: "message",
-				chatId: $("#chatId").val(),
-				sessionId : $("#sessionId").val(),
-				chatId : '${chatId}',
-				accountId : '${loginUser.aid}',
-				chatSender : '${loginUser.aid}',
-				msg : $("#chatting").val()
-			}
-			console.log(option)
-			ws.send(JSON.stringify(option));
-			$('#chatting').val("");
-		}
+	}
 		
 		
 		$('#chatSubMenu').hide();
 		$('#chatMenu2').click(function(){
 			$('#chatSubMenu').slideToggle(300);
 		});
+	}
+	 
+	function send() {
+		var option ={
+			type2: "chat",
+			chatId: $("#chatId").val(),
+			chatId : '${chatId}',
+			accountId : '${loginUser.aid}',
+			accountId2 : $("#accountId2").val(),
+			msg : $("#chatting").val()
+		}
+		ws.send(JSON.stringify(option));
+		
+		if(option.accountId = "${loginUser.aid}"){
+			$("#chating").append("<p class='me'>" + option.msg + "</p>");
+		}else{
+			$("#chating").append("<p class='others'>" + option.msg + "</p>");
+		}
+		
+		$('#chating').scrollTop($('#chating')[0].scrollHeight);
+		
+		$('#chatting').val("");
+	}
 	
 	function blockChat(){
 		
@@ -255,11 +263,9 @@
 	}
 	
 	function exitChat(){
-		var chatId = $("#chatId").val();
-		var accountId = '${loginUser.aid}';
 		
 		if (confirm("채팅방을 나가시겠습니까? \n(채팅방을 나가시면 대화내용이 전부 삭제됩니다.)") == true){
-			location.href="${contextPath}/exitChat?accountId=" + accountId + "&chid=" + chatId;
+			location.href="${contextPath}/exitChat?accountId=" + ${loginUser.aid} + "&chid=" + chatId;
 		}
 	}
 	
@@ -281,6 +287,6 @@
 		var accountId2 = '${loginUser.aid}';
 		
 		window.open("${contextPath}/reportUser?accountId2=" + accountId2 + "&chid=" + chatId, "", "width=500, height=400, left=" + _left + ", top=" + _top);
-	}
+		}
 </script>
 </html>

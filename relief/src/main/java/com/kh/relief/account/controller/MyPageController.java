@@ -1,8 +1,12 @@
 package com.kh.relief.account.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +23,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.relief.account.model.exception.MyPageException;
 import com.kh.relief.account.model.service.MyPageService;
 import com.kh.relief.account.model.vo.Account;
+import com.kh.relief.account.model.vo.T_History;
 import com.kh.relief.account.model.vo.T_Status;
 import com.kh.relief.admin.model.vo.Category;
 import com.kh.relief.board.model.service.BoardService;
 import com.kh.relief.board.model.vo.Board;
+import com.kh.relief.chat.model.vo.Chat;
 import com.kh.relief.common.PageInfo;
 import com.kh.relief.common.Pagination;
 import com.kh.relief.review.model.exception.ReviewException;
@@ -86,6 +92,7 @@ public class MyPageController {
 		
 	}
 
+	// 회원정보 수정
 	@PostMapping("/updateMember")
 	public String updateMember(HttpSession session,
 							   @RequestParam("postCode") String postCode,
@@ -118,6 +125,7 @@ public class MyPageController {
 		}
 	}
 	
+	// 회원 삭제
 	@GetMapping("/deleteMember")
 	public String deleteMember(@RequestParam(value="aid") String aid, Model model) {
 		int result = myService.deleteMember(aid);
@@ -129,7 +137,7 @@ public class MyPageController {
 		}	
 	}
 	
-	
+	// 찜목록
     @GetMapping("/wishList")
 	public ModelAndView wishListView(HttpSession session, ModelAndView mv,
 			@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
@@ -154,6 +162,7 @@ public class MyPageController {
 		return mv;
 	}
 	
+    // 찜 목록 삭제
     @GetMapping("/deleteWish")
     public String deleteWish(@RequestParam int pk_Id,
     						Model model, HttpSession session) {
@@ -166,7 +175,8 @@ public class MyPageController {
     	}
     	
     }
- 
+    
+    // 판매 페이지
 	@GetMapping("/salesHistory")
 	public ModelAndView salesHistoryView(HttpSession session, ModelAndView mv,
 			@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
@@ -191,13 +201,18 @@ public class MyPageController {
 		
 	}
 	
+	// 판매페이지 거래 상태 변경하기
 	@GetMapping("/statusUpdate")
 	public String statusUpdate(Model model, @RequestParam(value="status") String status) {
 		String str[] = status.split(",");
 //		str[0] = t_history_id, str[1] = status 'Y' or 'A'
 		T_Status t_status = new T_Status(Integer.parseInt((str[0])), str[1]); 
-		
 		int result = myService.statusUpdate(t_status);
+		int tid = t_status.getT_history_id();
+		int bid = myService.getbid(tid);
+		
+		// 보드 업데이트 (status = 'n')
+		int result2 = myService.updateBoard(bid);
 		
 		if(result > 0) {
 			return "redirect:/mypage/salesHistory";
@@ -222,9 +237,7 @@ public class MyPageController {
 
 	}
 	
-	
-	 
-	
+	// 구매 페이지
 	@GetMapping("/purchaseHistory")
 	public ModelAndView purchaseHistoryView(HttpSession session, ModelAndView mv,
 			@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
@@ -277,6 +290,7 @@ public class MyPageController {
 	
 	}
 	
+	// 숨김페이지 리스트
 	@GetMapping("/hiddenList")
 	public ModelAndView hiddenListView(HttpSession session, ModelAndView mv,
 					@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
@@ -302,6 +316,7 @@ public class MyPageController {
 		return mv;
 	}
 	
+	// 숨김페이지 숨김 해제
 	@GetMapping("/unHide")
 	public String unHide(@RequestParam(value="t_history_id") int t_history_id,
 								  Model model, HttpSession session) {
@@ -313,6 +328,84 @@ public class MyPageController {
 			return "redirect:/mypage/hiddenList";
 		} else {
 			throw new MyPageException("게시글 숨기기에 실패했습니다.");
+		}
+	}
+	
+	// 판매자가 구매 확정을 위해 ID 리스트 가져옴
+	@GetMapping("/selectConsumer")
+	public String selectConsumer(HttpSession session, @RequestParam(value="status") String status,
+								Model model) {
+		Account account =  (Account)session.getAttribute("loginUser");
+		
+		String str[] = status.split(",");
+//		str[0] = t_history_id
+		int t_history_id = Integer.parseInt(str[0]);
+		
+		List<Chat> list = myService.selectConsumer(account);
+		
+		ArrayList<String> result = new ArrayList<>();
+		
+		if(list != null) {
+			// 중복id값이 있는지 Account_Id, Account_Id2 확인 후 제거
+			for(Chat Ids : list){
+				if(!result.contains(Ids.getAccountId())) {
+	            	result.add(Ids.getAccountId());
+	            }
+				
+				if(!result.contains(Ids.getAccountId2())) {
+	            	result.add(Ids.getAccountId2());
+	            }
+			}
+			
+		// 본인 아이디 값 제거 
+		result.remove(account.getAid());
+		System.out.println("##################@@@@@@@@@@@@@ " + result);
+		model.addAttribute("list", result);
+		model.addAttribute("t_history_id", t_history_id);
+		
+		return "/mypage/selectConsumerPage";
+		
+		} else {
+			throw new MyPageException("대화 상대 목록 불러오기를 실패했습니다.");
+		}
+		
+	}
+	
+	@GetMapping("T_Complete")
+	public void T_Complete(HttpSession session, 
+							@RequestParam(value="t_history_id") int t_history_id,
+							@RequestParam(value="consumer_id") String consumer_id,
+							HttpServletResponse response) throws IOException {
+		
+		T_History t = new T_History();
+		t.setT_history_id(t_history_id);
+		t.setConsumer_id(consumer_id);
+		
+		int result = myService.T_Complete(t);
+		
+		// Ajax 통신
+		PrintWriter out = response.getWriter();
+
+		if(result > 0 ) {
+			out.write("true");
+		} else {
+			out.write("false");
+		}
+		
+		out.flush();
+		out.close();
+	}
+	
+	@GetMapping("hide")
+	public String Hide(@RequestParam int t_history_id) {
+		
+		System.out.println("@@@@@@@@@@@"+t_history_id);
+		int result = myService.Hide(t_history_id);
+		
+		if(result > 0) {
+			return "redirect:/mypage/salesHistory";
+		} else {
+			throw new MyPageException("숨김처리 실패 하였습니다.");
 		}
 	}
 }
