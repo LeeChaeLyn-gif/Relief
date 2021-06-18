@@ -954,7 +954,7 @@ select {
       if('${loginUser.aid}' === '${board.account_id}'){
          alert("자신과는 채팅이 불가능합니다.");
       } else {
-      window.open("${contextPath}/createChat?accountId2=" + accountId2, "", "width=550, height=600, left=" + _left + ", top=" + _top);
+      window.open("${contextPath}/createChat?accountId2=" + accountId2, "", "width=550, height=680, left=" + _left + ", top=" + _top);
       }
       
    }

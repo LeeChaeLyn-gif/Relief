@@ -135,7 +135,7 @@ button {
 		var _left = Math.ceil(( window.screen.width - _width ));
 		var _top = Math.ceil(( window.screen.height - _height )/2);
 		
-		window.open("${contextPath}/selectChat?chatId=" + chatId, "", "width=550, height=600, left=" + _left + ", top=" + _top);
+		window.open("${contextPath}/selectChat?chatId=" + chatId, "", "width=550, height=680, left=" + _left + ", top=" + _top);
 		
 	}
 </script>
