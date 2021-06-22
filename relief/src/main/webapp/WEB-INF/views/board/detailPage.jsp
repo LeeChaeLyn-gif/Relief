@@ -713,7 +713,7 @@ select {
 					</table>
 					</c:forEach>
 					<div class="reviewBtn">
-					<button class="btn" onclick="location.href='${ contaxtPath }/review/list'">더보기</button>
+					<button class="btn" id="reviewBtn">더보기</button>
 					</div>
 				</div>
 			</div>
@@ -741,6 +741,10 @@ select {
 			$(".wishbutton").on("click", function(){
 				var board_id = $("#board_id").val();
 				location.href="${ contextPath }/board/wish?board_id=" + board_id;
+			});
+			
+			$("#reviewBtn").on("click", function(){
+				location.href="${ contextPath }/review/list";
 			});
 			
 			
