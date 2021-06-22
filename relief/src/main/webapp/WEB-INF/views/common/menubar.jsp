@@ -189,22 +189,10 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 				<ul class="M01">
 					<c:forEach items="${ clist }" var="c">
 						<c:if test="${ c.cgroup == 1 }">
-							<li><a href="${ contextPath }/board/category1?cid=${c.cid}">${ c.cname }</a>
+							<li class="M01li" value="${ c.cid }"><a href="${ contextPath }/board/category1?cid=${c.cid}">${ c.cname }</a>
 								<ul class="M02">
-								<c:forEach  items="${ clist }" var="c">
-									<c:if test="${ c.cgroup == 2 }">
-									
-											<li><a href="${ contextPath }/board/category2?cid=${c.cid}">${ c.cname }</a>
-											<ul class="M03">
-											<c:forEach  items="${ clist }" var="c">
-												<c:if test="${ c.cgroup == 3 }">
-														<li><a href="${ contextPath }/board/category3?cid=${c.cid}">${ c.cname }</a></li>
-												</c:if>
-											</c:forEach>
-											</ul>
-											</li>
-									</c:if>
-								</c:forEach>	
+
+	
 								</ul>
 							</li>
 						</c:if>
@@ -325,6 +313,66 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 			$('#testAlram').val("");
 		}
 		
+		
+
+			$(document).on("mouseenter", ".M01li", function(){
+
+				var cid = $(this).val();
+					$.ajax({
+						url : "${ contextPath }/board/category",
+						dataType : "json",
+						type : "GET",
+						data : { cid : cid },
+						success : function(data){
+							
+							ul = $(".M02");
+							ul.html("");
+							
+							for(var i in data.list){
+								
+								var atag = "<li class='M02li' value="+ data.list[i].cid+"><a href=${ contextPath }/board/category2?cid="+data.list[i].cid+">"+data.list[i].cname+"</a></li>"; 
+							
+							ul.append(atag);
+							}
+						},
+						error : function(e){
+							console.log("code : " + e.status + "\n"
+									+ "message : " + e.responseText);
+						}
+					})
+
+			});
+
+			
+			
+			$(document).on("mouseenter", ".M02li", function(){
+				
+				var cid = $(this).val();
+				
+					$.ajax({
+						url : "${ contextPath }/board/category",
+						dataType : "json",
+						type : "GET",
+						data : { cid : cid },
+						success : function(data){
+							var ul = $("<ul>");
+							ul.attr("class", "M03");
+							$(".M03").html("");
+							for(var i in data.list){
+								
+								var atag2 = "<li value="+ data.list[i].cid+"><a href=${ contextPath }/board/category3?cid="+data.list[i].cid+">"+data.list[i].cname+"</a></li>"; 
+							
+							ul.append(atag2);
+							}
+							$(".M02li").append(ul);
+							
+						},
+						error : function(e){
+							console.log("code : " + e.status + "\n"
+									+ "message : " + e.responseText);
+						}
+					})
+			});
 	</script>
 
 	<script src="<c:url value="/resources/css/assets/js/plugins.js"/>"></script>
