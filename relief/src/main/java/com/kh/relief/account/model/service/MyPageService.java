@@ -76,6 +76,4 @@ public interface MyPageService {
 	// 보드 업데이트
 	int updateBoard(int bid);
 
-	
-	
 }

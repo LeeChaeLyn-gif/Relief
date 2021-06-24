@@ -72,4 +72,9 @@ public class AccountDaoImpl implements AccountDao{
 		return sqlSession.update("accountMapper.findPwdUpdate", a);
 	}
 	// 1
+
+	@Override
+	public int insertGoogleAccount(Account a) {
+		return sqlSession.insert("accountMapper.insertGoogleAccount", a);
+	}
 }

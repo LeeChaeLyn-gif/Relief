@@ -59,16 +59,16 @@
 			<table class="table text-center">
 			  <thead>
 			    <tr>
-			      <th scope="col" width="20%">별점</th>
-			      <th scope="col" width="40%">제목</th>
-			      <th scope="col" width="20%">작성자</th>
-			      <th scope="col" width="20%">날짜</th>
+			      <th scope="col" width="20%" style="text-align:center">별점</th>
+			      <th scope="col" width="40%" style="text-align:center">제목</th>
+			      <th scope="col" width="20%" style="text-align:center">작성자</th>
+			      <th scope="col" width="20%" style="text-align:center">날짜</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			  	<c:forEach items="${ list }" var="r">
 				<tr onclick="selectReview(${r.review_id});">
-					<td>
+					<td width="20%">
 						<c:forEach var="i" begin="1" end="5">
 							<c:choose>
 								<c:when test="${ i <= r.star}">

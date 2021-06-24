@@ -73,12 +73,21 @@
             height: 50px;
             font-weight : bolder;
         }
+
     </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<!-- 구글 로그인 -->
+<meta name="google-signin-scope" content="profile email">
+<meta name ="google-signin-client_id" content="266613007830-lm6qoh0kfvto5i5ld3o77mfqje3nvpvm.apps.googleusercontent.com">
+
+<!-- 구글 api 사용을 위한 스크립트 -->
+<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+
 </head>
 <body>
 	<c:if test="${ !empty msg }">
-		<script>alert('${msg}');</script>
+		<script>alert(${msg});</script>
 		<c:remove var="msg"/>
 	</c:if>
 	
@@ -97,7 +106,14 @@
                 <a class="findPwd" href="${ contextPath }/account/findPwd">비밀번호 찾기</a>
             </div>
             <br>
+            
+            <!-- 네이버 -->
             <a href="${ url }"><img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"></a>
+            
+            <!-- 구글 버튼 -->
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" style="margin-left: 88px; margin-top : 20px; width: 223px;"></div>
+            
+            
         </div>
         &nbsp;
         <h3>아직 회원이 아니신가요?</h3>
@@ -122,5 +138,61 @@
         	return true;
         }
     </script>
+    
+    <!-- 구글 스크립트 -->
+    <script>
+    function signOut(){
+    	var auth2 = gapi.auth2.getAuthInstance();
+    	auth2.signOut();
+    }
+    
+    function onSignIn(googleUser) {
+      // 자동로그인 방지 (로그아웃)
+      signOut();
+      // Useful data for your client-side scripts:
+      var profile = googleUser.getBasicProfile();
+
+      // The ID token you need to pass to your backend:
+      var id_token = googleUser.getAuthResponse().id_token;
+      /* console.log("ID Token: " + id_token); */
+      
+      var auth2 = gapi.auth2.getAuthInstance();
+
+      if(auth2.isSignedIn.get()) {
+    	  $.ajax({
+    		  url: '${contextPath}/account/googleLogin',
+    		  type : 'post',
+    		  data : {
+    			  id : profile.getId(),
+    			  name : profile.getName(),
+    	  		  email : profile.getEmail()
+    		  },
+    		  success : function(data) {
+    			  var temp;
+    			  
+    			  switch(data) {
+    			  case "home" :
+    				  temp = "${contextPath}/";
+    				  break;
+    			  
+    			  case "join" :
+    				  temp = "${contextPath}/account/googleJoin";
+    				  break;
+    			  default :
+    				  temp = "${contextPath}/account/login"
+    				  alert(data);
+    			  }
+    			  
+    			  console.log(data);
+    			  location.href = temp;
+    			  
+    		  }, error: function(data){
+    	            alert("googleLogin err");
+    		  }
+   	  	}) 
+      }
+   	  
+    }
+	</script>
 </body>
 </html>

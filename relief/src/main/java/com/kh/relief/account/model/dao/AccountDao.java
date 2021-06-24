@@ -28,4 +28,6 @@ public interface AccountDao {
 
 	int findPwdUpdate(Account a);
 
+	int insertGoogleAccount(Account a);
+
 }
