@@ -189,7 +189,7 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 				<ul class="M01">
 					<c:forEach items="${ clist }" var="c">
 						<c:if test="${ c.cgroup == 1 }">
-							<li><a href="${ contextPath }/board/category1?cid=${c.cid}">${ c.cname }</a>
+							<li value="${ c.cid }"><a href="${ contextPath }/board/category1?cid=${c.cid}">${ c.cname }</a>
 								<ul class="M02">
 								<c:forEach  items="${ clist }" var="c">
 									<c:if test="${ c.cgroup == 2 }">
@@ -324,7 +324,6 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 			ws.send(JSON.stringify(option));
 			$('#testAlram').val("");
 		}
-		
 	</script>
 
 	<script src="<c:url value="/resources/css/assets/js/plugins.js"/>"></script>

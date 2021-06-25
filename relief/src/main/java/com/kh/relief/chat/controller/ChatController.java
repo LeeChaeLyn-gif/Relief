@@ -98,9 +98,9 @@ public class ChatController {
 
 		JSONObject sendJson = new JSONObject();
 		sendJson.put("cList", jArr);
-		if (!bList.isEmpty()) {
-			sendJson.put("bList", jArr2);
-		}
+		
+		sendJson.put("bList", jArr2);
+		
 		PrintWriter out = response.getWriter();
 		out.print(sendJson);
 
@@ -197,7 +197,8 @@ public class ChatController {
 
 		// 로그인유저
 		String accountId = loginUser.getAid();
-		if (accountId == c.getAccountId()) {
+		System.out.println(accountId+  " ," + c);
+		if (accountId.equals(c.getAccountId())) {
 			result = cService.updateBlock(chatId);
 			result2 = cService.insertBlock(c);
 		} else {
