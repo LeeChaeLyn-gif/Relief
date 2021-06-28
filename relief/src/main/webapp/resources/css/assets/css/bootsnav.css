@@ -17,6 +17,7 @@ nav.bootsnav .dropdown.megamenu-fw {
 
 nav.bootsnav .container {
     position: relative;
+    margin-bottom : -5px;
 }
 
 nav.bootsnav .megamenu-fw .dropdown-menu {
@@ -535,7 +536,7 @@ body.on-side .wrap-sticky nav.navbar.bootsnav.sticked{
     }
     
     nav.navbar.bootsnav ul.nav > li > a{
-        padding: 30px 15px;
+        padding: 10px 15px;
         font-weight: 600;
     }
     
