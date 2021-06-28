@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -38,7 +39,7 @@ import com.kh.relief.account.model.vo.Account;
 
 @Controller
 @RequestMapping("/account")
-@SessionAttributes({"loginUser"})
+@SessionAttributes({"loginUser", "googleLogin"})
 public class AccountController {
 	@Autowired
 	private AccountService aService;
@@ -111,6 +112,7 @@ public class AccountController {
 	public String joinMember() {
 		return "login/joinPage";
 	}
+	
 	@PostMapping("/join")
 	public String insertAccount(@ModelAttribute Account a,
 								@RequestParam String post,
@@ -119,9 +121,9 @@ public class AccountController {
 								Model model,
 								RedirectAttributes rd) {
 		a.setAddress(post + "," + address1 + "," + address2);
-		
-		// bcrypt 암호화
+
 		a.setPwd(bcryptPasswordEncoder.encode(a.getPwd()));
+
 		
 		// 이메일 중복 확인
 		int checkEmail = aService.checkEmail(a);
@@ -133,7 +135,6 @@ public class AccountController {
 		
 		int result = aService.insertAccount(a);
 		
-		// 이메일 인증
 		String authKey = mss.sendAuthMail(a.getEmail());
 		a.setAuthKey(authKey);
 		
@@ -358,4 +359,91 @@ public class AccountController {
 			return "login/alertPage";
 		}
 	}
+	
+	
+	
+	// 구글 로그인
+	@PostMapping("/googleLogin")
+	public void googleLogin(@RequestParam(value="name") String name,
+							@RequestParam(value="email") String email,
+							HttpServletResponse response, Model model) throws IOException {
+		
+		Account a = new Account();
+		a.setAid(email);
+		a.setName(name);
+		a.setEmail(email);
+		
+		Account loginUser = aService.login(a);
+		
+		// Ajax 통신
+		PrintWriter out = response.getWriter();
+
+		if(loginUser != null ) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date today = new Date();
+			if(loginUser.getSanctions() != null) {
+				String d1 = sdf.format(loginUser.getSanctions());
+				Date sanctions = new Date();
+				try {
+					sanctions = sdf.parse(d1);	
+				} catch (java.text.ParseException e) {
+					e.printStackTrace();
+				}
+				
+				if(sanctions.after(today)) {
+					out.write("해당계정은 정지 되어"+ loginUser.getSanctions() + "까지 사용 불가능합니다.");
+					out.flush();
+					out.close();
+				} else {
+					model.addAttribute("loginUser", loginUser);
+					out.write("alert");
+					out.flush();
+					out.close();
+				}
+			} else {
+				model.addAttribute("loginUser", loginUser);
+				out.write("home");
+				out.flush();
+				out.close();
+			}
+			
+		} else {
+			// loginUser 가 null 경우 회원정보 받는 페이지로 이동
+			model.addAttribute("googleLogin", a);
+			out.write("join");
+			out.flush();
+			out.close();
+		}
+		
+		
+	}
+	
+	// 구글 회원정보 가입 페이지
+	@GetMapping("/googleJoin") 
+	public String googleJoin(){ 
+		return "/login/googleJoinPage";
+	}
+	
+	// 구글 업데이트 
+	@PostMapping("/insertGoogle")
+	public String insertGoogle(Account a,
+							 @RequestParam String post,
+							 @RequestParam String address1,
+							 @RequestParam String address2,
+							 Model model) {
+		
+		a.setAddress(post + "," + address1 + "," + address2);
+		a.setPwd(bcryptPasswordEncoder.encode(a.getPwd()));
+		
+		int result = aService.insertGoogleAccount(a);
+		
+		if(result > 0) {
+			model.addAttribute("msg", "다행의 가족이 되신걸 환영합니다!");
+			return "redirect:/account/login";
+		} else {
+			model.addAttribute("msg", "정보 등록에 실패하였습니다.");
+			return "login/alertPage";
+		}
+	}
+
 }

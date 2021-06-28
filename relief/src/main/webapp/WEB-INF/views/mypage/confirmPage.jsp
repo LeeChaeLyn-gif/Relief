@@ -56,7 +56,6 @@
    
 	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="listNavPage.jsp"/>
-	</div>
 	
 	 <div id="wrap">
 		<h2 class="textClass paddingtop">비밀번호 확인</h2>
@@ -64,8 +63,9 @@
 		<form action="${contextPath }/mypage/memberInfo" method="post">
 		  <div class="form-group paddingtop" id="center">
 		    <input id="passTab" type="password" class="form-control" name="password" placeholder="비밀번호 입력" style="display:inline;">
-		     <button id="bts" type="submit" class="btn btn-color" style="">확인</button>
+		     <button id="bts" type="submit" class="btn btn-color">확인</button>
 		  </div>
+		  
 		</form>
 	</div>
 	
@@ -79,5 +79,7 @@
 		<c:remove var="msg"/>
 	</c:if>
 	
+	<script>
+
 </body>
 </html>

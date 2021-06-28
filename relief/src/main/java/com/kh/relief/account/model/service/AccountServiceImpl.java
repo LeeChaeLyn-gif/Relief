@@ -75,5 +75,10 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public int findPwdUpdate(Account a) {
 		return aDao.findPwdUpdate(a);
+	}
+
+	@Override
+	public int insertGoogleAccount(Account a) {
+		return aDao.insertGoogleAccount(a);
 	}	
 }

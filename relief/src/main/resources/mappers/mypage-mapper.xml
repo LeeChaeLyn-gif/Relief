@@ -389,4 +389,5 @@
     	 WHERE
     	 		BOARD_ID = #{bid}
     </update>
+    
 </mapper>	

@@ -359,7 +359,7 @@ public class MyPageController {
 			
 		// 본인 아이디 값 제거 
 		result.remove(account.getAid());
-		System.out.println("##################@@@@@@@@@@@@@ " + result);
+//		System.out.println("##################@@@@@@@@@@@@@ " + result);
 		model.addAttribute("list", result);
 		model.addAttribute("t_history_id", t_history_id);
 		
@@ -399,7 +399,7 @@ public class MyPageController {
 	@GetMapping("hide")
 	public String Hide(@RequestParam int t_history_id) {
 		
-		System.out.println("@@@@@@@@@@@"+t_history_id);
+//		System.out.println("@@@@@@@@@@@"+t_history_id);
 		int result = myService.Hide(t_history_id);
 		
 		if(result > 0) {
@@ -408,4 +408,5 @@ public class MyPageController {
 			throw new MyPageException("숨김처리 실패 하였습니다.");
 		}
 	}
+	
 }

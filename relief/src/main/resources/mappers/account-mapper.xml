@@ -185,4 +185,32 @@
  		 WHERE
  		 		ACCOUNT_ID = #{aid}
  	</update>
+ 	
+ 	<insert id="insertGoogleAccount" parameterType="Account">
+		INSERT
+		INTO ACCOUNT
+		(
+		  ACCOUNT_ID
+		, PWD
+		, NAME
+		, PHONE
+		, EMAIL
+		, ADDRESS
+		, STATUS
+		, M_STATUS
+		, CREATE_DATE
+		)
+		VALUES
+		(  
+		  #{email}
+		, #{pwd}
+		, #{name}
+		, #{phone}
+		, #{email}
+		, #{address}
+		, DEFAULT
+		, 'Y'
+		, SYSDATE
+		)
+ 	</insert>
  </mapper>

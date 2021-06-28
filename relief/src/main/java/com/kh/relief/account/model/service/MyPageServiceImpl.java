@@ -128,6 +128,4 @@ public class MyPageServiceImpl implements MyPageService{
 		return myDao.updateBoard(bid);
 	}
 
-
-
 }

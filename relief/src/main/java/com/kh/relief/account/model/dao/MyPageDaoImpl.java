@@ -149,7 +149,5 @@ public class MyPageDaoImpl implements MyPageDao{
 	public int updateBoard(int bid) {
 		return sqlSession.update("mypageMapper.updateBoard", bid);
 	}
-	
-	
 
 }
