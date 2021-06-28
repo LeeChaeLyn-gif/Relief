@@ -119,7 +119,7 @@ public class ChatDaoImpl implements ChatDao{
 
 	@Override
 	public int exitChat4(ChatHistory ch) {
-		return sqlSession.update("chatMapper.exitChat", ch);
+		return sqlSession.update("chatMapper.exitChat4", ch);
 	}
 
 	@Override

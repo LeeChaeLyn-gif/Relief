@@ -48,5 +48,4 @@ public interface ChatDao {
 	int exitChat3(Chat c);
 	int exitChat4(ChatHistory ch);
 	Chat selectAccount(Chat c);
-
 }

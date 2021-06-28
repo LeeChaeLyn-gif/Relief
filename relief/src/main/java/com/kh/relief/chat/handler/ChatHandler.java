@@ -98,6 +98,7 @@ public class ChatHandler extends TextWebSocketHandler {
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String msg = message.getPayload();
 		JSONObject obj = JsonToObjectParser(msg);
+		System.out.println("obj : " + obj);
 
 
 		// obj 내 원하는 값 추출
