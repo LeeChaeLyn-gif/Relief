@@ -59,9 +59,7 @@ public class ChatController {
 		List<ChatHistory> cList = cService.selectList(accountId);
 
 		List<Block> bList = cService.blockUser2(accountId);
-		System.out.println(bList);
 		String host = request.getRemoteAddr();
-		System.out.println(host);
 		JSONArray jArr = new JSONArray();
 
 		for (ChatHistory chat : cList) {
@@ -114,11 +112,12 @@ public class ChatController {
 
 		Account loginUser = (Account) session.getAttribute("loginUser");
 
-		List<ChatHistory> chList = cService.selectChat(chatId);
-
 		Chat c = new Chat();
 		c.setChatId(chatId);
 		c.setAccountId(loginUser.getAid());
+		c.setAccountId2(loginUser.getAid());
+		
+		List<ChatHistory> chList = cService.selectChat(c);
 
 		Block b = cService.blockUser(c);
 
@@ -152,30 +151,38 @@ public class ChatController {
 		Chat checkChat2 = cService.checkChat2(c);
 
 		if (checkChat == null && checkChat2 == null) {
-
 			int result = cService.createChat(c);
 			Chat checkChat3 = cService.checkChat(c);
 
+			Chat c2 = new Chat();
 			int chatId = checkChat3.getChatId();
+			c2.setChatId(chatId);
+			c2.setAccountId(accountId);
 
-			List<ChatHistory> chList = cService.selectChat(chatId);
+			List<ChatHistory> chList = cService.selectChat(c2);
 
 			mv.addObject("chatId", chatId);
 			mv.addObject("chList", chList);
 			mv.setViewName("chat/chat");
 
 		} else if (checkChat != null) {
-
+			Chat c3 = new Chat();
 			int chatId = checkChat.getChatId();
-			List<ChatHistory> chList = cService.selectChat(chatId);
+			c3.setChatId(chatId);
+			c3.setAccountId(accountId);
+			List<ChatHistory> chList = cService.selectChat(c3);
+			int result = cService.updateChatStatus(c3);
 
 			mv.addObject("chatId", chatId);
 			mv.addObject("chList", chList);
 			mv.setViewName("chat/chat");
 		} else {
-
+			Chat c4 = new Chat();
 			int chatId = checkChat2.getChatId();
-			List<ChatHistory> chList = cService.selectChat(chatId);
+			c4.setChatId(chatId);
+			c4.setAccountId(accountId);
+			List<ChatHistory> chList = cService.selectChat(c4);
+			int result = cService.updateChatStatus(c4);
 
 			mv.addObject("chatId", chatId);
 			mv.addObject("chList", chList);
@@ -224,7 +231,7 @@ public class ChatController {
 		// 로그인유저
 		String accountId = loginUser.getAid();
 
-		if (accountId == c.getAccountId()) {
+		if (c.getAccountId().equals(accountId)) {
 			result = cService.updateBlock3(chatId);
 			result2 = cService.deleteBlock(chatId);
 		} else {
@@ -243,7 +250,7 @@ public class ChatController {
 
 		Chat c = cService.blockCheck(chid);
 
-		if (c.getAccountId() == accountId) {
+		if (c.getAccountId().equals(accountId)) {
 			model.addAttribute("accountId2", c.getAccountId2());
 		} else {
 			model.addAttribute("accountId2", c.getAccountId());
@@ -264,14 +271,14 @@ public class ChatController {
 	  	// 로그인유저
 	  	String accountId = loginUser.getAid();
 	  
-	  List<ChatHistory> chList = cService.selectChat(chid);
-	  
 	  Chat c = new Chat();
 	  c.setChatId(chid);
 	  c.setAccountId(loginUser.getAid());
+	  
+	  List<ChatHistory> chList = cService.selectChat(c);
 
 	  Chat chat = cService.selectAccount(c);
-	  if(chat.getAccountId() == accountId) {
+	  if(chat.getAccountId().equals(accountId)) {
 		  int result = cService.exitChat(chat); 
 	  } else {
 		  int result = cService.exitChat3(chat);
@@ -281,13 +288,13 @@ public class ChatController {
 	  ch.setAccountId(accountId);
 	  ch.setChatId(chid);
 	  
-	  if(ch.getAccountId() == accountId) { 
+	  if(ch.getAccountId().equals(accountId)) { 
 		  model.addAttribute("accountId2", ch.getAccountId2()); 
-		  List<ChatHistory> chList2 = cService.selectChat(chid);
+		  List<ChatHistory> chList2 = cService.selectChat(c);
 		  int result2 = cService.exitChat2(ch); 
 		  } else {
 			  model.addAttribute("accountId2", ch.getAccountId()); 
-			  List<ChatHistory> chList2 = cService.selectChat(chid); 
+			  List<ChatHistory> chList2 = cService.selectChat(c); 
 			  int result2 = cService.exitChat4(ch); 
 		 }
 	  model.addAttribute("msg", "채팅방 나감");

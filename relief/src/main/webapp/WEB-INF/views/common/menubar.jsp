@@ -189,11 +189,7 @@ nav.navbar.bootsnav.navbar-fixed .logo-scrolled {
 				<ul class="M01">
 					<c:forEach items="${ clist }" var="c">
 						<c:if test="${ c.cgroup == 1 }">
-<<<<<<< HEAD
-							<li value="${ c.cid }"><a href="${ contextPath }/board/category1?cid=${c.cid}">${ c.cname }</a>
-=======
 							<li class="M01li" value="${ c.cid }"><a href="${ contextPath }/board/category1?cid=${c.cid}">${ c.cname }</a>
->>>>>>> seonmi-L
 								<ul class="M02">
 
 	

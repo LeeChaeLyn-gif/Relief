@@ -19,6 +19,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.kh.relief.account.model.vo.Account;
 import com.kh.relief.chat.model.service.ChatService;
+import com.kh.relief.chat.model.vo.Block;
+import com.kh.relief.chat.model.vo.Chat;
 import com.kh.relief.chat.model.vo.ChatHistory;
 
 //@Component
@@ -113,8 +115,20 @@ public class ChatHandler extends TextWebSocketHandler {
 		ch.setChatId(chatId);
 		ch.setAccountId(accountId);
 		ch.setContent(chat);
+		
+		Chat c = new Chat();
+		c.setAccountId(targetAccountId);
+		c.setChatId(chatId);
+		
+		Block b = cService.blockUser(c);
+		if(b == null) {
+			int result = cService.insertChat(ch);
+		} else if(accountId.equals(ch.getAccountId())) {
+			int result = cService.insertChat2(ch);
+		} else {
+			int result = cService.insertChat3(ch);
+		}
 
-		int result = cService.insertChat(ch);
 		
 		Map<String, Object> chatSession = new HashMap<>();
 		

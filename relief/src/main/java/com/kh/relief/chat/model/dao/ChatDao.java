@@ -12,7 +12,7 @@ public interface ChatDao {
 	// 채팅방 목록조회
 	List<ChatHistory> selectList(String accountId);
 	// 채팅방 상세조회
-	List<ChatHistory> selectChat(int chatId);
+	List<ChatHistory> selectChat(Chat c);
 	// 채팅 insert
 	int createChat(Chat c);
 	// 채팅방 생성유무 확인
@@ -48,4 +48,7 @@ public interface ChatDao {
 	int exitChat3(Chat c);
 	int exitChat4(ChatHistory ch);
 	Chat selectAccount(Chat c);
+	int insertChat2(ChatHistory ch);
+	int insertChat3(ChatHistory ch);
+	int updateChatStatus(Chat c);
 }

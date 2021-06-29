@@ -22,8 +22,8 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public List<ChatHistory> selectChat(int chatId) {
-		return cDao.selectChat(chatId);
+	public List<ChatHistory> selectChat(Chat c) {
+		return cDao.selectChat(c);
 	}
 
 	@Override
@@ -125,6 +125,21 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public Chat selectAccount(Chat c) {
 		return cDao.selectAccount(c);
+	}
+
+	@Override
+	public int insertChat2(ChatHistory ch) {
+		return cDao.insertChat2(ch);
+	}
+
+	@Override
+	public int insertChat3(ChatHistory ch) {
+		return cDao.insertChat3(ch);
+	}
+
+	@Override
+	public int updateChatStatus(Chat c) {
+		return cDao.updateChatStatus(c);
 	}
 
 

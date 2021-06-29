@@ -18,4 +18,6 @@ public class Chat {
 	private String chatStatus;
 	private String chatStatus2;
 	private String name;
+	private String blockStatus;
+	private String blockStatus2;
 }

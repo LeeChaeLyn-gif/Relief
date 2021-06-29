@@ -20,6 +20,8 @@
  		<result property="accountId2" column="ACCOUNT_ID2"/>
  		<result property="chatStatus" column="CHAT_STATUS"/>
  		<result property="chatStatus2" column="CHAT_STATUS2"/>
+ 		<result property="blockStatus" column="BLOCK_STATUS"/>
+ 		<result property="blockStatus2" column="BLOCK_STATUS2"/>
  	</resultMap>
  	
  	<resultMap type="Block" id="blockResultSet">
@@ -44,7 +46,9 @@
                       D.NAME,
                       CHAT_HISTORY_ID,
                       C.CHAT_STATUS,
-                      C.CHAT_STATUS2
+                      C.CHAT_STATUS2,
+                      C.BLOCK_STATUS,
+                      C.BLOCK_STATUS2
 		 		 FROM (
 			  		   SELECT 
 			  	       ROW_NUMBER() OVER
@@ -53,6 +57,8 @@
           			   , A.*
 				  FROM  
 					  CHAT_HISTORY A
+                 WHERE
+                 	  STATUS = 'Y'
 			  	) B
 			   	, CHAT C
                 , ACCOUNT D
@@ -61,6 +67,7 @@
 		  AND B.CHAT_ID = C.CHAT_ID
           AND C.ACCOUNT_ID2 = D.ACCOUNT_ID
 		  AND C.ACCOUNT_ID = #{accountId}
+          AND C.CHAT_STATUS2 = 'Y'
         UNION ALL
          		 SELECT 
 			  		   C.ACCOUNT_ID,
@@ -68,12 +75,14 @@
 			  		   B.CONTENT, 
 			  		   B.CHAT_DATE, 
 			  		   B.STATUS,
-			  		   B.STATUS2, 
+			  		   B.STATUS2,
 			  		   C.CHAT_ID,
                        D.NAME,
                        CHAT_HISTORY_ID,
                        C.CHAT_STATUS,
-                       C.CHAT_STATUS2
+                       C.CHAT_STATUS2,
+                       C.BLOCK_STATUS,
+                       C.BLOCK_STATUS2
 		 FROM (
 			  SELECT 
 			  	    ROW_NUMBER() OVER
@@ -82,6 +91,8 @@
           			   , A.*
 				FROM  
 					CHAT_HISTORY A
+               WHERE
+                     STATUS2 = 'Y'
 			  ) B
 			  , CHAT C
               , ACCOUNT D
@@ -90,25 +101,28 @@
 		 	  AND B.CHAT_ID = C.CHAT_ID
               AND C.ACCOUNT_ID = D.ACCOUNT_ID
 		 	  AND C.ACCOUNT_ID2 = #{accountId}
+              AND C.CHAT_STATUS = 'Y'
          	  )
        ORDER BY 
        		   CHAT_DATE DESC
  	</select>
- 	<select id="selectChat" parameterType="_int" resultMap="chatHitoryResultSet">
+ 	<select id="selectChat" parameterType="Chat" resultMap="chatHitoryResultSet">
  		SELECT
 			  CH.CHAT_HISTORY_ID
 			, CH.CHAT_ID
 			, CH.ACCOUNT_ID
 			, CH.CONTENT
-			, CH.CHAT_DATE
+			, TO_CHAR(CH.CHAT_DATE, 'YYYYMMDDHHMISS')
 			, CH.STATUS
-            , CH.STATUS2
+			, CH.STATUS2
 			, C.ACCOUNT_ID2
  		  FROM
  		  	   CHAT_HISTORY CH
                JOIN CHAT C ON(CH.CHAT_ID = C.CHAT_ID)
  		 WHERE
  		 	   CH.CHAT_ID = #{chatId}
+ 		   AND (C.ACCOUNT_ID = #{accountId}
+ 		   OR C.ACCOUNT_ID2 = #{accountId2})
  	</select>
  	<insert id="insertChat" parameterType="ChatHistory">
  		INSERT
@@ -133,6 +147,52 @@
 		, DEFAULT
 		)
  	</insert>
+ 	<insert id="insertChat2" parameterType="ChatHistory">
+ 		INSERT
+	    INTO CHAT_HISTORY
+		(
+		  CHAT_HISTORY_ID
+		, CHAT_ID
+		, ACCOUNT_ID
+		, CONTENT
+		, CHAT_DATE
+		, STATUS
+		, STATUS2
+		)
+		VALUES
+		(
+		SEQ_CHAT_HISTORY_ID.NEXTVAL
+		, #{chatId}
+		, #{accountId}
+		, #{content}
+		, SYSDATE
+		, 'N'
+		, DEFAULT
+		)
+ 	</insert>
+ 	<insert id="insertChat3" parameterType="ChatHistory">
+ 		INSERT
+	    INTO CHAT_HISTORY
+		(
+		  CHAT_HISTORY_ID
+		, CHAT_ID
+		, ACCOUNT_ID
+		, CONTENT
+		, CHAT_DATE
+		, STATUS
+		, STATUS2
+		)
+		VALUES
+		(
+		SEQ_CHAT_HISTORY_ID.NEXTVAL
+		, #{chatId}
+		, #{accountId}
+		, #{content}
+		, SYSDATE
+		, DEFAULT
+		, 'N'
+		)
+ 	</insert>
  	<insert id="createChat" parameterType="Chat">
  		INSERT
  		INTO CHAT
@@ -142,12 +202,16 @@
  		  , ACCOUNT_ID2
  		  , CHAT_STATUS
  		  , CHAT_STATUS2
+ 		  , BLOCK_STATUS
+ 		  , BLOCK_STATUS2
  		)
  		VALUES
  		(
  			SEQ_CHAT_ID.NEXTVAL
  		  , #{accountId}
  		  , #{accountId2}
+ 		  , DEFAULT
+ 		  , DEFAULT
  		  , DEFAULT
  		  , DEFAULT
  		)
@@ -159,6 +223,8 @@
 			, ACCOUNT_ID2
 			, CHAT_STATUS
 			, CHAT_STATUS2
+			, BLOCK_STATUS
+ 		  	, BLOCK_STATUS2
 	     FROM
 	     	  CHAT
 	    WHERE
@@ -173,6 +239,8 @@
 			, ACCOUNT_ID2
 			, CHAT_STATUS
 			, CHAT_STATUS2
+			, BLOCK_STATUS
+ 		  	, BLOCK_STATUS2
 	     FROM
 	     	  CHAT
 	    WHERE
@@ -187,6 +255,8 @@
 			, ACCOUNT_ID2
 			, CHAT_STATUS
 			, CHAT_STATUS2
+			, BLOCK_STATUS
+ 		  	, BLOCK_STATUS2
 		FROM
 			  CHAT
 	   WHERE
@@ -196,7 +266,7 @@
  		UPDATE
  			   CHAT
  		   SET
- 			  CHAT_STATUS = 'N'
+ 			  BLOCK_STATUS2 = 'Y'
  		WHERE
  			  CHAT_ID = #{chatId}
  	</update>
@@ -204,7 +274,7 @@
  		UPDATE
  			   CHAT
  		   SET
- 			  CHAT_STATUS = 'N'
+ 			  BLOCK_STATUS = 'Y'
  		WHERE
  			  CHAT_ID = #{chatId}
  	</update>
@@ -212,7 +282,7 @@
  		UPDATE
  			   CHAT
  		   SET
- 			  CHAT_STATUS2 = 'Y'
+ 			  BLOCK_STATUS2 = 'N'
  		WHERE
  			  CHAT_ID = #{chatId}
  	</update>
@@ -220,7 +290,7 @@
  		UPDATE
  			   CHAT
  		   SET
- 			  CHAT_STATUS2 = 'Y'
+ 			  BLOCK_STATUS = 'N'
  		WHERE
  			  CHAT_ID = #{chatId}
  	</update>
@@ -310,7 +380,7 @@
  		UPDATE
               CHAT_HISTORY
 		SET
-            STATUS = 'N'
+            STATUS2 = 'N'
 		WHERE ACCOUNT_ID = #{accountId}
 		AND CHAT_ID = #{chatId}
  	</update>
@@ -348,4 +418,12 @@
 		  AND 
 		  	  CHAT_ID = #{chatId}
  	</select>
+ 	<update id="updateChatStatus" parameterType="Chat">
+ 	   UPDATE
+              CHAT
+		SET
+            CHAT_STATUS = 'Y' ,
+            CHAT_STATUS2 = 'Y'
+		WHERE CHAT_ID = #{chatId}
+ 	</update>
  </mapper>

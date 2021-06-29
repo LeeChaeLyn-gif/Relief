@@ -48,6 +48,7 @@
 	text-align: center;
 	border-radius: 10px;
 	padding: 5px 9px;
+	word-wrap: break-word;
 }
 
 .chating .others {
@@ -58,6 +59,7 @@
 	text-align: center;
 	border-radius: 10px;
 	padding: 5px 9px;
+	word-wrap: break-word;
 }
 
 input {
@@ -137,28 +139,38 @@ ul, li {
 					<input type="text" id="notice" value="${ chat.notice }">
 				</c:forEach>
 				<c:forEach items="${ chList }" var="ch">
-					<fmt:formatDate value="${ch.chatDate}" pattern="yyyy-MM-dd"
+					<fmt:formatDate value="${ch.chatDate}" pattern="yyyyMMddhhmm"
 						var="chatDate" />
-					<fmt:formatDate value="${b.blockDate }" pattern="yyyy-MM-dd"
+						<fmt:parseNumber value="${chatDate / (1000*60*60*24)}" integerOnly="true" var="chatDate2"/>
+					<fmt:formatDate value="${b.blockDate }" pattern="yyyyMMddhhmm"
 						var="blockDate" />
+						<fmt:parseNumber value="${blockDate / (1000*60*60*24)}" integerOnly="true" var="blockDate2"/>
 					<c:if test="${ loginUser.aid != 'admin' }">
 						<c:if test="${!empty b}">
-							<c:if test="${ chatDate < blockDate }">
+							<c:if test="${ chatDate2 < blockDate2 }">
 								<c:if test="${ loginUser.aid == ch.accountId }">
-									<p class='me'>${ ch.content }</p>
+									<c:if test="${ch.status2 eq 'Y' }">
+										<p class='me'>${ ch.content }</p>
+									</c:if>
 								</c:if>
 								<c:if test="${ loginUser.aid != ch.accountId }">
-									<p class='others'>${ ch.content }</p>
+									<c:if test="${ch.status eq 'Y' }">
+										<p class='others'>${ ch.content }</p>
+									</c:if>
 								</c:if>
 							</c:if>
 						</c:if>
 
 						<c:if test="${empty b}">
 							<c:if test="${ loginUser.aid == ch.accountId }">
-								<p class='me'>${ ch.content }</p>
+								<c:if test="${ch.status2 eq 'Y' }">
+									<p class='me'>${ ch.content }</p>
+								</c:if>
 							</c:if>
 							<c:if test="${ loginUser.aid != ch.accountId }">
-								<p class='others'>${ ch.content }</p>
+								<c:if test="${ch.status eq 'Y' }">
+									<p class='others'>${ ch.content }</p>
+								</c:if>
 							</c:if>
 						</c:if>
 					</c:if>

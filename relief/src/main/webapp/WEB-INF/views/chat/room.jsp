@@ -117,7 +117,7 @@ button {
 								if((data.cList[i].accountId == data.bList[j].accountId && data.cList[i].accountId2 == data.bList[j].accountId2)||
 										(data.cList[i].accountId2 == data.bList[j].accountId && data.cList[i].accountId == data.bList[j].accountId2)){
 									value = "<div class='chatRoom' onclick='selectChat( "+ data.cList[i].chatId + ")'><div class='chatUserName'>" + data.cList[i].accountId2 + "</div><div class='chatContent'>"
-									+ "<span style='color :red;'>차단된유저입니다</span>" + "</div><div class='chatDate'>" + data.cList[i].chatDate + "</div></div>"
+									+ "<span style='color :red;'>차단된 유저입니다.</span>" + "</div><div class='chatDate'>" + data.cList[i].chatDate + "</div></div>"
 								}else{
 									value = "<div class='chatRoom' onclick='selectChat( "+ data.cList[i].chatId + ")'><div class='chatUserName'>" + data.cList[i].accountId2 + "</div><div class='chatContent'>"
 									+ data.cList[i].content + "</div><div class='chatDate'>" + data.cList[i].chatDate + "</div></div>"

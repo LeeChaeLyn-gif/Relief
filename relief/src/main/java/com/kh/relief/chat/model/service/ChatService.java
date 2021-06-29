@@ -11,13 +11,15 @@ public interface ChatService {
 	// 채팅방 목록조회
 	List<ChatHistory> selectList(String accountId);
 	// 채팅방 상세조회
-	List<ChatHistory> selectChat(int chatId);
+	List<ChatHistory> selectChat(Chat c);
 	// 채팅방 생성 유무 확인
 	Chat checkChat(Chat c);
 	// 채팅 존재하지 않으면 채팅방 insert
 	int createChat(Chat c);
 	// 채팅(메세지) insert
 	int insertChat(ChatHistory ch);
+	// 채팅(메세지) insert
+	int insertChat2(ChatHistory ch);
 	// 해당채팅 차단확인
 	Chat blockCheck(int chatId);
 	// 해당채팅 차단1
@@ -48,4 +50,6 @@ public interface ChatService {
 	int exitChat3(Chat c);
 	int exitChat4(ChatHistory ch);
 	Chat selectAccount(Chat c);
+	int insertChat3(ChatHistory ch);
+	int updateChatStatus(Chat c);
 }

@@ -23,8 +23,8 @@ public class ChatDaoImpl implements ChatDao{
 	}
 
 	@Override
-	public List<ChatHistory> selectChat(int chatId) {
-		return sqlSession.selectList("chatMapper.selectChat", chatId);
+	public List<ChatHistory> selectChat(Chat c) {
+		return sqlSession.selectList("chatMapper.selectChat", c);
 	}
 
 	@Override
@@ -125,6 +125,21 @@ public class ChatDaoImpl implements ChatDao{
 	@Override
 	public Chat selectAccount(Chat c) {
 		return sqlSession.selectOne("chatMapper.selectAccount", c);
+	}
+
+	@Override
+	public int insertChat2(ChatHistory ch) {
+		return sqlSession.selectOne("chatMapper.insertChat2", ch);
+	}
+
+	@Override
+	public int insertChat3(ChatHistory ch) {
+		return sqlSession.selectOne("chatMapper.insertChat3", ch);
+	}
+
+	@Override
+	public int updateChatStatus(Chat c) {
+		return sqlSession.update("chatMapper.updateChatStatus", c);
 	}
 
 
